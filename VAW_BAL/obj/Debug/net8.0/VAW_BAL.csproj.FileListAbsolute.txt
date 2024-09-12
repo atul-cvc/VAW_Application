@@ -1,0 +1,11 @@
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_BAL\bin\Debug\net8.0\VAW_BAL.deps.json
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_BAL\bin\Debug\net8.0\VAW_BAL.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_BAL\bin\Debug\net8.0\VAW_BAL.pdb
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_BAL\obj\Debug\net8.0\VAW_BAL.GeneratedMSBuildEditorConfig.editorconfig
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_BAL\obj\Debug\net8.0\VAW_BAL.AssemblyInfoInputs.cache
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_BAL\obj\Debug\net8.0\VAW_BAL.AssemblyInfo.cs
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_BAL\obj\Debug\net8.0\VAW_BAL.csproj.CoreCompileInputs.cache
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_BAL\obj\Debug\net8.0\VAW_BAL.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_BAL\obj\Debug\net8.0\refint\VAW_BAL.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_BAL\obj\Debug\net8.0\VAW_BAL.pdb
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_BAL\obj\Debug\net8.0\ref\VAW_BAL.dll

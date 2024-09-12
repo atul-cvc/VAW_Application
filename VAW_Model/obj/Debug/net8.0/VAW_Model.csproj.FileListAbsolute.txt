@@ -1,0 +1,11 @@
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_Model\bin\Debug\net8.0\VAW_Model.deps.json
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_Model\bin\Debug\net8.0\VAW_Model.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_Model\bin\Debug\net8.0\VAW_Model.pdb
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_Model\obj\Debug\net8.0\VAW_Model.GeneratedMSBuildEditorConfig.editorconfig
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_Model\obj\Debug\net8.0\VAW_Model.AssemblyInfoInputs.cache
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_Model\obj\Debug\net8.0\VAW_Model.AssemblyInfo.cs
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_Model\obj\Debug\net8.0\VAW_Model.csproj.CoreCompileInputs.cache
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_Model\obj\Debug\net8.0\VAW_Model.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_Model\obj\Debug\net8.0\refint\VAW_Model.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_Model\obj\Debug\net8.0\VAW_Model.pdb
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_Model\obj\Debug\net8.0\ref\VAW_Model.dll

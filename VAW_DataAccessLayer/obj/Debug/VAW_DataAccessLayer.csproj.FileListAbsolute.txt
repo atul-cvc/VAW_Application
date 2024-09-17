@@ -1,0 +1,129 @@
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\obj\Debug\VAW_DataAccessLayer.csproj.AssemblyReference.cache
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\obj\Debug\VAW_DataAccessLayer.csproj.CoreCompileInputs.cache
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\VAW_DataAccessLayer.dll.config
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\VAW_DataAccessLayer.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\VAW_DataAccessLayer.pdb
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\BouncyCastle.Cryptography.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\Google.Protobuf.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\K4os.Compression.LZ4.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\K4os.Compression.LZ4.Streams.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\K4os.Hash.xxHash.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\MySql.Data.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Buffers.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Configuration.ConfigurationManager.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.IO.Pipelines.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Memory.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Numerics.Vectors.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Threading.Tasks.Extensions.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\VAW_Utility.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\ZstdSharp.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\VAW_Utility.pdb
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\VAW_Utility.dll.config
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\BouncyCastle.Cryptography.xml
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\Google.Protobuf.pdb
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\Google.Protobuf.xml
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\K4os.Compression.LZ4.xml
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\K4os.Compression.LZ4.Streams.xml
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\K4os.Hash.xxHash.xml
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\MySql.Data.xml
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Buffers.xml
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Configuration.ConfigurationManager.xml
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.IO.Pipelines.xml
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Memory.xml
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Numerics.Vectors.xml
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Threading.Tasks.Extensions.xml
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\obj\Debug\VAW_Data.D1EC2699.Up2Date
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\obj\Debug\VAW_DataAccessLayer.dll
+F:\VAW_Application\VAW_WebApplication\VAW_DataAccessLayer\obj\Debug\VAW_DataAccessLayer.pdb
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\VAW_DataAccessLayer.dll.config
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\VAW_DataAccessLayer.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\VAW_DataAccessLayer.pdb
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\BouncyCastle.Cryptography.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\Google.Protobuf.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\K4os.Compression.LZ4.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\K4os.Compression.LZ4.Streams.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\K4os.Hash.xxHash.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\MySql.Data.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Buffers.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Configuration.ConfigurationManager.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.IO.Pipelines.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Memory.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Numerics.Vectors.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Threading.Tasks.Extensions.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\VAW_Utility.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\ZstdSharp.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\VAW_Utility.pdb
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\VAW_Utility.dll.config
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\BouncyCastle.Cryptography.xml
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\Google.Protobuf.pdb
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\Google.Protobuf.xml
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\K4os.Compression.LZ4.xml
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\K4os.Compression.LZ4.Streams.xml
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\K4os.Hash.xxHash.xml
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\MySql.Data.xml
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Buffers.xml
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Configuration.ConfigurationManager.xml
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.IO.Pipelines.xml
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Memory.xml
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Numerics.Vectors.xml
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\bin\Debug\System.Threading.Tasks.Extensions.xml
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\obj\Debug\VAW_DataAccessLayer.csproj.AssemblyReference.cache
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\obj\Debug\VAW_DataAccessLayer.csproj.CoreCompileInputs.cache
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\obj\Debug\VAW_Data.D1EC2699.Up2Date
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\obj\Debug\VAW_DataAccessLayer.dll
+G:\Atul kumar\VAW_Application\chandan\VAW_WebApplication\VAW_DataAccessLayer\obj\Debug\VAW_DataAccessLayer.pdb
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\VAW_DataAccessLayer.dll.config
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\VAW_DataAccessLayer.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\VAW_DataAccessLayer.pdb
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\BouncyCastle.Cryptography.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\Google.Protobuf.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\K4os.Compression.LZ4.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\K4os.Compression.LZ4.Streams.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\K4os.Hash.xxHash.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\MySql.Data.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.Buffers.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.Configuration.ConfigurationManager.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.IO.Pipelines.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.Memory.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.Numerics.Vectors.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.Threading.Tasks.Extensions.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\VAW_Utility.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\ZstdSharp.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\VAW_Utility.pdb
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\VAW_Utility.dll.config
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\BouncyCastle.Cryptography.xml
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\Google.Protobuf.pdb
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\Google.Protobuf.xml
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\K4os.Compression.LZ4.xml
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\K4os.Compression.LZ4.Streams.xml
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\K4os.Hash.xxHash.xml
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\MySql.Data.xml
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.Buffers.xml
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.Configuration.ConfigurationManager.xml
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.IO.Pipelines.xml
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.Memory.xml
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.Numerics.Vectors.xml
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\bin\Debug\System.Threading.Tasks.Extensions.xml
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\obj\Debug\VAW_DataAccessLayer.csproj.AssemblyReference.cache
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\obj\Debug\VAW_DataAccessLayer.csproj.CoreCompileInputs.cache
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\obj\Debug\VAW_Data.D1EC2699.Up2Date
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\obj\Debug\VAW_DataAccessLayer.dll
+G:\Atul kumar\VAW_Application\VAW_Application\VAW_DataAccessLayer\obj\Debug\VAW_DataAccessLayer.pdb

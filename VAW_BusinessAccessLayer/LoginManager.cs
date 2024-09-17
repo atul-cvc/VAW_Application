@@ -31,21 +31,22 @@ namespace VAW_BusinessAccessLayer
                 loginViewModal = (from DataRow dr in usertable.Rows
                                   select new LoginModal()
                                   {
-                                      ID = int.Parse(dr["userId"].ToString()),
-                                      UserID = dr["userLogin"].ToString(),
-                                      UserName = dr["userName"].ToString(),
-                                      UserRole = dr["userProfile"].ToString(),
-                                      userActiveStatus = dr["userActiveStatus"].ToString(),
-                                      Section = dr["Section"].ToString(),
-                                      SOID = dr["SOID"].ToString(),
-                                      BOID = dr["BOID"].ToString(),
-                                      ASID = dr["ASID"].ToString(),
-                                      SECID = dr["SECID"].ToString(),
-                                      Email = dr["userEmail"].ToString(),
-                                      ChangePasswordFlag = Convert.ToInt32(dr["ChangePasswordFlag"]),
-                                      CVCID = dr["CVCID"].ToString(),
-                                      MappedSection = dr["MappedSection"].ToString(),
-                                      password = dr["userPassword"].ToString()
+                                      //ID = int.Parse(dr["CvoID"].ToString()),
+                                      //ID = dr["CvoID"].ToString(),
+                                      UserID = dr["CvoID"].ToString(),
+                                      UserName = dr["CvoID"].ToString()
+                                      //UserRole = dr["userProfile"].ToString(),
+                                      //userActiveStatus = dr["userActiveStatus"].ToString(),
+                                      //Section = dr["Section"].ToString(),
+                                      //SOID = dr["SOID"].ToString(),
+                                      //BOID = dr["BOID"].ToString(),
+                                      //ASID = dr["ASID"].ToString(),
+                                      //SECID = dr["SECID"].ToString(),
+                                      //Email = dr["userEmail"].ToString(),
+                                      //ChangePasswordFlag = Convert.ToInt32(dr["ChangePasswordFlag"]),
+                                      //CVCID = dr["CVCID"].ToString(),
+                                      //MappedSection = dr["MappedSection"].ToString(),
+                                      //password = dr["userPassword"].ToString()
                                   }).ToList();
             }
             return loginViewModal;

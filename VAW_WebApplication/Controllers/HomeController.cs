@@ -53,6 +53,7 @@ namespace VAW_WebApplication.Controllers
                     {
                         loginViewModal = logindata[0];
                         Session["LogedUser"] = loginViewModal;
+                        return RedirectToAction("About", "Home");
 
                     }
 
@@ -300,14 +301,19 @@ namespace VAW_WebApplication.Controllers
 
                 // Here you would typically validate the user against a database
                 // For simplicity, let's assume success for any username/password
-                if (model.Username == "admin" && model.Password == "password")
-                {
-                    // Redirect to a different action, e.g., Home page
+                //if (model.Username == "admin" && model.Password == "password")
+                //{
+                //    // Redirect to a different action, e.g., Home page
                     
-                }
-                ModelState.AddModelError("", "Invalid username or password.");
+                //}
+                //ModelState.AddModelError("", "Invalid username or password.");
             }
             return View(model);
+        }
+
+        public ActionResult About()
+        {
+            return View();
         }
     }
 }

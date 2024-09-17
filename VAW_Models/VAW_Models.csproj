@@ -41,8 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonModel.cs" />
     <Compile Include="LoginModal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tran_1a_integritypledge_Model.cs" />
+    <Compile Include="Tran_2a_orgactivities_conductofcompetitions_Model.cs" />
+    <Compile Include="Tran_2b_orgactivities_otheractivities_Model.cs" />
+    <Compile Include="Tran_3a_outreach_involvingschoolstudents_Model.cs" />
+    <Compile Include="Tran_3b_outreach_involvingcollegestudents_Model.cs" />
+    <Compile Include="Tran_3c_outreach_awarenessgramsabhas_Model.cs" />
+    <Compile Include="Tran_3d_outreach_seminarsworkshops_Model.cs" />
+    <Compile Include="Tran_4_otheractivities_Model.cs" />
+    <Compile Include="Tran_5_detailsofphotos_Model.cs" />
+    <Compile Include="Tran_6_otherinformation_Model.cs" />
+    <Compile Include="Tran_a_1b_capacitybulidingprogram_Model.cs" />
+    <Compile Include="Tran_a_2b_sysimp_Model.cs" />
+    <Compile Include="Tran_a_3b_updation_circular_guidelines_manuals_Model.cs" />
+    <Compile Include="Tran_a_4b_disposalofcomplaints_Model.cs" />
+    <Compile Include="Tran_a_5b_dynamicdigitalpresence_Model.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

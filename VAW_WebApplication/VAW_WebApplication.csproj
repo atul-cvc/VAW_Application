@@ -128,6 +128,21 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\Tran_1a_integritypledge_ViewModel.cs" />
+    <Compile Include="Models\Tran_2a_orgactivities_conductofcompetitions_ViewModel.cs" />
+    <Compile Include="Models\Tran_2b_orgactivities_otheractivities_ViewModel.cs" />
+    <Compile Include="Models\Tran_3a_outreach_involvingschoolstudents_ViewModel.cs" />
+    <Compile Include="Models\Tran_3b_outreach_involvingcollegestudents_ViewModel.cs" />
+    <Compile Include="Models\Tran_3c_outreach_awarenessgramsabhas_ViewModel.cs" />
+    <Compile Include="Models\Tran_3d_outreach_seminarsworkshops_ViewModel.cs" />
+    <Compile Include="Models\Tran_4_otheractivities_ViewModel.cs" />
+    <Compile Include="Models\Tran_5_detailsofphotos_ViewModel.cs" />
+    <Compile Include="Models\Tran_6_otherinformation_ViewModel.cs" />
+    <Compile Include="Models\Tran_a_1b_capacitybulidingprogram_ViewModel.cs" />
+    <Compile Include="Models\Tran_a_2b_sysimp_ViewModel.cs" />
+    <Compile Include="Models\Tran_a_3b_updation_circular_guidelines_manuals_ViewModel.cs" />
+    <Compile Include="Models\Tran_a_4b_disposalofcomplaints_ViewModel.cs" />
+    <Compile Include="Models\Tran_a_5b_dynamicdigitalpresence_ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

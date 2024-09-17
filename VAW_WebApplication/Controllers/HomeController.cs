@@ -53,7 +53,7 @@ namespace VAW_WebApplication.Controllers
                     {
                         loginViewModal = logindata[0];
                         Session["LogedUser"] = loginViewModal;
-                        return RedirectToAction("About", "Home");
+                        return RedirectToAction("Index", "Dashboard");
 
                     }
 

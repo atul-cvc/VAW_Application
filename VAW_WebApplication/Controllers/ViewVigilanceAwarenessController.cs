@@ -31,21 +31,21 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateCapacityBuilding()
         {
-            Tran_a_1b_capacitybulidingprogram_ViewModel vmdata=new Tran_a_1b_capacitybulidingprogram_ViewModel();
-            vmdata.VAW_Year = "2014";
+            Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
+            vmdata.VAW_Year = "2024";
             vmdata.CvoId = "CVO_SBI";
             vmdata.CvoOrgCode = "I61";
-            vmdata.FromDate=DateTime.Now;
-            vmdata.ToDate=DateTime.Now;
+            vmdata.FromDate = DateTime.Now;
+            vmdata.ToDate = DateTime.Now;
             vmdata.TrainingNameList = new List<SelectListItem> {
-            new SelectListItem { Value = "FRESH", Text = "Fresh Inductees" },
-            new SelectListItem { Value = "REFRESH", Text = "Refresher Course" }            
-        };
+                new SelectListItem { Value = "FRESH", Text = "Fresh Inductees" },
+                new SelectListItem { Value = "REFRESH", Text = "Refresher Course" }
+            };
             return View(vmdata);
         }
 
         [HttpPost]
-        public ActionResult CreateCapacityBuilding( Tran_a_1b_capacitybulidingprogram_ViewModel VmData )
+        public ActionResult CreateCapacityBuilding(Tran_a_1b_capacitybulidingprogram_ViewModel VmData)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace VAW_WebApplication.Controllers
 
             }
             Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
-            vmdata.VAW_Year = "2014";
+            vmdata.VAW_Year = "2024";
             vmdata.CvoId = "CVO_SBI";
             vmdata.CvoOrgCode = "I61";
             vmdata.FromDate = DateTime.Now;
@@ -68,7 +68,56 @@ namespace VAW_WebApplication.Controllers
             new SelectListItem { Value = "FRESH", Text = "Fresh Inductees" },
             new SelectListItem { Value = "REFRESH", Text = "Refresher Course" }
             };
-             return View(vmdata);
+            return View(vmdata);
+        }
+
+        [HttpGet]
+        public ActionResult CreateIdentificationAndImplementation()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public ActionResult CreateIdentificationAndImplementation(Tran_a_2b_sysimp_ViewModel VmData)
+        {
+            return View();
+        }
+
+
+        [HttpGet]
+        public ActionResult CreateUpdationOfCirculars()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public ActionResult CreateUpdationOfCirculars(Tran_a_3b_updation_circular_guidelines_manuals_ViewModel VmData)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult CreateDisposalOfComplaints()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public ActionResult CreateDisposalOfComplaints(Tran_a_3b_updation_circular_guidelines_manuals_ViewModel VmData)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult CreateDigitalDynamicPresence()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public ActionResult CreateDigitalDynamicPresence(Tran_a_4b_disposalofcomplaints_ViewModel VmData)
+        {
+            return View();
         }
     }
 }

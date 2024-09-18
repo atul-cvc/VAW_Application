@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    string curr_year = DateTime.Now.Year.ToString();
+}
+
+<!DOCTYPE html>
 <html>
 <!--<head>
     <meta charset="utf-8" />
@@ -102,7 +106,7 @@
 
     <div class="row" style="top:0;left:0;height:auto;background-color:ButtonFace; padding:5px; margin-left:250px;margin-right:5px;border-radius:0px;">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="padding-top:20px;text-align:center;">
-            <h2 style="font-family:'Times New Roman';">Vigilance Cases Management System</h2>
+            <h2 style="font-family:'Times New Roman';">Vigilance Awareness Week - @curr_year</h2>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="padding-top:20px;text-align:center;">
         </div>
@@ -116,9 +120,9 @@
                 <img src="~/Images/cvc-logo.png" />
             </div>
             <div class="nav-links">
-                <a href="@Url.Action("Index", "ViewVigilanceAwareness")" class="nav-link shadow" data-target="option1">Vigilance Awareness</a>
+                <a href="@Url.Action("Index", "ViewVigilanceAwareness")" class="nav-link shadow" data-target="option1">Preventive Vigilance Activities</a>
                 <br />
-                <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="nav-link shadow" data-target="option2">Integrity Pleadge</a>
+                <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="nav-link shadow" data-target="option2">Activity Report Format</a>
                 <!-- Add more options as needed -->
             </div>
             <div class="logout-button">

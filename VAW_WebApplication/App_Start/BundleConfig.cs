@@ -6,7 +6,6 @@ namespace VAW_WebApplication
     public class BundleConfig
     {
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
-        // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -28,10 +27,15 @@ namespace VAW_WebApplication
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-          "~/Scripts/jquery-ui-{version}.js"));
+                "~/Scripts/jquery-ui-{version}.js"));
+
             //css  
+            bundles.Add(new StyleBundle("~/Content/cssjqryUi").Include(
+                   "~/Content/jquery-ui.css")); 
+            //datatable
             bundles.Add(new StyleBundle("~/Content/cssjqryUi").Include(
                    "~/Content/jquery-ui.css"));
         }
     }
+
 }

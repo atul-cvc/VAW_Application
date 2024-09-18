@@ -140,3 +140,33 @@ tfoot {
     }
 }
 
+/*
+    CSS for table container div 
+
+*/
+.mainBox {
+    margin: auto;
+    margin-top:30px;
+    padding:5px;
+    height: auto;
+    border: 1px solid black;
+    width:98%;
+}
+    .mainBox .th1 {
+        border-left: 1px groove #000;
+    }
+
+    .mainBox .td1 {
+        border-left: 1px groove #ccc;
+    }
+
+    .mainBox th {
+        border-right: 1px groove #000; /* Change color and thickness as needed */
+        border-top: 1px groove #000; /* Change color and thickness as needed */
+        padding: 2px; /* Optional: add padding for better appearance */
+        text-align: left; /* Optional: align text */
+    }
+
+    .mainBox td {
+        border-right: 1px groove #ccc; /* Optional: add border for table cells */
+    }

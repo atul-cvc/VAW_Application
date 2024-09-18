@@ -1,5 +1,36 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    string curr_year = DateTime.Now.Year.ToString();
+}
+
+<!DOCTYPE html>
 <html>
+<!--<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="~/Images/cvc-logo.png" type="image/icon type">
+    <title>@ViewBag.Title - VAW</title>
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>-->
+@*@Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")*@
+<!--<script src="~/Scripts/SbteJS.js"></script>-->
+@*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/datepicker/bootstrap-datepicker3.min.css" rel="stylesheet" />
+    <script src="~/Scripts/datepicker/bootstrap-datepicker.min.js"></script>*@
+@*<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>*@
+<!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>-->
+
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +40,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
     <script type="text/javascript">
         function preventBack() { window.history.forward(); }
         setTimeout("preventBack()", 0);
@@ -16,7 +48,10 @@
     </script>
     <script src="~/Scripts/SbteJS.js"></script>
     <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 </head>
+
 <body>
     <style>
         /* Custom styles for the sidebar */
@@ -71,7 +106,7 @@
 
     <div class="row" style="top:0;left:0;height:auto;background-color:ButtonFace; padding:5px; margin-left:250px;margin-right:5px;border-radius:0px;">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="padding-top:20px;text-align:center;">
-            <h2 style="font-family:'Times New Roman';">Vigilance Cases Management System</h2>
+            <h2 style="font-family:'Times New Roman';">Vigilance Awareness Week - @curr_year</h2>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="padding-top:20px;text-align:center;">
         </div>
@@ -85,9 +120,9 @@
                 <img src="~/Images/cvc-logo.png" />
             </div>
             <div class="nav-links">
-                <a href="@Url.Action("Index", "ViewVigilanceAwareness")" class="nav-link shadow" data-target="option1">Vigilance Awareness</a>
+                <a href="@Url.Action("Index", "ViewVigilanceAwareness")" class="nav-link shadow" data-target="option1">Preventive Vigilance Activities</a>
                 <br />
-                <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="nav-link shadow" data-target="option2">Integrity Pleadge</a>
+                <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="nav-link shadow" data-target="option2">Activity Report Format</a>
                 <!-- Add more options as needed -->
             </div>
             <div class="logout-button">

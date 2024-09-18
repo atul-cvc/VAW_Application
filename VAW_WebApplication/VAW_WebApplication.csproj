@@ -266,6 +266,7 @@
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\ViewVigilanceAwareness\Index.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\Index.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\CreateCapacityBuilding.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

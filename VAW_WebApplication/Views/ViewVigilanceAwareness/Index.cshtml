@@ -1,50 +1,280 @@
-﻿
+﻿@model VAW_WebApplication.Models.ViewVigilanceAwarenessViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Users.cshtml";
+    int CapacityBuilidingIndex = 0;
+    int IdentIndex = 0;
+    int CircularsIndex = 0;
+    int DisposalComIndex = 0;
+    int DynamicDigitalIndex = 0;
 }
+
+<style>
+</style>
 
 <div>
     <h2>View Vigilance Awareness Page</h2>
 </div>
-<div class="m-2 d-inline-flex align-items-center">
-    <div><label for="year">Year : </label></div>
+<hr />
+<div class="m-4" style="display:flex;text-align:center;">
+    <label style="align-content: center; margin-right:10px" for="year_select">Year : </label>
+    <select class="form-control" id="year_select" name="year_select" style="width: 10rem">
+        <option selected value="2024">2024</option>
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+        <option value="2021">2021</option>
+
+    </select>
+</div>
+<br />
+<div class="mainBox" id="CapacityBuildingContainer">
+    <div style="display:flex; justify-content:space-between">
+        <h3>a. Capacity building</h3>
+        <a href="@Url.Action("CreateCapacityBuilding", "ViewVigilanceAwareness")" class="btn btn-primary text-center " style="align-self:center" id="CreateCapacity" name="CreateCapacity">Create</a>
+
+    </div>
+    <hr />
     <div>
-        <select class="form-control" id="year" name="year" style="width: 10rem">
-            <option selected value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-
-        </select>
+        @*table content*@
+        <table id="capacityBuildingTable" class="display">
+            <thead>
+                <tr>
+                    <th style="text-align:center" class="th1">S No.</th>
+                    <th style="text-align:center">VAW Year</th>
+                    <th style="text-align:center">Period</th>
+                    <th style="text-align:center">@*Period To*@</th>
+                    <th style="text-align:center">Training Name</th>
+                    <th style="text-align:center">Employees Trained</th>
+                    <th style="text-align:center">Brief Description</th>
+                    <th style="text-align:center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="td1" style="text-align:center">@(++CapacityBuilidingIndex)</td>
+                    <td style="text-align:center">2024</td>
+                    <td style="text-align:center">asd</td>
+                    <td style="text-align:center">sdf</td>
+                    <td style="text-align:center">asdf</td>
+                    <td style="text-align:center">asdf</td>
+                    <td style="text-align:center">xczv</td>
+                    <td style="text-align:center">
+                        <a class="btn btn-primary text-center" style="align-self: center !important">Edit</a>
+                    </td>
+                </tr>
+                @foreach (var item in Model.CapacityBuiliding)
+                {
+                    <tr>
+                        <td style="text-align:center" class="td1">@(++CapacityBuilidingIndex)</td>
+                        <td style="text-align:center">@item.VAW_Year</td>
+                        <td style="text-align:center">@item.FromDate - @item.ToDate</td>
+                        @*<td style="text-align:center">@item.ToDate</td>*@
+                        <td style="text-align:center">@item.TrainingName</td>
+                        <td style="text-align:center">@item.EmployeesTrained</td>
+                        <td style="text-align:center">@item.BriefDescription</td>
+                        <td style="text-align:center">
+                            <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                            <a class="btn btn-danger text-center" style="align-self:center !important">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-2">
+<br />
+<br />
+<hr />
+<br />
+<div class="mainBox" id="IdentificationContainer">
+
+    <div style="display:flex; justify-content:space-between">
+        <h3>b. Identification and Implementation of Systemic Improvement Measures</h3>
+        <a href="@Url.Action("Index", "ViewVigilanceAwareness")" class="btn btn-primary text-center " style="align-self:center">Create</a>
 
     </div>
-    <div class="col-offset-8 col-2">
-        <button class="btn btn-primary">Create</button>
+    <hr />
+    <div>
+        @*table content*@
+        <table id="IdentificationTable" class="display">
+            <thead>
+                <tr>
+                    <th class="th1" style="text-align:center">S No.</th>
+                    <th style="text-align:center">VAW Year</th>
+                    <th style="text-align:center">Period From</th>
+                    <th style="text-align:center">Period To</th>
+                    <th style="text-align:center">Systemic Improvements implemented during the campaing period</th>
+                    <th style="text-align:center">System Improvements suggested last 5 years</th>
+                    <th style="text-align:center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Sys_Improvement)
+                {
+                    <tr>
+                        <td style="text-align:center" class="td1">@(++IdentIndex)</td>
+                        <td style="text-align:center">@item.VAW_Year</td>
+                        <td style="text-align:center">@item.FromDate</td>
+                        <td style="text-align:center">@item.ToDate</td>
+                        <td style="text-align:center">@item.Sys_Imp_Implemented_During_Campaign</td>
+                        <td style="text-align:center">@item.Sys_Imp_Suggested_Last_5_Years_But_Pending</td>
+                        <td style="text-align:center">
+                            <a class="btn btn-outline-primary">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
-<div style="background: grey;height:100px; margin-top:1rem"  id="CapacityBuildingContainer">
-    
+<br />
+<br />
+<hr />
+<br />
+<div class="mainBox" id="UpdationContainer">
+    <div style="display:flex; justify-content:space-between">
+        <h3>c. Updation of Circulars</h3>
+        <a href="@Url.Action("Index", "ViewVigilanceAwareness")" class="btn btn-primary text-center " style="align-self:center">Create</a>
+    </div>
+    <hr />
+    <div>
+        <table id="UpdationTable" class="display">
+            <thead>
+                <tr>
+                    <th class="th1" style="text-align:center">S No.</th>
+                    <th style="text-align:center">VAW Year</th>
+                    <th style="text-align:center">Period From</th>
+                    <th style="text-align:center">Period To</th>
+                    <th style="text-align:center">Whether guidelines/circulars and manuals updated during capaign period</th>
+                    <th style="text-align:center">Brief Details</th>
+                    <th style="text-align:center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.UpdationCirculars)
+                {
+                    <tr>
+                        <td style="text-align:center" class="td1">@(++CircularsIndex)</td>
+                        <td style="text-align:center">@item.VAW_Year</td>
+                        <td style="text-align:center">@item.FromDate</td>
+                        <td style="text-align:center">@item.ToDate</td>
+                        <td style="text-align:center">@item.WhetherUpdatedDuingCampaign</td>
+                        <td style="text-align:center">@item.BriefDetails</td>
+                        <td style="text-align:center">
+                            <a class="btn btn-outline-primary">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<br />
+<br />
+<hr />
+<br />
+<div class="mainBox" id="DisposalContainer">
+    <div style="display:flex; justify-content:space-between">
+        <h3>d. Disposal of Complaints</h3>
+        <a href="@Url.Action("Index", "ViewVigilanceAwareness")" class="btn btn-primary text-center " style="align-self:center">Create</a>
+    </div>
+    <hr />
+    <div>
+        <table id="DisposalTable" class="display">
+            <thead>
+                <tr>
+                    <th class="th1" colspan="1" rowspan="2" style="text-align:center">S No.</th>
+                    <th colspan="1" rowspan="2" style="text-align:center">VAW Year</th>
+                    <th colspan="2" style="text-align:center">Complaints received before 30.06.24 pending as on 16.08.2024</th>
+                    <th colspan="2" style="text-align:center">Complaints received before 30.06.24 disposed during campaing</th>
+                    <th colspan="2" style="text-align:center">Complaints received before 30.06.24 pending as on 15.11.2024</th>
+                    <th colspan="1" rowspan="2" style="text-align:center">Action</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">No of complaints</th>
+                    <th style="text-align:center">Remarks</th>
+                    <th style="text-align:center">No of complaints</th>
+                    <th style="text-align:center">Remarks</th>
+                    <th style="text-align:center">No of complaints</th>
+                    <th style="text-align:center">Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.DisposalComplaints)
+                {
+                    <tr>
+                        <td style="text-align:center" class="td1">@(++DisposalComIndex)</td>
+                        <td style="text-align:center">@item.VAW_Year</td>
+                        <td style="text-align:center">@item.NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608</td>
+                        <td style="text-align:center">@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608</td>
+                        <td style="text-align:center">@item.NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign</td>
+                        <td style="text-align:center">@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign</td>
+                        <td style="text-align:center">@item.NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511</td>
+                        <td style="text-align:center">@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511</td>
+                        <td style="text-align:center">
+                            <a class="btn btn-outline-primary">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<br />
+<br />
+<hr />
+<br />
+<div class="mainBox" id="DynamicContainer">
+    <div style="display:flex; justify-content:space-between">
+        <h3>e. Digital Dynamic Presence</h3>
+        <a href="@Url.Action("Index", "ViewVigilanceAwareness")" class="btn btn-primary text-center " style="align-self:center">Create</a>
+    </div>
+    <hr />
+    @**@
+    <div>
+        <table id="DynamicTable" class="display">
+            <thead>
+                <tr>
+                    <th rowspan="2" class="th1" colspan="1" style="text-align:center">S No.</th>
+                    <th rowspan="2" style="text-align:center">VAW Year</th>
+                    <th rowspan="2" style="text-align:center">Regular maintenance and updation of website - wether being done or not ?</th>
+                    <th rowspan="2" style="text-align:center">System introduced for up-dation and review of website</th>
+                    <th colspan="2" style="text-align:center">Wether additional areas/activities/services brought online</th>
+                    <th rowspan="2" style="text-align:center">Action</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Yes/No</th>
+                    <th style="text-align:center">Details (if yes)</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.DynamicDigitalPresence)
+                {
+                    <tr>
+                        <td style="text-align:center" class="td1">@(++DynamicDigitalIndex)</td>
+                        <td style="text-align:center">@item.VAW_Year</td>
+                        <td style="text-align:center">@item.WhetherRegularMaintenanceOfWebsiteUpdationDone</td>
+                        <td style="text-align:center">@item.SystemIntroducedForUpdationAndReview</td>
+                        <td style="text-align:center">@item.WhetherAdditionalAreas_Activities_ServicesBroughtOnline</td>
+                        <td style="text-align:center">@item.DetailsOfAdditionalActivities</td>
+                        <td style="text-align:center">
+                            <a class="btn btn-outline-primary">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<div style="background: grey;height:100px; margin-top:1rem"  id="IdentificationContainer">
-    
-</div>
-
-<div style="background: grey;height:100px; margin-top:1rem"  id="UpdationContainer">
-    
-</div>
-
-<div style="background: grey;height:100px; margin-top:1rem"  id="DisposalContainer">
-    
-</div>
-
-<div style="background: grey;height:100px; margin-top:1rem"  id="DynamicContainer">
-    
-</div>
-
+<script>
+    $(document).ready(function () {
+        $('#capacityBuildingTable,#IdentificationTable,#UpdationTable,#DisposalTable,#DynamicTable').DataTable();
+        //$('').DataTable();
+    });
+</script>

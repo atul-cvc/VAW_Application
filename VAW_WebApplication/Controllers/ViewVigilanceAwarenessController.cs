@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using VAW_BusinessAccessLayer;
+using VAW_WebApplication.Models;
 
 namespace VAW_WebApplication.Controllers
 {
@@ -15,8 +16,9 @@ namespace VAW_WebApplication.Controllers
         {
             try
             {
-                var data = capacityBuildingManager.GetCapacityBuilding("2024");
-                return View(data);
+                ViewVigilanceAwarenessViewModel vaVM = new ViewVigilanceAwarenessViewModel();
+                //vaVM.CapacityBuiliding = new List<Tran_a_1b_capacitybulidingprogram_ViewModel>(); //capacityBuildingManager.GetCapacityBuilding("2024");
+                return View(vaVM);
             }
             catch (Exception ex)
             {

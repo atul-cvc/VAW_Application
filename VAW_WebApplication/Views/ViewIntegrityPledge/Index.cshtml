@@ -1,8 +1,485 @@
-﻿
+﻿@model VAW_WebApplication.Models.ViewIntegrityPledgeViewModel
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Users.cshtml";
+    int integrityIndex = 0;
+    int conductIndex = 0;
+    int act_OthrActIndex = 0;
+    int involvingSchoolsIndex = 0;
+    int involvingCollegesIndex = 0;
+    int awarenessGramsIndex = 0;
+    int seminarsIndex = 0;
+    int otheActivitiesIndex = 0;
+    int detsPhotosIndex = 0;
+    int RelevantInfoIndex = 0;
 }
 
 <h2>View Integrity Pleadge</h2>
+<hr />
+<div class="m-4" style="display:flex;text-align:center;">
+    <label style="align-content: center; margin-right:10px" for="year_select">Year : </label>
+    <select class="form-control" id="year_select" name="year_select" style="width: 10rem">
+        <option selected value="2024">2024</option>
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+        <option value="2021">2021</option>
 
+    </select>
+</div>
+
+<br />
+<div class="mainBox" id="IntegrityPledgeContainer">
+    <div style="display:flex; justify-content:space-between">
+        <h3>1. Integrity Pledge</h3>
+        <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateIntegrityPledge" name="CreateIntegrityPledge">Create</a>
+    </div>
+    <hr />
+
+    <div class="table-responsive">
+        <table id="IntegrityPledgeTable" class="display">
+            <thead>
+                <tr>
+                    <th style="text-align:center" class="th1">S No.</th>
+                    <th style="text-align:center">VAW Year</th>
+                    <th style="text-align:center">Total no. f employees who have undertaken e-pledge</th>
+                    <th style="text-align:center">Total no. of customers who have undertaken e-pledge</th>
+                    <th style="text-align:center">Total no. of citizens who have undertaken e-pledge</th>
+                    <th style="text-align:center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(int i=0;i<=11;i++){
+                    <tr>
+                        <td class="td1" style="text-align:center">@(++integrityIndex)</td>
+                        <td style="text-align:center">2024</td>
+                        <td style="text-align:center">asd</td>
+                        <td style="text-align:center">sdf</td>
+                        <td style="text-align:center">asdf</td>
+                        <td style="text-align:center">
+                            <a class="btn btn-primary text-center" style="align-self: center !important">Edit</a>
+                        </td>
+                    </tr>
+                }
+                @foreach (var item in Model.IntegrityPledges)
+                {
+                    <tr>
+                        <td style="text-align:center" class="td1">@(++integrityIndex)</td>
+                        <td style="text-align:center">@item.VAW_Year</td>
+                        <td style="text-align:center">@item.TotalNoOfEmployees_UndertakenPledge</td>
+                        <td style="text-align:center">@item.TotalNoOfCustomers_UndertakenPledge</td>
+                        <td style="text-align:center">@item.TotalNoOfCitizen_UndertakenPledge</td>
+                        <td style="text-align:center">
+                            <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<br />
+<br />
+<hr />
+<br />
+<div class="mainBox" id="ActivitiesEventsContainer">
+    <h3>2. Activities / Events Organised within the Organisation</h3>
+    <hr />
+    <div style="padding:15px">
+        <div style="display:flex; justify-content:space-between">
+            <h4>Conduct of Competitions</h4>
+            <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateConductOfCompetitions" name="CreateConductOfCompetitions">Create</a>
+        </div>
+        <hr />
+
+        <div class="table-responsive">
+            <table id="ConductTable" class="display">
+                <thead>
+                    <tr>
+                        <th style="text-align:center" class="th1">S No.</th>
+                        <th style="text-align:center">VAW Year</th>
+                        <th style="text-align:center">Name of State</th>
+                        <th style="text-align:center">City/Place</th>
+                        <th style="text-align:center">Specify program(Debate/Elocution/Panel Discussion etc.)</th>
+                        <th style="text-align:center">No. of participants</th>
+                        <th style="text-align:center">Remarks</th>
+                        <th style="text-align:center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrgActivities_ConductOfCompetitions)
+                    {
+                        <tr>
+                            <td style="text-align:center" class="td1">@(++conductIndex)</td>
+                            <td style="text-align:center">@item.VAW_Year</td>
+                            <td style="text-align:center">@item.NameOfState</td>
+                            <td style="text-align:center">@item.City</td>
+                            <td style="text-align:center">@item.SpecificProgram</td>
+                            <td style="text-align:center">@item.NoOfParticipant</td>
+                            <td style="text-align:center">@item.Remarks</td>
+                            <td style="text-align:center">
+                                <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div style="padding:15px">
+        <div style="display:flex; justify-content:space-between">
+            <h4>Other Activities</h4>
+            <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateActivitiesOtherActivities" name="CreateActivitiesOtherActivities">Create</a>
+        </div>
+        <hr />
+        <div class="table-responsive">
+            <table id="Activities_OtherActivities" class="display">
+                <thead>
+                    <tr>
+                        <th style="text-align:center" class="th1">S No.</th>
+                        <th style="text-align:center">VAW Year</th>
+                        <th style="text-align:center">Distribution of Pamphlets/Banners</th>
+                        <th style="text-align:center">Conduct of Workshop/Sensitization programmes</th>
+                        <th style="text-align:center">Issue of Journal/Newsletter</th>
+                        <th style="text-align:center">Any Other Activities</th>
+                        <th style="text-align:center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrgActivities_OtherActivities)
+                    {
+                        <tr>
+                            <td style="text-align:center" class="td1">@(++act_OthrActIndex)</td>
+                            <td style="text-align:center">@item.VAW_Year</td>
+                            <td style="text-align:center">@item.DistributionOfPamphletsAndBanners_Details</td>
+                            <td style="text-align:center">@item.ConductOfWorkshopAndSensitizationProgram_Details</td>
+                            <td style="text-align:center">@item.IssueOfJornalAndNwesletter_Details</td>
+                            <td style="text-align:center">@item.AnyOtherActivities_Details</td>
+                            <td style="text-align:center">
+                                <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<hr />
+<br />
+
+<div class="mainBox" id="OutreachActivitiesContainer">
+    <h3>3. Outreach Activities</h3>
+    <hr />
+    <div style="padding:15px">
+        <div style="display:flex; justify-content:space-between">
+            <h4>Involving Students in Schools</h4>
+            <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateInvolvingSchools" name="CreateInvolvingSchools">Create</a>
+        </div>
+        <hr />
+
+        <div class="table-responsive">
+            <table id="InvolvingStudentsSchools" class="display">
+                <thead>
+                    <tr>
+                        <th style="text-align:center" class="th1">S No.</th>
+                        <th style="text-align:center">VAW Year</th>
+                        <th style="text-align:center">Name of State</th>
+                        <th style="text-align:center">Name of city/town/village</th>
+                        <th style="text-align:center">Name of school</th>
+                        <th style="text-align:center">Details of activities conducted (date if activities may also be mentioned)</th>
+                        <th style="text-align:center">No. of students involved</th>
+                        <th style="text-align:center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OutActivities_InvolvingStudentsInSchool)
+                    {
+                        <tr>
+                            <td style="text-align:center" class="td1">@(++involvingSchoolsIndex)</td>
+                            <td style="text-align:center">@item.VAW_Year</td>
+                            <td style="text-align:center">@item.</td>
+                            <td style="text-align:center">@item.City_Town_Village_Name</td>
+                            <td style="text-align:center">@item.SchoolName</td>
+                            <td style="text-align:center">@item.ActivityDetails</td>
+                            <td style="text-align:center">@item.NoOfStudentsInvolved</td>
+                            <td style="text-align:center">
+                                <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div style="padding:15px">
+        <div style="display:flex; justify-content:space-between">
+            <h4>Involving Students in Colleges</h4>
+            <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateInvolvingColleges" name="CreateInvolvingColleges">Create</a>
+        </div>
+        <hr />
+
+        <div class="table-responsive">
+            <table id="InvolvingStudentsColleges" class="display">
+                <thead>
+                    <tr>
+                        <th style="text-align:center" class="th1">S No.</th>
+                        <th style="text-align:center">VAW Year</th>
+                        <th style="text-align:center">Name of State</th>
+                        <th style="text-align:center">Name of city/town/village</th>
+                        <th style="text-align:center">Name of school</th>
+                        <th style="text-align:center">Details of activities conducted (date if activities may also be mentioned)</th>
+                        <th style="text-align:center">No. of students involved</th>
+                        <th style="text-align:center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OutActivities_InvolvingStudentsInColleges)
+                    {
+                        <tr>
+                            <td style="text-align:center" class="td1">@(++involvingCollegesIndex)</td>
+                            <td style="text-align:center">@item.VAW_Year</td>
+                            <td style="text-align:center">@item.StateName</td>
+                            <td style="text-align:center">@item.City_Town_Village_Name</td>
+                            <td style="text-align:center">@item.SchoolName</td>
+                            <td style="text-align:center">@item.ActivityDetails</td>
+                            <td style="text-align:center">@item.NoOfStudentsInvolved</td>
+                            <td style="text-align:center">
+                                <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div style="padding:15px">
+        <div style="display:flex; justify-content:space-between">
+            <h4>Awareness Gram Sabhas</h4>
+            <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateAwareness" name="CreateAwareness">Create</a>
+        </div>
+        <hr />
+
+        <div class="table-responsive">
+            <table id="AwarenessGramSabhas" class="display">
+                <thead>
+                    <tr>
+                        <th style="text-align:center" class="th1">S No.</th>
+                        <th style="text-align:center">VAW Year</th>
+                        <th style="text-align:center">Name of State</th>
+                        <th style="text-align:center">Name of city/town/village</th>
+                        <th style="text-align:center; width:15%">Name of Gram Panchayat where "Awareness Gram Sabha" is held</th>
+                        <th style="text-align: center; width: 20%">Details of activities conducted (date of activities may also be mentioned)</th>
+                        <th style="text-align:center">No. of public citizens participated</th>
+                        <th style="text-align:center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OutActivities_AwarenesGramSabha)
+                    {
+                        <tr>
+                            <td style="text-align:center" class="td1">@(++awarenessGramsIndex)</td>
+                            <td style="text-align:center">@item.VAW_Year</td>
+                            <td style="text-align:center">@item.StateName</td>
+                            <td style="text-align:center">@item.City_Town_Village_Name</td>
+                            <td style="text-align:center">@item.NameOfGramPanchayat</td>
+                            <td style="text-align:center">@item.ActivityDetails</td>
+                            <td style="text-align:center">@item.NoOfPublicOrCitizenParticipated</td>
+                            <td style="text-align:center">
+                                <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div style="padding:15px">
+        <div style="display:flex; justify-content:space-between">
+            <h4>Seminars / Workshops</h4>
+            <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateSeminars" name="CreateSeminars">Create</a>
+        </div>
+        <hr />
+
+        <div class="table-responsive">
+            <table id="AwarenessGramSabhas" class="display">
+                <thead>
+                    <tr>
+                        <th style="text-align:center" class="th1">S No.</th>
+                        <th style="text-align:center">VAW Year</th>
+                        <th style="text-align:center">Name of State</th>
+                        <th style="text-align:center">Name of city/town/village</th>
+                        <th style="text-align:center">No of seminars/Workshops organized</th>
+                        <th style="text-align:center">Details of activities conducted (date of activities may also be mentioned)</th>
+                        <th style="text-align:center">No. of public citizens participated</th>
+                        <th style="text-align:center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OutActivities_SeminarsWorkshops)
+                    {
+                        <tr>
+                            <td style="text-align:center" class="td1">@(++seminarsIndex)</td>
+                            <td style="text-align:center">@item.VAW_Year</td>
+                            <td style="text-align:center">@item.StateName</td>
+                            <td style="text-align:center">@item.City_Town_Village_Name</td>
+                            <td style="text-align:center">@item.NoOfSeminarsWorkshops</td>
+                            <td style="text-align:center">@item.ActivityDetails</td>
+                            <td style="text-align:center">@item.NoOfPublicOrCitizenParticipated</td>
+                            <td style="text-align:center">
+                                <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<br />
+<br />
+<hr />
+<br />
+
+<div class="mainBox" id="OtherActivitiesContainer">
+    <div style="display:flex; justify-content:space-between">
+        <h3>4. Other Activities</h3>
+        <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateOtherActivities" name="CreateOtherActivities">Create</a>
+    </div>
+    <hr />
+
+    <div class="table-responsive">
+        <table id="OtherActivitiesTable" class="display">
+            <thead>
+                <tr>
+                    <th style="text-align:center" class="th1">S No.</th>
+                    <th style="text-align:center">VAW Year</th>
+                    <th style="text-align:center">Display of Banners / Poster etc</th>
+                    <th style="text-align:center">No. of grievance redressal camps held</th>
+                    <th style="text-align:center">Use of Social Media</th>
+                    <th style="text-align:center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OtherActivities)
+                {
+                    <tr>
+                        <td style="text-align:center" class="td1">@(++otheActivitiesIndex)</td>
+                        <td style="text-align:center">@item.VAW_Year</td>
+                        <td style="text-align:center">@item.DisplayOfBannerPosterDetails</td>
+                        <td style="text-align:center">@item.NoOfGrievanceRedressalCampsHeld</td>
+                        <td style="text-align:center">@item.UserOfScocialMedia</td>
+                        <td style="text-align:center">
+                            <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<br />
+<br />
+<hr />
+<br />
+
+<div class="mainBox" id="OtherActivitiesContainer">
+    <div style="display:flex; justify-content:space-between">
+        <h3>5. Details of Photos Enclosed</h3>
+        <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateDetailsOfPhotos" name="CreateDetailsOfPhotos">Create</a>
+    </div>
+    <span>(Photos may kindly be sent along with captions and also place & date of event)</span>
+    <hr />
+
+    <div class="table-responsive">
+        <table id="DetailsOfPhotosTable" class="display">
+            <thead>
+                <tr>
+                    <th style="text-align:center" class="th1">S No.</th>
+                    <th style="text-align:center">VAW Year</th>
+                    <th style="text-align:center">Name of the activities held</th>
+                    <th style="text-align:center">No. of photos</th>
+                    <th style="text-align:center">Wether photos are sent in soft copy or hard copy</th>
+                    <th style="text-align:center">If in soft copy, number of CDs attached</th>
+                    <th style="text-align:center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DetailsOfPhotos)
+                {
+                    <tr>
+                        <td style="text-align:center" class="td1">@(++detsPhotosIndex)</td>
+                        <td style="text-align:center">@item.VAW_Year</td>
+                        <td style="text-align:center">@item.NameOfActivity</td>
+                        <td style="text-align:center">@item.NoOfPhotos</td>
+                        <td style="text-align:center">@item.WhetherPhotosSentAsSoftCopyOrHardCopy</td>
+                        <td style="text-align:center">@item.SoftCopy_NoOfCd</td>
+                        <td style="text-align:center">
+                            <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br />
+<br />
+<hr />
+<br />
+
+<div class="mainBox" id="OtherActivitiesContainer">
+    <div style="display:flex; justify-content:space-between">
+        <h3>6. Any Other Relevant Information, If Any</h3>
+        <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateRelevantInfo" name="CreateRelevantInfo">Create</a>
+    </div>
+    <hr />
+
+    <div class="table-responsive">
+        <table id="RelevantInfoTable" class="display">
+            <thead>
+                <tr>
+                    <th style="text-align:center" class="th1">S No.</th>
+                    <th style="text-align:center">VAW Year</th>
+                    <th style="text-align:center">DetailsOfActivity</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OtherInformations)
+                {
+                    <tr>
+                        <td style="text-align:center" class="td1">@(++RelevantInfoIndex)</td>
+                        <td style="text-align:center">@item.VAW_Year</td>
+                        <td style="text-align:center">@item.DetailsOfActivity</td>
+                        <td style="text-align:center">
+                            <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#IntegrityPledgeTable, #ConductTable, #Activities_OtherActivities, #InvolvingStudentsSchools, #InvolvingStudentsColleges, #AwarenessGramSabhas, #OtherActivitiesTable, #DetailsOfPhotosTable, #RelevantInfoTable').DataTable();
+    });
+</script>

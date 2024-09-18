@@ -143,6 +143,8 @@
     <Compile Include="Models\Tran_a_3b_updation_circular_guidelines_manuals_ViewModel.cs" />
     <Compile Include="Models\Tran_a_4b_disposalofcomplaints_ViewModel.cs" />
     <Compile Include="Models\Tran_a_5b_dynamicdigitalpresence_ViewModel.cs" />
+    <Compile Include="Models\ViewIntegrityPledgeViewModel.cs" />
+    <Compile Include="Models\ViewVigilanceAwarenessViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +215,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\cvc-logo.png" />
+    <Content Include="lib\datatables.net\dataTables.js" />
+    <Content Include="lib\datatables.net\dataTables.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />

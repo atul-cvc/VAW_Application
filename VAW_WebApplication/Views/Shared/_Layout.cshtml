@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="~/Images/cvc-logo.png" type="image/icon type">
     <title>@ViewBag.Title - VAW</title>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
     <script type="text/javascript">
         function preventBack() { window.history.forward(); }
         setTimeout("preventBack()", 0);
@@ -14,7 +18,11 @@
     </script>
     <script src="~/Scripts/SbteJS.js"></script>
     <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
 </head>
+
 <body>
     <div class="row" style="height:auto;background-color:ButtonFace; padding:5px; margin-left:5px;margin-right:5px;border-radius:10px;">
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
@@ -27,13 +35,7 @@
         </div>
     </div>
     <div class="body-content">
-       
-        <!--<div class="sidebar">
-            <h4>Sidebar</h4>
-            <a href="#option1" class="nav-link" data-target="option1">Vigilance Awareness</a>
-            <a href="#option2" class="nav-link" data-target="option2">Integrity Pleadge</a>-->
-            <!-- Add more options as needed -->
-        <!--</div>-->
+
         <div class="content">
             @RenderBody()
         </div>

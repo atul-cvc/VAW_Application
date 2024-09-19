@@ -32,7 +32,7 @@
 <div class="mainBox" id="IntegrityPledgeContainer">
     <div style="display:flex; justify-content:space-between">
         <h3>1. Integrity Pledge</h3>
-        <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateIntegrityPledge" name="CreateIntegrityPledge">Create</a>
+        <a href="@Url.Action("CreateIntegrityPledge", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateIntegrityPledge" name="CreateIntegrityPledge">Create</a>
     </div>
     <hr />
 
@@ -52,7 +52,7 @@
                 @for(int i=0;i<=11;i++){
                     <tr>
                         <td class="td1" style="text-align:center">@(++integrityIndex)</td>
-                        <td style="text-align:center">2024</td>
+                        <td style="text-align:center">@(2024+i)</td>
                         <td style="text-align:center">asd</td>
                         <td style="text-align:center">sdf</td>
                         <td style="text-align:center">asdf</td>
@@ -88,7 +88,7 @@
     <div style="padding:15px">
         <div style="display:flex; justify-content:space-between">
             <h4>Conduct of Competitions</h4>
-            <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateConductOfCompetitions" name="CreateConductOfCompetitions">Create</a>
+            <a href="@Url.Action("CreateConductOfCompetitions", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateConductOfCompetitions" name="CreateConductOfCompetitions">Create</a>
         </div>
         <hr />
 
@@ -131,7 +131,7 @@
     <div style="padding:15px">
         <div style="display:flex; justify-content:space-between">
             <h4>Other Activities</h4>
-            <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateActivitiesOtherActivities" name="CreateActivitiesOtherActivities">Create</a>
+            <a href="@Url.Action("CreateActivitiesOtherActivities", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateActivitiesOtherActivities" name="CreateActivitiesOtherActivities">Create</a>
         </div>
         <hr />
         <div class="table-responsive">
@@ -179,7 +179,7 @@
     <div style="padding:15px">
         <div style="display:flex; justify-content:space-between">
             <h4>Involving Students in Schools</h4>
-            <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateInvolvingSchools" name="CreateInvolvingSchools">Create</a>
+            <a href="@Url.Action("CreateOutreachInvolvingSchoolStudents", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateInvolvingSchools" name="CreateInvolvingSchools">Create</a>
         </div>
         <hr />
 
@@ -222,7 +222,7 @@
     <div style="padding:15px">
         <div style="display:flex; justify-content:space-between">
             <h4>Involving Students in Colleges</h4>
-            <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateInvolvingColleges" name="CreateInvolvingColleges">Create</a>
+            <a href="@Url.Action("CreateOutreachInvolvingCollegeStudents", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateInvolvingColleges" name="CreateInvolvingColleges">Create</a>
         </div>
         <hr />
 
@@ -265,7 +265,7 @@
     <div style="padding:15px">
         <div style="display:flex; justify-content:space-between">
             <h4>Awareness Gram Sabhas</h4>
-            <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateAwareness" name="CreateAwareness">Create</a>
+            <a href="@Url.Action("CreateOutreachAwarenessGramSabhas", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateAwareness" name="CreateAwareness">Create</a>
         </div>
         <hr />
 
@@ -308,7 +308,7 @@
     <div style="padding:15px">
         <div style="display:flex; justify-content:space-between">
             <h4>Seminars / Workshops</h4>
-            <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateSeminars" name="CreateSeminars">Create</a>
+            <a href="@Url.Action("CreateOutreachSeminars", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateSeminars" name="CreateSeminars">Create</a>
         </div>
         <hr />
 
@@ -357,7 +357,7 @@
 <div class="mainBox" id="OtherActivitiesContainer">
     <div style="display:flex; justify-content:space-between">
         <h3>4. Other Activities</h3>
-        <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateOtherActivities" name="CreateOtherActivities">Create</a>
+        <a href="@Url.Action("CreateOtherActivities", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateOtherActivities" name="CreateOtherActivities">Create</a>
     </div>
     <hr />
 
@@ -401,7 +401,7 @@
 <div class="mainBox" id="OtherActivitiesContainer">
     <div style="display:flex; justify-content:space-between">
         <h3>5. Details of Photos Enclosed</h3>
-        <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateDetailsOfPhotos" name="CreateDetailsOfPhotos">Create</a>
+        <a href="@Url.Action("CreateDetailsOfPhotos", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateDetailsOfPhotos" name="CreateDetailsOfPhotos">Create</a>
     </div>
     <span>(Photos may kindly be sent along with captions and also place & date of event)</span>
     <hr />
@@ -447,7 +447,7 @@
 <div class="mainBox" id="OtherActivitiesContainer">
     <div style="display:flex; justify-content:space-between">
         <h3>6. Any Other Relevant Information, If Any</h3>
-        <a href="@Url.Action("Index", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateRelevantInfo" name="CreateRelevantInfo">Create</a>
+        <a href="@Url.Action("CreateAnyOtherRelevantInformation", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateRelevantInfo" name="CreateRelevantInfo">Create</a>
     </div>
     <hr />
 
@@ -455,8 +455,8 @@
         <table id="RelevantInfoTable" class="display">
             <thead>
                 <tr>
-                    <th style="text-align:center" class="th1">S No.</th>
-                    <th style="text-align:center">VAW Year</th>
+                    <th style="text-align:center" width="15%"  class="th1">S No.</th>
+                    <th style="text-align:center" width="15%" >VAW Year</th>
                     <th style="text-align:center">DetailsOfActivity</th>
                 </tr>
             </thead>

@@ -32,7 +32,7 @@ namespace VAW_WebApplication.Controllers
         public ActionResult CreateCapacityBuilding()
         {
             Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
-            vmdata.VAW_Year = "2024";
+            vmdata.VAW_Year = DateTime.Now.Year.ToString();
             vmdata.CvoId = "CVO_SBI";
             vmdata.CvoOrgCode = "I61";
             vmdata.FromDate = DateTime.Now;
@@ -59,7 +59,7 @@ namespace VAW_WebApplication.Controllers
 
             }
             Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
-            vmdata.VAW_Year = "2024";
+            vmdata.VAW_Year = DateTime.Now.Year.ToString();
             vmdata.CvoId = "CVO_SBI";
             vmdata.CvoOrgCode = "I61";
             vmdata.FromDate = DateTime.Now;

@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CapacityBuildingDAL.cs" />
+    <Compile Include="IntegrityPledgeDAL.cs" />
     <Compile Include="LoginDAL.cs" />
     <Compile Include="VAW_Dal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

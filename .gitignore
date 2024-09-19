@@ -4,3 +4,11 @@
 
 *.vsidx
 /.vs
+/VAW_BAL/obj
+/VAW_BAL/bin
+/VAW_DAL/obj
+/VAW_DAL/bin
+/VAW_MODEL/obj
+/VAW_MODEL/bin
+/VAW_BusinessAccessLayer/obj
+/VAW_BusinessAccessLayer/bin

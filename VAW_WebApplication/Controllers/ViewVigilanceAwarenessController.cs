@@ -32,7 +32,7 @@ namespace VAW_WebApplication.Controllers
         public ActionResult CreateCapacityBuilding()
         {
             Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
-            vmdata.VAW_Year = "2024";
+            vmdata.VAW_Year = DateTime.Now.Year.ToString();
             vmdata.CvoId = "CVO_SBI";
             vmdata.CvoOrgCode = "I61";
             vmdata.FromDate = DateTime.Now;
@@ -59,7 +59,7 @@ namespace VAW_WebApplication.Controllers
 
             }
             Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
-            vmdata.VAW_Year = "2024";
+            vmdata.VAW_Year = DateTime.Now.Year.ToString();
             vmdata.CvoId = "CVO_SBI";
             vmdata.CvoOrgCode = "I61";
             vmdata.FromDate = DateTime.Now;
@@ -103,7 +103,7 @@ namespace VAW_WebApplication.Controllers
         }
         
         [HttpPost]
-        public ActionResult CreateDisposalOfComplaints(Tran_a_3b_updation_circular_guidelines_manuals_ViewModel VmData)
+        public ActionResult CreateDisposalOfComplaints(Tran_a_4b_disposalofcomplaints_ViewModel VmData)
         {
             return View();
         }
@@ -115,7 +115,7 @@ namespace VAW_WebApplication.Controllers
         }
         
         [HttpPost]
-        public ActionResult CreateDigitalDynamicPresence(Tran_a_4b_disposalofcomplaints_ViewModel VmData)
+        public ActionResult CreateDigitalDynamicPresence(Tran_a_5b_dynamicdigitalpresence_ViewModel VmData)
         {
             return View();
         }

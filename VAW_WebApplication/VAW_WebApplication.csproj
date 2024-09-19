@@ -295,7 +295,6 @@
     <Content Include="Views\ViewVigilanceAwareness\CreateCapacityBuilding.cshtml" />
     <Content Include="Views\ViewVigilanceAwareness\CreateIdentificationAndImplementation.cshtml" />
     <Content Include="Views\ViewVigilanceAwareness\CreateUpdationOfCirculars.cshtml" />
-    <Content Include="Views\ViewVigilanceAwareness\CreateDisposalOfComplaints.cshtml" />
     <Content Include="Views\ViewVigilanceAwareness\CreateDigitalDynamicPresence.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\CreateIntegrityPledge.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\CreateConductOfCompetitions.cshtml" />
@@ -307,6 +306,7 @@
     <Content Include="Views\ViewIntegrityPledge\CreateOtherActivities.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\CreateDetailsOfPhotos.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\CreateAnyOtherRelevantInformation.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\CreateDisposalOfComplaints.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

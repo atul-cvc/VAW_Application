@@ -103,7 +103,7 @@ namespace VAW_WebApplication.Controllers
         }
         
         [HttpPost]
-        public ActionResult CreateDisposalOfComplaints(Tran_a_3b_updation_circular_guidelines_manuals_ViewModel VmData)
+        public ActionResult CreateDisposalOfComplaints(Tran_a_4b_disposalofcomplaints_ViewModel VmData)
         {
             return View();
         }
@@ -115,7 +115,7 @@ namespace VAW_WebApplication.Controllers
         }
         
         [HttpPost]
-        public ActionResult CreateDigitalDynamicPresence(Tran_a_4b_disposalofcomplaints_ViewModel VmData)
+        public ActionResult CreateDigitalDynamicPresence(Tran_a_5b_dynamicdigitalpresence_ViewModel VmData)
         {
             return View();
         }

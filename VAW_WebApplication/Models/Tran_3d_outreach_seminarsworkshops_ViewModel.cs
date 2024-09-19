@@ -7,15 +7,15 @@ namespace VAW_WebApplication.Models
 {
     public class Tran_3d_outreach_seminarsworkshops_ViewModel
     {
-        public string VAW_Year { get; }
-        public string UniqueTransactionId { get; }
-        public string CvoOrgCode { get; }
-        public string CvoId { get; }
-        public string DateOfActivity { get; }
-        public string StateName { get; }
-        public string City_Town_Village_Name { get; }
-        public string NoOfSeminarsWorkshops { get; }
-        public string ActivityDetails { get; }
-        public string NoOfPublicOrCitizenParticipated { get; }
+        public string VAW_Year { get; set;}
+        public string UniqueTransactionId { get; set;}
+        public string CvoOrgCode { get; set;}
+        public string CvoId { get; set;}
+        public string DateOfActivity { get; set;}
+        public string StateName { get; set;}
+        public string City_Town_Village_Name { get; set;}
+        public string NoOfSeminarsWorkshops { get; set;}
+        public string ActivityDetails { get; set;}
+        public string NoOfPublicOrCitizenParticipated { get; set; }
     }
 }

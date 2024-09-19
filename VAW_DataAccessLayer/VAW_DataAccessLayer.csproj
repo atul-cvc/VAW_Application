@@ -99,6 +99,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VAW_Models\VAW_Models.csproj">
+      <Project>{47625145-9751-41BB-8B9C-3150476BC94D}</Project>
+      <Name>VAW_Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VAW_Utility\VAW_Utility.csproj">
       <Project>{0495C603-F0BD-48E1-8676-CB22CB2657AD}</Project>
       <Name>VAW_Utility</Name>

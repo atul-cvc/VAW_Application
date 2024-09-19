@@ -28,10 +28,10 @@ namespace VAW_BusinessAccessLayer
                             UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
                             CvoOrgCode = dr["CvoOrgCode"].ToString(),
                             CvoId = dr["CvoId"].ToString(),
-                            FromDate = dr["FromDate"].ToString(),
-                            ToDate = dr["ToDate"].ToString(),
+                            FromDate = DateTime.Parse(dr["FromDate"].ToString()),
+                            ToDate = DateTime.Parse(dr["ToDate"].ToString()),
                             TrainingName = dr["TrainingName"].ToString(),
-                            EmployeesTrained = dr["EmployeesTrained"].ToString(),
+                            EmployeesTrained =int.Parse(dr["EmployeesTrained"].ToString()),
                             BriefDescription = dr["BriefDescription"].ToString(),
                             CreatedOn = dr["CreatedOn"].ToString(),
                             CreatedBy = dr["CreatedBy"].ToString(),
@@ -44,6 +44,15 @@ namespace VAW_BusinessAccessLayer
                         }).ToList();
             }
             return list;
+        }
+
+        public DataSet GetCapacityBuildingRecordByCVOID(string cvoid)
+        {
+            return CapacityBuildingDAL.GetCapacityBuildingRecordByCVOID(cvoid);
+        }
+        public int SaveCapacityBuilding(Tran_a_1b_capacitybulidingprogram_Model capacityBuildingObj)
+        {
+            return CapacityBuildingDAL.SaveCapacityBuilding(capacityBuildingObj);
         }
     }
 }

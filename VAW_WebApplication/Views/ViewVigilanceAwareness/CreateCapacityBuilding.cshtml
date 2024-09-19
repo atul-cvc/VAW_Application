@@ -4,7 +4,12 @@
     ViewBag.Title = "Capacity Building";
     Layout = "~/Views/Shared/_Layout_Users.cshtml";
 }
-
+<style>
+    /*.form-horizontal {
+        max-width: 800px;*/ /* Set maximum width */
+        /*margin: 0 auto;*/ /* Center the form */
+    /*}*/
+</style>
 <h2>Capacity Building Program</h2>
 
 
@@ -63,25 +68,27 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BriefDescription, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BriefDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.BriefDescription, new { @class = "textarea-custom", @id = "myTextArea" })
+                <div id="wordCount" style="margin-top: 10px; margin-left:150px;">Word count: 0 / 500</div>
                 @Html.ValidationMessageFor(model => model.BriefDescription, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-2 d-flex justify-content-center">
-                <div class="">
-
-                    <input type="submit" value="Save" class="btn btn-default" />
+            <div class="row">
+                <div class="col-md-offset-2 col-md-2">
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" value="Save" class="btn btn-success" />
                 </div>
             </div>
+            
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 <div>
     @section Scripts {
 
@@ -97,6 +104,26 @@
                     yearRange: "-60:+0"
                 });
 
+            });
+        </script>
+
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const textArea = document.getElementById('myTextArea');
+                const wordCountDisplay = document.getElementById('wordCount');
+                const maxWords = 500;
+
+                textArea.addEventListener('input', function () {
+                    const words = textArea.value.trim().split(/\s+/).filter(Boolean);
+                    const wordCount = words.length;
+
+                    if (wordCount > maxWords) {
+                        textArea.value = words.slice(0, maxWords).join(' ');
+                    }
+
+                    wordCountDisplay.textContent = `Word count: ${Math.min(wordCount, maxWords)} / ${maxWords}`;
+                });
             });
         </script>
 

@@ -28,7 +28,6 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Enter Training Name")]
         public string TrainingName { get; set; }       
 
-
         public IEnumerable<SelectListItem> TrainingNameList { get; set; }
 
 

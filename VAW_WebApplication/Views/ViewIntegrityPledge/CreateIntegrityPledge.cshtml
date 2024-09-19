@@ -21,32 +21,12 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.VAW_Year, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.VAW_Year, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.UniqueTransactionId)
+                @Html.HiddenFor(model => model.CvoOrgCode)
+                @Html.HiddenFor(model => model.CvoId)
             </div>
         </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.UniqueTransactionId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UniqueTransactionId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UniqueTransactionId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CvoOrgCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CvoOrgCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CvoOrgCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CvoId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CvoId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CvoId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.DateOfActivity, htmlAttributes: new { @class = "control-label col-md-2" })

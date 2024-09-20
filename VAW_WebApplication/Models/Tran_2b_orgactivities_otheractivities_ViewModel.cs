@@ -10,6 +10,8 @@ namespace VAW_WebApplication.Models
     {
         [Required(ErrorMessage = "Please enter year.")]
         [Display(Name = "VAW Year")]
+        [RegularExpression(@"^(19|20)\d{2}$", ErrorMessage = "Entry should be a valid year (1900-2099)")]
+
         public int VAW_Year { get; set; }
         public string UniqueTransactionId { get; set; }
         public string CvoOrgCode { get; set; }

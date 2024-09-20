@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace VAW_WebApplication.Models
 {
@@ -10,7 +11,8 @@ namespace VAW_WebApplication.Models
     {
         [Required(ErrorMessage = "Please enter year.")]
         [Display(Name = "VAW Year")]
-        public string VAW_Year { get; set; }
+        [RegularExpression(@"^(19|20)\d{2}$", ErrorMessage = "Entry should be a valid year (1900-2099)")]
+        public int VAW_Year { get; set; }
         public string UniqueTransactionId { get; set; }
         public string CvoOrgCode { get; set; }
         public string CvoId { get; set; }
@@ -23,6 +25,7 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Please enter name of State.")]
         [Display(Name = "Name of State")]
         public string NameOfState { get; set; }
+        public IEnumerable<SelectListItem> NameOfStateList { get; set; }
 
         [Required(ErrorMessage = "Please enter name of City.")]
         [Display(Name = "City")]
@@ -31,6 +34,7 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Please select a program.")]
         [Display(Name = "Specific Program")]
         public string SpecificProgram { get; set; }
+        public IEnumerable<SelectListItem> SpecificProgramList { get; set; }
 
         [Required(ErrorMessage = "Please enter no. of participants.")]
         [Display(Name = "No of Participants")]

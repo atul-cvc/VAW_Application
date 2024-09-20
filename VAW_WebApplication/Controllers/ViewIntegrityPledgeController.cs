@@ -22,6 +22,7 @@ namespace VAW_WebApplication.Controllers
         {
             ViewIntegrityPledgeViewModel viewModel = new ViewIntegrityPledgeViewModel();
             DataTable integrityTable = integrityPledgeManager.GetIntegrityPledgeByCVOID("CVO_SBI").Tables[0]; //GetIntegrityPledge
+            DataTable conductTable = integrityPledgeManager.GetConductOfCompetitionsByCVOID("CVO_SBI").Tables[0]; //GetIntegrityPledge
             //List<>
 
             if (integrityTable.Rows.Count >= 1)
@@ -42,12 +43,31 @@ namespace VAW_WebApplication.Controllers
                     viewModel.IntegrityPledges.Add(vmobj);
                 }
             }
-            //modelobj.CapacityBuiliding_VM = ListofCapBuilding;
+
+            if(conductTable.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in conductTable.Rows)
+                {
+                    Tran_2a_orgactivities_conductofcompetitions_ViewModel vmobj = new Tran_2a_orgactivities_conductofcompetitions_ViewModel
+                    {
+                        VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
+                        UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
+                        CvoOrgCode = dr["CvoOrgCode"].ToString(),
+                        CvoId = dr["CvoId"].ToString(),
+                        DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
+                        NameOfState = dr["NameOfState"].ToString(),
+                        City = dr["City"].ToString(),
+                        SpecificProgram = dr["SpecificProgram"].ToString(),
+                        NoOfParticipant = Convert.ToInt32(dr["NoOfParticipant"].ToString()),
+                        Remarks = dr["Remarks"].ToString(),
+                    };
+                    viewModel.OrgActivities_ConductOfCompetitions.Add(vmobj);
+                }
+            }
+
+
+
             return View(viewModel);
-
-
-
-            //return View(viewModel);
         }
 
 
@@ -58,8 +78,8 @@ namespace VAW_WebApplication.Controllers
             vmdata.VAW_Year = DateTime.Now.Year.ToString();
             vmdata.CvoId = "CVO_SBI";
             vmdata.CvoOrgCode = "I61";
+            vmdata.DateOfActivity = DateTime.Now;
             return View(vmdata);
-            //return View();
         }
 
         [HttpPost]
@@ -102,19 +122,86 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateConductOfCompetitions()
         {
-            return View();
+            Tran_2a_orgactivities_conductofcompetitions_ViewModel vmdata = new Tran_2a_orgactivities_conductofcompetitions_ViewModel();
+            vmdata.VAW_Year = Convert.ToInt32(DateTime.Now.Year.ToString());
+            vmdata.CvoId = "CVO_SBI";
+            vmdata.CvoOrgCode = "I61";
+            vmdata.DateOfActivity = DateTime.Now;
+            vmdata.SpecificProgramList = new List<SelectListItem> {
+                new SelectListItem { Value = "Debate", Text = "Debate" },
+                new SelectListItem { Value = "Elocution", Text = "Elocution" },
+                new SelectListItem { Value = "Panel Discussion", Text = "Panel Discussion" },
+                new SelectListItem { Value = "Other", Text = "Other" }
+            };
+            vmdata.NameOfStateList = new List<SelectListItem>();
+            DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
+            if(StateTable.Rows.Count > 0)
+            {
+                var stateItemList = new List<SelectListItem>();
+                foreach (DataRow dr in StateTable.Rows)
+                {
+                    stateItemList.Add(new SelectListItem
+                    {
+                        Value = dr["States"].ToString(),
+                        Text = dr["States"].ToString()
+                    });
+                }
+                vmdata.NameOfStateList = stateItemList;
+            }
+            return View(vmdata);
         }
 
         [HttpPost]
-        public ActionResult CreateConductOfCompetitions(Tran_2a_orgactivities_conductofcompetitions_ViewModel vmData)
+        public ActionResult CreateConductOfCompetitions(Tran_2a_orgactivities_conductofcompetitions_ViewModel VmData)
         {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Tran_2a_orgactivities_conductofcompetitions_Model obj = new Tran_2a_orgactivities_conductofcompetitions_Model();
+                    string ipadd;
+                    GetIpAddress(out ipadd);
+                    obj.CreatedByIP = ipadd;
+                    obj.CreatedBy = VmData.CvoId;
+                    obj.CvoId = VmData.CvoId;
+                    obj.CvoOrgCode = VmData.CvoOrgCode;
+                    obj.DateOfActivity = VmData.DateOfActivity;
+                    obj.VAW_Year = VmData.VAW_Year;
+                    obj.UniqueTransactionId = Guid.NewGuid().ToString() + "_" + VmData.VAW_Year;
+                    obj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    obj.CreatedBySession = Session.SessionID;
+                    obj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    obj.NameOfState = VmData.NameOfState;
+                    obj.City = VmData.City;
+                    obj.SpecificProgram = VmData.SpecificProgram;
+                    obj.NoOfParticipant = VmData.NoOfParticipant;
+                    obj.Remarks = VmData.Remarks;
+                    int result = integrityPledgeManager.SaveConductOfCompetitions(obj);
+                    if (result >= 1)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
             return View("Index");
         }
 
         [HttpGet]
         public ActionResult CreateActivitiesOtherActivities()
         {
-            return View();
+            Tran_2b_orgactivities_otheractivities_ViewModel vmdata = new Tran_2b_orgactivities_otheractivities_ViewModel();
+            //vmdata.VAW_Year = Convert.ToInt32(DateTime.Now.Year.ToString());
+            //vmdata.CvoId = "CVO_SBI";
+            //vmdata.CvoOrgCode = "I61";
+            //vmdata.DateOfActivity = DateTime.Now;
+            //vmdata.
+            
+            return View(vmdata);
+            //return View();
         }
 
         [HttpPost]

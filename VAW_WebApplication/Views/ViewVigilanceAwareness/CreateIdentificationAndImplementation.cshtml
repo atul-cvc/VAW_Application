@@ -5,93 +5,130 @@
     Layout = "~/Views/Shared/_Layout_Users.cshtml";
 }
 
-<h2>CreateIdentificationAndImplementation</h2>
+<h2>IDENTIFICATION AND IMPLEMENTATION OF SYSTEM IMPROVEMENT</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
     
-    <div class="form-horizontal">
-        <h4>Tran_a_2b_sysimp_ViewModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(model => model.VAW_Year,"VAW YEAR", htmlAttributes: new { @class = "control-label col-md-2" })
+        @*@Html.LabelFor(model => model.VAW_Year, htmlAttributes: new { @class = "control-label col-md-2" })*@
+        <label class="control-label col-md-2" for="VAW_Year">VAW YEAR</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.VAW_Year, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.VAW_Year, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.VAW_Year, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
+            @Html.HiddenFor(model => model.UniqueTransactionId)
+            @Html.HiddenFor(model => model.CvoOrgCode)
+            @Html.HiddenFor(model => model.CvoId)
         </div>
     </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.UniqueTransactionId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UniqueTransactionId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UniqueTransactionId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CvoOrgCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CvoOrgCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CvoOrgCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CvoId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CvoId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CvoId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ToDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Sys_Imp_Implemented_During_Campaign, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Sys_Imp_Implemented_During_Campaign, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Sys_Imp_Implemented_During_Campaign, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Sys_Imp_Suggested_Last_5_Years_But_Pending, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Sys_Imp_Suggested_Last_5_Years_But_Pending, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Sys_Imp_Suggested_Last_5_Years_But_Pending, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.FromDate, new { @htmlAttributes = new { @class = "form-control", @placeholder = "DD-MM-YYYY", @readonly = "true" } })
+            @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ToDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ToDate, new { @htmlAttributes = new { @class = "form-control", @placeholder = "DD-MM-YYYY", @readonly = "true" } })
+            @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Sys_Imp_Implemented_During_Campaign, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Sys_Imp_Implemented_During_Campaign, new { @class = "textarea-custom", @id = "myTextArea" })
+            <div id="wordCount" style="margin-top: 10px; margin-left:150px;">Word count: 0 / 500</div>
+            @Html.ValidationMessageFor(model => model.Sys_Imp_Implemented_During_Campaign, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Sys_Imp_Suggested_Last_5_Years_But_Pending, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Sys_Imp_Suggested_Last_5_Years_But_Pending, new { @class = "textarea-custom", @id = "myTextArea1" })
+            <div id="wordCount1" style="margin-top: 10px; margin-left:150px;">Word count: 0 / 500</div>
+            @Html.ValidationMessageFor(model => model.Sys_Imp_Suggested_Last_5_Years_But_Pending, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-2">
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+            </div>
+            <div class="col-md-2">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+
+    </div>
+</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @section Scripts {
+
+        @Scripts.Render("~/bundles/jqueryui")
+        @Styles.Render("~/Content/cssjqryUi")
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('input[type=datetime]').datepicker({
+                    dateFormat: "dd/M/yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "-60:+0"
+                });
+
+            });
+        </script>
+
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const textArea = document.getElementById('myTextArea');
+                const wordCountDisplay = document.getElementById('wordCount');
+                const maxWords = 500;
+
+                textArea.addEventListener('input', function () {
+                    const words = textArea.value.trim().split(/\s+/).filter(Boolean);
+                    const wordCount = words.length;
+
+                    if (wordCount > maxWords) {
+                        textArea.value = words.slice(0, maxWords).join(' ');
+                    }
+
+                    wordCountDisplay.textContent = `Word count: ${Math.min(wordCount, maxWords)} / ${maxWords}`;
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const textArea = document.getElementById('myTextArea1');
+                const wordCountDisplay = document.getElementById('wordCount1');
+                const maxWords = 500;
+
+                textArea.addEventListener('input', function () {
+                    const words = textArea.value.trim().split(/\s+/).filter(Boolean);
+                    const wordCount = words.length;
+                    if (wordCount > maxWords) {
+                        textArea.value = words.slice(0, maxWords).join(' ');
+                    }
+                    wordCountDisplay.textContent = `Word count: ${Math.min(wordCount, maxWords)} / ${maxWords}`;
+                });
+            });
+        </script>
+
+    }
+    @*@Html.ActionLink("Back to List", "Index")*@
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

@@ -19,7 +19,7 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Please enter no of complaints.")]
         [Display(Name = "Complaints Received on or before 30.06.2024 pending as on 16.08.2024")]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
-        public string NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 { get; set; }
+        public int NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 { get; set; }
 
         [Display(Name = "Remarks, if any for Complaints Received on or before 30.06.2024 pending as on 16.08.2024")]
         public string Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 { get; set; }
@@ -27,7 +27,7 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Please enter no of complaints.")]
         [Display(Name = "Complaints Received on or before 30.06.2024 disposed during campaign period")]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
-        public string NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign { get; set; }
+        public int NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign { get; set; }
 
         [Display(Name = "Remarks, if any for Complaints Received on or before 30.06.2024 disposed during campaign period")]
         public string Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign { get; set; }
@@ -35,7 +35,7 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Please enter no of complaints.")]
         [Display(Name = "Complaints Received on or before 30.06.2024 pending as on 15.11.2024")]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
-        public string NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 { get; set; }
+        public int NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 { get; set; }
 
         [Display(Name = "Remarks, if any for Complaints Received on or before 30.06.2024 pending as on 15.11.2024")]
         public string Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 { get; set; }

@@ -13,8 +13,8 @@ namespace VAW_Models
         public string UniqueTransactionId { get; set; }
         public string CvoOrgCode { get; set; }
         public string CvoId { get; set; }
-        public string FromDate { get; set; }
-        public string ToDate { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
         public string WhetherUpdatedDuingCampaign { get; set; }
         public string BriefDetails { get; set; }
     }

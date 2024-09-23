@@ -70,6 +70,22 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.SaveSeminarsWorkshops(obj);
         }
+        public DataSet GetOtherActivities(string cvoid)
+        {
+            return IntegrityPledgeDAL.GetOtherActivities(cvoid);
+        }
+        public int SaveOtherActivities(Tran_4_otheractivities_Model obj)
+        {
+            return IntegrityPledgeDAL.SaveOtherActivities(obj);
+        }
+        public DataSet GetDetailsOfPhotos(string cvoid)
+        {
+            return IntegrityPledgeDAL.GetDetailsOfPhotos(cvoid);
+        }
+        public int SaveDetailsOfPhotos(Tran_5_detailsofphotos_Model obj)
+        {
+            return IntegrityPledgeDAL.SaveDetailsOfPhotos(obj);
+        }
         public DataSet GetStateList()
         {
             return IntegrityPledgeDAL.GetStateList();

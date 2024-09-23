@@ -27,6 +27,8 @@ namespace VAW_WebApplication.Controllers
             DataTable outreachSchoolStudentsTable = integrityPledgeManager.GetInvolvingSchoolStudentsBYCVOID("CVO_SBI").Tables[0];
             DataTable outreachCollegeStudentsTable = integrityPledgeManager.GetInvolvingCollegeStudentsBYCVOID("CVO_SBI").Tables[0];
             DataTable outreachAwarenessTable = integrityPledgeManager.GetOutreachAwarenessBYCVOID("CVO_SBI").Tables[0];
+            DataTable OtherRelatedInfo = integrityPledgeManager.GetOtherRelevantInformationBYCVOID("CVO_SBI").Tables[0];
+
             List<Tran_1a_integritypledge_ViewModel> pledgeList = new List<Tran_1a_integritypledge_ViewModel>();
 
             if (integrityTable.Rows.Count >= 1)
@@ -155,6 +157,25 @@ namespace VAW_WebApplication.Controllers
                     viewModel.OutActivities_AwarenesGramSabha.Add(vmobj);
                 }
             }
+
+            if (OtherRelatedInfo.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in OtherRelatedInfo.Rows)
+                {
+                    Tran_6_otherinformation_ViewModel vmobj = new Tran_6_otherinformation_ViewModel
+                    {
+                        VAW_Year =dr["VAW_Year"].ToString(),
+                        UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
+                        CvoOrgCode = dr["CvoOrgCode"].ToString(),
+                        CvoId = dr["CvoId"].ToString(),
+                        DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
+                        DetailsOfActivity = dr["DetailsOfActivity"].ToString()
+                       
+                    };
+                    viewModel.OtherInformations.Add(vmobj);
+                }
+            }
+                       
 
 
             return View(viewModel);
@@ -561,13 +582,47 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateAnyOtherRelevantInformation()
         {
-            return View();
+            Tran_6_otherinformation_ViewModel vmdata = new Tran_6_otherinformation_ViewModel();
+            vmdata.VAW_Year = DateTime.Now.Year.ToString();            
+            vmdata.CvoId = "CVO_SBI";
+            vmdata.CvoOrgCode = "I61";
+            vmdata.DateOfActivity = DateTime.Now;
+            return View(vmdata);
         }
 
         [HttpPost]
-        public ActionResult CreateAnyOtherRelevantInformation(Tran_6_otherinformation_ViewModel vmData)
+        public ActionResult CreateAnyOtherRelevantInformation(Tran_6_otherinformation_ViewModel VmData)
         {
-            return View("Index");
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Tran_6_otherinformation_Model obj = new Tran_6_otherinformation_Model();
+                    string ipadd;
+                    GetIpAddress(out ipadd);
+                    obj.CreatedByIP = ipadd;
+                    obj.CreatedBy = VmData.CvoId;
+                    obj.CvoId = VmData.CvoId;
+                    obj.CvoOrgCode = VmData.CvoOrgCode;
+                    obj.DateOfActivity = VmData.DateOfActivity;
+                    obj.DetailsOfActivity = VmData.DetailsOfActivity;
+                    obj.VAW_Year = VmData.VAW_Year;
+                    obj.UniqueTransactionId = Guid.NewGuid().ToString() + "_" + VmData.VAW_Year;
+                    obj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    obj.CreatedBySession = Session.SessionID;
+                    obj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");                   
+                    int result = integrityPledgeManager.SaveAnyOtherRelevantInformation(obj);
+                    if (result >= 1)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }           
+            
+            return View();
         }
 
         private void GetIpAddress(out string userip)

@@ -455,8 +455,9 @@
         <table id="RelevantInfoTable" class="display">
             <thead>
                 <tr>
-                    <th style="text-align:center" width="15%"  class="th1">S No.</th>
-                    <th style="text-align:center" width="15%" >VAW Year</th>
+                    <th style="text-align:center" width="15%" class="th1">S No.</th>
+                    <th style="text-align:center" width="15%">VAW Year</th>
+                    <th style="text-align:center" width="15%">Activity Date</th>
                     <th style="text-align:center">DetailsOfActivity</th>
                 </tr>
             </thead>
@@ -466,6 +467,7 @@
                     <tr>
                         <td style="text-align:center" class="td1">@(++RelevantInfoIndex)</td>
                         <td style="text-align:center">@item.VAW_Year</td>
+                        <td style="text-align:center">@item.DateOfActivity</td>
                         <td style="text-align:center">@item.DetailsOfActivity</td>
                         <td style="text-align:center">
                             <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>

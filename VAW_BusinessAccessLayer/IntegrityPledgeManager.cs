@@ -66,6 +66,15 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.GetStateList();
         }
+        public DataSet GetOtherRelevantInformationBYCVOID(string cvoid)
+        {
+            return IntegrityPledgeDAL.GetOtherRelevantInformationBYCVOID(cvoid);
+        }
+         public int SaveAnyOtherRelevantInformation(Tran_6_otherinformation_Model obj)
+        {
+            return IntegrityPledgeDAL.SaveAnyOtherRelevantInformation(obj);
+        }
+        
 
     }
 }

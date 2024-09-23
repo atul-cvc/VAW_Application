@@ -310,5 +310,48 @@ namespace VAW_DataAccessLayer
             }
             return DS;
         }
-    }
+
+
+        public DataSet GetOtherRelevantInformationBYCVOID(string cvoid)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOtherInformationByCVOID", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public int SaveAnyOtherRelevantInformation(Tran_6_otherinformation_Model obj)
+        {
+            int EffectedRows = 0;
+            try
+            {
+                MySqlParameter[] sqlParams = new MySqlParameter[10];
+                sqlParams[0] = new MySqlParameter("@p_VAW_Year", Convert.ToInt32(obj.VAW_Year));
+                sqlParams[1] = new MySqlParameter("@p_UniqueTransactionId", obj.UniqueTransactionId);
+                sqlParams[2] = new MySqlParameter("@p_CvoOrgCode", obj.CvoOrgCode);
+                sqlParams[3] = new MySqlParameter("@p_CvoId", obj.CvoId);
+                sqlParams[4] = new MySqlParameter("@p_DateOfActivity", obj.DateOfActivity);              
+                sqlParams[5] = new MySqlParameter("@p_DetailsOfActivity", obj.DetailsOfActivity);
+                sqlParams[6] = new MySqlParameter("@p_CreatedOn", obj.CreatedOn);
+                sqlParams[7] = new MySqlParameter("@p_CreatedBy", obj.CreatedBy); // Replace with actual user
+                sqlParams[8] = new MySqlParameter("@p_CreatedByIP", obj.CreatedByIP); // Replace with actual IP
+                sqlParams[9] = new MySqlParameter("@p_CreatedBySession", obj.CreatedBySession); // Replace with actual session                
+
+                // Execute the stored procedure
+                EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_CreateOtherInformation", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return EffectedRows;
+        }
+     }
 }

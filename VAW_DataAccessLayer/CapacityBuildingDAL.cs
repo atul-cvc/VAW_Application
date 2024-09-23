@@ -109,5 +109,192 @@ namespace VAW_DataAccessLayer
             }
             return EffectedRows;
         }
+
+        public DataSet GetSystemImpRecordByCVOID(string cvoid)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadSysImpByCVOID", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+
+        public int SaveIdentificationAndImplimentation(Tran_a_2b_sysimp_Model IdentificationAndImpliObj)
+        {
+            int EffectedRows = 0;
+            try
+            {
+
+                MySqlParameter[] Sqlpara = new MySqlParameter[12];
+                Sqlpara[0] = new MySqlParameter("@p_VAW_Year", IdentificationAndImpliObj.VAW_Year);
+                Sqlpara[1] = new MySqlParameter("@p_UniqueTransactionId", IdentificationAndImpliObj.UniqueTransactionId);
+                Sqlpara[2] = new MySqlParameter("@p_CvoOrgCode", IdentificationAndImpliObj.CvoOrgCode);
+                Sqlpara[3] = new MySqlParameter("@p_CvoId", IdentificationAndImpliObj.CvoId);
+                Sqlpara[4] = new MySqlParameter("@p_FromDate", IdentificationAndImpliObj.FromDate);
+                Sqlpara[5] = new MySqlParameter("@p_ToDate", IdentificationAndImpliObj.ToDate);
+                Sqlpara[6] = new MySqlParameter("@p_Sys_Imp_Implemented_During_Campaign", IdentificationAndImpliObj.Sys_Imp_Implemented_During_Campaign);
+                Sqlpara[7] = new MySqlParameter("@p_Sys_Imp_Suggested_Last_5_Years_But_Pending", IdentificationAndImpliObj.Sys_Imp_Suggested_Last_5_Years_But_Pending);                
+                Sqlpara[8] = new MySqlParameter("@p_CreatedOn", IdentificationAndImpliObj.CreatedOn);
+                Sqlpara[9] = new MySqlParameter("@p_CreatedBy", IdentificationAndImpliObj.CreatedBy);
+                Sqlpara[10] = new MySqlParameter("@p_CreatedByIP", IdentificationAndImpliObj.CreatedByIP);
+                Sqlpara[11] = new MySqlParameter("@p_CreatedBySession", IdentificationAndImpliObj.CreatedBySession);
+                EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_CreateSysImp", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return EffectedRows;
+        }
+
+
+        public DataSet GetCircularsRecordByCVOID(string cvoid)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadUpdationCircularGuidelinesManualsByCVOID", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+
+        public int SaveCirculars(Tran_a_3b_updation_circular_guidelines_manuals_Model CircularModel)
+        {
+            int EffectedRows = 0;
+            try
+            {
+
+                MySqlParameter[] Sqlpara = new MySqlParameter[12];
+                Sqlpara[0] = new MySqlParameter("@p_VAW_Year", CircularModel.VAW_Year);
+                Sqlpara[1] = new MySqlParameter("@p_UniqueTransactionId", CircularModel.UniqueTransactionId);
+                Sqlpara[2] = new MySqlParameter("@p_CvoOrgCode", CircularModel.CvoOrgCode);
+                Sqlpara[3] = new MySqlParameter("@p_CvoId", CircularModel.CvoId);
+                Sqlpara[4] = new MySqlParameter("@p_FromDate", CircularModel.FromDate);
+                Sqlpara[5] = new MySqlParameter("@p_ToDate", CircularModel.ToDate);
+                Sqlpara[6] = new MySqlParameter("@p_WhetherUpdatedDuingCampaign", CircularModel.WhetherUpdatedDuingCampaign);
+                Sqlpara[7] = new MySqlParameter("@p_BriefDetails", CircularModel.BriefDetails);
+                Sqlpara[8] = new MySqlParameter("@p_CreatedOn", CircularModel.CreatedOn);
+                Sqlpara[9] = new MySqlParameter("@p_CreatedBy", CircularModel.CreatedBy);
+                Sqlpara[10] = new MySqlParameter("@p_CreatedByIP", CircularModel.CreatedByIP);
+                Sqlpara[11] = new MySqlParameter("@p_CreatedBySession", CircularModel.CreatedBySession);
+                EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_CreateUpdationCircularGuidelinesManuals", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return EffectedRows;
+        }
+
+
+
+        public DataSet GetDisposalOfComplaintByCVOID(string cvoid)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadDisposalOfComplaintsByCVOID", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+
+        public int SaveDisposalOfComplaint(Tran_a_4b_disposalofcomplaints_Model DisposalOfComlaintObj)
+        {
+            int EffectedRows = 0;
+            try
+            {
+
+                MySqlParameter[] Sqlpara = new MySqlParameter[14];
+                Sqlpara[0] = new MySqlParameter("@p_VAW_Year", DisposalOfComlaintObj.VAW_Year);
+                Sqlpara[1] = new MySqlParameter("@p_UniqueTransactionId", DisposalOfComlaintObj.UniqueTransactionId);
+                Sqlpara[2] = new MySqlParameter("@p_CvoOrgCode", DisposalOfComlaintObj.CvoOrgCode);
+                Sqlpara[3] = new MySqlParameter("@p_CvoId", DisposalOfComlaintObj.CvoId);
+                Sqlpara[4] = new MySqlParameter("@p_NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608", DisposalOfComlaintObj.NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608);
+                Sqlpara[5] = new MySqlParameter("@p_Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608", DisposalOfComlaintObj.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608);
+                Sqlpara[6] = new MySqlParameter("@p_NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign", DisposalOfComlaintObj.NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign);
+                Sqlpara[7] = new MySqlParameter("@p_Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign", DisposalOfComlaintObj.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign);
+                Sqlpara[8] = new MySqlParameter("@p_NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511", DisposalOfComlaintObj.NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511);
+                Sqlpara[9] = new MySqlParameter("@p_Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511", DisposalOfComlaintObj.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511);
+                Sqlpara[10] = new MySqlParameter("@p_CreatedOn", DisposalOfComlaintObj.CreatedOn);
+                Sqlpara[11] = new MySqlParameter("@p_CreatedBy", DisposalOfComlaintObj.CreatedBy);
+                Sqlpara[12] = new MySqlParameter("@p_CreatedByIP", DisposalOfComlaintObj.CreatedByIP);
+                Sqlpara[13] = new MySqlParameter("@p_CreatedBySession", DisposalOfComlaintObj.CreatedBySession);
+                EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_CreateDisposalOfComplaints", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return EffectedRows;
+        }
+
+
+        public DataSet GetDynamicDigitalPresenceByCVOID(string cvoid)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadDynamicDigitalPresenceByCVOID", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        
+
+        public int SaveDynamicDigitalPresence(Tran_a_5b_dynamicdigitalpresence_Model DynamicDigital)
+        {
+            int EffectedRows = 0;
+            try
+            {
+
+                MySqlParameter[] Sqlpara = new MySqlParameter[12];
+                Sqlpara[0] = new MySqlParameter("@p_VAW_Year", DynamicDigital.VAW_Year);
+                Sqlpara[1] = new MySqlParameter("@p_UniqueTransactionId", DynamicDigital.UniqueTransactionId);
+                Sqlpara[2] = new MySqlParameter("@p_CvoOrgCode", DynamicDigital.CvoOrgCode);
+                Sqlpara[3] = new MySqlParameter("@p_CvoId", DynamicDigital.CvoId);
+                Sqlpara[4] = new MySqlParameter("@p_WhetherRegularMaintenanceOfWebsiteUpdationDone", DynamicDigital.WhetherRegularMaintenanceOfWebsiteUpdationDone);
+                Sqlpara[5] = new MySqlParameter("@p_SystemIntroducedForUpdationAndReview", DynamicDigital.SystemIntroducedForUpdationAndReview);
+                Sqlpara[6] = new MySqlParameter("@p_WhetherAdditionalAreas_Activities_ServicesBroughtOnline", DynamicDigital.WhetherAdditionalAreas_Activities_ServicesBroughtOnline);
+                Sqlpara[7] = new MySqlParameter("@p_DetailsOfAdditionalActivities", DynamicDigital.DetailsOfAdditionalActivities);                
+                Sqlpara[8] = new MySqlParameter("@p_CreatedOn", DynamicDigital.CreatedOn);
+                Sqlpara[9] = new MySqlParameter("@p_CreatedBy", DynamicDigital.CreatedBy);
+                Sqlpara[10] = new MySqlParameter("@p_CreatedByIP", DynamicDigital.CreatedByIP);
+                Sqlpara[11] = new MySqlParameter("@p_CreatedBySession", DynamicDigital.CreatedBySession);
+                EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_CreateDynamicDigitalPresence", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return EffectedRows;
+        }
     }
 }

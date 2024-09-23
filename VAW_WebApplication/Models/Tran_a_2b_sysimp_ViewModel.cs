@@ -19,12 +19,12 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Choose From date.")]
         [Display(Name = "From Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
-        public string FromDate { get; set; }
+        public DateTime FromDate { get; set; }
 
         [Required(ErrorMessage = "Choose To date.")]
         [Display(Name = "To Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
-        public string ToDate { get; set; }
+        public DateTime ToDate { get; set; }
 
         [Required(ErrorMessage = "Please enter System Improvements Implemented During Campaign Period")]
         [Display(Name = "System Improvements Implemented During Campaign Period")]

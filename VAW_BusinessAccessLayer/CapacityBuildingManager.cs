@@ -54,5 +54,47 @@ namespace VAW_BusinessAccessLayer
         {
             return CapacityBuildingDAL.SaveCapacityBuilding(capacityBuildingObj);
         }
+
+        public DataSet GetSystemImpRecordByCVOID(string cvoid)
+        {
+            return CapacityBuildingDAL.GetSystemImpRecordByCVOID(cvoid);
+        }
+        public int SaveIdentificationAndImplimentation(Tran_a_2b_sysimp_Model IdentificationAndImpliObj)
+        {
+            return CapacityBuildingDAL.SaveIdentificationAndImplimentation(IdentificationAndImpliObj);
+        }
+
+        public DataSet GetCircularsRecordByCVOID(string cvoid)
+        {
+            return CapacityBuildingDAL.GetCircularsRecordByCVOID(cvoid);
+        }
+        public int SaveCirculars(Tran_a_3b_updation_circular_guidelines_manuals_Model CircularModel)
+        {
+            return CapacityBuildingDAL.SaveCirculars(CircularModel);
+        }
+
+        public DataSet GetDisposalOfComplaintByCVOID(string cvoid)
+        {
+            return CapacityBuildingDAL.GetDisposalOfComplaintByCVOID(cvoid);
+        }
+
+        public int SaveDisposalOfComplaint(Tran_a_4b_disposalofcomplaints_Model DisposalOfComlaintObj)
+        {
+            return CapacityBuildingDAL.SaveDisposalOfComplaint(DisposalOfComlaintObj);
+        }
+
+
+        public DataSet GetDynamicDigitalPresenceByCVOID(string cvoid)
+        {
+            return CapacityBuildingDAL.GetDynamicDigitalPresenceByCVOID(cvoid);
+        }
+
+        
+        public int SaveDynamicDigitalPresence(Tran_a_5b_dynamicdigitalpresence_Model DigitalDynObj)
+        {
+            return CapacityBuildingDAL.SaveDynamicDigitalPresence(DigitalDynObj);
+        }
+
+        
     }
 }

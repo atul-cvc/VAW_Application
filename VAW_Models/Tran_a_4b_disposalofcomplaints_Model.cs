@@ -13,11 +13,11 @@ namespace VAW_Models
         public string UniqueTransactionId { get; set; }
         public string CvoOrgCode { get; set; }
         public string CvoId { get; set; }
-        public string NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 { get; set; }
+        public int NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 { get; set; }
         public string Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 { get; set; }
-        public string NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign { get; set; }
+        public int NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign { get; set; }
         public string Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign { get; set; }
-        public string NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 { get; set; }
+        public int NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 { get; set; }
         public string Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 { get; set; }
     }
 }

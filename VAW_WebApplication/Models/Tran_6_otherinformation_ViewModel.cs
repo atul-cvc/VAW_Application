@@ -19,7 +19,7 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Choose From date.")]
         [Display(Name = "Date of Activity")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
-        public string DateOfActivity { get; set; }
+        public DateTime DateOfActivity { get; set; }
 
         [Required(ErrorMessage = "Please enter Details of Activity")]
         [Display(Name = "Details of Activity")]

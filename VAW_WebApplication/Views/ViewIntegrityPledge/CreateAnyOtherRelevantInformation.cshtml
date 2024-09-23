@@ -8,10 +8,10 @@
 <h2>CreateAnyOtherRelevantInformation</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Tran_6_otherinformation_ViewModel</h4>
         <hr />
@@ -19,8 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.VAW_Year, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.VAW_Year, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.VAW_Year, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.VAW_Year, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
                 @Html.HiddenFor(model => model.UniqueTransactionId)
                 @Html.HiddenFor(model => model.CvoOrgCode)
                 @Html.HiddenFor(model => model.CvoId)
@@ -30,7 +29,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DateOfActivity, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DateOfActivity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.DateOfActivity, new { @htmlAttributes = new { @class = "form-control", @placeholder = "DD-MM-YYYY", @readonly = "true" } })
                 @Html.ValidationMessageFor(model => model.DateOfActivity, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -38,23 +37,67 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DetailsOfActivity, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DetailsOfActivity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.DetailsOfActivity, new { @class = "textarea-custom", @id = "myTextArea" })
+                <div id="wordCount" style="margin-top: 10px; margin-left:150px;">Word count: 0 / 1000</div>
                 @Html.ValidationMessageFor(model => model.DetailsOfActivity, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
+            <div class="row">
+                <div class="col-md-offset-2 col-md-2">
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                </div>
             </div>
+
         </div>
     </div>
 }
 
+
+
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @section Scripts {
+
+        @Scripts.Render("~/bundles/jqueryui")
+        @Styles.Render("~/Content/cssjqryUi")
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('input[type=datetime]').datepicker({
+                    dateFormat: "dd/M/yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "-60:+0"
+                });
+
+            });
+        </script>
+
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const textArea = document.getElementById('myTextArea');
+                const wordCountDisplay = document.getElementById('wordCount');
+                const maxWords = 1000;
+
+                textArea.addEventListener('input', function () {
+                    const words = textArea.value.trim().split(/\s+/).filter(Boolean);
+                    const wordCount = words.length;
+
+                    if (wordCount > maxWords) {
+                        textArea.value = words.slice(0, maxWords).join(' ');
+                    }
+
+                    wordCountDisplay.textContent = `Word count: ${Math.min(wordCount, maxWords)} / ${maxWords}`;
+                });
+            });
+        </script>
+
+    }
+    @*@Html.ActionLink("Back to List", "Index")*@
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

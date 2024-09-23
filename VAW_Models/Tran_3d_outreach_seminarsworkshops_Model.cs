@@ -16,8 +16,8 @@ namespace VAW_Models
         public string DateOfActivity { get; set; }
         public string StateName { get; set; }
         public string City_Town_Village_Name { get; set; }
-        public string NoOfSeminarsWorkshops { get; set; }
+        public int NoOfSeminarsWorkshops { get; set; }
         public string ActivityDetails { get; set; }
-        public string NoOfPublicOrCitizenParticipated { get; set; }
+        public int NoOfPublicOrCitizenParticipated { get; set; }
     }
 }

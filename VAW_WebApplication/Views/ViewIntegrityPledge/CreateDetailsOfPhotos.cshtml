@@ -5,21 +5,20 @@
     Layout = "~/Views/Shared/_Layout_Users.cshtml";
 }
 
-<h2>CreateDetailsOfPhotos</h2>
+<h2>Create Details Of Photos</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Tran_5_detailsofphotos_ViewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.VAW_Year, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.VAW_Year, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.VAW_Year, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                 @Html.ValidationMessageFor(model => model.VAW_Year, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.UniqueTransactionId)
                 @Html.HiddenFor(model => model.CvoOrgCode)
@@ -30,7 +29,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DateOfActivity, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DateOfActivity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.DateOfActivity, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                 @Html.ValidationMessageFor(model => model.DateOfActivity, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -54,15 +53,22 @@
         <div class="form-group">
             @Html.LabelFor(model => model.WhetherPhotosSentAsSoftCopyOrHardCopy, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.WhetherPhotosSentAsSoftCopyOrHardCopy, new { htmlAttributes = new { @class = "form-control" } })
+                <div class="form-check">
+                    @Html.RadioButtonFor(model => model.WhetherPhotosSentAsSoftCopyOrHardCopy, "Soft Copy", new { @class = "form-check-input", id = "softCopyRadio" })
+                    @Html.Label("Soft Copy", new { @class = "form-check-label" })
+                </div>
+                <div class="form-check">
+                    @Html.RadioButtonFor(model => model.WhetherPhotosSentAsSoftCopyOrHardCopy, "Hard Copy", new { @class = "form-check-input", id = "hardCopyRadio" })
+                    @Html.Label("Hard Copy", new { @class = "form-check-label" })
+                </div>
                 @Html.ValidationMessageFor(model => model.WhetherPhotosSentAsSoftCopyOrHardCopy, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="NoOfCdContainer" style="display:none">
             @Html.LabelFor(model => model.SoftCopy_NoOfCd, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SoftCopy_NoOfCd, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.SoftCopy_NoOfCd, new { htmlAttributes = new { @class = "form-control", id = "noOfCdInput" } })
                 @Html.ValidationMessageFor(model => model.SoftCopy_NoOfCd, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -81,4 +87,32 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $('form').on('submit', function (e) {
+                var isSoftCopy = $('#softCopyRadio').is(':checked');
+                var noOfCd = parseInt($('#noOfCdInput').val(), 10);
+
+                if (isSoftCopy && (isNaN(noOfCd) || noOfCd <= 0)) {
+                    e.preventDefault(); // Prevent form submission
+                    alert("Please enter a number greater than zero for the number of CDs when Soft Copy is selected.");
+                    $('#noOfCdInput').focus();
+                }
+            });
+
+            $('#softCopyRadio').on('click', function () {
+                //alert('clicked soft copy')
+                const container = document.getElementById('NoOfCdContainer');
+                container.style.display = 'block';
+                $('#noOfCdInput').val(0);
+            });
+            $('#hardCopyRadio').on('click', function () {
+                const container = document.getElementById('NoOfCdContainer');
+                $('#noOfCdInput').val(0);
+                container.style.display = 'none';
+            });
+        });
+    </script>
+
 }

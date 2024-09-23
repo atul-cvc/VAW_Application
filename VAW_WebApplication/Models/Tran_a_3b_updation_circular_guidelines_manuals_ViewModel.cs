@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace VAW_WebApplication.Models
 {
@@ -19,16 +20,18 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Choose From date.")]
         [Display(Name = "From Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
-        public string FromDate { get; set; }
+        public DateTime FromDate { get; set; }
 
         [Required(ErrorMessage = "Choose To date.")]
         [Display(Name = "To Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
-        public string ToDate { get; set; }
+        public DateTime ToDate { get; set; }
 
         [Required(ErrorMessage = "Please select")]
         [Display(Name = "Whether guidelines/circulars and manual were updated during the campaign period")]
         public string WhetherUpdatedDuingCampaign { get; set; }
+
+        public IEnumerable<SelectListItem> YesNoOptions { get; set; }
 
         [Required(ErrorMessage = "Please enter Brief Details")]
         [Display(Name = "Brief Details")]

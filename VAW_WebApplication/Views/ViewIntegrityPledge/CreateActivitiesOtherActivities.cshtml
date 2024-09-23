@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.VAW_Year, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.VAW_Year, "VAW Year", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.VAW_Year, "VAW Year", new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                 @Html.ValidationMessageFor(model => model.VAW_Year, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.UniqueTransactionId)
                 @Html.HiddenFor(model => model.CvoOrgCode)
@@ -31,7 +31,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DateOfActivity, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DateOfActivity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.DateOfActivity, new { htmlAttributes = new { @class = "form-control", @placeholder = "DD-MM-YYYY", @readonly = true } })
                 @Html.ValidationMessageFor(model => model.DateOfActivity, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -39,7 +39,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DistributionOfPamphletsAndBanners_Details, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DistributionOfPamphletsAndBanners_Details, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.DistributionOfPamphletsAndBanners_Details, new { htmlAttributes = new { @class = "form-control", @placeholder = "Please enter details" } })*@
+                @Html.TextAreaFor(model => model.DistributionOfPamphletsAndBanners_Details, new { @class = "textarea-custom-h-50", @placeholder = "Please enter details" })
                 @Html.ValidationMessageFor(model => model.DistributionOfPamphletsAndBanners_Details, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -47,7 +48,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ConductOfWorkshopAndSensitizationProgram_Details, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ConductOfWorkshopAndSensitizationProgram_Details, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.ConductOfWorkshopAndSensitizationProgram_Details, new { htmlAttributes = new { @class = "form-control", @placeholder = "Please enter details" } })*@
+                @Html.TextAreaFor(model => model.ConductOfWorkshopAndSensitizationProgram_Details, new { @class = "textarea-custom-h-50", @placeholder = "Please enter details" })
                 @Html.ValidationMessageFor(model => model.ConductOfWorkshopAndSensitizationProgram_Details, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -55,7 +57,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IssueOfJornalAndNwesletter_Details, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.IssueOfJornalAndNwesletter_Details, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.IssueOfJornalAndNwesletter_Details, new { htmlAttributes = new { @class = "form-control", @placeholder = "Please enter details" } })*@
+                @Html.TextAreaFor(model => model.IssueOfJornalAndNwesletter_Details, new { @class = "textarea-custom-h-50", @placeholder = "Please enter details" })
                 @Html.ValidationMessageFor(model => model.IssueOfJornalAndNwesletter_Details, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -63,7 +66,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AnyOtherActivities_Details, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AnyOtherActivities_Details, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.TextAreaFor(model => model.AnyOtherActivities_Details, new { htmlAttributes = new { @class = "form-control textarea-custom", @placeholder = "Please enter details" } })*@
+                @Html.TextAreaFor(model => model.AnyOtherActivities_Details, new { @class = "textarea-custom-h-50", @placeholder="Please enter details"  })
                 @Html.ValidationMessageFor(model => model.AnyOtherActivities_Details, "", new { @class = "text-danger" })
             </div>
         </div>

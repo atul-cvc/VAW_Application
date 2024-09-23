@@ -42,14 +42,14 @@
                 <tr>
                     <th style="text-align:center" class="th1">S No.</th>
                     <th style="text-align:center">VAW Year</th>
-                    <th style="text-align:center">Total no. f employees who have undertaken e-pledge</th>
+                    <th style="text-align:center">Total no. of employees who have undertaken e-pledge</th>
                     <th style="text-align:center">Total no. of customers who have undertaken e-pledge</th>
                     <th style="text-align:center">Total no. of citizens who have undertaken e-pledge</th>
                     <th style="text-align:center">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @for(int i=0;i<=11;i++){
+                @*@for(int i=0;i<=11;i++){
                     <tr>
                         <td class="td1" style="text-align:center">@(++integrityIndex)</td>
                         <td style="text-align:center">@(2024+i)</td>
@@ -60,7 +60,7 @@
                             <a class="btn btn-primary text-center" style="align-self: center !important">Edit</a>
                         </td>
                     </tr>
-                }
+                }*@
                 @foreach (var item in Model.IntegrityPledges)
                 {
                     <tr>
@@ -102,7 +102,7 @@
                         <th style="text-align:center">City/Place</th>
                         <th style="text-align:center">Specify program(Debate/Elocution/Panel Discussion etc.)</th>
                         <th style="text-align:center">No. of participants</th>
-                        <th style="text-align:center">Remarks</th>
+                        <th style="text-align:center" width="20%">Remarks</th>
                         <th style="text-align:center">Action</th>
                     </tr>
                 </thead>
@@ -203,7 +203,7 @@
                         <tr>
                             <td style="text-align:center" class="td1">@(++involvingSchoolsIndex)</td>
                             <td style="text-align:center">@item.VAW_Year</td>
-                            <td style="text-align:center">@item.</td>
+                            <td style="text-align:center">@item.StateName</td>
                             <td style="text-align:center">@item.City_Town_Village_Name</td>
                             <td style="text-align:center">@item.SchoolName</td>
                             <td style="text-align:center">@item.ActivityDetails</td>

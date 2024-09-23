@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using System.Web.Mvc;
 
 namespace VAW_WebApplication.Models
 {
@@ -11,7 +10,7 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Please enter year.")]
         [Display(Name = "VAW Year")]
         [RegularExpression(@"^(19|20)\d{2}$", ErrorMessage = "Entry should be a valid year (1900-2099)")]
-        public string VAW_Year { get; set; }
+        public int VAW_Year { get; set; }
         public string UniqueTransactionId { get; set; }
         public string CvoOrgCode { get; set; }
         public string CvoId { get; set; }
@@ -19,11 +18,12 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Choose From date.")]
         [Display(Name = "Date of Activity")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
-        public string DateOfActivity { get; set; }
+        public DateTime DateOfActivity { get; set; }
 
         [Required(ErrorMessage = "Please enter name of State.")]
         [Display(Name = "Name of State")]
         public string StateName { get; set; }
+        public IEnumerable<SelectListItem> StateNameList { get; set; }
 
         [Required(ErrorMessage = "Please enter name of City/Town/Village.")]
         [Display(Name = "Name of City/Town/Village")]

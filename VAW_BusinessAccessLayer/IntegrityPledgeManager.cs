@@ -62,6 +62,14 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.SaveOutreachAwareness(obj);
         }
+        public DataSet GetSeminarsWorkshops(string cvoid)
+        {
+            return IntegrityPledgeDAL.GetSeminarsWorkshops(cvoid);
+        }
+        public int SaveSeminarsWorkshops(Tran_3d_outreach_seminarsworkshops_Model obj)
+        {
+            return IntegrityPledgeDAL.SaveSeminarsWorkshops(obj);
+        }
         public DataSet GetStateList()
         {
             return IntegrityPledgeDAL.GetStateList();

@@ -27,6 +27,8 @@ namespace VAW_WebApplication.Controllers
             DataTable outreachSchoolStudentsTable = integrityPledgeManager.GetInvolvingSchoolStudentsBYCVOID("CVO_SBI").Tables[0];
             DataTable outreachCollegeStudentsTable = integrityPledgeManager.GetInvolvingCollegeStudentsBYCVOID("CVO_SBI").Tables[0];
             DataTable outreachAwarenessTable = integrityPledgeManager.GetOutreachAwarenessBYCVOID("CVO_SBI").Tables[0];
+            DataTable seminarsWorkshopsTable = integrityPledgeManager.GetSeminarsWorkshops("CVO_SBI").Tables[0];
+
             List<Tran_1a_integritypledge_ViewModel> pledgeList = new List<Tran_1a_integritypledge_ViewModel>();
 
             if (integrityTable.Rows.Count >= 1)
@@ -153,6 +155,27 @@ namespace VAW_WebApplication.Controllers
                         NoOfPublicOrCitizenParticipated = Convert.ToInt32(dr["NoOfPublicOrCitizenParticipated"].ToString()),
                     };
                     viewModel.OutActivities_AwarenesGramSabha.Add(vmobj);
+                }
+            }
+
+            if (seminarsWorkshopsTable.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in seminarsWorkshopsTable.Rows)
+                {
+                    Tran_3d_outreach_seminarsworkshops_ViewModel vmobj = new Tran_3d_outreach_seminarsworkshops_ViewModel
+                    {
+                        VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
+                        UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
+                        CvoOrgCode = dr["CvoOrgCode"].ToString(),
+                        CvoId = dr["CvoId"].ToString(),
+                        DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
+                        StateName = dr["StateName"].ToString(),
+                        City_Town_Village_Name = dr["City_Town_Village_Name"].ToString(),
+                        NoOfSeminarsWorkshops = Convert.ToInt32(dr["NoOfSeminarsWorkshops"].ToString()),
+                        ActivityDetails = dr["ActivityDetails"].ToString(),
+                        NoOfPublicOrCitizenParticipated = Convert.ToInt32(dr["NoOfPublicOrCitizenParticipated"].ToString()),
+                    };
+                    viewModel.OutActivities_SeminarsWorkshops.Add(vmobj);
                 }
             }
 
@@ -525,13 +548,66 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateOutreachSeminars()
         {
-            return View();
+            Tran_3d_outreach_seminarsworkshops_ViewModel vmdata = new Tran_3d_outreach_seminarsworkshops_ViewModel();
+            vmdata.VAW_Year = DateTime.Now.Year;
+            vmdata.DateOfActivity = DateTime.Now;
+            vmdata.CvoId = "CVO_SBI";
+            vmdata.CvoOrgCode = "I61";
+            vmdata.StateNameList = new List<SelectListItem>();
+            DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
+            if (StateTable.Rows.Count > 0)
+            {
+                var stateItemList = new List<SelectListItem>();
+                foreach (DataRow dr in StateTable.Rows)
+                {
+                    stateItemList.Add(new SelectListItem
+                    {
+                        Value = dr["States"].ToString(),
+                        Text = dr["States"].ToString()
+                    });
+                }
+                vmdata.StateNameList = stateItemList;
+            }
+            return View(vmdata);
         }
 
         [HttpPost]
-        public ActionResult CreateOutreachSeminars(Tran_3d_outreach_seminarsworkshops_ViewModel vmData)
+        public ActionResult CreateOutreachSeminars(Tran_3d_outreach_seminarsworkshops_ViewModel VmData)
         {
-            return View("Index");
+            //SaveSeminarsWorkshops
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Tran_3d_outreach_seminarsworkshops_Model obj = new Tran_3d_outreach_seminarsworkshops_Model();
+                    string ipadd;
+                    GetIpAddress(out ipadd);
+                    obj.CreatedByIP = ipadd;
+                    obj.CreatedBy = VmData.CvoId;
+                    obj.CvoId = VmData.CvoId;
+                    obj.CvoOrgCode = VmData.CvoOrgCode;
+                    obj.DateOfActivity = VmData.DateOfActivity;
+                    obj.VAW_Year = VmData.VAW_Year;
+                    obj.UniqueTransactionId = Guid.NewGuid().ToString() + "_" + VmData.VAW_Year;
+                    obj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    obj.CreatedBySession = Session.SessionID;
+                    obj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    obj.StateName = VmData.StateName;
+                    obj.City_Town_Village_Name = VmData.City_Town_Village_Name;
+                    obj.NoOfSeminarsWorkshops = VmData.NoOfSeminarsWorkshops;
+                    obj.ActivityDetails = VmData.ActivityDetails;
+                    obj.NoOfPublicOrCitizenParticipated = VmData.NoOfPublicOrCitizenParticipated;
+                    int result = integrityPledgeManager.SaveSeminarsWorkshops(obj);
+                    if (result >= 1)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

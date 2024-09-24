@@ -17,23 +17,23 @@ namespace VAW_WebApplication.Models
         public string CvoOrgCode { get; set; }
         public string CvoId { get; set; }
 
-        [Required(ErrorMessage = "Choose From date.")]
+        [Required(ErrorMessage = "Choose Date of Activity.")]
         [Display(Name = "Date of Activity")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime DateOfActivity { get; set; }
 
-        [Display(Name = "Total No Of Employees Undertaken Pledge")]
-        [Required(ErrorMessage = "Enter Total No of Employees Undertaken Pledge")]
+        [Display(Name = "Total No. Of Employees Undertaken e-pledge")]
+        [Required(ErrorMessage = "Enter Total No of Employees Undertaken e-pledge")]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
         public int TotalNoOfEmployees_UndertakenPledge { get; set; }
 
-        [Display(Name = "Total No Of Customers Undertaken Pledge")]
-        [Required(ErrorMessage = "Enter Total No of Customers Undertaken Pledge")]
+        [Display(Name = "Total No. Of Customers Undertaken e-pledge")]
+        [Required(ErrorMessage = "Enter Total No of Customers Undertaken e-pledge")]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
         public int TotalNoOfCustomers_UndertakenPledge { get; set; }
 
-        [Display(Name = "Total No Of Citizens Undertaken Pledge")]
-        [Required(ErrorMessage = "Enter Total No of Citizens Undertaken Pledge")]
+        [Display(Name = "Total No. Of Citizens Undertaken e-pledge")]
+        [Required(ErrorMessage = "Enter Total No of Citizens Undertaken e-pledge")]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
         public int TotalNoOfCitizen_UndertakenPledge { get; set; }
     }

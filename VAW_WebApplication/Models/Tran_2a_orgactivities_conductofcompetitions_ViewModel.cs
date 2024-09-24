@@ -44,5 +44,8 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Please enter Remarks")]
         [Display(Name = "Remarks")]
         public string Remarks { get; set; }
+
+        [Display(Name = "CVO Organisation")]
+        public string OrganisationName { get; set; }
     }
 }

@@ -36,5 +36,8 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Enter Total No of Citizens Undertaken e-pledge")]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
         public int TotalNoOfCitizen_UndertakenPledge { get; set; }
+
+        [Display(Name = "CVO Organisation")]
+        public string OrganisationName { get; set; }
     }
 }

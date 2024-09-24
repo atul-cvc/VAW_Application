@@ -12,3 +12,5 @@
 /VAW_MODEL/bin
 /VAW_BusinessAccessLayer/obj
 /VAW_BusinessAccessLayer/bin
+bin/
+obj/

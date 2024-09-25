@@ -32,5 +32,8 @@ namespace VAW_WebApplication.Models
                 
         [Display(Name = "Details Of Additional Activities")]
         public string DetailsOfAdditionalActivities { get; set; }
+
+        [Display(Name = "CVO Organisation")]
+        public string OrganisationName { get; set; }
     }
 }

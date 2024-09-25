@@ -33,5 +33,8 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Please enter details regarding Use Of Scocial Media")]
         [Display(Name = "Use Of Scocial Media")]
         public string UserOfScocialMedia { get; set; }
+
+        [Display(Name = "CVO Organisation")]
+        public string OrganisationName { get; set; }
     }
 }

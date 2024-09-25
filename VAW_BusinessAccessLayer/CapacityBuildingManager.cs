@@ -46,6 +46,10 @@ namespace VAW_BusinessAccessLayer
             return list;
         }
 
+        public DataSet GetCapacityBuildingRecordByRecordId(int id)
+        {
+            return CapacityBuildingDAL.GetCapacityBuildingRecordByRecordId(id);
+        }
         public DataSet GetCapacityBuildingRecordByCVOID(string cvoid)
         {
             return CapacityBuildingDAL.GetCapacityBuildingRecordByCVOID(cvoid);
@@ -55,6 +59,10 @@ namespace VAW_BusinessAccessLayer
             return CapacityBuildingDAL.SaveCapacityBuilding(capacityBuildingObj);
         }
 
+        public DataSet GetSystemImpRecordByRecordId(int id)
+        {
+            return CapacityBuildingDAL.GetSystemImpRecordByRecordId(id);
+        }
         public DataSet GetSystemImpRecordByCVOID(string cvoid)
         {
             return CapacityBuildingDAL.GetSystemImpRecordByCVOID(cvoid);
@@ -64,6 +72,10 @@ namespace VAW_BusinessAccessLayer
             return CapacityBuildingDAL.SaveIdentificationAndImplimentation(IdentificationAndImpliObj);
         }
 
+        public DataSet GetCircularsRecordByRecordId(int id)
+        {
+            return CapacityBuildingDAL.GetCircularsRecordByRecordId(id);
+        }
         public DataSet GetCircularsRecordByCVOID(string cvoid)
         {
             return CapacityBuildingDAL.GetCircularsRecordByCVOID(cvoid);
@@ -73,6 +85,10 @@ namespace VAW_BusinessAccessLayer
             return CapacityBuildingDAL.SaveCirculars(CircularModel);
         }
 
+        public DataSet GetDisposalOfComplaintByRecordId(int id)
+        {
+            return CapacityBuildingDAL.GetDisposalOfComplaintByRecordId(id);
+        }
         public DataSet GetDisposalOfComplaintByCVOID(string cvoid)
         {
             return CapacityBuildingDAL.GetDisposalOfComplaintByCVOID(cvoid);
@@ -84,6 +100,10 @@ namespace VAW_BusinessAccessLayer
         }
 
 
+        public DataSet GetDynamicDigitalPresenceByRecordId(int id)
+        {
+            return CapacityBuildingDAL.GetDynamicDigitalPresenceByRecordId(id);
+        }
         public DataSet GetDynamicDigitalPresenceByCVOID(string cvoid)
         {
             return CapacityBuildingDAL.GetDynamicDigitalPresenceByCVOID(cvoid);

@@ -29,9 +29,9 @@ namespace VAW_WebApplication.Controllers
             DataTable outreachSchoolStudentsTable = integrityPledgeManager.GetInvolvingSchoolStudentsBYCVOID("CVO_SBI").Tables[0];
             DataTable outreachCollegeStudentsTable = integrityPledgeManager.GetInvolvingCollegeStudentsBYCVOID("CVO_SBI").Tables[0];
             DataTable outreachAwarenessTable = integrityPledgeManager.GetOutreachAwarenessBYCVOID("CVO_SBI").Tables[0];
-            DataTable seminarsWorkshopsTable = integrityPledgeManager.GetSeminarsWorkshops("CVO_SBI").Tables[0];
-            DataTable otherActivitiesTable = integrityPledgeManager.GetOtherActivities("CVO_SBI").Tables[0];
-            DataTable detailsOfPhotosTable = integrityPledgeManager.GetDetailsOfPhotos("CVO_SBI").Tables[0];
+            DataTable seminarsWorkshopsTable = integrityPledgeManager.GetSeminarsWorkshopsBYCVOID("CVO_SBI").Tables[0];
+            DataTable otherActivitiesTable = integrityPledgeManager.GetOtherActivitiesBYCVOID("CVO_SBI").Tables[0];
+            DataTable detailsOfPhotosTable = integrityPledgeManager.GetDetailsOfPhotosBYCVOID("CVO_SBI").Tables[0];
 
             DataTable OtherRelatedInfo = integrityPledgeManager.GetOtherRelevantInformationBYCVOID("CVO_SBI").Tables[0];
 

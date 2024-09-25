@@ -36,5 +36,8 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Please enter Brief Details")]
         [Display(Name = "Brief Details")]
         public string BriefDetails { get; set; }
+
+        [Display(Name = "CVO Organisation")]
+        public string OrganisationName { get; set; }
     }
 }

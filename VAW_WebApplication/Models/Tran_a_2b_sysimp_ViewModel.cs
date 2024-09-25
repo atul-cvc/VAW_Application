@@ -33,5 +33,8 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Please enter System Improvements suggested during last 5 Years but pending for implementation")]
         [Display(Name = "System Improvements suggested last 5 years but pending for implementation")]
         public string Sys_Imp_Suggested_Last_5_Years_But_Pending { get; set; }
+
+        [Display(Name = "CVO Organisation")]
+        public string OrganisationName { get; set; }
     }
 }

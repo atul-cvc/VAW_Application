@@ -38,5 +38,8 @@ namespace VAW_WebApplication.Models
         [Display(Name = "(If in soft copy) No Of CDs")]
         [RegularExpression("([0-9]*)", ErrorMessage = "Entry should be Number ")]
         public int SoftCopy_NoOfCd { get; set; }
+
+        [Display(Name = "CVO Organisation")]
+        public string OrganisationName { get; set; }
     }
 }

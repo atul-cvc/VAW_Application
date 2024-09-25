@@ -46,7 +46,7 @@ namespace VAW_WebApplication.Controllers
                 List<Tran_a_2b_sysimp_ViewModel> Listofsysimp = new List<Tran_a_2b_sysimp_ViewModel>();
                 DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByCVOID("CVO_SBI").Tables[0];
 
-                if (CapacityTable.Rows.Count >= 1)
+                if (SysImpTable.Rows.Count >= 1)
                 {
                     foreach (DataRow data in SysImpTable.Rows)
                     {
@@ -113,7 +113,7 @@ namespace VAW_WebApplication.Controllers
                 List<Tran_a_5b_dynamicdigitalpresence_ViewModel> ListofDynamicdigital = new List<Tran_a_5b_dynamicdigitalpresence_ViewModel>();
                 DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByCVOID("CVO_SBI").Tables[0];
 
-                if (DisposalOfComplaintTable.Rows.Count >= 1)
+                if (DynamicdigitalTable.Rows.Count >= 1)
                 {
                     foreach (DataRow data in DynamicdigitalTable.Rows)
                     {

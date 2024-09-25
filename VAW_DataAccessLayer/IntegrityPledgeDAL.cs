@@ -204,6 +204,21 @@ namespace VAW_DataAccessLayer
             return EffectedRows;
         }
 
+        public DataSet GetInvolvingSchoolStudentsByRecordId(int id)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachInvolvingSchoolStudents", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
         public DataSet GetInvolvingSchoolStudentsBYCVOID(string cvoid)
         {
             DataSet DS = new DataSet();
@@ -212,6 +227,21 @@ namespace VAW_DataAccessLayer
                 MySqlParameter[] Sqlpara = new MySqlParameter[1];
                 Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
                 DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachInvolvingSchoolStudentsByCVOID", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetInvolvingCollegeStudentsByRecordId(int id)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachInvolvingCollegeStudents", Sqlpara);
             }
             catch (Exception ex)
             {
@@ -295,6 +325,21 @@ namespace VAW_DataAccessLayer
             return EffectedRows;
         }
 
+        public DataSet GetOutreachAwarenessByRecordId(int id)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachAwarenessGramSabhas", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
         public DataSet GetOutreachAwarenessBYCVOID(string cvoid)
         {
             DataSet DS = new DataSet();
@@ -342,7 +387,22 @@ namespace VAW_DataAccessLayer
             return EffectedRows;
         }
 
-        public DataSet GetSeminarsWorkshops(string cvoid)
+        public DataSet GetSeminarsWorkshopsByRecordId(int id)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadSeminarsWorkshops", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetSeminarsWorkshopsBYCVOID(string cvoid)
         {
             DataSet DS = new DataSet();
             try
@@ -388,7 +448,22 @@ namespace VAW_DataAccessLayer
             }
             return EffectedRows;
         }
-        public DataSet GetOtherActivities(string cvoid)
+        public DataSet GetOtherActivitiesByRecordId(int id)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOtherActivities", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetOtherActivitiesBYCVOID(string cvoid)
         {
             DataSet DS = new DataSet();
             try
@@ -433,7 +508,22 @@ namespace VAW_DataAccessLayer
             return EffectedRows;
         }
 
-        public DataSet GetDetailsOfPhotos(string cvoid)
+        public DataSet GetDetailsOfPhotosByRecordId(int id)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadDetailsOfPhotos", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetDetailsOfPhotosBYCVOID(string cvoid)
         {
             DataSet DS = new DataSet();
             try
@@ -495,7 +585,21 @@ namespace VAW_DataAccessLayer
         }
 
 
-        public DataSet GetOtherRelevantInformationBYCVOID(string cvoid)
+        public DataSet GetOtherRelevantInformationByrecordId(int id)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOtherInformation", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }public DataSet GetOtherRelevantInformationBYCVOID(string cvoid)
         {
             DataSet DS = new DataSet();
             try

@@ -43,5 +43,8 @@ namespace VAW_WebApplication.Models
         [Display(Name = "Name of State")]
         public string StateName { get; set; }
         public IEnumerable<SelectListItem> StateNameList { get; set; }
+
+        [Display(Name = "CVO Organisation")]
+        public string OrganisationName { get; set; }
     }
 }

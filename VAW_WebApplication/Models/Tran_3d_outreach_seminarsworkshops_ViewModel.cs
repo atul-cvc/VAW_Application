@@ -44,5 +44,8 @@ namespace VAW_WebApplication.Models
         [Display(Name = "No Of Public / Citizen Participated")]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
         public int NoOfPublicOrCitizenParticipated { get; set; }
+
+        [Display(Name = "CVO Organisation")]
+        public string OrganisationName { get; set; }
     }
 }

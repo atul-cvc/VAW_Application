@@ -1,0 +1,115 @@
+﻿@model VAW_WebApplication.Models.Tran_a_3b_updation_circular_guidelines_manuals_ViewModel
+
+@{
+    ViewBag.Title = "EditUpdationOfCirculars";
+    Layout = "~/Views/Shared/_Layout_Users.cshtml";
+}
+
+<h2>Edit circular guidelines</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.VAW_Year, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label class="control-label col-md-2" for="VAW_Year">VAW YEAR</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VAW_Year, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
+                @Html.HiddenFor(model => model.ID)               
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FromDate, new { @htmlAttributes = new { @class = "form-control", @placeholder = "DD-MM-YYYY", @readonly = "true" } })
+                @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ToDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ToDate, new { @htmlAttributes = new { @class = "form-control", @placeholder = "DD-MM-YYYY", @readonly = "true" } })
+                @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.WhetherUpdatedDuingCampaign, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.WhetherUpdatedDuingCampaign, Model.YesNoOptions, "-Select-", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.WhetherUpdatedDuingCampaign, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BriefDetails, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.BriefDetails, new { @class = "textarea-custom", @id = "myTextArea" })
+                <div id="wordCount" style="margin-top: 10px; margin-left:150px;">Word count: 0 / 500</div>
+                @Html.ValidationMessageFor(model => model.BriefDetails, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-2">
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" value="Update" class="btn btn-success" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+<div>
+    @section Scripts {
+
+        @Scripts.Render("~/bundles/jqueryui")
+        @Styles.Render("~/Content/cssjqryUi")
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('input[type=datetime]').datepicker({
+                    dateFormat: "dd/M/yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "-60:+0"
+                });
+
+            });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const textArea = document.getElementById('myTextArea');
+                const wordCountDisplay = document.getElementById('wordCount');
+                const maxWords = 500;
+
+                textArea.addEventListener('input', function () {
+                    const words = textArea.value.trim().split(/\s+/).filter(Boolean);
+                    const wordCount = words.length;
+
+                    if (wordCount > maxWords) {
+                        textArea.value = words.slice(0, maxWords).join(' ');
+                    }
+
+                    wordCountDisplay.textContent = `Word count: ${Math.min(wordCount, maxWords)} / ${maxWords}`;
+                });
+            });
+        </script>
+
+
+    }
+
+</div>
+

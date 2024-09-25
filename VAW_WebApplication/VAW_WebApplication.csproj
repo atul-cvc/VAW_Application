@@ -308,6 +308,10 @@
     <Content Include="Views\ViewIntegrityPledge\CreateIntegrityPledge.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\UploadPDF.cshtml" />
     <Content Include="Views\ViewVigilanceAwareness\EditCapacityBuilding.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\EditIdentificationAndImplementation.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\EditUpdationOfCirculars.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\EditDisposalOfComplaints.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\EditDigitalDynamicPresence.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

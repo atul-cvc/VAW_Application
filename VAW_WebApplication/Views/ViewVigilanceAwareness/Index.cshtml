@@ -59,7 +59,7 @@
                         <td style="text-align:center">@item.EmployeesTrained</td>
                         <td style="text-align:center">@item.BriefDescription</td>
                         <td style="text-align:center">
-                            <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>                           
+                            @Html.ActionLink("Edit", "EditCapacityBuilding", new { id = item.ID }, new { @class = "btn btn-primary text-center" })                            
                         </td>
                     </tr>
                 }

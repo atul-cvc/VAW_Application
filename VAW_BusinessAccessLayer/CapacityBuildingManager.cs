@@ -23,7 +23,7 @@ namespace VAW_BusinessAccessLayer
                 list = (from DataRow dr in dt.Rows
                         select new Tran_a_1b_capacitybulidingprogram_Model()
                         {
-                            Record_ID = dr["Record_ID"].ToString(),
+                            Record_ID = int.Parse(dr["Record_ID"].ToString()),
                             VAW_Year = dr["VAW_Year"].ToString(),
                             UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
                             CvoOrgCode = dr["CvoOrgCode"].ToString(),
@@ -50,9 +50,18 @@ namespace VAW_BusinessAccessLayer
         {
             return CapacityBuildingDAL.GetCapacityBuildingRecordByCVOID(cvoid);
         }
+        public DataSet GetCapacityBuildingRecordByID(int ID)
+        {
+            return CapacityBuildingDAL.GetCapacityBuildingRecordByID(ID);
+        }
         public int SaveCapacityBuilding(Tran_a_1b_capacitybulidingprogram_Model capacityBuildingObj)
         {
             return CapacityBuildingDAL.SaveCapacityBuilding(capacityBuildingObj);
+        }
+
+        public int UpdateCapacityBuilding(Tran_a_1b_capacitybulidingprogram_Model capacityBuildingObj)
+        {
+            return CapacityBuildingDAL.UpdateCapacityBuilding(capacityBuildingObj);
         }
 
         public DataSet GetSystemImpRecordByCVOID(string cvoid)

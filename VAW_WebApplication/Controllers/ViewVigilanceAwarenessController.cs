@@ -31,6 +31,7 @@ namespace VAW_WebApplication.Controllers
                     {
                         Tran_a_1b_capacitybulidingprogram_ViewModel vmobj = new Tran_a_1b_capacitybulidingprogram_ViewModel
                         {
+                            ID= int.Parse(data["Record_ID"].ToString()),
                             VAW_Year = data["VAW_Year"].ToString(),
                             FromDate = Convert.ToDateTime(data["FromDate"].ToString()),
                             ToDate = Convert.ToDateTime(data["ToDate"].ToString()),
@@ -52,6 +53,7 @@ namespace VAW_WebApplication.Controllers
                     {
                         Tran_a_2b_sysimp_ViewModel vmobjsysimp = new Tran_a_2b_sysimp_ViewModel
                         {
+                            ID = int.Parse(data["Record_ID"].ToString()),
                             VAW_Year = data["VAW_Year"].ToString(),
                             FromDate = Convert.ToDateTime(data["FromDate"].ToString()),
                             ToDate = Convert.ToDateTime(data["ToDate"].ToString()),
@@ -74,6 +76,7 @@ namespace VAW_WebApplication.Controllers
                     {
                         Tran_a_3b_updation_circular_guidelines_manuals_ViewModel vmobjCircular = new Tran_a_3b_updation_circular_guidelines_manuals_ViewModel
                         {
+                            ID = int.Parse(data["Record_ID"].ToString()),
                             VAW_Year = data["VAW_Year"].ToString(),
                             FromDate = Convert.ToDateTime(data["FromDate"].ToString()),
                             ToDate = Convert.ToDateTime(data["ToDate"].ToString()),
@@ -96,6 +99,7 @@ namespace VAW_WebApplication.Controllers
                     {
                         Tran_a_4b_disposalofcomplaints_ViewModel vmobjDisposal = new Tran_a_4b_disposalofcomplaints_ViewModel
                         {
+                            ID = int.Parse(data["Record_ID"].ToString()),
                             VAW_Year = data["VAW_Year"].ToString(),
                             NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 = int.Parse(data["NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608"].ToString()),
                             Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 = data["Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608"].ToString(),
@@ -119,7 +123,7 @@ namespace VAW_WebApplication.Controllers
                     {
                         Tran_a_5b_dynamicdigitalpresence_ViewModel vmobjDynamicdigital = new Tran_a_5b_dynamicdigitalpresence_ViewModel
                         {
-
+                            ID = int.Parse(data["Record_ID"].ToString()),
                             VAW_Year = data["VAW_Year"].ToString(),
                             WhetherRegularMaintenanceOfWebsiteUpdationDone = data["WhetherRegularMaintenanceOfWebsiteUpdationDone"].ToString(),
                             SystemIntroducedForUpdationAndReview = data["SystemIntroducedForUpdationAndReview"].ToString(),
@@ -129,10 +133,6 @@ namespace VAW_WebApplication.Controllers
                         ListofDynamicdigital.Add(vmobjDynamicdigital);
                     }
                 }
-
-                
-
-
 
 
                 modelobj.CapacityBuiliding_VM = ListofCapBuilding;
@@ -148,6 +148,8 @@ namespace VAW_WebApplication.Controllers
             }
             return View();
         }
+
+
         [HttpGet]
         public ActionResult CreateCapacityBuilding()
         {
@@ -210,6 +212,77 @@ namespace VAW_WebApplication.Controllers
             };
             return View(vmdata);
         }
+
+
+
+        [HttpGet]
+        public ActionResult EditCapacityBuilding(int ID)
+        {
+            DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByID(ID).Tables[0];          
+                            
+            Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
+            vmdata.ID = ID;
+            vmdata.VAW_Year = CapacityTable.Rows[0]["VAW_Year"].ToString();
+            vmdata.CvoId = CapacityTable.Rows[0]["CvoId"].ToString();
+            vmdata.CvoOrgCode = CapacityTable.Rows[0]["CvoOrgCode"].ToString();
+            vmdata.FromDate = Convert.ToDateTime(CapacityTable.Rows[0]["FromDate"].ToString());
+            vmdata.ToDate = Convert.ToDateTime(CapacityTable.Rows[0]["ToDate"].ToString());
+            vmdata.EmployeesTrained = int.Parse(CapacityTable.Rows[0]["EmployeesTrained"].ToString());
+            vmdata.TrainingName = CapacityTable.Rows[0]["TrainingName"].ToString();
+            vmdata.TrainingNameList = new List<SelectListItem> {
+                new SelectListItem { Value = "FRESH", Text = "Fresh Inductees" },
+                new SelectListItem { Value = "REFRESH", Text = "Refresher Course" }
+            };
+            vmdata.BriefDescription= CapacityTable.Rows[0]["BriefDescription"].ToString();
+
+            return View(vmdata);
+        }
+
+        [HttpPost]
+        public ActionResult EditCapacityBuilding(Tran_a_1b_capacitybulidingprogram_ViewModel VmData)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Tran_a_1b_capacitybulidingprogram_Model Capbulidobj = new Tran_a_1b_capacitybulidingprogram_Model();
+                    string ipadd;
+                    GetIpAddress(out ipadd);
+                    Capbulidobj.Record_ID = VmData.ID;
+                    Capbulidobj.CreatedByIP = ipadd;
+                    Capbulidobj.CreatedBy = VmData.CvoId;                   
+                    Capbulidobj.VAW_Year = VmData.VAW_Year;
+                    Capbulidobj.FromDate = VmData.FromDate;
+                    Capbulidobj.ToDate = VmData.ToDate;
+                    Capbulidobj.TrainingName = VmData.TrainingName;
+                    Capbulidobj.EmployeesTrained = VmData.EmployeesTrained;
+                    Capbulidobj.BriefDescription = VmData.BriefDescription;                   
+                    Capbulidobj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    Capbulidobj.CreatedBySession = Session.SessionID;
+                    int result = capacityBuildingManager.UpdateCapacityBuilding(Capbulidobj);
+                    if (result >= 1)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
+            vmdata.VAW_Year = DateTime.Now.Year.ToString();
+            vmdata.CvoId = "CVO_SBI";
+            vmdata.CvoOrgCode = "I61";
+            vmdata.FromDate = DateTime.Now;
+            vmdata.ToDate = DateTime.Now;
+            vmdata.TrainingNameList = new List<SelectListItem> {
+            new SelectListItem { Value = "FRESH", Text = "Fresh Inductees" },
+            new SelectListItem { Value = "REFRESH", Text = "Refresher Course" }
+            };
+            return View(vmdata);
+        }
+
 
         [HttpGet]
         public ActionResult CreateIdentificationAndImplementation()

@@ -31,7 +31,7 @@ namespace VAW_BusinessAccessLayer
                             FromDate = DateTime.Parse(dr["FromDate"].ToString()),
                             ToDate = DateTime.Parse(dr["ToDate"].ToString()),
                             TrainingName = dr["TrainingName"].ToString(),
-                            EmployeesTrained =int.Parse(dr["EmployeesTrained"].ToString()),
+                            EmployeesTrained = int.Parse(dr["EmployeesTrained"].ToString()),
                             BriefDescription = dr["BriefDescription"].ToString(),
                             CreatedOn = dr["CreatedOn"].ToString(),
                             CreatedBy = dr["CreatedBy"].ToString(),
@@ -46,6 +46,8 @@ namespace VAW_BusinessAccessLayer
             return list;
         }
 
+
+        #region Capacity Building .1
         public DataSet GetCapacityBuildingRecordByCVOID(string cvoid)
         {
             return CapacityBuildingDAL.GetCapacityBuildingRecordByCVOID(cvoid);
@@ -58,52 +60,85 @@ namespace VAW_BusinessAccessLayer
         {
             return CapacityBuildingDAL.SaveCapacityBuilding(capacityBuildingObj);
         }
-
         public int UpdateCapacityBuilding(Tran_a_1b_capacitybulidingprogram_Model capacityBuildingObj)
         {
             return CapacityBuildingDAL.UpdateCapacityBuilding(capacityBuildingObj);
         }
 
+        #endregion
+        //===============================================================================================================================
+        #region Identification and Implementation of Systemic Improvement Measures .2
         public DataSet GetSystemImpRecordByCVOID(string cvoid)
         {
             return CapacityBuildingDAL.GetSystemImpRecordByCVOID(cvoid);
+        }
+        public DataSet GetSystemImpRecordByRecordID(int ID)
+        {
+            return CapacityBuildingDAL.GetSystemImpRecordByRecordID(ID);
         }
         public int SaveIdentificationAndImplimentation(Tran_a_2b_sysimp_Model IdentificationAndImpliObj)
         {
             return CapacityBuildingDAL.SaveIdentificationAndImplimentation(IdentificationAndImpliObj);
         }
-
+        public int UpdateIdentificationAndImplimentation(Tran_a_2b_sysimp_Model IdentificationAndImpliObj)
+        {
+            return CapacityBuildingDAL.UpdateIdentificationAndImplimentation(IdentificationAndImpliObj);
+        }
+        #endregion
+        //===============================================================================================================================
+        #region Updation of Circulars .3
         public DataSet GetCircularsRecordByCVOID(string cvoid)
         {
             return CapacityBuildingDAL.GetCircularsRecordByCVOID(cvoid);
         }
+        public DataSet GetCircularsByRecordID(int ID)
+        {
+            return CapacityBuildingDAL.GetCircularsByRecordID(ID);
+        }
+
         public int SaveCirculars(Tran_a_3b_updation_circular_guidelines_manuals_Model CircularModel)
         {
             return CapacityBuildingDAL.SaveCirculars(CircularModel);
         }
 
+        #endregion
+        //===============================================================================================================================
+        #region Disposal of Complaints .4
         public DataSet GetDisposalOfComplaintByCVOID(string cvoid)
         {
             return CapacityBuildingDAL.GetDisposalOfComplaintByCVOID(cvoid);
+        }
+        public DataSet GetDisposalOfComplaintByRecordID(int ID)
+        {
+            return CapacityBuildingDAL.GetDisposalOfComplaintByRecordID(ID);
         }
 
         public int SaveDisposalOfComplaint(Tran_a_4b_disposalofcomplaints_Model DisposalOfComlaintObj)
         {
             return CapacityBuildingDAL.SaveDisposalOfComplaint(DisposalOfComlaintObj);
         }
-
+        #endregion
+        //===============================================================================================================================
+        #region Digital Dynamic Presence .5
 
         public DataSet GetDynamicDigitalPresenceByCVOID(string cvoid)
         {
             return CapacityBuildingDAL.GetDynamicDigitalPresenceByCVOID(cvoid);
         }
+        public DataSet GetDynamicDigitalPresenceByRecordID(int ID)
+        {
+            return CapacityBuildingDAL.GetDynamicDigitalPresenceByRecordID(ID);
+        }
 
-        
         public int SaveDynamicDigitalPresence(Tran_a_5b_dynamicdigitalpresence_Model DigitalDynObj)
         {
             return CapacityBuildingDAL.SaveDynamicDigitalPresence(DigitalDynObj);
         }
+        public int UpdateDynamicDigitalPresence(Tran_a_5b_dynamicdigitalpresence_Model DigitalDynObj)
+        {
+            return CapacityBuildingDAL.UpdateDynamicDigitalPresence(DigitalDynObj);
+        }
 
-        
+        #endregion
     }
 }

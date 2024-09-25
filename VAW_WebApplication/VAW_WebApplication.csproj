@@ -312,6 +312,10 @@
     <Content Include="Views\Admin\ViewVigilanceAwareness.cshtml" />
     <Content Include="Views\Admin\ViewIntegrityPledge.cshtml" />
     <Content Include="Views\ViewVigilanceAwareness\EditCapacityBuilding.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\EditIdentificationAndImplementation.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\EditUpdationOfCirculars.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\EditDisposalOfComplaints.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\EditDigitalDynamicPresence.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\EditIntegrityPledge.cshtml" />
   </ItemGroup>
   <ItemGroup>

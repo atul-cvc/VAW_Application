@@ -105,7 +105,7 @@
                         <td style="text-align:center">@item.Sys_Imp_Implemented_During_Campaign</td>
                         <td style="text-align:center">@item.Sys_Imp_Suggested_Last_5_Years_But_Pending</td>
                         <td style="text-align:center">
-                            <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                            @Html.ActionLink("Edit", "EditIdentificationAndImplementation", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
                     </tr>
                 }
@@ -145,8 +145,8 @@
                         <td style="text-align:center">@item.FromDate.ToString("dd-MM-yyyy") To @item.ToDate.ToString("dd-MM-yyyy")</td>
                         <td style="text-align:center">@item.WhetherUpdatedDuingCampaign</td>
                         <td style="text-align:center">@item.BriefDetails</td>
-                        <td style="text-align:center">
-                            <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                        <td style="text-align:center">                            
+                            @Html.ActionLink("Edit", "EditUpdationOfCirculars", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
                     </tr>
                 }
@@ -198,7 +198,7 @@
                         <td style="text-align:center">@item.NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511</td>
                         <td style="text-align:center">@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511</td>
                         <td style="text-align:center">
-                            <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                            @Html.ActionLink("Edit", "EditDisposalOfComplaints", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
                     </tr>
                 }
@@ -245,7 +245,7 @@
                         <td style="text-align:center">@item.WhetherAdditionalAreas_Activities_ServicesBroughtOnline</td>
                         <td style="text-align:center">@item.DetailsOfAdditionalActivities</td>
                         <td style="text-align:center">
-                            <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                            @Html.ActionLink("Edit", "EditDigitalDynamicPresence", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
                     </tr>
                 }

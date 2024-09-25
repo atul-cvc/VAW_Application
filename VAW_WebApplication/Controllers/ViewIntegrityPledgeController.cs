@@ -43,6 +43,7 @@ namespace VAW_WebApplication.Controllers
                 {
                     Tran_1a_integritypledge_ViewModel vmobj = new Tran_1a_integritypledge_ViewModel
                     {
+                        ID= Convert.ToInt32(dr["Record_Id"].ToString()),
                         VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
                         UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
                         CvoOrgCode = dr["CvoOrgCode"].ToString(),
@@ -247,7 +248,7 @@ namespace VAW_WebApplication.Controllers
             return View(viewModel);
         }
 
-
+        #region Integrity Pledge 1
         [HttpGet]
         public ActionResult CreateIntegrityPledge()
         {
@@ -295,6 +296,56 @@ namespace VAW_WebApplication.Controllers
             }
             return View("Index");
         }
+
+        [HttpGet]
+        public ActionResult EditIntegrityPledge(int ID)
+        {
+            Tran_1a_integritypledge_ViewModel vmdata = new Tran_1a_integritypledge_ViewModel();
+            vmdata.VAW_Year = DateTime.Now.Year;
+            vmdata.CvoId = "CVO_SBI";
+            vmdata.CvoOrgCode = "I61";
+            vmdata.DateOfActivity = DateTime.Now;
+            return View(vmdata);
+        }
+
+        [HttpPost]
+        public ActionResult EditIntegrityPledge(Tran_1a_integritypledge_ViewModel VmData)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Tran_1a_integritypledge_Model obj = new Tran_1a_integritypledge_Model();
+                    string ipadd;
+                    GetIpAddress(out ipadd);
+                    obj.CreatedByIP = ipadd;
+                    obj.CreatedBy = VmData.CvoId;
+                    obj.CvoId = VmData.CvoId;
+                    obj.CvoOrgCode = VmData.CvoOrgCode;
+                    obj.TotalNoOfEmployees_UndertakenPledge = VmData.TotalNoOfEmployees_UndertakenPledge;
+                    obj.TotalNoOfCustomers_UndertakenPledge = VmData.TotalNoOfCustomers_UndertakenPledge;
+                    obj.TotalNoOfCitizen_UndertakenPledge = VmData.TotalNoOfCitizen_UndertakenPledge;
+                    obj.DateOfActivity = VmData.DateOfActivity;
+                    obj.VAW_Year = VmData.VAW_Year;
+                    obj.UniqueTransactionId = Guid.NewGuid().ToString() + "_" + VmData.VAW_Year;
+                    obj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    obj.CreatedBySession = Session.SessionID;
+                    obj.UpdatedBy = Session.SessionID;
+                    int result = integrityPledgeManager.SaveIntegrityPledge(obj);
+                    if (result >= 1)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return View("Index");
+        }
+        #endregion
+
 
         [HttpGet]
         public ActionResult CreateConductOfCompetitions()

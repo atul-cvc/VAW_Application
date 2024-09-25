@@ -68,10 +68,10 @@
                         <td style="text-align:center">@item.VAW_Year</td>
                         <td style="text-align:center">@item.TotalNoOfEmployees_UndertakenPledge</td>
                         <td style="text-align:center">@item.TotalNoOfCustomers_UndertakenPledge</td>
-                        <td style="text-align:center">@item.TotalNoOfCitizen_UndertakenPledge</td>
-                        <td style="text-align:center">
-                            <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
-                        </td>
+                        <td style="text-align:center">@item.TotalNoOfCitizen_UndertakenPledge</td>                  
+                    <td style="text-align:center">
+                        @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
+                    </td>
                     </tr>
                 }
             </tbody>
@@ -459,6 +459,7 @@
                     <th style="text-align:center" width="15%">VAW Year</th>
                     <th style="text-align:center" width="15%">Activity Date</th>
                     <th style="text-align:center">DetailsOfActivity</th>
+                    <th style="text-align:center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -482,6 +483,7 @@
 
 <script>
     $(document).ready(function () {
-        $('#IntegrityPledgeTable, #ConductTable, #Activities_OtherActivities, #InvolvingStudentsSchools, #InvolvingStudentsColleges, #AwarenessGramSabhas, #AwarenessSeminarsWorkshops, #OtherActivitiesTable, #DetailsOfPhotosTable, #RelevantInfoTable').DataTable();
+        $('#IntegrityPledgeTable, #ConductTable, #Activities_OtherActivities, #InvolvingStudentsSchools, #InvolvingStudentsColleges, #AwarenessGramSabhas, #AwarenessSeminarsWorkshops, #OtherActivitiesTable, #DetailsOfPhotosTable, #RelevantInfoTable')
+            .DataTable();
     });
 </script>

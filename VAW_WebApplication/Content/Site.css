@@ -194,5 +194,10 @@ tfoot {
         border-right: 1px groove #ccc; /* Optional: add border for table cells */
     }
 
+.dataTables_length{
+    margin-top:8px !important;
+    font-weight: 300 !important;
+}
+
 /* styles.css */
 

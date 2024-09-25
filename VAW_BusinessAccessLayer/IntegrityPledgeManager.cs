@@ -12,6 +12,10 @@ namespace VAW_BusinessAccessLayer
     public class IntegrityPledgeManager
     {
         IntegrityPledgeDAL IntegrityPledgeDAL = new IntegrityPledgeDAL();
+        public DataSet GetIntegrityPledgeByRecordId(int id)
+        {
+            return IntegrityPledgeDAL.GetIntegrityPledgeByRecordId(id);
+        }
         public DataSet GetIntegrityPledgeByCVOID(string cvoid)
         {
             return IntegrityPledgeDAL.GetIntegrityPledgeBYCVOID(cvoid);
@@ -22,6 +26,10 @@ namespace VAW_BusinessAccessLayer
             return IntegrityPledgeDAL.SaveIntegrityPledge(obj);
         }
 
+        public DataSet GetConductOfCompetitionsByRecordId(int id)
+        {
+            return IntegrityPledgeDAL.GetConductOfCompetitionsByRecordId(id);
+        }
         public DataSet GetConductOfCompetitionsByCVOID(string cvoid)
         {
             return IntegrityPledgeDAL.GetConductOfCompetitionsBYCVOID(cvoid);
@@ -29,6 +37,10 @@ namespace VAW_BusinessAccessLayer
         public int SaveConductOfCompetitions(Tran_2a_orgactivities_conductofcompetitions_Model obj)
         {
             return IntegrityPledgeDAL.SaveConductOfCompetitions(obj);
+        }
+        public DataSet GetActivitiesOtherActivitiesByRecordId(int id)
+        {
+            return IntegrityPledgeDAL.GetActivitiesOtherActivitiesByRecordId(id);
         }
         public DataSet GetActivitiesOtherActivities(string cvoid)
         {

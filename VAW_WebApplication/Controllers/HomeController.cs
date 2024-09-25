@@ -17,6 +17,7 @@ namespace VAW_WebApplication.Controllers
     public class HomeController : Controller
     {
         LoginManager loginManager = new LoginManager();
+        bool isAdmin = true;
         public ActionResult Index()
         {
             return View();
@@ -53,6 +54,12 @@ namespace VAW_WebApplication.Controllers
                     {
                         loginViewModal = logindata[0];
                         Session["LogedUser"] = loginViewModal;
+                        if (isAdmin)
+                        {
+                            Session["UserRole"] = "ROLE_ADMIN";
+                            string ur = Session["UserRole"] as string;
+                            return RedirectToAction("Index", "Admin");
+                        }
                         return RedirectToAction("Index", "Dashboard");
 
                     }

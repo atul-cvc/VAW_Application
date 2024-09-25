@@ -9,7 +9,7 @@ namespace VAW_Models
 {
     public class CommonModel
     {
-        public string Record_ID { get; set; }
+        public int Record_ID { get; set; }
         public string CreatedOn { get; set; }
         public string CreatedBy { get; set; }
         public string CreatedByIP { get; set; }

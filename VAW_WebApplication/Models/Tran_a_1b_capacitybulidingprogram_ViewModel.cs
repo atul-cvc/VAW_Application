@@ -9,6 +9,7 @@ namespace VAW_WebApplication.Models
 {
     public class Tran_a_1b_capacitybulidingprogram_ViewModel
     {
+        public int ID { get; set; }
         public string VAW_Year { get; set; }
         public string UniqueTransactionId { get; set; }
         public string CvoOrgCode { get; set; }

@@ -73,6 +73,21 @@ namespace VAW_DataAccessLayer
             }
             return DS;
         }
+        public DataSet GetCapacityBuildingRecordByID(int ID)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", ID);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadCapacityBuildingProgram", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
         public void CreateCapacityBuilding()
         {
             //MySqlParameter[] parameters = new MySqlParameter[]
@@ -141,6 +156,33 @@ namespace VAW_DataAccessLayer
                 errolog.WriteErrorLog(ex);
             }
             return DS;
+        }
+
+        public int UpdateCapacityBuilding(Tran_a_1b_capacitybulidingprogram_Model capacityBuildingObj)
+        {
+            int EffectedRows = 0;
+            try
+            {                
+                MySqlParameter[] Sqlpara = new MySqlParameter[11];
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", capacityBuildingObj.Record_ID);
+                Sqlpara[1] = new MySqlParameter("@p_VAW_Year", capacityBuildingObj.VAW_Year);                
+                Sqlpara[2] = new MySqlParameter("@p_FromDate", capacityBuildingObj.FromDate);
+                Sqlpara[3] = new MySqlParameter("@p_ToDate", capacityBuildingObj.ToDate);
+                Sqlpara[4] = new MySqlParameter("@p_TrainingName", capacityBuildingObj.TrainingName);
+                Sqlpara[5] = new MySqlParameter("@p_EmployeesTrained", capacityBuildingObj.EmployeesTrained);
+                Sqlpara[6] = new MySqlParameter("@p_BriefDescription", capacityBuildingObj.BriefDescription);
+                Sqlpara[7] = new MySqlParameter("@p_CreatedOn", capacityBuildingObj.CreatedOn);
+                Sqlpara[8] = new MySqlParameter("@p_CreatedBy", capacityBuildingObj.CreatedBy);
+                Sqlpara[9] = new MySqlParameter("@p_CreatedByIP", capacityBuildingObj.CreatedByIP);
+                Sqlpara[10] = new MySqlParameter("@p_CreatedBySession", capacityBuildingObj.CreatedBySession);
+
+                EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_UpdateCapacityBuildingProgram", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return EffectedRows;
         }
 
         public DataSet GetSystemImpRecordByCVOID(string cvoid)

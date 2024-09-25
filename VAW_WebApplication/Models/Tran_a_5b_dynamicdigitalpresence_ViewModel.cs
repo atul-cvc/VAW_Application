@@ -9,7 +9,7 @@ namespace VAW_WebApplication.Models
 {
     public class Tran_a_5b_dynamicdigitalpresence_ViewModel
     {
-        
+        public int ID { get; set; }
         [Display(Name = "VAW Year")]
         public string VAW_Year { get; set; }
         public string UniqueTransactionId { get; set; }    

@@ -8,6 +8,7 @@ namespace VAW_WebApplication.Models
 {
     public class Tran_a_4b_disposalofcomplaints_ViewModel
     {
+        public int ID { get; set; }
         [Required(ErrorMessage = "Please enter year.")]
         [Display(Name = "VAW Year")]
         [RegularExpression(@"^(19|20)\d{2}$", ErrorMessage = "Entry should be a valid year (1900-2099)")]

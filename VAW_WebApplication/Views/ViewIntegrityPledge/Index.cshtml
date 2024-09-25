@@ -49,18 +49,6 @@
                 </tr>
             </thead>
             <tbody>
-                @*@for(int i=0;i<=11;i++){
-                    <tr>
-                        <td class="td1" style="text-align:center">@(++integrityIndex)</td>
-                        <td style="text-align:center">@(2024+i)</td>
-                        <td style="text-align:center">asd</td>
-                        <td style="text-align:center">sdf</td>
-                        <td style="text-align:center">asdf</td>
-                        <td style="text-align:center">
-                            <a class="btn btn-primary text-center" style="align-self: center !important">Edit</a>
-                        </td>
-                    </tr>
-                }*@
                 @foreach (var item in Model.IntegrityPledges)
                 {
                     <tr>
@@ -68,10 +56,10 @@
                         <td style="text-align:center">@item.VAW_Year</td>
                         <td style="text-align:center">@item.TotalNoOfEmployees_UndertakenPledge</td>
                         <td style="text-align:center">@item.TotalNoOfCustomers_UndertakenPledge</td>
-                        <td style="text-align:center">@item.TotalNoOfCitizen_UndertakenPledge</td>                  
-                    <td style="text-align:center">
-                        @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
-                    </td>
+                        <td style="text-align:center">@item.TotalNoOfCitizen_UndertakenPledge</td>
+                        <td style="text-align:center">
+                            @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -118,7 +106,7 @@
                             <td style="text-align:center">@item.NoOfParticipant</td>
                             <td style="text-align:center">@item.Remarks</td>
                             <td style="text-align:center">
-                                <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                                @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                             </td>
                         </tr>
                     }
@@ -158,7 +146,7 @@
                             <td style="text-align:center">@item.IssueOfJornalAndNwesletter_Details</td>
                             <td style="text-align:center">@item.AnyOtherActivities_Details</td>
                             <td style="text-align:center">
-                                <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                                @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                             </td>
                         </tr>
                     }
@@ -209,7 +197,7 @@
                             <td style="text-align:center">@item.ActivityDetails</td>
                             <td style="text-align:center">@item.NoOfStudentsInvolved</td>
                             <td style="text-align:center">
-                                <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                                @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                             </td>
                         </tr>
                     }
@@ -252,7 +240,7 @@
                             <td style="text-align:center">@item.ActivityDetails</td>
                             <td style="text-align:center">@item.NoOfStudentsInvolved</td>
                             <td style="text-align:center">
-                                <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                                @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                             </td>
                         </tr>
                     }
@@ -295,7 +283,7 @@
                             <td style="text-align:center">@item.ActivityDetails</td>
                             <td style="text-align:center">@item.NoOfPublicOrCitizenParticipated</td>
                             <td style="text-align:center">
-                                <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                                @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                             </td>
                         </tr>
                     }
@@ -338,7 +326,7 @@
                             <td style="text-align:center">@item.ActivityDetails</td>
                             <td style="text-align:center">@item.NoOfPublicOrCitizenParticipated</td>
                             <td style="text-align:center">
-                                <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                                @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                             </td>
                         </tr>
                     }
@@ -383,7 +371,7 @@
                         <td style="text-align:center">@item.NoOfGrievanceRedressalCampsHeld</td>
                         <td style="text-align:center">@item.UserOfScocialMedia</td>
                         <td style="text-align:center">
-                            <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                            @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
                     </tr>
                 }
@@ -430,7 +418,7 @@
                         <td style="text-align:center">@item.WhetherPhotosSentAsSoftCopyOrHardCopy</td>
                         <td style="text-align:center">@item.SoftCopy_NoOfCd</td>
                         <td style="text-align:center">
-                            <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                            @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
                     </tr>
                 }
@@ -471,7 +459,7 @@
                         <td style="text-align:center">@item.DateOfActivity.ToString("dd-MM-yyyy") </td>
                         <td style="text-align:center">@item.DetailsOfActivity</td>
                         <td style="text-align:center">
-                            <a class="btn btn-primary text-center" style="align-self:center !important">Edit</a>
+                            @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
                     </tr>
                 }

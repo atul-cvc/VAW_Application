@@ -87,20 +87,22 @@ namespace VAW_BusinessAccessLayer
         #endregion
         //===============================================================================================================================
         #region Updation of Circulars .3
-        public DataSet GetCircularsRecordByCVOID(string cvoid)
-        {
-            return CapacityBuildingDAL.GetCircularsRecordByCVOID(cvoid);
-        }
-        public DataSet GetCircularsByRecordID(int ID)
-        {
-            return CapacityBuildingDAL.GetCircularsByRecordID(ID);
-        }
-
-        public int SaveCirculars(Tran_a_3b_updation_circular_guidelines_manuals_Model CircularModel)
-        {
-            return CapacityBuildingDAL.SaveCirculars(CircularModel);
-        }
-
+            public DataSet GetCircularsRecordByCVOID(string cvoid)
+            {
+                return CapacityBuildingDAL.GetCircularsRecordByCVOID(cvoid);
+            }
+            public DataSet GetCircularsByRecordID(int ID)
+            {
+                return CapacityBuildingDAL.GetCircularsByRecordID(ID);
+            }
+            public int SaveCirculars(Tran_a_3b_updation_circular_guidelines_manuals_Model CircularModel)
+            {
+                return CapacityBuildingDAL.SaveCirculars(CircularModel);
+            }
+            public int UpdateCirculars(Tran_a_3b_updation_circular_guidelines_manuals_Model CircularModel)
+            {
+                return CapacityBuildingDAL.UpdateCirculars(CircularModel);
+            }
         #endregion
         //===============================================================================================================================
         #region Disposal of Complaints .4
@@ -116,6 +118,10 @@ namespace VAW_BusinessAccessLayer
         public int SaveDisposalOfComplaint(Tran_a_4b_disposalofcomplaints_Model DisposalOfComlaintObj)
         {
             return CapacityBuildingDAL.SaveDisposalOfComplaint(DisposalOfComlaintObj);
+        }
+        public int UpdateDisposalOfComplaint(Tran_a_4b_disposalofcomplaints_Model DisposalOfComlaintObj)
+        {
+            return CapacityBuildingDAL.UpdateDisposalOfComplaint(DisposalOfComlaintObj);
         }
         #endregion
         //===============================================================================================================================

@@ -114,7 +114,10 @@ namespace VAW_BusinessAccessLayer
         {
             return CapacityBuildingDAL.SaveCirculars(CircularModel);
         }
-
+        public int UpdateCirculars(Tran_a_3b_updation_circular_guidelines_manuals_Model CircularModel)
+        {
+            return CapacityBuildingDAL.UpdateCirculars(CircularModel);
+        }
         #endregion
         //===============================================================================================================================
         #region Disposal of Complaints .4
@@ -134,6 +137,10 @@ namespace VAW_BusinessAccessLayer
         public int SaveDisposalOfComplaint(Tran_a_4b_disposalofcomplaints_Model DisposalOfComlaintObj)
         {
             return CapacityBuildingDAL.SaveDisposalOfComplaint(DisposalOfComlaintObj);
+        }
+        public int UpdateDisposalOfComplaint(Tran_a_4b_disposalofcomplaints_Model DisposalOfComlaintObj)
+        {
+            return CapacityBuildingDAL.UpdateDisposalOfComplaint(DisposalOfComlaintObj);
         }
         #endregion
         //===============================================================================================================================

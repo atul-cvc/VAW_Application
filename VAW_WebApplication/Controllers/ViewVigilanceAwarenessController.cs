@@ -491,19 +491,16 @@ namespace VAW_WebApplication.Controllers
                     Tran_a_3b_updation_circular_guidelines_manuals_Model Circularobj = new Tran_a_3b_updation_circular_guidelines_manuals_Model();
                     string ipadd;
                     GetIpAddress(out ipadd);
-                    Circularobj.CreatedByIP = ipadd;
-                    Circularobj.CreatedBy = VmData.CvoId;
-                    Circularobj.CvoId = VmData.CvoId;
-                    Circularobj.CvoOrgCode = VmData.CvoOrgCode;
+                    Circularobj.Record_ID = VmData.ID;                             
                     Circularobj.VAW_Year = VmData.VAW_Year;
                     Circularobj.FromDate = VmData.FromDate;
                     Circularobj.ToDate = VmData.ToDate;
                     Circularobj.WhetherUpdatedDuingCampaign = VmData.WhetherUpdatedDuingCampaign;
                     Circularobj.BriefDetails = VmData.BriefDetails;
-                    Circularobj.UniqueTransactionId = Guid.NewGuid().ToString() + "_" + VmData.VAW_Year;
+                    Circularobj.CreatedBy = VmData.CvoId;
                     Circularobj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    Circularobj.CreatedBySession = Session.SessionID;
-                    int result = capacityBuildingManager.SaveCirculars(Circularobj);
+                    Circularobj.CreatedByIP = ipadd;                    
+                    int result = capacityBuildingManager.UpdateCirculars(Circularobj);
                     if (result >= 1)
                     {
                         return RedirectToAction("Index");
@@ -609,21 +606,19 @@ namespace VAW_WebApplication.Controllers
                     Tran_a_4b_disposalofcomplaints_Model vmmodal = new Tran_a_4b_disposalofcomplaints_Model();
                     string ipadd;
                     GetIpAddress(out ipadd);
+                    vmmodal.Record_ID=VmData.ID;
                     vmmodal.CreatedByIP = ipadd;
                     vmmodal.CreatedBy = VmData.CvoId;
-                    vmmodal.CvoId = VmData.CvoId;
-                    vmmodal.CvoOrgCode = VmData.CvoOrgCode;
                     vmmodal.VAW_Year = VmData.VAW_Year;
                     vmmodal.NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 = VmData.NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608;
                     vmmodal.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 = VmData.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608;
                     vmmodal.NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign = VmData.NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign;
                     vmmodal.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign = VmData.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign;
                     vmmodal.NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 = VmData.NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511;
-                    vmmodal.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 = VmData.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511;
-                    vmmodal.UniqueTransactionId = Guid.NewGuid().ToString() + "_" + VmData.VAW_Year;
+                    vmmodal.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 = VmData.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511;                    
                     vmmodal.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    vmmodal.CreatedBySession = Session.SessionID;
-                    int result = capacityBuildingManager.SaveDisposalOfComplaint(vmmodal);
+                    
+                    int result = capacityBuildingManager.UpdateDisposalOfComplaint(vmmodal);
 
                     if (result >= 1)
                     {
@@ -746,19 +741,24 @@ namespace VAW_WebApplication.Controllers
                     Tran_a_5b_dynamicdigitalpresence_Model dynamicdigitalpresenceObj = new Tran_a_5b_dynamicdigitalpresence_Model();
                     string ipadd;
                     GetIpAddress(out ipadd);
+                    dynamicdigitalpresenceObj.Record_ID=VmData.ID;
                     dynamicdigitalpresenceObj.CreatedByIP = ipadd;
-                    dynamicdigitalpresenceObj.CreatedBy = VmData.CvoId;
-                    dynamicdigitalpresenceObj.CvoId = VmData.CvoId;
-                    dynamicdigitalpresenceObj.CvoOrgCode = VmData.CvoOrgCode;
+                    dynamicdigitalpresenceObj.CreatedBy = VmData.CvoId;                    
                     dynamicdigitalpresenceObj.VAW_Year = VmData.VAW_Year;
                     dynamicdigitalpresenceObj.WhetherRegularMaintenanceOfWebsiteUpdationDone = VmData.WhetherRegularMaintenanceOfWebsiteUpdationDone;
                     dynamicdigitalpresenceObj.SystemIntroducedForUpdationAndReview = VmData.SystemIntroducedForUpdationAndReview;
                     dynamicdigitalpresenceObj.WhetherAdditionalAreas_Activities_ServicesBroughtOnline = VmData.WhetherAdditionalAreas_Activities_ServicesBroughtOnline;
-                    dynamicdigitalpresenceObj.DetailsOfAdditionalActivities = VmData.DetailsOfAdditionalActivities;
-                    dynamicdigitalpresenceObj.UniqueTransactionId = Guid.NewGuid().ToString() + "_" + VmData.VAW_Year;
-                    dynamicdigitalpresenceObj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    dynamicdigitalpresenceObj.CreatedBySession = Session.SessionID;
-                    int result = capacityBuildingManager.SaveDynamicDigitalPresence(dynamicdigitalpresenceObj);
+                    if(dynamicdigitalpresenceObj.WhetherAdditionalAreas_Activities_ServicesBroughtOnline=="YES")
+                    {
+                        dynamicdigitalpresenceObj.DetailsOfAdditionalActivities = VmData.DetailsOfAdditionalActivities;
+                    }
+                    else
+                    {
+                        dynamicdigitalpresenceObj.DetailsOfAdditionalActivities = string.Empty;
+                    }
+                    
+                    dynamicdigitalpresenceObj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");                   
+                    int result = capacityBuildingManager.UpdateDynamicDigitalPresence(dynamicdigitalpresenceObj);
                     if (result >= 1)
                     {
                         return RedirectToAction("Index");

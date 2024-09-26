@@ -332,20 +332,22 @@ namespace VAW_WebApplication.Controllers
                     Tran_1a_integritypledge_Model obj = new Tran_1a_integritypledge_Model();
                     string ipadd;
                     GetIpAddress(out ipadd);
-                    //obj.CreatedBy = VmData.CvoId;
-                    //obj.CvoId = VmData.CvoId;
-                    //obj.CvoOrgCode = VmData.CvoOrgCode;
-                    //obj.UniqueTransactionId = Guid.NewGuid().ToString() + "_" + VmData.VAW_Year;
-                    //obj.CreatedBySession = Session.SessionID;
+                    obj.Record_ID = VmData.ID;
                     obj.TotalNoOfEmployees_UndertakenPledge = VmData.TotalNoOfEmployees_UndertakenPledge;
                     obj.TotalNoOfCustomers_UndertakenPledge = VmData.TotalNoOfCustomers_UndertakenPledge;
                     obj.TotalNoOfCitizen_UndertakenPledge = VmData.TotalNoOfCitizen_UndertakenPledge;
                     obj.DateOfActivity = VmData.DateOfActivity;
                     obj.VAW_Year = VmData.VAW_Year;
                     obj.UpdatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    obj.UpdatedBy = Session.SessionID;
+                    obj.UpdatedBy = VmData.CvoId;
                     obj.UpdatedByIp = ipadd;
-                    int result = integrityPledgeManager.SaveIntegrityPledge(obj);
+                    //obj.CreatedBy = VmData.CvoId;
+                    //obj.CvoId = VmData.CvoId;
+                    //obj.CvoOrgCode = VmData.CvoOrgCode;
+                    //obj.UniqueTransactionId = Guid.NewGuid().ToString() + "_" + VmData.VAW_Year;
+                    //obj.CreatedBySession = Session.SessionID;
+                    
+                    int result = integrityPledgeManager.UpdateIntegrityPledge(obj);
                     if (result >= 1)
                     {
                         return RedirectToAction("Index");

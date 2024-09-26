@@ -25,6 +25,10 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.SaveIntegrityPledge(obj);
         }
+        public int UpdateIntegrityPledge(Tran_1a_integritypledge_Model obj)
+        {
+            return IntegrityPledgeDAL.UpdateIntegrityPledge(obj);
+        }
 
         public DataSet GetConductOfCompetitionsByRecordId(int id)
         {

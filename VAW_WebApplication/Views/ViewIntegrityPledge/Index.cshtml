@@ -15,7 +15,7 @@
     int RelevantInfoIndex = 0;
 }
 
-<h2>View Integrity Pleadge</h2>
+<h2>View Integrity Pledge</h2>
 <hr />
 <div class="m-4" style="display:flex;text-align:center;">
     <label style="align-content: center; margin-right:10px" for="year_select">Year : </label>
@@ -106,7 +106,7 @@
                             <td style="text-align:center">@item.NoOfParticipant</td>
                             <td style="text-align:center">@item.Remarks</td>
                             <td style="text-align:center">
-                                @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
+                                @Html.ActionLink("Edit", "EditConductOfCompetitions", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                             </td>
                         </tr>
                     }
@@ -146,7 +146,7 @@
                             <td style="text-align:center">@item.IssueOfJornalAndNwesletter_Details</td>
                             <td style="text-align:center">@item.AnyOtherActivities_Details</td>
                             <td style="text-align:center">
-                                @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
+                                @Html.ActionLink("Edit", "EditActivitiesOtherActivities", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                             </td>
                         </tr>
                     }
@@ -197,7 +197,7 @@
                             <td style="text-align:center">@item.ActivityDetails</td>
                             <td style="text-align:center">@item.NoOfStudentsInvolved</td>
                             <td style="text-align:center">
-                                @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
+                                @Html.ActionLink("Edit", "EditOutreachInvolvingSchoolStudents", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                             </td>
                         </tr>
                     }
@@ -240,7 +240,7 @@
                             <td style="text-align:center">@item.ActivityDetails</td>
                             <td style="text-align:center">@item.NoOfStudentsInvolved</td>
                             <td style="text-align:center">
-                                @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
+                                @Html.ActionLink("Edit", "EditOutreachInvolvingCollegeStudents", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                             </td>
                         </tr>
                     }
@@ -283,7 +283,7 @@
                             <td style="text-align:center">@item.ActivityDetails</td>
                             <td style="text-align:center">@item.NoOfPublicOrCitizenParticipated</td>
                             <td style="text-align:center">
-                                @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
+                                @Html.ActionLink("Edit", "EditOutreachAwarenessGramSabhas", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                             </td>
                         </tr>
                     }
@@ -326,7 +326,7 @@
                             <td style="text-align:center">@item.ActivityDetails</td>
                             <td style="text-align:center">@item.NoOfPublicOrCitizenParticipated</td>
                             <td style="text-align:center">
-                                @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
+                                @Html.ActionLink("Edit", "EditOutreachSeminars", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                             </td>
                         </tr>
                     }
@@ -371,7 +371,7 @@
                         <td style="text-align:center">@item.NoOfGrievanceRedressalCampsHeld</td>
                         <td style="text-align:center">@item.UserOfScocialMedia</td>
                         <td style="text-align:center">
-                            @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
+                            @Html.ActionLink("Edit", "EditOtherActivities", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
                     </tr>
                 }
@@ -418,7 +418,7 @@
                         <td style="text-align:center">@item.WhetherPhotosSentAsSoftCopyOrHardCopy</td>
                         <td style="text-align:center">@item.SoftCopy_NoOfCd</td>
                         <td style="text-align:center">
-                            @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
+                            @Html.ActionLink("Edit", "EditDetailsOfPhotos", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
                     </tr>
                 }
@@ -459,7 +459,7 @@
                         <td style="text-align:center">@item.DateOfActivity.ToString("dd-MM-yyyy") </td>
                         <td style="text-align:center">@item.DetailsOfActivity</td>
                         <td style="text-align:center">
-                            @Html.ActionLink("Edit", "EditIntegrityPledge", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
+                            @Html.ActionLink("Edit", "EditAnyOtherRelevantInformation", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
                     </tr>
                 }

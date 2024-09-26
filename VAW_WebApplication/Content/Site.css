@@ -194,5 +194,22 @@ tfoot {
         border-right: 1px groove #ccc; /* Optional: add border for table cells */
     }
 
+.no-footer {
+    margin-bottom: 8px !important;
+}
+@media print {
+    table, th, td {
+        border: 1px solid black; /* Set border for table, th, and td */
+        border-collapse: collapse; /* Collapse borders */
+    }
+
+    th {
+        background-color: #f2f2f2; /* Optional: Keep a background color for headers */
+    }
+    /* Optional: Hide buttons during print */
+    .dt-buttons {
+        display: none;
+    }
+}
 /* styles.css */
 

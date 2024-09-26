@@ -29,15 +29,18 @@ namespace VAW_WebApplication.Models
         public string DistributionOfPamphletsAndBanners_Details { get; set; }
 
         [Required(ErrorMessage = "Please enter details regarding Conduct of Workshops/Sensitization programmes.")]
-        [Display(Name = "Conduct of Workshops/Sensitization programmes")]
+        [Display(Name = "Conduct of Workshop / Sensitization programmes")]
         public string ConductOfWorkshopAndSensitizationProgram_Details { get; set; }
 
         [Required(ErrorMessage = "Please enter details regarding Issue Of Journal And Newsletter Details.")]
-        [Display(Name = "Issue Of Journal And Newsletter Details")]
+        [Display(Name = "Issue Of Journal / Newsletter Details")]
         public string IssueOfJornalAndNwesletter_Details { get; set; }
 
         [Required(ErrorMessage = "Please enter details regarding Any Other Activities Details.")]
         [Display(Name = "Any Other Activities Details")]
         public string AnyOtherActivities_Details { get; set; }
+
+        [Display(Name = "CVO Organisation")]
+        public string OrganisationName { get; set; }
     }
 }

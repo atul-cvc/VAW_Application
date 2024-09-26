@@ -18,13 +18,13 @@ namespace VAW_WebApplication.Models
         public string CvoOrgCode { get; set; }
         public string CvoId { get; set; }
 
-        [Required(ErrorMessage = "Choose From date.")]
+        [Required(ErrorMessage = "Choose Date of Activity.")]
         [Display(Name = "Date of Activity")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime DateOfActivity { get; set; }
 
         [Required(ErrorMessage = "Please enter name of City/Town/Village.")]
-        [Display(Name = "Name of City/Town/Village")]
+        [Display(Name = "Name of City / Town / Village")]
         public string City_Town_Village_Name { get; set; }
 
         [Required(ErrorMessage = "Please enter name of College.")]
@@ -44,5 +44,8 @@ namespace VAW_WebApplication.Models
         [Display(Name = "Name of State")]
         public string StateName { get; set; }
         public IEnumerable<SelectListItem> StateNameList { get; set; }
+
+        [Display(Name = "CVO Organisation")]
+        public string OrganisationName { get; set; }
     }
 }

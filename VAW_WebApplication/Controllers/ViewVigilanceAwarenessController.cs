@@ -48,7 +48,7 @@ namespace VAW_WebApplication.Controllers
                 List<Tran_a_2b_sysimp_ViewModel> Listofsysimp = new List<Tran_a_2b_sysimp_ViewModel>();
                 DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByCVOID("CVO_SBI").Tables[0];
 
-                if (CapacityTable.Rows.Count >= 1)
+                if (SysImpTable.Rows.Count >= 1)
                 {
                     foreach (DataRow data in SysImpTable.Rows)
                     {

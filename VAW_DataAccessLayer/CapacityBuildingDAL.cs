@@ -42,6 +42,23 @@ namespace VAW_DataAccessLayer
         //===============================================================================================================================
         #region Capacity Building .1
 
+
+        public DataSet GetCapacityBuildingRecordByRecordId(int id)
+        {           
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadCapacityBuildingProgram", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
         public DataSet GetCapacityBuildingRecordByCVOID(string cvoid)
         {
             DataSet DS = new DataSet();
@@ -123,6 +140,24 @@ namespace VAW_DataAccessLayer
             }
             return EffectedRows;
         }
+
+        public DataSet GetSystemImpRecordByRecordId(int id)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadSysImp", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+
         public int UpdateCapacityBuilding(Tran_a_1b_capacitybulidingprogram_Model capacityBuildingObj)
         {
             int EffectedRows = 0;
@@ -240,6 +275,23 @@ namespace VAW_DataAccessLayer
         }
 
         #endregion
+
+        public DataSet GetCircularsRecordByRecordId(int id)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadUpdationCircularGuidelinesManuals", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
 
         //===============================================================================================================================
         #region Updation of Circulars .3
@@ -420,6 +472,23 @@ namespace VAW_DataAccessLayer
 
         //===============================================================================================================================
         #region Digital Dynamic Presence .5
+        public DataSet GetDynamicDigitalPresenceByRecordId(int id)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadDynamicDigitalPresence", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+
         public DataSet GetDynamicDigitalPresenceByCVOID(string cvoid)
         {
             DataSet DS = new DataSet();

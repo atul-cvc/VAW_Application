@@ -48,6 +48,10 @@ namespace VAW_BusinessAccessLayer
 
 
         #region Capacity Building .1
+        public DataSet GetCapacityBuildingRecordByRecordId(int id)
+        {
+            return CapacityBuildingDAL.GetCapacityBuildingRecordByRecordId(id);
+        }
         public DataSet GetCapacityBuildingRecordByCVOID(string cvoid)
         {
             return CapacityBuildingDAL.GetCapacityBuildingRecordByCVOID(cvoid);
@@ -59,6 +63,11 @@ namespace VAW_BusinessAccessLayer
         public int SaveCapacityBuilding(Tran_a_1b_capacitybulidingprogram_Model capacityBuildingObj)
         {
             return CapacityBuildingDAL.SaveCapacityBuilding(capacityBuildingObj);
+        }
+
+        public DataSet GetSystemImpRecordByRecordId(int id)
+        {
+            return CapacityBuildingDAL.GetSystemImpRecordByRecordId(id);
         }
         public int UpdateCapacityBuilding(Tran_a_1b_capacitybulidingprogram_Model capacityBuildingObj)
         {
@@ -87,25 +96,35 @@ namespace VAW_BusinessAccessLayer
         #endregion
         //===============================================================================================================================
         #region Updation of Circulars .3
-            public DataSet GetCircularsRecordByCVOID(string cvoid)
-            {
-                return CapacityBuildingDAL.GetCircularsRecordByCVOID(cvoid);
-            }
-            public DataSet GetCircularsByRecordID(int ID)
-            {
-                return CapacityBuildingDAL.GetCircularsByRecordID(ID);
-            }
-            public int SaveCirculars(Tran_a_3b_updation_circular_guidelines_manuals_Model CircularModel)
-            {
-                return CapacityBuildingDAL.SaveCirculars(CircularModel);
-            }
-            public int UpdateCirculars(Tran_a_3b_updation_circular_guidelines_manuals_Model CircularModel)
-            {
-                return CapacityBuildingDAL.UpdateCirculars(CircularModel);
-            }
+
+        public DataSet GetCircularsRecordByRecordId(int id)
+        {
+            return CapacityBuildingDAL.GetCircularsRecordByRecordId(id);
+        }
+        public DataSet GetCircularsRecordByCVOID(string cvoid)
+        {
+            return CapacityBuildingDAL.GetCircularsRecordByCVOID(cvoid);
+        }
+        public DataSet GetCircularsByRecordID(int ID)
+        {
+            return CapacityBuildingDAL.GetCircularsByRecordID(ID);
+        }
+
+        public int SaveCirculars(Tran_a_3b_updation_circular_guidelines_manuals_Model CircularModel)
+        {
+            return CapacityBuildingDAL.SaveCirculars(CircularModel);
+        }
+        public int UpdateCirculars(Tran_a_3b_updation_circular_guidelines_manuals_Model CircularModel)
+        {
+            return CapacityBuildingDAL.UpdateCirculars(CircularModel);
+        }
         #endregion
         //===============================================================================================================================
         #region Disposal of Complaints .4
+        public DataSet GetDisposalOfComplaintByRecordId(int id)
+        {
+            return CapacityBuildingDAL.GetDisposalOfComplaintByRecordID(id);
+        }
         public DataSet GetDisposalOfComplaintByCVOID(string cvoid)
         {
             return CapacityBuildingDAL.GetDisposalOfComplaintByCVOID(cvoid);
@@ -127,6 +146,10 @@ namespace VAW_BusinessAccessLayer
         //===============================================================================================================================
         #region Digital Dynamic Presence .5
 
+        public DataSet GetDynamicDigitalPresenceByRecordId(int id)
+        {
+            return CapacityBuildingDAL.GetDynamicDigitalPresenceByRecordId(id);
+        }
         public DataSet GetDynamicDigitalPresenceByCVOID(string cvoid)
         {
             return CapacityBuildingDAL.GetDynamicDigitalPresenceByCVOID(cvoid);

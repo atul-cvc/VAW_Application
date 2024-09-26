@@ -17,5 +17,8 @@ namespace VAW_Models
         public DateTime ToDate { get; set; }
         public string Sys_Imp_Implemented_During_Campaign { get; set; }
         public string Sys_Imp_Suggested_Last_5_Years_But_Pending { get; set; }
+        public int NoOf_CasesTakenForAnalysis_past5Years { get; set; }
+        public string KeyAreasDetected_BasedonAnalysis { get; set; }
+        public string Sys_Improvements_Identified_And_Impl_BasedOnAnalysis { get; set; }
     }
 }

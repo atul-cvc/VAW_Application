@@ -83,7 +83,7 @@
                     @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-primary" })
                 </div>
                 <div class="col-md-2">
-                    <input type="submit" value="Save" class="btn btn-success" />
+                    <input type="submit" value="Save" class="btn btn-success" onclick="handleSubmit(); return false;" />
                 </div>
             </div>
 
@@ -97,6 +97,21 @@
 
         @Scripts.Render("~/bundles/jqueryui")
         @Styles.Render("~/Content/cssjqryUi")
+        <script>
+            function handleSubmit() {
+                e.preventDefault();
+                alert('clicked');
+                const myValue = parseFloat(document.getElementById('NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608').value) || 0;
+                const myValue2 = parseFloat(document.getElementById('NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign').value) || 0;
+                const myValue3 = parseFloat(document.getElementById('NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511').value) || 0;
+
+                // Check if the sum is greater than zero
+                if (myValue + myValue2 + myValue3 <= 0) {
+                    alert("The sum of Value 1 and Value 2 and Value 3 must be greater than zero.");
+                    return; // Stop the submission
+                }
+            }
+        </script>
 
         <script type="text/javascript">
             $(document).ready(function () {

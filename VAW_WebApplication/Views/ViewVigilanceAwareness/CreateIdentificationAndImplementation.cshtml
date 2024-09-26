@@ -13,7 +13,7 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    
+
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
@@ -25,6 +25,48 @@
             @Html.HiddenFor(model => model.CvoOrgCode)
             @Html.HiddenFor(model => model.CvoId)
         </div>
+    </div>
+
+    <div style="margin-top:50px; margin-bottom:25px;">
+
+        <h4>i). Brief details of Vigilance Cases of the past 05 years taken up for analysis</h4>
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.NoOf_CasesTakenForAnalysis_past5Years, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NoOf_CasesTakenForAnalysis_past5Years, new { @htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.NoOf_CasesTakenForAnalysis_past5Years, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.KeyAreasDetected_BasedonAnalysis, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.EditorFor(model => model.KeyAreasDetected_BasedonAnalysis, new { @htmlAttributes = new { @class = "form-control", } })*@
+            @Html.TextAreaFor(model => model.KeyAreasDetected_BasedonAnalysis, new { @class = "textarea-custom", @id = "myTextAreaKeyAreasDetected_BasedonAnalysis" })
+            <div id="wordCountKeyAreasDetected_BasedonAnalysis" style="margin-top: 10px; margin-left:150px;">Word count: 0 / 1000</div>
+            @Html.ValidationMessageFor(model => model.KeyAreasDetected_BasedonAnalysis, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.EditorFor(model => model.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis, new { @htmlAttributes = new { @class = "form-control", } })*@
+            @Html.TextAreaFor(model => model.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis, new { @class = "textarea-custom", @id = "myTextAreaSys_Improvements_Identified_And_Impl_BasedOnAnalysis" })
+            <div id="wordCount1Sys_Improvements_Identified_And_Impl_BasedOnAnalysis" style="margin-top: 10px; margin-left:150px;">Word count: 0 / 1000</div>
+            @Html.ValidationMessageFor(model => model.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div style="width:50%">
+        <hr />
+    </div>
+    <br />
+
+    <div style="margin-top:25px; margin-bottom:25px;">
+
+        <h4>ii). Brief details of Systemic Improvements suggested by the Commission (pending as on 16th August 2024)</h4>
+
     </div>
 
     <div class="form-group">
@@ -47,7 +89,7 @@
         @Html.LabelFor(model => model.Sys_Imp_Implemented_During_Campaign, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.TextAreaFor(model => model.Sys_Imp_Implemented_During_Campaign, new { @class = "textarea-custom", @id = "myTextArea" })
-            <div id="wordCount" style="margin-top: 10px; margin-left:150px;">Word count: 0 / 500</div>
+            <div id="wordCount" style="margin-top: 10px; margin-left:150px;">Word count: 0 / 1000</div>
             @Html.ValidationMessageFor(model => model.Sys_Imp_Implemented_During_Campaign, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -56,7 +98,7 @@
         @Html.LabelFor(model => model.Sys_Imp_Suggested_Last_5_Years_But_Pending, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.TextAreaFor(model => model.Sys_Imp_Suggested_Last_5_Years_But_Pending, new { @class = "textarea-custom", @id = "myTextArea1" })
-            <div id="wordCount1" style="margin-top: 10px; margin-left:150px;">Word count: 0 / 500</div>
+            <div id="wordCount1" style="margin-top: 10px; margin-left:150px;">Word count: 0 / 1000</div>
             @Html.ValidationMessageFor(model => model.Sys_Imp_Suggested_Last_5_Years_But_Pending, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -98,7 +140,7 @@
             document.addEventListener('DOMContentLoaded', function () {
                 const textArea = document.getElementById('myTextArea');
                 const wordCountDisplay = document.getElementById('wordCount');
-                const maxWords = 500;
+                const maxWords = 1000;
 
                 textArea.addEventListener('input', function () {
                     const words = textArea.value.trim().split(/\s+/).filter(Boolean);
@@ -115,7 +157,37 @@
             document.addEventListener('DOMContentLoaded', function () {
                 const textArea = document.getElementById('myTextArea1');
                 const wordCountDisplay = document.getElementById('wordCount1');
-                const maxWords = 500;
+                const maxWords = 1000;
+
+                textArea.addEventListener('input', function () {
+                    const words = textArea.value.trim().split(/\s+/).filter(Boolean);
+                    const wordCount = words.length;
+                    if (wordCount > maxWords) {
+                        textArea.value = words.slice(0, maxWords).join(' ');
+                    }
+                    wordCountDisplay.textContent = `Word count: ${Math.min(wordCount, maxWords)} / ${maxWords}`;
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const textArea = document.getElementById('myTextAreaKeyAreasDetected_BasedonAnalysis');
+                const wordCountDisplay = document.getElementById('wordCount1KeyAreasDetected_BasedonAnalysis');
+                const maxWords = 1000;
+
+                textArea.addEventListener('input', function () {
+                    const words = textArea.value.trim().split(/\s+/).filter(Boolean);
+                    const wordCount = words.length;
+                    if (wordCount > maxWords) {
+                        textArea.value = words.slice(0, maxWords).join(' ');
+                    }
+                    wordCountDisplay.textContent = `Word count: ${Math.min(wordCount, maxWords)} / ${maxWords}`;
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const textArea = document.getElementById('myTextAreaSys_Improvements_Identified_And_Impl_BasedOnAnalysis');
+                const wordCountDisplay = document.getElementById('wordCount1Sys_Improvements_Identified_And_Impl_BasedOnAnalysis');
+                const maxWords = 1000;
 
                 textArea.addEventListener('input', function () {
                     const words = textArea.value.trim().split(/\s+/).filter(Boolean);

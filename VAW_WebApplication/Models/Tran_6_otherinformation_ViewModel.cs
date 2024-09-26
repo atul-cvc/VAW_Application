@@ -25,5 +25,8 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Please enter Details of Activity")]
         [Display(Name = "Details of Activity")]
         public string DetailsOfActivity { get; set; }
+
+        [Display(Name = "CVO Organisation")]
+        public string OrganisationName { get; set; }
     }
 }

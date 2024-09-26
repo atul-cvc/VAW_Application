@@ -7,3 +7,26 @@ function isNumber(evt) {
     }
     return true;
 }
+
+$(document).ready(function () {
+    // Global DataTable options
+    $.extend($.fn.dataTable.defaults, {
+        //paging: true,
+        //language: {
+        //    lengthMenu: "Show _MENU_ entries",
+        //    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+        //    infoEmpty: "No entries available",
+        //    search: "Search:",
+        //    zeroRecords: "No matching records found"
+        //},
+        dom: 'Bfrtlip', // Buttons, filter, table, etc.
+        buttons: [
+            'copy',
+            //'csv',
+            'excel',
+            'pdf',
+            'print'
+        ],
+        lengthMenu: [5, 10, 25, 50, 100]
+    });    
+});

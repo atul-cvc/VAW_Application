@@ -40,5 +40,8 @@ namespace VAW_WebApplication.Models
 
         [Display(Name = "Remarks, if any for Complaints Received on or before 30.06.2024 pending as on 15.11.2024")]
         public string Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 { get; set; }
+
+        [Display(Name = "CVO Organisation")]
+        public string OrganisationName { get; set; }
     }
 }

@@ -18,18 +18,18 @@ namespace VAW_WebApplication.Models
         public string CvoOrgCode { get; set; }
         public string CvoId { get; set; }
 
-        [Required(ErrorMessage = "Choose From date.")]
+        [Required(ErrorMessage = "Choose Date of Activity.")]
         [Display(Name = "Date of Activity")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime DateOfActivity { get; set; }
 
-        [Required(ErrorMessage = "Please enter name of State.")]
+        [Required(ErrorMessage = "Please enter Name of State.")]
         [Display(Name = "Name of State")]
         public string NameOfState { get; set; }
         public IEnumerable<SelectListItem> NameOfStateList { get; set; }
 
-        [Required(ErrorMessage = "Please enter name of City.")]
-        [Display(Name = "City")]
+        [Required(ErrorMessage = "Please enter Name of City.")]
+        [Display(Name = "City / Place")]
         public string City { get; set; }
 
         [Required(ErrorMessage = "Please select a program.")]
@@ -38,12 +38,15 @@ namespace VAW_WebApplication.Models
         public IEnumerable<SelectListItem> SpecificProgramList { get; set; }
 
         [Required(ErrorMessage = "Please enter no. of participants.")]
-        [Display(Name = "No of Participants")]
+        [Display(Name = "No. of Participants")]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
         public int NoOfParticipant { get; set; }
 
         [Required(ErrorMessage = "Please enter Remarks")]
         [Display(Name = "Remarks")]
         public string Remarks { get; set; }
+
+        [Display(Name = "CVO Organisation")]
+        public string OrganisationName { get; set; }
     }
 }

@@ -47,12 +47,18 @@ namespace VAW_WebApplication.Controllers
                     //cptCaptcha.ValidateCaptcha(txtCaptcha.Text.Trim());
                     //if (cptCaptcha.UserValidated)
                     //{
-                    var logindata = loginManager.ValidateLoginUser(model.Username, model.Password);
+                    List<LoginModal> logindata = loginManager.ValidateLoginUser(model.Username, model.Password);
 
                     if (logindata != null && logindata.Count == 1)
                     {
                         loginViewModal = logindata[0];
                         Session["LogedUser"] = loginViewModal;
+                        if (logindata[0].UserID == "ADMIN")
+                        {
+                            Session["UserRole"] = "ROLE_ADMIN";
+                            string ur = Session["UserRole"] as string;
+                            return RedirectToAction("Index", "Admin");
+                        }
                         return RedirectToAction("Index", "Dashboard");
 
                     }

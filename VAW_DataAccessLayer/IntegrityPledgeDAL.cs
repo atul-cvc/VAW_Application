@@ -167,6 +167,32 @@ namespace VAW_DataAccessLayer
             }
             return EffectedRows;
         }
+        public int EditConductOfCompetitions(Tran_2a_orgactivities_conductofcompetitions_Model obj)
+        {
+            int EffectedRows = 0;
+            try
+            {
+                MySqlParameter[] sqlParams = new MySqlParameter[11];
+                sqlParams[0] = new MySqlParameter("@p_VAW_Year", Convert.ToInt32(obj.VAW_Year));
+                sqlParams[1] = new MySqlParameter("@p_Record_ID", obj.Record_ID);
+                sqlParams[2] = new MySqlParameter("@p_DateOfActivity", Convert.ToDateTime(obj.DateOfActivity));
+                sqlParams[3] = new MySqlParameter("@p_NameOfState", obj.NameOfState);
+                sqlParams[4] = new MySqlParameter("@p_City", obj.City);
+                sqlParams[5] = new MySqlParameter("@p_SpecificProgram", obj.SpecificProgram);
+                sqlParams[6] = new MySqlParameter("@p_NoOfParticipant", Convert.ToInt32(obj.NoOfParticipant));
+                sqlParams[7] = new MySqlParameter("@p_Remarks", obj.Remarks);
+                sqlParams[8] = new MySqlParameter("@p_UpdatedOn", obj.CreatedOn);
+                sqlParams[9] = new MySqlParameter("@p_UpdatedBy", obj.CreatedBy);
+                sqlParams[10] = new MySqlParameter("@p_UpdatedByIp", obj.CreatedByIP);
+
+                EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_UpdateOrgActivitiesCompetition", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return EffectedRows;
+        }
 
         public DataSet GetActivitiesOtherActivitiesByRecordId(int id)
         {
@@ -220,6 +246,34 @@ namespace VAW_DataAccessLayer
 
                 // Execute the stored procedure
                 EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_CreateOrgActivitiesOtherActivities", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return EffectedRows;
+        }
+
+        public int EditActivitiesOtherActivities(Tran_2b_orgactivities_otheractivities_Model obj)
+        {
+            int EffectedRows = 0;
+            try
+            {
+                MySqlParameter[] sqlParams = new MySqlParameter[10];
+                sqlParams[0] = new MySqlParameter("@p_Record_ID", Convert.ToInt32(obj.Record_ID));
+                sqlParams[1] = new MySqlParameter("@p_VAW_Year", Convert.ToInt32(obj.VAW_Year));
+                sqlParams[2] = new MySqlParameter("@p_UpdatedOn", obj.UpdatedOn);
+                sqlParams[3] = new MySqlParameter("@p_UpdatedBy", obj.UpdatedBy);
+                sqlParams[4] = new MySqlParameter("@p_DateOfActivity", obj.DateOfActivity);
+                sqlParams[5] = new MySqlParameter("@p_DistributionOfPamphletsAndBanners_Details", obj.DistributionOfPamphletsAndBanners_Details);
+                sqlParams[6] = new MySqlParameter("@p_ConductOfWorkshopAndSensitizationProgram_Details", obj.ConductOfWorkshopAndSensitizationProgram_Details);
+                sqlParams[7] = new MySqlParameter("@p_IssueOfJornalAndNwesletter_Details", obj.IssueOfJornalAndNwesletter_Details);
+                sqlParams[8] = new MySqlParameter("@p_AnyOtherActivities_Details", obj.AnyOtherActivities_Details);
+                sqlParams[9] = new MySqlParameter("@p_UpdatedByIp", obj.UpdatedByIp);
+                
+
+                // Execute the stored procedure
+                EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_UpdateOrgActivitiesOtherActivities", sqlParams);
             }
             catch (Exception ex)
             {

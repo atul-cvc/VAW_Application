@@ -1,0 +1,96 @@
+﻿@model VAW_WebApplication.Models.Tran_2a_orgactivities_conductofcompetitions_ViewModel
+
+@{
+    ViewBag.Title = "EditConductOfCompetitions";
+    Layout = "~/Views/Shared/_Layout_Users.cshtml";
+}
+
+<h2>Edit Conduct Of Competitions</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.VAW_Year, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VAW_Year, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                @Html.ValidationMessageFor(model => model.VAW_Year, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.UniqueTransactionId)
+                @Html.HiddenFor(model => model.CvoOrgCode)
+                @Html.HiddenFor(model => model.CvoId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateOfActivity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateOfActivity, new { htmlAttributes = new { @class = "form-control", @placeholder = "DD-MM-YYYY", @readonly = true } })
+                @Html.ValidationMessageFor(model => model.DateOfActivity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NameOfState, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.NameOfState, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownListFor(model => model.NameOfState, Model.NameOfStateList, "Select a State", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NameOfState, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SpecificProgram, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SpecificProgram, Model.SpecificProgramList, "Select a Program", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SpecificProgram, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NoOfParticipant, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NoOfParticipant, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NoOfParticipant, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Remarks, new { @class = "textarea-custom-h-50", @id = "myTextArea" })
+                <div id="wordCount" style="margin-top: 10px; margin-left:150px;">Word count: 0 / 500</div>
+                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-2">
+                    @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-primary" })
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

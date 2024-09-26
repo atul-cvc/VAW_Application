@@ -1,17 +1,17 @@
 ﻿@model VAW_WebApplication.Models.Tran_2b_orgactivities_otheractivities_ViewModel
 
 @{
-    ViewBag.Title = "CreateActivitiesOtherActivities";
+    ViewBag.Title = "EditActivitiesOtherActivities";
     Layout = "~/Views/Shared/_Layout_Users.cshtml";
 }
 
-<h2>Create Activities Other Activities</h2>
+<h2>Edit Activities Other Activities</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Tran_2b_orgactivities_otheractivities_ViewModel</h4>
         <hr />
@@ -67,7 +67,7 @@
             @Html.LabelFor(model => model.AnyOtherActivities_Details, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @*@Html.TextAreaFor(model => model.AnyOtherActivities_Details, new { htmlAttributes = new { @class = "form-control textarea-custom", @placeholder = "Please enter details" } })*@
-                @Html.TextAreaFor(model => model.AnyOtherActivities_Details, new { @class = "textarea-custom-h-50", @placeholder="Please enter details"  })
+                @Html.TextAreaFor(model => model.AnyOtherActivities_Details, new { @class = "textarea-custom-h-50", @placeholder = "Please enter details" })
                 @Html.ValidationMessageFor(model => model.AnyOtherActivities_Details, "", new { @class = "text-danger" })
             </div>
         </div>

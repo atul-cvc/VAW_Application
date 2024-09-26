@@ -341,11 +341,6 @@ namespace VAW_WebApplication.Controllers
                     obj.UpdatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     obj.UpdatedBy = VmData.CvoId;
                     obj.UpdatedByIp = ipadd;
-                    //obj.CreatedBy = VmData.CvoId;
-                    //obj.CvoId = VmData.CvoId;
-                    //obj.CvoOrgCode = VmData.CvoOrgCode;
-                    //obj.UniqueTransactionId = Guid.NewGuid().ToString() + "_" + VmData.VAW_Year;
-                    //obj.CreatedBySession = Session.SessionID;
                     
                     int result = integrityPledgeManager.UpdateIntegrityPledge(obj);
                     if (result >= 1)
@@ -436,14 +431,17 @@ namespace VAW_WebApplication.Controllers
             }
             return RedirectToAction("Index");
         }
+        
         [HttpGet]
         public ActionResult EditConductOfCompetitions(int ID)
         {
+            DataTable dt = integrityPledgeManager.GetConductOfCompetitionsByRecordId(ID).Tables[0];
             Tran_2a_orgactivities_conductofcompetitions_ViewModel vmdata = new Tran_2a_orgactivities_conductofcompetitions_ViewModel();
             vmdata.VAW_Year = Convert.ToInt32(DateTime.Now.Year.ToString());
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
-            vmdata.DateOfActivity = DateTime.Now;
+            vmdata.ID = Convert.ToInt32(dt.Rows[0]["Record_ID"].ToString());
+            vmdata.CvoId = dt.Rows[0]["CvoId"].ToString();
+            vmdata.CvoOrgCode = dt.Rows[0]["CvoOrgCode"].ToString();
+            vmdata.DateOfActivity = Convert.ToDateTime(dt.Rows[0]["DateOfActivity"].ToString());
             vmdata.SpecificProgramList = new List<SelectListItem> {
                 new SelectListItem { Value = "Debate", Text = "Debate" },
                 new SelectListItem { Value = "Elocution", Text = "Elocution" },
@@ -465,6 +463,14 @@ namespace VAW_WebApplication.Controllers
                 }
                 vmdata.NameOfStateList = stateItemList;
             }
+            vmdata.NameOfState = dt.Rows[0]["NameOfState"].ToString();
+            vmdata.City = dt.Rows[0]["City"].ToString();
+            vmdata.SpecificProgram = dt.Rows[0]["SpecificProgram"].ToString();
+            vmdata.NoOfParticipant = Convert.ToInt32(dt.Rows[0]["NoOfParticipant"].ToString());
+            vmdata.Remarks = dt.Rows[0]["Remarks"].ToString();
+            vmdata.OrganisationName = dt.Rows[0]["OrgName"].ToString();
+
+
             return View(vmdata);
         }
 
@@ -478,22 +484,18 @@ namespace VAW_WebApplication.Controllers
                     Tran_2a_orgactivities_conductofcompetitions_Model obj = new Tran_2a_orgactivities_conductofcompetitions_Model();
                     string ipadd;
                     GetIpAddress(out ipadd);
-                    obj.CreatedByIP = ipadd;
-                    obj.CreatedBy = VmData.CvoId;
-                    obj.CvoId = VmData.CvoId;
-                    obj.CvoOrgCode = VmData.CvoOrgCode;
-                    obj.DateOfActivity = VmData.DateOfActivity;
+                    obj.Record_ID = VmData.ID;
                     obj.VAW_Year = VmData.VAW_Year;
-                    obj.UniqueTransactionId = Guid.NewGuid().ToString() + "_" + VmData.VAW_Year;
-                    obj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    obj.CreatedBySession = Session.SessionID;
-                    obj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    obj.DateOfActivity = VmData.DateOfActivity;
                     obj.NameOfState = VmData.NameOfState;
                     obj.City = VmData.City;
                     obj.SpecificProgram = VmData.SpecificProgram;
                     obj.NoOfParticipant = VmData.NoOfParticipant;
                     obj.Remarks = VmData.Remarks;
-                    int result = integrityPledgeManager.SaveConductOfCompetitions(obj);
+                    obj.UpdatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    obj.UpdatedByIp = ipadd;
+                    obj.UpdatedBy = VmData.CvoId;
+                    int result = integrityPledgeManager.EditConductOfCompetitions(obj);
                     if (result >= 1)
                     {
                         return RedirectToAction("Index");
@@ -558,11 +560,18 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult EditActivitiesOtherActivities(int ID)
         {
+            DataTable dt = integrityPledgeManager.GetActivitiesOtherActivitiesByRecordId(ID).Tables[0];
             Tran_2b_orgactivities_otheractivities_ViewModel vmdata = new Tran_2b_orgactivities_otheractivities_ViewModel();
             vmdata.VAW_Year = Convert.ToInt32(DateTime.Now.Year.ToString());
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
-            vmdata.DateOfActivity = DateTime.Now;
+            vmdata.ID = Convert.ToInt32(dt.Rows[0]["Record_ID"].ToString());
+            vmdata.CvoId = dt.Rows[0]["CvoId"].ToString();
+            vmdata.CvoOrgCode = dt.Rows[0]["CvoOrgCode"].ToString();
+            vmdata.DistributionOfPamphletsAndBanners_Details = dt.Rows[0]["DistributionOfPamphletsAndBanners_Details"].ToString();
+            vmdata.ConductOfWorkshopAndSensitizationProgram_Details = dt.Rows[0]["ConductOfWorkshopAndSensitizationProgram_Details"].ToString();
+            vmdata.IssueOfJornalAndNwesletter_Details = dt.Rows[0]["IssueOfJornalAndNwesletter_Details"].ToString();
+            vmdata.AnyOtherActivities_Details = dt.Rows[0]["AnyOtherActivities_Details"].ToString();
+            vmdata.OrganisationName = dt.Rows[0]["OrgName"].ToString();
+            vmdata.DateOfActivity = Convert.ToDateTime(dt.Rows[0]["DateOfActivity"].ToString());
             return View(vmdata);
         }
 
@@ -576,21 +585,17 @@ namespace VAW_WebApplication.Controllers
                     Tran_2b_orgactivities_otheractivities_Model obj = new Tran_2b_orgactivities_otheractivities_Model();
                     string ipadd;
                     GetIpAddress(out ipadd);
-                    obj.CreatedByIP = ipadd;
-                    obj.CreatedBy = VmData.CvoId;
-                    obj.CvoId = VmData.CvoId;
-                    obj.CvoOrgCode = VmData.CvoOrgCode;
-                    obj.DateOfActivity = VmData.DateOfActivity;
                     obj.VAW_Year = VmData.VAW_Year;
-                    obj.UniqueTransactionId = Guid.NewGuid().ToString() + "_" + VmData.VAW_Year;
-                    obj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    obj.CreatedBySession = Session.SessionID;
-                    obj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    obj.Record_ID = VmData.ID;
+                    obj.DateOfActivity = VmData.DateOfActivity;
                     obj.DistributionOfPamphletsAndBanners_Details = VmData.DistributionOfPamphletsAndBanners_Details;
                     obj.ConductOfWorkshopAndSensitizationProgram_Details = VmData.ConductOfWorkshopAndSensitizationProgram_Details;
                     obj.IssueOfJornalAndNwesletter_Details = VmData.IssueOfJornalAndNwesletter_Details;
                     obj.AnyOtherActivities_Details = VmData.AnyOtherActivities_Details;
-                    int result = integrityPledgeManager.SaveActivitiesOtherActivities(obj);
+                    obj.UpdatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    obj.UpdatedBy = VmData.CvoId;
+                    obj.UpdatedByIp = ipadd;
+                    int result = integrityPledgeManager.EditActivitiesOtherActivities(obj);
                     if (result >= 1)
                     {
                         return RedirectToAction("Index");

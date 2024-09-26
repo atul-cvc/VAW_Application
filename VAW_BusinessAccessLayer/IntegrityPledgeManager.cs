@@ -38,6 +38,10 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.GetConductOfCompetitionsBYCVOID(cvoid);
         }
+        public int EditConductOfCompetitions(Tran_2a_orgactivities_conductofcompetitions_Model obj)
+        {
+            return IntegrityPledgeDAL.EditConductOfCompetitions(obj);
+        }
         public int SaveConductOfCompetitions(Tran_2a_orgactivities_conductofcompetitions_Model obj)
         {
             return IntegrityPledgeDAL.SaveConductOfCompetitions(obj);
@@ -53,6 +57,10 @@ namespace VAW_BusinessAccessLayer
         public int SaveActivitiesOtherActivities(Tran_2b_orgactivities_otheractivities_Model obj)
         {
             return IntegrityPledgeDAL.SaveActivitiesOtherActivities(obj);
+        }
+        public int EditActivitiesOtherActivities(Tran_2b_orgactivities_otheractivities_Model obj)
+        {
+            return IntegrityPledgeDAL.EditActivitiesOtherActivities(obj);
         }
         public DataSet GetInvolvingSchoolStudentsByRecordId(int id)
         {

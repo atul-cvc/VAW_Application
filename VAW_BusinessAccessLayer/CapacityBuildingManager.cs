@@ -123,7 +123,7 @@ namespace VAW_BusinessAccessLayer
         #region Disposal of Complaints .4
         public DataSet GetDisposalOfComplaintByRecordId(int id)
         {
-            return CapacityBuildingDAL.GetDisposalOfComplaintByRecordId(id);
+            return CapacityBuildingDAL.GetDisposalOfComplaintByRecordID(id);
         }
         public DataSet GetDisposalOfComplaintByCVOID(string cvoid)
         {

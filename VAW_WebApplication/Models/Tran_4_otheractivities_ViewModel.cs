@@ -28,7 +28,7 @@ namespace VAW_WebApplication.Models
 
         [Required(ErrorMessage = "Please enter No of Grievance Redressal Camps Held")]
         [Display(Name = "No Of Grievance Redressal Camps Held")]
-        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
+        [RegularExpression("([0-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
         public int NoOfGrievanceRedressalCampsHeld { get; set; }
 
         [Required(ErrorMessage = "Please enter details regarding Use Of Scocial Media")]

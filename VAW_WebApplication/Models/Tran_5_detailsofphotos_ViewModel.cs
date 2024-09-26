@@ -28,7 +28,7 @@ namespace VAW_WebApplication.Models
 
         [Required(ErrorMessage = "Please enter No of Photos")]
         [Display(Name = "No Of Photos")]
-        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
+        [RegularExpression("([0-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
         public int NoOfPhotos { get; set; }
 
         [Required(ErrorMessage = "Please select Whether Photos Sent As Soft Copy Or Hard Copy")]

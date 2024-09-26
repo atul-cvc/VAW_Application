@@ -28,13 +28,11 @@ namespace VAW_WebApplication.Models
         [Display(Name = "Training Name")]
         [Required(ErrorMessage = "Enter Training Name")]
         public string TrainingName { get; set; }       
-
         public IEnumerable<SelectListItem> TrainingNameList { get; set; }
-
 
         [Display(Name = "Total Employees Trained")]
         [Required(ErrorMessage = "Enter Total Employees Trained")]
-        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
+        [RegularExpression("([0-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
         public int EmployeesTrained { get; set; }
 
         [Display(Name = "Brief Description")]

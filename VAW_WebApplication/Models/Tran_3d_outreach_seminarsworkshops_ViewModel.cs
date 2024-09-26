@@ -34,7 +34,7 @@ namespace VAW_WebApplication.Models
 
         [Required(ErrorMessage = "Please enter no of Seminars/Workshops.")]
         [Display(Name = "No Of Seminars/Workshops Organised")]
-        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
+        [RegularExpression("([0-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
         public int NoOfSeminarsWorkshops { get; set;}
 
         [Required(ErrorMessage = "Please enter Activity Details.")]
@@ -43,7 +43,7 @@ namespace VAW_WebApplication.Models
 
         [Required(ErrorMessage = "Please enter no of public or citizen participated.")]
         [Display(Name = "No Of Public / Citizen Participated")]
-        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
+        [RegularExpression("([0-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
         public int NoOfPublicOrCitizenParticipated { get; set; }
 
         [Display(Name = "CVO Organisation")]

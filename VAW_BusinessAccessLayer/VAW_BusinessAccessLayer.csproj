@@ -46,6 +46,7 @@
     <Compile Include="VAW_BAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IntegrityPledgeManager.cs" />
+    <Compile Include="YearsBAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VAW_DataAccessLayer\VAW_DataAccessLayer.csproj">

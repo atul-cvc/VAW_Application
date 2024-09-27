@@ -57,3 +57,5 @@ obj/
 /VAW_WebApplication/.vs/VAW_WebApplication.csproj.dtbcache.json
 /VAW_DataAccessLayer/bin/Debug/VAW_Models.dll
 /VAW_DataAccessLayer/bin/Debug/VAW_Models.pdb
+/VAW_DataAccessLayer/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/VAW_WebApplication/ErrorLogFiles

@@ -16,15 +16,47 @@ namespace VAW_WebApplication.Controllers
     public class ViewVigilanceAwarenessController : Controller
     {
         CapacityBuildingManager capacityBuildingManager = new CapacityBuildingManager();
+        YearsBAL yearsBAL = new YearsBAL();
         string IPAddress = null;
         // GET: ViewVigilanceAwareness
-        public ActionResult Index()
+        public ActionResult Index(string selected_year = "2024")
         {
             try
             {
                 ViewVigilanceAwarenessViewModel modelobj = new ViewVigilanceAwarenessViewModel();
+
+                DataTable yearsTable = yearsBAL.GetAllYearsList().Tables[0];
+
+                var yearList = new List<SelectListItem>();
+                if (yearsTable.Rows.Count >= 1)
+                {
+                    foreach (DataRow dr in yearsTable.Rows)
+                    {
+                        yearList.Add(new SelectListItem
+                        {
+                            Value = dr["Year"].ToString(),
+                            Text = dr["Year"].ToString()
+                        });
+                    }
+                    modelobj.YearsList = yearList;
+                }
+                else
+                {
+                    Years year = new Years
+                    {
+                        ID = 1,
+                        Year = DateTime.Now.Year
+                    };
+                    yearList.Add(new SelectListItem { Value = "2024", Text = "2024" });
+                    modelobj.YearsList = yearList;
+                }
+
+                int SelectedYr = !string.IsNullOrEmpty(selected_year) ? Convert.ToInt32(selected_year) : DateTime.Now.Year;
+                modelobj.CurrentYear = SelectedYr;
+
                 List<Tran_a_1b_capacitybulidingprogram_ViewModel> ListofCapBuilding = new List<Tran_a_1b_capacitybulidingprogram_ViewModel>();
-                DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByCVOID("CVO_SBI").Tables[0];
+                //DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByCVOID("CVO_SBI").Tables[0];
+                DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
 
                 if (CapacityTable.Rows.Count >= 1)
                 {
@@ -46,7 +78,8 @@ namespace VAW_WebApplication.Controllers
 
                 //System Improvement               
                 List<Tran_a_2b_sysimp_ViewModel> Listofsysimp = new List<Tran_a_2b_sysimp_ViewModel>();
-                DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByCVOID("CVO_SBI").Tables[0];
+                //DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByCVOID("CVO_SBI").Tables[0];
+                DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
 
                 if (SysImpTable.Rows.Count >= 1)
                 {
@@ -71,7 +104,8 @@ namespace VAW_WebApplication.Controllers
 
                 //circulars Binding               
                 List<Tran_a_3b_updation_circular_guidelines_manuals_ViewModel> ListofCircular = new List<Tran_a_3b_updation_circular_guidelines_manuals_ViewModel>();
-                DataTable CircularTable = capacityBuildingManager.GetCircularsRecordByCVOID("CVO_SBI").Tables[0];
+                //DataTable CircularTable = capacityBuildingManager.GetCircularsRecordByCVOID("CVO_SBI").Tables[0];
+                DataTable CircularTable = capacityBuildingManager.GetCircularsRecordByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
 
                 if (CircularTable.Rows.Count >= 1)
                 {
@@ -94,7 +128,8 @@ namespace VAW_WebApplication.Controllers
 
                 //Disposal Of Complaint
                 List<Tran_a_4b_disposalofcomplaints_ViewModel> ListofDisposalOfComplaint = new List<Tran_a_4b_disposalofcomplaints_ViewModel>();
-                DataTable DisposalOfComplaintTable = capacityBuildingManager.GetDisposalOfComplaintByCVOID("CVO_SBI").Tables[0];
+                //DataTable DisposalOfComplaintTable = capacityBuildingManager.GetDisposalOfComplaintByCVOID("CVO_SBI").Tables[0];
+                DataTable DisposalOfComplaintTable = capacityBuildingManager.GetDisposalOfComplaintByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
 
                 if (DisposalOfComplaintTable.Rows.Count >= 1)
                 {
@@ -118,7 +153,8 @@ namespace VAW_WebApplication.Controllers
 
                 //Digital Dyanamic
                 List<Tran_a_5b_dynamicdigitalpresence_ViewModel> ListofDynamicdigital = new List<Tran_a_5b_dynamicdigitalpresence_ViewModel>();
-                DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByCVOID("CVO_SBI").Tables[0];
+                //DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByCVOID("CVO_SBI").Tables[0];
+                DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByCVOIDandYear("CVO_SBI",selected_year).Tables[0];
 
                 if (DynamicdigitalTable.Rows.Count >= 1)
                 {
@@ -297,8 +333,8 @@ namespace VAW_WebApplication.Controllers
             vmmodal.VAW_Year = DateTime.Now.Year.ToString();
             vmmodal.CvoId = "CVO_SBI";
             vmmodal.CvoOrgCode = "I61";
-          
-            vmmodal.FromDate = new DateTime(2024, 08, 16);          
+
+            vmmodal.FromDate = new DateTime(2024, 08, 16);
             vmmodal.ToDate = new DateTime(2024, 11, 15);  //DateTime.Now;
             return View(vmmodal);
         }

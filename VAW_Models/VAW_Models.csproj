@@ -60,6 +60,7 @@
     <Compile Include="Tran_a_3b_updation_circular_guidelines_manuals_Model.cs" />
     <Compile Include="Tran_a_4b_disposalofcomplaints_Model.cs" />
     <Compile Include="Tran_a_5b_dynamicdigitalpresence_Model.cs" />
+    <Compile Include="Years.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

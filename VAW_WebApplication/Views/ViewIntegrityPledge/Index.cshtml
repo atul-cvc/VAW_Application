@@ -19,13 +19,15 @@
 <hr />
 <div class="m-4" style="display:flex;text-align:center;">
     <label style="align-content: center; margin-right:10px" for="year_select">Year : </label>
-    <select class="form-control" id="year_select" name="year_select" style="width: 10rem">
-        <option selected value="2024">2024</option>
-        <option value="2023">2023</option>
-        <option value="2022">2022</option>
-        <option value="2021">2021</option>
+    @*<select class="form-control" id="year_select" name="year_select" style="width: 10rem">
+            <option selected value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
 
-    </select>
+        </select>*@
+    @*YearsList*@
+    @Html.DropDownListFor(model => model.CurrentYear, Model.YearsList, "Select Year", new { @class = "form-control" })
 </div>
 
 <br />

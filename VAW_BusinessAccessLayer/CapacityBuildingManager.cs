@@ -56,6 +56,10 @@ namespace VAW_BusinessAccessLayer
         {
             return CapacityBuildingDAL.GetCapacityBuildingRecordByCVOID(cvoid);
         }
+        public DataSet GetCapacityBuildingRecordByCVOIDandYear(string cvoid, string year)
+        {
+            return CapacityBuildingDAL.GetCapacityBuildingRecordByCVOIDandYear(cvoid, year);
+        }
         public DataSet GetCapacityBuildingRecordByID(int ID)
         {
             return CapacityBuildingDAL.GetCapacityBuildingRecordByID(ID);
@@ -81,6 +85,10 @@ namespace VAW_BusinessAccessLayer
         {
             return CapacityBuildingDAL.GetSystemImpRecordByCVOID(cvoid);
         }
+        public DataSet GetSystemImpRecordByCVOIDandYear(string cvoid, string year)
+        {
+            return CapacityBuildingDAL.GetSystemImpRecordByCVOIDandYear(cvoid, year);
+        }
         public DataSet GetSystemImpRecordByRecordID(int ID)
         {
             return CapacityBuildingDAL.GetSystemImpRecordByRecordID(ID);
@@ -105,11 +113,14 @@ namespace VAW_BusinessAccessLayer
         {
             return CapacityBuildingDAL.GetCircularsRecordByCVOID(cvoid);
         }
+        public DataSet GetCircularsRecordByCVOIDandYear(string cvoid, string year)
+        {
+            return CapacityBuildingDAL.GetCircularsRecordByCVOIDandYear(cvoid, year);
+        }
         public DataSet GetCircularsByRecordID(int ID)
         {
             return CapacityBuildingDAL.GetCircularsByRecordID(ID);
         }
-
         public int SaveCirculars(Tran_a_3b_updation_circular_guidelines_manuals_Model CircularModel)
         {
             return CapacityBuildingDAL.SaveCirculars(CircularModel);
@@ -128,6 +139,10 @@ namespace VAW_BusinessAccessLayer
         public DataSet GetDisposalOfComplaintByCVOID(string cvoid)
         {
             return CapacityBuildingDAL.GetDisposalOfComplaintByCVOID(cvoid);
+        }
+        public DataSet GetDisposalOfComplaintByCVOIDandYear(string cvoid, string year)
+        {
+            return CapacityBuildingDAL.GetDisposalOfComplaintByCVOIDandYear(cvoid, year);
         }
         public DataSet GetDisposalOfComplaintByRecordID(int ID)
         {
@@ -153,6 +168,10 @@ namespace VAW_BusinessAccessLayer
         public DataSet GetDynamicDigitalPresenceByCVOID(string cvoid)
         {
             return CapacityBuildingDAL.GetDynamicDigitalPresenceByCVOID(cvoid);
+        }
+        public DataSet GetDynamicDigitalPresenceByCVOIDandYear(string cvoid, string year)
+        {
+            return CapacityBuildingDAL.GetDynamicDigitalPresenceByCVOIDandYear(cvoid, year);
         }
         public DataSet GetDynamicDigitalPresenceByRecordID(int ID)
         {

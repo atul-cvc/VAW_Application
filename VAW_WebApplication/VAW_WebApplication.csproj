@@ -319,6 +319,13 @@
     <Content Include="Views\ViewIntegrityPledge\EditIntegrityPledge.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\EditConductOfCompetitions.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\EditActivitiesOtherActivities.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\EditAnyOtherRelevantInformation.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\EditDetailsOfPhotos.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\EditOtherActivities.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\EditOutreachInvolvingSchoolStudents.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\EditOutreachInvolvingCollegeStudents.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\EditOutreachAwarenessGramSabhas.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\EditOutreachSeminars.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

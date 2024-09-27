@@ -282,6 +282,8 @@ namespace VAW_DataAccessLayer
             return EffectedRows;
         }
 
+        #region 3. OUTREACH ACTIVITIES
+        #region 3.1. OutreachInvolvingSchoolStudents
         public DataSet GetInvolvingSchoolStudentsByRecordId(int id)
         {
             DataSet DS = new DataSet();
@@ -305,36 +307,6 @@ namespace VAW_DataAccessLayer
                 MySqlParameter[] Sqlpara = new MySqlParameter[1];
                 Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
                 DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachInvolvingSchoolStudentsByCVOID", Sqlpara);
-            }
-            catch (Exception ex)
-            {
-                errolog.WriteErrorLog(ex);
-            }
-            return DS;
-        }
-        public DataSet GetInvolvingCollegeStudentsByRecordId(int id)
-        {
-            DataSet DS = new DataSet();
-            try
-            {
-                MySqlParameter[] Sqlpara = new MySqlParameter[1];
-                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
-                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachInvolvingCollegeStudents", Sqlpara);
-            }
-            catch (Exception ex)
-            {
-                errolog.WriteErrorLog(ex);
-            }
-            return DS;
-        }
-        public DataSet GetInvolvingCollegeStudentsBYCVOID(string cvoid)
-        {
-            DataSet DS = new DataSet();
-            try
-            {
-                MySqlParameter[] Sqlpara = new MySqlParameter[1];
-                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
-                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachInvolvingCollegeStudentsByCVOID", Sqlpara);
             }
             catch (Exception ex)
             {
@@ -372,6 +344,66 @@ namespace VAW_DataAccessLayer
             }
             return EffectedRows;
         }
+        public int UpdateInvolvingSchoolStudents(Tran_3a_outreach_involvingschoolstudents_Model obj)
+        {
+            int EffectedRows = 0;
+            try
+            {
+                MySqlParameter[] sqlParams = new MySqlParameter[11];
+                sqlParams[0] = new MySqlParameter("@p_Record_ID", obj.Record_ID);
+                sqlParams[1] = new MySqlParameter("@p_VAW_Year", Convert.ToInt32(obj.VAW_Year));
+                sqlParams[2] = new MySqlParameter("@p_DateOfActivity", obj.DateOfActivity);
+                sqlParams[3] = new MySqlParameter("@p_StateName", obj.StateName);
+                sqlParams[4] = new MySqlParameter("@p_City_Town_Village_Name", obj.City_Town_Village_Name);
+                sqlParams[5] = new MySqlParameter("@p_SchoolName", obj.SchoolName);
+                sqlParams[6] = new MySqlParameter("@p_ActivityDetails", obj.ActivityDetails);
+                sqlParams[7] = new MySqlParameter("@p_CreatedOn", obj.CreatedOn);
+                sqlParams[8] = new MySqlParameter("@p_CreatedBy", obj.CreatedBy);
+                sqlParams[9] = new MySqlParameter("@p_CreatedByIP", obj.CreatedByIP);
+                sqlParams[10] = new MySqlParameter("@p_NoOfStudentsInvolved", obj.NoOfStudentsInvolved);
+                // Execute the stored procedure
+                EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_UpdateOutreachInvolvingSchoolStudents", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return EffectedRows;
+        }
+
+        #endregion
+
+        #region 3.2. OutreachInvolvingCollegeStudents
+        public DataSet GetInvolvingCollegeStudentsByRecordId(int id)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachInvolvingCollegeStudents", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetInvolvingCollegeStudentsBYCVOID(string cvoid)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[1];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachInvolvingCollegeStudentsByCVOID", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
         public int SaveInvolvingCollegeStudents(Tran_3b_outreach_involvingcollegestudents_Model obj)
         {
             int EffectedRows = 0;
@@ -402,7 +434,36 @@ namespace VAW_DataAccessLayer
             }
             return EffectedRows;
         }
+        public int UpdateInvolvingCollegeStudents(Tran_3b_outreach_involvingcollegestudents_Model obj)
+        {
+            int EffectedRows = 0;
+            try
+            {
+                MySqlParameter[] sqlParams = new MySqlParameter[11];
+                sqlParams[0] = new MySqlParameter("@p_VAW_Year", Convert.ToInt32(obj.VAW_Year));
+                sqlParams[1] = new MySqlParameter("@p_Record_ID", obj.Record_ID);
+                sqlParams[2] = new MySqlParameter("@p_DateOfActivity", obj.DateOfActivity);
+                sqlParams[3] = new MySqlParameter("@p_StateName", obj.StateName);
+                sqlParams[4] = new MySqlParameter("@p_City_Town_Village_Name", obj.City_Town_Village_Name);
+                sqlParams[5] = new MySqlParameter("@p_SchoolName", obj.SchoolName);
+                sqlParams[6] = new MySqlParameter("@p_ActivityDetails", obj.ActivityDetails);
+                sqlParams[7] = new MySqlParameter("@p_CreatedOn", obj.CreatedOn);
+                sqlParams[8] = new MySqlParameter("@p_CreatedBy", obj.CreatedBy);
+                sqlParams[9] = new MySqlParameter("@p_CreatedByIP", obj.CreatedByIP);
+                sqlParams[10] = new MySqlParameter("@p_NoOfStudentsInvolved", obj.NoOfStudentsInvolved);
 
+                // Execute the stored procedure
+                EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_UpdateOutreachInvolvingCollegeStudents", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return EffectedRows;
+        }
+        #endregion
+
+        #region 3.3. OutreachAwarenessGramSabhas
         public DataSet GetOutreachAwarenessByRecordId(int id)
         {
             DataSet DS = new DataSet();
@@ -464,6 +525,36 @@ namespace VAW_DataAccessLayer
             }
             return EffectedRows;
         }
+        public int UpdateOutreachAwareness(Tran_3c_outreach_awarenessgramsabhas_Model obj)
+        {
+            int EffectedRows = 0;
+            try
+            {
+                MySqlParameter[] sqlParams = new MySqlParameter[11];
+                sqlParams[0] = new MySqlParameter("@p_Record_ID", obj.Record_ID);
+                sqlParams[1] = new MySqlParameter("@p_VAW_Year", Convert.ToInt32(obj.VAW_Year));                                
+                sqlParams[2] = new MySqlParameter("@p_DateOfActivity", obj.DateOfActivity);
+                sqlParams[3] = new MySqlParameter("@p_StateName", obj.StateName);
+                sqlParams[4] = new MySqlParameter("@p_City_Town_Village_Name", obj.City_Town_Village_Name);
+                sqlParams[5] = new MySqlParameter("@p_NameOfGramPanchayat", obj.NameOfGramPanchayat);
+                sqlParams[6] = new MySqlParameter("@p_ActivityDetails", obj.ActivityDetails);
+                sqlParams[7] = new MySqlParameter("@p_CreatedOn", obj.CreatedOn);
+                sqlParams[8] = new MySqlParameter("@p_CreatedBy", obj.CreatedBy);
+                sqlParams[9] = new MySqlParameter("@p_CreatedByIP", obj.CreatedByIP);                
+                sqlParams[10] = new MySqlParameter("@p_NoOfPublicOrCitizenParticipated", obj.NoOfPublicOrCitizenParticipated);
+
+                // Execute the stored procedure
+                EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_UpdateOutreachAwarenessGramSabhas", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return EffectedRows;
+        }
+        #endregion
+        #region 3.4. OutreachSeminars
+
 
         public DataSet GetSeminarsWorkshopsByRecordId(int id)
         {
@@ -526,13 +617,43 @@ namespace VAW_DataAccessLayer
             }
             return EffectedRows;
         }
+        public int UpdateSeminarsWorkshops(Tran_3d_outreach_seminarsworkshops_Model obj)
+        {
+            int EffectedRows = 0;
+            try
+            {
+                MySqlParameter[] sqlParams = new MySqlParameter[11];
+                sqlParams[0] = new MySqlParameter("@p_VAW_Year", Convert.ToInt32(obj.VAW_Year));
+                sqlParams[1] = new MySqlParameter("@p_Record_ID", obj.Record_ID);               
+                sqlParams[2] = new MySqlParameter("@p_DateOfActivity", obj.DateOfActivity);
+                sqlParams[3] = new MySqlParameter("@p_StateName", obj.StateName);
+                sqlParams[4] = new MySqlParameter("@p_City_Town_Village_Name", obj.City_Town_Village_Name);
+                sqlParams[5] = new MySqlParameter("@p_NoOfSeminarsWorkshops", obj.NoOfSeminarsWorkshops);
+                sqlParams[6] = new MySqlParameter("@p_ActivityDetails", obj.ActivityDetails);
+                sqlParams[7] = new MySqlParameter("@p_CreatedOn", obj.CreatedOn);
+                sqlParams[8] = new MySqlParameter("@p_CreatedBy", obj.CreatedBy);
+                sqlParams[9] = new MySqlParameter("@p_CreatedByIP", obj.CreatedByIP);                
+                sqlParams[10] = new MySqlParameter("@p_NoOfPublicOrCitizenParticipated", obj.NoOfPublicOrCitizenParticipated);
+
+                // Execute the stored procedure
+                EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_UpdateSeminarsWorkshops", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return EffectedRows;
+        }
+        #endregion
+        #endregion
+        #region 4. OTHER ACTIVITIES
         public DataSet GetOtherActivitiesByRecordId(int id)
         {
             DataSet DS = new DataSet();
             try
             {
                 MySqlParameter[] Sqlpara = new MySqlParameter[1];
-                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id);
                 DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOtherActivities", Sqlpara);
             }
             catch (Exception ex)
@@ -585,7 +706,35 @@ namespace VAW_DataAccessLayer
             }
             return EffectedRows;
         }
+        public int UpdateOtherActivities(Tran_4_otheractivities_Model obj)
+        {
+            int EffectedRows = 0;
+            try
+            {
+                MySqlParameter[] sqlParams = new MySqlParameter[9];
 
+                sqlParams[0] = new MySqlParameter("@p_Record_ID", obj.Record_ID);
+                sqlParams[1] = new MySqlParameter("@p_VAW_Year", Convert.ToInt32(obj.VAW_Year));
+                sqlParams[2] = new MySqlParameter("@p_DateOfActivity", obj.DateOfActivity);
+                sqlParams[3] = new MySqlParameter("@p_DisplayOfBannerPosterDetails", obj.DisplayOfBannerPosterDetails);
+                sqlParams[4] = new MySqlParameter("@p_NoOfGrievanceRedressalCampsHeld", obj.NoOfGrievanceRedressalCampsHeld);
+                sqlParams[5] = new MySqlParameter("@p_CreatedOn", obj.CreatedOn);
+                sqlParams[6] = new MySqlParameter("@p_CreatedBy", obj.CreatedBy);
+                sqlParams[7] = new MySqlParameter("@p_CreatedByIP", obj.CreatedByIP);
+                sqlParams[8] = new MySqlParameter("@p_UserOfScocialMedia", obj.UserOfScocialMedia);
+
+                // Execute the stored procedure
+                EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_UpdateOtherActivities", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return EffectedRows;
+        }
+
+        #endregion
+        #region 5. DETAILS OF PHOTOS ENCLOSED
         public DataSet GetDetailsOfPhotosByRecordId(int id)
         {
             DataSet DS = new DataSet();
@@ -646,7 +795,34 @@ namespace VAW_DataAccessLayer
             }
             return EffectedRows;
         }
+        public int UpdateDetailsOfPhotos(Tran_5_detailsofphotos_Model obj)
+        {
+            int EffectedRows = 0;
+            try
+            {
+                MySqlParameter[] sqlParams = new MySqlParameter[10];
+                sqlParams[0] = new MySqlParameter("@p_Record_ID", obj.Record_ID);
+                sqlParams[1] = new MySqlParameter("@p_VAW_Year", Convert.ToInt32(obj.VAW_Year));
+                sqlParams[2] = new MySqlParameter("@p_DateOfActivity", obj.DateOfActivity);
+                sqlParams[3] = new MySqlParameter("@p_NameOfActivity", obj.NameOfActivity);
+                sqlParams[4] = new MySqlParameter("@p_NoOfPhotos", obj.NoOfPhotos);
+                sqlParams[5] = new MySqlParameter("@p_WhetherPhotosSentAsSoftCopyOrHardCopy", obj.WhetherPhotosSentAsSoftCopyOrHardCopy);
+                sqlParams[6] = new MySqlParameter("@p_SoftCopy_NoOfCd", obj.SoftCopy_NoOfCd);
+                sqlParams[7] = new MySqlParameter("@p_CreatedOn", obj.CreatedOn);
+                sqlParams[8] = new MySqlParameter("@p_CreatedBy", obj.CreatedBy);
+                sqlParams[9] = new MySqlParameter("@p_CreatedByIP", obj.CreatedByIP);
 
+
+                // Execute the stored procedure
+                EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_UpdateDetailsOfPhotos", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return EffectedRows;
+        }
+        #endregion
 
         public DataSet GetStateList()
         {
@@ -662,7 +838,7 @@ namespace VAW_DataAccessLayer
             return DS;
         }
 
-
+        #region 6. ANY OTHER RELEVANT INFORMATION, IF ANY
         public DataSet GetOtherRelevantInformationByrecordId(int id)
         {
             DataSet DS = new DataSet();
@@ -677,7 +853,8 @@ namespace VAW_DataAccessLayer
                 errolog.WriteErrorLog(ex);
             }
             return DS;
-        }public DataSet GetOtherRelevantInformationBYCVOID(string cvoid)
+        }
+        public DataSet GetOtherRelevantInformationBYCVOID(string cvoid)
         {
             DataSet DS = new DataSet();
             try
@@ -718,5 +895,30 @@ namespace VAW_DataAccessLayer
             }
             return EffectedRows;
         }
+        public int UpdateAnyOtherRelevantInformation(Tran_6_otherinformation_Model obj)
+        {
+            int EffectedRows = 0;
+            try
+            {
+                MySqlParameter[] sqlParams = new MySqlParameter[7];
+                sqlParams[0] = new MySqlParameter("@p_Record_ID", obj.Record_ID);
+                sqlParams[1] = new MySqlParameter("@p_VAW_Year", Convert.ToInt32(obj.VAW_Year));
+                sqlParams[2] = new MySqlParameter("@p_DateOfActivity", obj.DateOfActivity);
+                sqlParams[3] = new MySqlParameter("@p_DetailsOfActivity", obj.DetailsOfActivity);
+                sqlParams[4] = new MySqlParameter("@p_CreatedOn", obj.CreatedOn);
+                sqlParams[5] = new MySqlParameter("@p_CreatedBy", obj.CreatedBy); // Replace with actual user
+                sqlParams[6] = new MySqlParameter("@p_CreatedByIP", obj.CreatedByIP); // Replace with actual IP              
+
+                // Execute the stored procedure
+                EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_UpdateOtherInformation", sqlParams);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return EffectedRows;
+        }
+        #endregion
+
     }
 }

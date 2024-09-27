@@ -1,11 +1,11 @@
 ﻿@model VAW_WebApplication.Models.Tran_5_detailsofphotos_ViewModel
 
 @{
-    ViewBag.Title = "CreateDetailsOfPhotos";
+    ViewBag.Title = "EditDetailsOfPhotos";
     Layout = "~/Views/Shared/_Layout_Users.cshtml";
 }
 
-<h2>Create Details Of Photos</h2>
+<h2>EDIT Details Of Photos</h2>
 
 
 @using (Html.BeginForm())
@@ -20,8 +20,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.VAW_Year, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                 @Html.ValidationMessageFor(model => model.VAW_Year, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.UniqueTransactionId)
-                @Html.HiddenFor(model => model.CvoOrgCode)
+                @Html.HiddenFor(model => model.ID)                
                 @Html.HiddenFor(model => model.CvoId)
             </div>
         </div>
@@ -86,6 +85,7 @@
         </div>
     </div>
 }
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

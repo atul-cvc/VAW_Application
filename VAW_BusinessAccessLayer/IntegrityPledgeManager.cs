@@ -50,6 +50,10 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.SaveActivitiesOtherActivities(obj);
         }
+
+        #region 3. OUTREACH ACTIVITIES
+
+        #region 3.1. OutreachInvolvingSchoolStudents
         public DataSet GetInvolvingSchoolStudentsByRecordId(int id)
         {
             return IntegrityPledgeDAL.GetInvolvingSchoolStudentsByRecordId(id);
@@ -62,7 +66,14 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.SaveInvolvingSchoolStudents(obj);
         }
-        public DataSet GetInvolvingCollegeStudentsByRecordId(int id)
+        public int UpdateInvolvingSchoolStudents(Tran_3a_outreach_involvingschoolstudents_Model obj)
+        {
+            return IntegrityPledgeDAL.UpdateInvolvingSchoolStudents(obj);
+        }
+            #endregion
+
+            #region 3.2. OutreachInvolvingCollegeStudents
+            public DataSet GetInvolvingCollegeStudentsByRecordId(int id)
         {
             return IntegrityPledgeDAL.GetInvolvingCollegeStudentsByRecordId(id);
         }
@@ -74,6 +85,13 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.SaveInvolvingCollegeStudents(obj);
         }
+        public int UpdateInvolvingCollegeStudents(Tran_3b_outreach_involvingcollegestudents_Model obj) 
+        {
+            return IntegrityPledgeDAL.UpdateInvolvingCollegeStudents(obj);
+        }
+        #endregion
+
+        #region 3.3. OutreachAwarenessGramSabhas
         public DataSet GetOutreachAwarenessByRecordId(int id)
         {
             return IntegrityPledgeDAL.GetOutreachAwarenessByRecordId(id);
@@ -86,10 +104,17 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.SaveOutreachAwareness(obj);
         }
+        public int UpdateOutreachAwareness(Tran_3c_outreach_awarenessgramsabhas_Model obj)
+        {
+            return IntegrityPledgeDAL.UpdateOutreachAwareness(obj);
+        }
+        #endregion
+
+        #region 3.4. OutreachSeminars
         public DataSet GetSeminarsWorkshopsByRecordId(int id)
         {
             return IntegrityPledgeDAL.GetSeminarsWorkshopsByRecordId(id);
-        }        
+        }
         public DataSet GetSeminarsWorkshopsBYCVOID(string cvoid)
         {
             return IntegrityPledgeDAL.GetSeminarsWorkshopsBYCVOID(cvoid);
@@ -98,6 +123,18 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.SaveSeminarsWorkshops(obj);
         }
+        public int UpdateSeminarsWorkshops(Tran_3d_outreach_seminarsworkshops_Model obj)
+        {
+            return IntegrityPledgeDAL.UpdateSeminarsWorkshops(obj);
+        }
+        #endregion
+        #endregion
+
+
+
+
+
+        #region 4. OTHER ACTIVITIES
         public DataSet GetOtherActivitiesByRecordId(int id)
         {
             return IntegrityPledgeDAL.GetOtherActivitiesByRecordId(id);
@@ -110,6 +147,13 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.SaveOtherActivities(obj);
         }
+        public int UpdateOtherActivities(Tran_4_otheractivities_Model obj)
+        {
+            return IntegrityPledgeDAL.UpdateOtherActivities(obj);
+        }
+        #endregion
+
+        #region 5. DETAILS OF PHOTOS ENCLOSED
         public DataSet GetDetailsOfPhotosByRecordId(int id)
         {
             return IntegrityPledgeDAL.GetDetailsOfPhotosByRecordId(id);
@@ -122,10 +166,17 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.SaveDetailsOfPhotos(obj);
         }
+        public int UpdateDetailsOfPhotos(Tran_5_detailsofphotos_Model obj)
+        {
+            return IntegrityPledgeDAL.UpdateDetailsOfPhotos(obj);
+        }
+        #endregion
         public DataSet GetStateList()
         {
             return IntegrityPledgeDAL.GetStateList();
         }
+
+        #region 6. ANY OTHER RELEVANT INFORMATION, IF ANY
         public DataSet GetOtherRelevantInformationByRecordId(int id)
         {
             return IntegrityPledgeDAL.GetOtherRelevantInformationByrecordId(id);
@@ -134,11 +185,15 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.GetOtherRelevantInformationBYCVOID(cvoid);
         }
-         public int SaveAnyOtherRelevantInformation(Tran_6_otherinformation_Model obj)
+        public int SaveAnyOtherRelevantInformation(Tran_6_otherinformation_Model obj)
         {
             return IntegrityPledgeDAL.SaveAnyOtherRelevantInformation(obj);
         }
-        
 
+        public int UpdateAnyOtherRelevantInformation(Tran_6_otherinformation_Model obj)
+        {
+            return IntegrityPledgeDAL.UpdateAnyOtherRelevantInformation(obj);
+        }
+        #endregion
     }
 }

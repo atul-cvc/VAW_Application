@@ -228,7 +228,7 @@ namespace VAW_DataAccessLayer
             try
             {
 
-                MySqlParameter[] Sqlpara = new MySqlParameter[12];
+                MySqlParameter[] Sqlpara = new MySqlParameter[15];
                 Sqlpara[0] = new MySqlParameter("@p_VAW_Year", IdentificationAndImpliObj.VAW_Year);
                 Sqlpara[1] = new MySqlParameter("@p_UniqueTransactionId", IdentificationAndImpliObj.UniqueTransactionId);
                 Sqlpara[2] = new MySqlParameter("@p_CvoOrgCode", IdentificationAndImpliObj.CvoOrgCode);
@@ -241,9 +241,9 @@ namespace VAW_DataAccessLayer
                 Sqlpara[9] = new MySqlParameter("@p_CreatedBy", IdentificationAndImpliObj.CreatedBy);
                 Sqlpara[10] = new MySqlParameter("@p_CreatedByIP", IdentificationAndImpliObj.CreatedByIP);
                 Sqlpara[11] = new MySqlParameter("@p_CreatedBySession", IdentificationAndImpliObj.CreatedBySession);
-                Sqlpara[11] = new MySqlParameter("@p_NoOf_Cases_Analysis", IdentificationAndImpliObj.NoOf_CasesTakenForAnalysis_past5Years);
-                Sqlpara[11] = new MySqlParameter("@p_KeyAreas_BasesdOn_Analysis", IdentificationAndImpliObj.KeyAreasDetected_BasedonAnalysis);
-                Sqlpara[11] = new MySqlParameter("@p_Sys_Improvements_Analysis", IdentificationAndImpliObj.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis);
+                Sqlpara[12] = new MySqlParameter("@p_NoOf_Cases_Analysis", IdentificationAndImpliObj.NoOf_CasesTakenForAnalysis_past5Years);
+                Sqlpara[13] = new MySqlParameter("@p_KeyAreas_BasesdOn_Analysis", IdentificationAndImpliObj.KeyAreasDetected_BasedonAnalysis);
+                Sqlpara[14] = new MySqlParameter("@p_Sys_Improvements_Analysis", IdentificationAndImpliObj.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis);
                 EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_CreateSysImp", Sqlpara);
             }
             catch (Exception ex)
@@ -257,7 +257,7 @@ namespace VAW_DataAccessLayer
             int EffectedRows = 0;
             try
             {
-                MySqlParameter[] Sqlpara = new MySqlParameter[10];
+                MySqlParameter[] Sqlpara = new MySqlParameter[13];
                 Sqlpara[0] = new MySqlParameter("@p_Record_ID", IdentificationAndImpliObj.Record_ID);
                 Sqlpara[1] = new MySqlParameter("@p_VAW_Year", IdentificationAndImpliObj.VAW_Year);
                 Sqlpara[2] = new MySqlParameter("@p_FromDate", IdentificationAndImpliObj.FromDate);
@@ -268,6 +268,9 @@ namespace VAW_DataAccessLayer
                 Sqlpara[7] = new MySqlParameter("@p_CreatedBy", IdentificationAndImpliObj.CreatedBy);
                 Sqlpara[8] = new MySqlParameter("@p_CreatedByIP", IdentificationAndImpliObj.CreatedByIP);
                 Sqlpara[9] = new MySqlParameter("@p_CreatedBySession", IdentificationAndImpliObj.CreatedBySession);
+                Sqlpara[10] = new MySqlParameter("@p_NoOf_Cases_Analysis", IdentificationAndImpliObj.NoOf_CasesTakenForAnalysis_past5Years);
+                Sqlpara[11] = new MySqlParameter("@p_KeyAreas_BasesdOn_Analysis", IdentificationAndImpliObj.KeyAreasDetected_BasedonAnalysis);
+                Sqlpara[12] = new MySqlParameter("@p_Sys_Improvements_Analysis", IdentificationAndImpliObj.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis);
                 EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_UpdateSysImp", Sqlpara);
             }
             catch (Exception ex)

@@ -40,7 +40,7 @@ namespace VAW_WebApplication.Models
 
         [Required(ErrorMessage = "Please enter no. of students involved.")]
         [Display(Name = "No of Students Involved")]
-        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
+        [RegularExpression("([0-9]*)", ErrorMessage = "Entry should be Number ")]
         public int NoOfStudentsInvolved { get; set; }
 
         [Display(Name = "CVO Organisation")]

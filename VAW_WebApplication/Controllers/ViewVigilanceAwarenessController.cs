@@ -295,8 +295,8 @@ namespace VAW_WebApplication.Controllers
             vmmodal.VAW_Year = DateTime.Now.Year.ToString();
             vmmodal.CvoId = "CVO_SBI";
             vmmodal.CvoOrgCode = "I61";
-            vmmodal.FromDate = DateTime.Now;
-            vmmodal.ToDate = DateTime.Now;
+            vmmodal.FromDate = Convert.ToDateTime("16-08-2024"); //DateTime.Now;
+            vmmodal.ToDate = Convert.ToDateTime("15-11-2024");  //DateTime.Now;
             return View(vmmodal);
         }
 
@@ -322,6 +322,9 @@ namespace VAW_WebApplication.Controllers
                     vmmodal.UniqueTransactionId = Guid.NewGuid().ToString() + "_" + VmData.VAW_Year;
                     vmmodal.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     vmmodal.CreatedBySession = Session.SessionID;
+                    vmmodal.NoOf_CasesTakenForAnalysis_past5Years = VmData.NoOf_CasesTakenForAnalysis_past5Years;
+                    vmmodal.KeyAreasDetected_BasedonAnalysis = VmData.KeyAreasDetected_BasedonAnalysis;
+                    vmmodal.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis = VmData.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis;
                     int result = capacityBuildingManager.SaveIdentificationAndImplimentation(vmmodal);
                     if (result >= 1)
                     {

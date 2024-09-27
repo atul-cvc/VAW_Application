@@ -25,6 +25,10 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.SaveIntegrityPledge(obj);
         }
+        public int UpdateIntegrityPledge(Tran_1a_integritypledge_Model obj)
+        {
+            return IntegrityPledgeDAL.UpdateIntegrityPledge(obj);
+        }
 
         public DataSet GetConductOfCompetitionsByRecordId(int id)
         {
@@ -33,6 +37,10 @@ namespace VAW_BusinessAccessLayer
         public DataSet GetConductOfCompetitionsByCVOID(string cvoid)
         {
             return IntegrityPledgeDAL.GetConductOfCompetitionsBYCVOID(cvoid);
+        }
+        public int EditConductOfCompetitions(Tran_2a_orgactivities_conductofcompetitions_Model obj)
+        {
+            return IntegrityPledgeDAL.EditConductOfCompetitions(obj);
         }
         public int SaveConductOfCompetitions(Tran_2a_orgactivities_conductofcompetitions_Model obj)
         {
@@ -49,6 +57,10 @@ namespace VAW_BusinessAccessLayer
         public int SaveActivitiesOtherActivities(Tran_2b_orgactivities_otheractivities_Model obj)
         {
             return IntegrityPledgeDAL.SaveActivitiesOtherActivities(obj);
+        }
+        public int EditActivitiesOtherActivities(Tran_2b_orgactivities_otheractivities_Model obj)
+        {
+            return IntegrityPledgeDAL.EditActivitiesOtherActivities(obj);
         }
 
         #region 3. OUTREACH ACTIVITIES

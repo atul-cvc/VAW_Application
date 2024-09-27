@@ -1,7 +1,7 @@
 ﻿@model VAW_WebApplication.Models.Tran_2a_orgactivities_conductofcompetitions_ViewModel
 
 @{
-    ViewBag.Title = "CreateConductOfCompetitions";
+    ViewBag.Title = "EditConductOfCompetitions";
     Layout = "~/Views/Shared/_Layout_Users.cshtml";
 }
 
@@ -55,7 +55,6 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SpecificProgram, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @*@Html.EditorFor(model => model.SpecificProgram, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.DropDownListFor(model => model.SpecificProgram, Model.SpecificProgramList, "Select a Program", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SpecificProgram, "", new { @class = "text-danger" })
             </div>
@@ -72,7 +71,6 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @*@Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.TextAreaFor(model => model.Remarks, new { @class = "textarea-custom-h-50", @id = "myTextArea" })
                 <div id="wordCount" style="margin-top: 10px; margin-left:150px;">Word count: 0 / 500</div>
                 @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
@@ -85,7 +83,7 @@
                     @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-primary" })
                 </div>
                 <div class="col-md-2">
-                    <input type="submit" value="Save" class="btn btn-success" />
+                    <input type="submit" value="Update" class="btn btn-success" />
                 </div>
             </div>
 

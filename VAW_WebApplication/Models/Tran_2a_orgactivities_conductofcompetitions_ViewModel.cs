@@ -39,7 +39,7 @@ namespace VAW_WebApplication.Models
 
         [Required(ErrorMessage = "Please enter no. of participants.")]
         [Display(Name = "No. of Participants")]
-        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Entry should be Number ")]
+        [RegularExpression("([0-9]*)", ErrorMessage = "Entry should be Number ")]
         public int NoOfParticipant { get; set; }
 
         [Required(ErrorMessage = "Please enter Remarks")]

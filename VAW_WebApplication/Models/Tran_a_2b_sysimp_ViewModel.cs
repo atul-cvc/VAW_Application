@@ -37,5 +37,17 @@ namespace VAW_WebApplication.Models
 
         [Display(Name = "CVO Organisation")]
         public string OrganisationName { get; set; }
+
+        [Required(ErrorMessage = "Please enter No. Of Vigilance Cases Of The Past 5 Years Taken Up For Analysis")]
+        [Display(Name = "No. Of Vigilance Cases Of The Past 5 Years Taken Up For Analysis")]
+        public int NoOf_CasesTakenForAnalysis_past5Years { get; set; }
+
+        [Required(ErrorMessage = "Please enter Key Areas Vulnerable To Corruption Detected Based On Analysis")]
+        [Display(Name = "Key Areas Vulnerable To Corruption Detected Based On Analysis")]
+        public string KeyAreasDetected_BasedonAnalysis { get; set; }
+
+        //[Required(ErrorMessage = "Please enter Brief Details about Systemic Improvements identified and implemented / under implementation")]
+        [Display(Name = "Systemic Improvements identified and implemented / under implementation (brief details may be given)")]
+        public string Sys_Improvements_Identified_And_Impl_BasedOnAnalysis { get; set; }
     }
 }

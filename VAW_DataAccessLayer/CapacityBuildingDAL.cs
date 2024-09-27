@@ -241,6 +241,9 @@ namespace VAW_DataAccessLayer
                 Sqlpara[9] = new MySqlParameter("@p_CreatedBy", IdentificationAndImpliObj.CreatedBy);
                 Sqlpara[10] = new MySqlParameter("@p_CreatedByIP", IdentificationAndImpliObj.CreatedByIP);
                 Sqlpara[11] = new MySqlParameter("@p_CreatedBySession", IdentificationAndImpliObj.CreatedBySession);
+                Sqlpara[11] = new MySqlParameter("@p_NoOf_Cases_Analysis", IdentificationAndImpliObj.NoOf_CasesTakenForAnalysis_past5Years);
+                Sqlpara[11] = new MySqlParameter("@p_KeyAreas_BasesdOn_Analysis", IdentificationAndImpliObj.KeyAreasDetected_BasedonAnalysis);
+                Sqlpara[11] = new MySqlParameter("@p_Sys_Improvements_Analysis", IdentificationAndImpliObj.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis);
                 EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_CreateSysImp", Sqlpara);
             }
             catch (Exception ex)
@@ -425,11 +428,11 @@ namespace VAW_DataAccessLayer
                 Sqlpara[2] = new MySqlParameter("@p_CvoOrgCode", DisposalOfComlaintObj.CvoOrgCode);
                 Sqlpara[3] = new MySqlParameter("@p_CvoId", DisposalOfComlaintObj.CvoId);
                 Sqlpara[4] = new MySqlParameter("@p_NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608", DisposalOfComlaintObj.NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608);
-                Sqlpara[5] = new MySqlParameter("@p_Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608", DisposalOfComlaintObj.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608);
+                Sqlpara[5] = new MySqlParameter("@p_Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608", DisposalOfComlaintObj.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 ?? "");
                 Sqlpara[6] = new MySqlParameter("@p_NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign", DisposalOfComlaintObj.NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign);
-                Sqlpara[7] = new MySqlParameter("@p_Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign", DisposalOfComlaintObj.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign);
+                Sqlpara[7] = new MySqlParameter("@p_Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign", DisposalOfComlaintObj.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign ?? "");
                 Sqlpara[8] = new MySqlParameter("@p_NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511", DisposalOfComlaintObj.NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511);
-                Sqlpara[9] = new MySqlParameter("@p_Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511", DisposalOfComlaintObj.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511);
+                Sqlpara[9] = new MySqlParameter("@p_Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511", DisposalOfComlaintObj.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 ?? "");
                 Sqlpara[10] = new MySqlParameter("@p_CreatedOn", DisposalOfComlaintObj.CreatedOn);
                 Sqlpara[11] = new MySqlParameter("@p_CreatedBy", DisposalOfComlaintObj.CreatedBy);
                 Sqlpara[12] = new MySqlParameter("@p_CreatedByIP", DisposalOfComlaintObj.CreatedByIP);

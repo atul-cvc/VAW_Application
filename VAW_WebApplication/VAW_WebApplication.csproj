@@ -317,6 +317,8 @@
     <Content Include="Views\ViewVigilanceAwareness\EditDisposalOfComplaints.cshtml" />
     <Content Include="Views\ViewVigilanceAwareness\EditDigitalDynamicPresence.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\EditIntegrityPledge.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\EditConductOfCompetitions.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\EditActivitiesOtherActivities.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\EditAnyOtherRelevantInformation.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\EditDetailsOfPhotos.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\EditOtherActivities.cshtml" />

@@ -653,7 +653,7 @@ namespace VAW_DataAccessLayer
             try
             {
                 MySqlParameter[] Sqlpara = new MySqlParameter[1];
-                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id);
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
                 DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOtherActivities", Sqlpara);
             }
             catch (Exception ex)

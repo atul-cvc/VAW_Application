@@ -54,3 +54,6 @@ obj/
 /VAW_WebApplication/Properties/PublishProfiles
 /VAW_BusinessAccessLayer/obj/Debug/VAW_BusinessAccessLayer.csproj.FileListAbsolute.txt
 /VAW_WebApplication/obj/Debug/VAW_WebApplication.csproj.FileListAbsolute.txt
+/VAW_WebApplication/.vs/VAW_WebApplication.csproj.dtbcache.json
+/VAW_DataAccessLayer/bin/Debug/VAW_Models.dll
+/VAW_DataAccessLayer/bin/Debug/VAW_Models.pdb

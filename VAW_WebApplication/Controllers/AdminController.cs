@@ -57,7 +57,11 @@ namespace VAW_WebApplication.Controllers
                         FromDate = Convert.ToDateTime(data["FromDate"].ToString()),
                         ToDate = Convert.ToDateTime(data["ToDate"].ToString()),
                         Sys_Imp_Implemented_During_Campaign = data["Sys_Imp_Implemented_During_Campaign"].ToString(),
-                        Sys_Imp_Suggested_Last_5_Years_But_Pending = data["Sys_Imp_Suggested_Last_5_Years_But_Pending"].ToString()
+                        Sys_Imp_Suggested_Last_5_Years_But_Pending = data["Sys_Imp_Suggested_Last_5_Years_But_Pending"].ToString(),
+                        NoOf_CasesTakenForAnalysis_past5Years = Convert.ToInt32(data["NoOf_CasesTakenForAnalysis_past5Years"].ToString()),
+                        KeyAreasDetected_BasedonAnalysis = data["KeyAreasDetected_BasedonAnalysis"].ToString(),
+                        Sys_Improvements_Identified_And_Impl_BasedOnAnalysis = data["Sys_Improvements_Identified_And_Impl_BasedOnAnalysis"].ToString()
+                        
                     };
                     modelobj.Sys_Improvement_VM.Add(vmobjsysimp);
                 }
@@ -363,5 +367,6 @@ namespace VAW_WebApplication.Controllers
 
             return View(viewModel);
         }
+
     }
 }

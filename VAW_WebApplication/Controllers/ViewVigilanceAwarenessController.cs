@@ -297,8 +297,9 @@ namespace VAW_WebApplication.Controllers
             vmmodal.VAW_Year = DateTime.Now.Year.ToString();
             vmmodal.CvoId = "CVO_SBI";
             vmmodal.CvoOrgCode = "I61";
-            vmmodal.FromDate = Convert.ToDateTime("16-08-2024"); //DateTime.Now;
-            vmmodal.ToDate = Convert.ToDateTime("15-11-2024");  //DateTime.Now;
+          
+            vmmodal.FromDate = new DateTime(2024, 08, 16);          
+            vmmodal.ToDate = new DateTime(2024, 11, 15);  //DateTime.Now;
             return View(vmmodal);
         }
 

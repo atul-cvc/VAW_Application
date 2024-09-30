@@ -16,9 +16,17 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.GetIntegrityPledgeByRecordId(id);
         }
+        public DataSet GetIntegrityPledgeByYearAndOrg(string year, string orgCode)
+        {
+            return IntegrityPledgeDAL.GetIntegrityPledgeByYearAndOrg(year, orgCode);
+        }
         public DataSet GetIntegrityPledgeByCVOID(string cvoid)
         {
             return IntegrityPledgeDAL.GetIntegrityPledgeBYCVOID(cvoid);
+        }
+        public DataSet GetIntegrityPledgeByCVOIDandYear(string cvoid, string year)
+        {
+            return IntegrityPledgeDAL.GetIntegrityPledgeBYCVOIDandYear(cvoid, year);
         }
 
         public int SaveIntegrityPledge(Tran_1a_integritypledge_Model obj)
@@ -38,6 +46,14 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.GetConductOfCompetitionsBYCVOID(cvoid);
         }
+        public DataSet GetConductOfCompetitionsByCVOIDandYear(string cvoid, string year)
+        {
+            return IntegrityPledgeDAL.GetConductOfCompetitionsBYCVOIDandYear(cvoid, year);
+        }
+        public DataSet GetConductOfCompetitionsByYearAndOrg(string year, string orgCode)
+        {
+            return IntegrityPledgeDAL.GetConductOfCompetitionsByYearAndOrg(year, orgCode);
+        }
         public int EditConductOfCompetitions(Tran_2a_orgactivities_conductofcompetitions_Model obj)
         {
             return IntegrityPledgeDAL.EditConductOfCompetitions(obj);
@@ -53,6 +69,14 @@ namespace VAW_BusinessAccessLayer
         public DataSet GetActivitiesOtherActivities(string cvoid)
         {
             return IntegrityPledgeDAL.GetActivitiesOtherActivitiesBYCVOID(cvoid);
+        }
+        public DataSet GetActivitiesOtherActivitiesandYear(string cvoid, string year)
+        {
+            return IntegrityPledgeDAL.GetActivitiesOtherActivitiesBYCVOIDandYear(cvoid, year);
+        }
+        public DataSet GetActivitiesOtherActivitiesByYearAndOrg(string year, string orgCode)
+        {
+            return IntegrityPledgeDAL.GetActivitiesOtherActivitiesByYearAndOrg(year, orgCode);
         }
         public int SaveActivitiesOtherActivities(Tran_2b_orgactivities_otheractivities_Model obj)
         {
@@ -74,6 +98,14 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.GetInvolvingSchoolStudentsBYCVOID(cvoid);
         }
+        public DataSet GetInvolvingSchoolStudentsBYCVOIDandYear(string cvoid, string year)
+        {
+            return IntegrityPledgeDAL.GetInvolvingSchoolStudentsBYCVOIDandYear(cvoid, year);
+        }
+        public DataSet GetInvolvingSchoolStudentsByYearAndOrg(string year, string orgCode)
+        {
+            return IntegrityPledgeDAL.GetInvolvingSchoolStudentsByYearAndOrg(year, orgCode);
+        }
         public int SaveInvolvingSchoolStudents(Tran_3a_outreach_involvingschoolstudents_Model obj)
         {
             return IntegrityPledgeDAL.SaveInvolvingSchoolStudents(obj);
@@ -82,10 +114,10 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.UpdateInvolvingSchoolStudents(obj);
         }
-            #endregion
+        #endregion
 
-            #region 3.2. OutreachInvolvingCollegeStudents
-            public DataSet GetInvolvingCollegeStudentsByRecordId(int id)
+        #region 3.2. OutreachInvolvingCollegeStudents
+        public DataSet GetInvolvingCollegeStudentsByRecordId(int id)
         {
             return IntegrityPledgeDAL.GetInvolvingCollegeStudentsByRecordId(id);
         }
@@ -93,11 +125,19 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.GetInvolvingCollegeStudentsBYCVOID(cvoid);
         }
+        public DataSet GetInvolvingCollegeStudentsBYCVOIDandYear(string cvoid, string year)
+        {
+            return IntegrityPledgeDAL.GetInvolvingCollegeStudentsBYCVOIDandYear(cvoid, year);
+        }
+        public DataSet GetInvolvingCollegeStudentsByYearAndOrg(string year, string orgCode)
+        {
+            return IntegrityPledgeDAL.GetInvolvingCollegeStudentsByYearAndOrg(year, orgCode);
+        }
         public int SaveInvolvingCollegeStudents(Tran_3b_outreach_involvingcollegestudents_Model obj)
         {
             return IntegrityPledgeDAL.SaveInvolvingCollegeStudents(obj);
         }
-        public int UpdateInvolvingCollegeStudents(Tran_3b_outreach_involvingcollegestudents_Model obj) 
+        public int UpdateInvolvingCollegeStudents(Tran_3b_outreach_involvingcollegestudents_Model obj)
         {
             return IntegrityPledgeDAL.UpdateInvolvingCollegeStudents(obj);
         }
@@ -111,6 +151,14 @@ namespace VAW_BusinessAccessLayer
         public DataSet GetOutreachAwarenessBYCVOID(string cvoid)
         {
             return IntegrityPledgeDAL.GetOutreachAwarenessBYCVOID(cvoid);
+        }
+        public DataSet GetOutreachAwarenessBYCVOIDandYear(string cvoid, string year)
+        {
+            return IntegrityPledgeDAL.GetOutreachAwarenessBYCVOIDandYear(cvoid, year);
+        }
+        public DataSet GetOutreachAwarenessByYearAndOrg(string year, string orgCode)
+        {
+            return IntegrityPledgeDAL.GetOutreachAwarenessByYearAndOrg(year, orgCode);
         }
         public int SaveOutreachAwareness(Tran_3c_outreach_awarenessgramsabhas_Model obj)
         {
@@ -130,6 +178,14 @@ namespace VAW_BusinessAccessLayer
         public DataSet GetSeminarsWorkshopsBYCVOID(string cvoid)
         {
             return IntegrityPledgeDAL.GetSeminarsWorkshopsBYCVOID(cvoid);
+        }
+        public DataSet GetSeminarsWorkshopsBYCVOIDandYear(string cvoid, string year)
+        {
+            return IntegrityPledgeDAL.GetSeminarsWorkshopsBYCVOIDandYear(cvoid, year);
+        }
+        public DataSet GetSeminarsWorkshopsByYearAndOrg(string year, string orgCode)
+        {
+            return IntegrityPledgeDAL.GetSeminarsWorkshopsByYearAndOrg(year, orgCode);
         }
         public int SaveSeminarsWorkshops(Tran_3d_outreach_seminarsworkshops_Model obj)
         {
@@ -155,6 +211,14 @@ namespace VAW_BusinessAccessLayer
         {
             return IntegrityPledgeDAL.GetOtherActivitiesBYCVOID(cvoid);
         }
+        public DataSet GetOtherActivitiesBYCVOIDandYear(string cvoid, string year)
+        {
+            return IntegrityPledgeDAL.GetOtherActivitiesBYCVOIDandYear(cvoid, year);
+        }
+        public DataSet GetOtherActivitiesByYearAndOrg(string year, string orgCode)
+        {
+            return IntegrityPledgeDAL.GetOtherActivitiesByYearAndOrg(year, orgCode);
+        }
         public int SaveOtherActivities(Tran_4_otheractivities_Model obj)
         {
             return IntegrityPledgeDAL.SaveOtherActivities(obj);
@@ -173,6 +237,14 @@ namespace VAW_BusinessAccessLayer
         public DataSet GetDetailsOfPhotosBYCVOID(string cvoid)
         {
             return IntegrityPledgeDAL.GetDetailsOfPhotosBYCVOID(cvoid);
+        }
+        public DataSet GetDetailsOfPhotosBYCVOIDandYear(string cvoid, string year)
+        {
+            return IntegrityPledgeDAL.GetDetailsOfPhotosBYCVOIDandYear(cvoid, year);
+        }
+        public DataSet GetDetailsOfPhotosByYearAndOrg(string year, string orgCode)
+        {
+            return IntegrityPledgeDAL.GetDetailsOfPhotosByYearAndOrg(year, orgCode);
         }
         public int SaveDetailsOfPhotos(Tran_5_detailsofphotos_Model obj)
         {
@@ -196,6 +268,14 @@ namespace VAW_BusinessAccessLayer
         public DataSet GetOtherRelevantInformationBYCVOID(string cvoid)
         {
             return IntegrityPledgeDAL.GetOtherRelevantInformationBYCVOID(cvoid);
+        }
+        public DataSet GetOtherRelevantInformationBYCVOIDandYear(string cvoid, string year)
+        {
+            return IntegrityPledgeDAL.GetOtherRelevantInformationBYCVOIDandYear(cvoid, year);
+        }
+        public DataSet GetOtherRelevantInformationByYearAndOrg(string year, string orgCode)
+        {
+            return IntegrityPledgeDAL.GetOtherRelevantInformationByYearAndOrg(year, orgCode);
         }
         public int SaveAnyOtherRelevantInformation(Tran_6_otherinformation_Model obj)
         {

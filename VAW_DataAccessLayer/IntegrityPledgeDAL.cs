@@ -36,6 +36,22 @@ namespace VAW_DataAccessLayer
             }
             return DS;
         }
+        public DataSet GetIntegrityPledgeByYearAndOrg(string year, string orgCode)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_Year", !string.IsNullOrEmpty(year) ? (object)year : DBNull.Value);
+                Sqlpara[1] = new MySqlParameter("@p_Org_Code", !string.IsNullOrEmpty(orgCode) ? (object)orgCode : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadIntegrityPledgeByYearAndOrg", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
         public DataSet GetIntegrityPledgeBYCVOID(string cvoid)
         {
             DataSet DS = new DataSet();
@@ -44,6 +60,22 @@ namespace VAW_DataAccessLayer
                 MySqlParameter[] Sqlpara = new MySqlParameter[1];
                 Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
                 DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadIntegrityPledgeByCVOID", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetIntegrityPledgeBYCVOIDandYear(string cvoid, string year)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                Sqlpara[1] = new MySqlParameter("@p_SelectedYear", Convert.ToInt32(year));
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadIntegrityPledgeByCVOIDAndYEAR", Sqlpara);
             }
             catch (Exception ex)
             {
@@ -137,6 +169,38 @@ namespace VAW_DataAccessLayer
             }
             return DS;
         }
+        public DataSet GetConductOfCompetitionsBYCVOIDandYear(string cvoid, string year)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                Sqlpara[1] = new MySqlParameter("@p_SelectedYear", Convert.ToInt32(year));
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadConductOfCompetitionsByCVOIDAndYEAR", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetConductOfCompetitionsByYearAndOrg(string year, string orgCode)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_Year", !string.IsNullOrEmpty(year) ? (object)year : DBNull.Value);
+                Sqlpara[1] = new MySqlParameter("@p_Org_Code", !string.IsNullOrEmpty(orgCode) ? (object)orgCode : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadConductOfCompetitionsByYearAndOrg", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
         public int SaveConductOfCompetitions(Tran_2a_orgactivities_conductofcompetitions_Model obj)
         {
             int EffectedRows = 0;
@@ -217,6 +281,38 @@ namespace VAW_DataAccessLayer
                 MySqlParameter[] Sqlpara = new MySqlParameter[1];
                 Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
                 DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadActivitiesOtherActivitiesCVOID", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetActivitiesOtherActivitiesBYCVOIDandYear(string cvoid, string year)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                Sqlpara[1] = new MySqlParameter("@p_SelectedYear", Convert.ToInt32(year));
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadActivitiesOtherActivitiesCVOIDAndYEAR", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetActivitiesOtherActivitiesByYearAndOrg(string year, string orgCode)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_Year", !string.IsNullOrEmpty(year) ? (object)year : DBNull.Value);
+                Sqlpara[1] = new MySqlParameter("@p_Org_Code", !string.IsNullOrEmpty(orgCode) ? (object)orgCode : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadActivitiesOtherActivitiesByYearAndOrg", Sqlpara);
             }
             catch (Exception ex)
             {
@@ -314,6 +410,38 @@ namespace VAW_DataAccessLayer
             }
             return DS;
         }
+        public DataSet GetInvolvingSchoolStudentsBYCVOIDandYear(string cvoid, string year)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                Sqlpara[1] = new MySqlParameter("@p_SelectedYear", Convert.ToInt32(year));
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachInvolvingSchoolStudentsByCVOIDAndYEAR", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetInvolvingSchoolStudentsByYearAndOrg(string year, string orgCode)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_Year", !string.IsNullOrEmpty(year) ? (object)year : DBNull.Value);
+                Sqlpara[1] = new MySqlParameter("@p_Org_Code", !string.IsNullOrEmpty(orgCode) ? (object)orgCode : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachInvolvingSchoolStudentsByYearAndOrg", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
         public int SaveInvolvingSchoolStudents(Tran_3a_outreach_involvingschoolstudents_Model obj)
         {
             int EffectedRows = 0;
@@ -404,6 +532,38 @@ namespace VAW_DataAccessLayer
             }
             return DS;
         }
+        public DataSet GetInvolvingCollegeStudentsBYCVOIDandYear(string cvoid, string year)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                Sqlpara[1] = new MySqlParameter("@p_SelectedYear", Convert.ToInt32(year));
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachInvolvingCollegeStudentsByCVOIDAndYEAR", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetInvolvingCollegeStudentsByYearAndOrg(string year, string orgCode)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_Year", !string.IsNullOrEmpty(year) ? (object)year : DBNull.Value);
+                Sqlpara[1] = new MySqlParameter("@p_Org_Code", !string.IsNullOrEmpty(orgCode) ? (object)orgCode : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachInvolvingCollegeStudentsByYearAndOrg", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
         public int SaveInvolvingCollegeStudents(Tran_3b_outreach_involvingcollegestudents_Model obj)
         {
             int EffectedRows = 0;
@@ -487,6 +647,38 @@ namespace VAW_DataAccessLayer
                 MySqlParameter[] Sqlpara = new MySqlParameter[1];
                 Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
                 DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachAwarenessGramSabhasByCVOID", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetOutreachAwarenessBYCVOIDandYear(string cvoid, string year)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                Sqlpara[1] = new MySqlParameter("@p_SelectedYear", Convert.ToInt32(year));
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachAwarenessGramSabhasByCVOIDAndYEAR", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetOutreachAwarenessByYearAndOrg(string year, string orgCode)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_Year", !string.IsNullOrEmpty(year) ? (object)year : DBNull.Value);
+                Sqlpara[1] = new MySqlParameter("@p_Org_Code", !string.IsNullOrEmpty(orgCode) ? (object)orgCode : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOutreachAwarenessGramSabhasByYearAndOrg", Sqlpara);
             }
             catch (Exception ex)
             {
@@ -586,6 +778,38 @@ namespace VAW_DataAccessLayer
             }
             return DS;
         }
+        public DataSet GetSeminarsWorkshopsBYCVOIDandYear(string cvoid, string year)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                Sqlpara[1] = new MySqlParameter("@p_SelectedYear", Convert.ToInt32(year));
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadSeminarsWorkshopsByCVOIDAndYEAR", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetSeminarsWorkshopsByYearAndOrg(string year, string orgCode)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_Year", !string.IsNullOrEmpty(year) ? (object)year : DBNull.Value);
+                Sqlpara[1] = new MySqlParameter("@p_Org_Code", !string.IsNullOrEmpty(orgCode) ? (object)orgCode : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadSeminarsWorkshopsByYearAndOrg", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
 
         public int SaveSeminarsWorkshops(Tran_3d_outreach_seminarsworkshops_Model obj)
         {
@@ -653,7 +877,7 @@ namespace VAW_DataAccessLayer
             try
             {
                 MySqlParameter[] Sqlpara = new MySqlParameter[1];
-                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id);
+                Sqlpara[0] = new MySqlParameter("@p_Record_ID", id >= 1 ? (object)id : DBNull.Value);
                 DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOtherActivities", Sqlpara);
             }
             catch (Exception ex)
@@ -670,6 +894,38 @@ namespace VAW_DataAccessLayer
                 MySqlParameter[] Sqlpara = new MySqlParameter[1];
                 Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
                 DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOtherActivitiesByCVOID", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetOtherActivitiesBYCVOIDandYear(string cvoid, string year)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                Sqlpara[1] = new MySqlParameter("@p_SelectedYear", Convert.ToInt32(year));
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOtherActivitiesByCVOIDAndYEAR", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetOtherActivitiesByYearAndOrg(string year, string orgCode)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_Year", !string.IsNullOrEmpty(year) ? (object)year : DBNull.Value);
+                Sqlpara[1] = new MySqlParameter("@p_Org_Code", !string.IsNullOrEmpty(orgCode) ? (object)orgCode : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOtherActivitiesByYearAndOrg", Sqlpara);
             }
             catch (Exception ex)
             {
@@ -758,6 +1014,38 @@ namespace VAW_DataAccessLayer
                 MySqlParameter[] Sqlpara = new MySqlParameter[1];
                 Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
                 DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadDetailsOfPhotosByCVOID", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetDetailsOfPhotosBYCVOIDandYear(string cvoid, string year)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                Sqlpara[1] = new MySqlParameter("@p_SelectedYear", Convert.ToInt32(year));
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadDetailsOfPhotosByCVOIDAndYEAR", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetDetailsOfPhotosByYearAndOrg(string year, string orgCode)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_Year", !string.IsNullOrEmpty(year) ? (object)year : DBNull.Value);
+                Sqlpara[1] = new MySqlParameter("@p_Org_Code", !string.IsNullOrEmpty(orgCode) ? (object)orgCode : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadDetailsOfPhotosByYearAndOrg", Sqlpara);
             }
             catch (Exception ex)
             {
@@ -862,6 +1150,38 @@ namespace VAW_DataAccessLayer
                 MySqlParameter[] Sqlpara = new MySqlParameter[1];
                 Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
                 DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOtherInformationByCVOID", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetOtherRelevantInformationBYCVOIDandYear(string cvoid, string year)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                Sqlpara[1] = new MySqlParameter("@p_SelectedYear", Convert.ToInt32(year));
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOtherInformationByCVOIDAndYEAR", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetOtherRelevantInformationByYearAndOrg(string year, string orgCode)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_Year", !string.IsNullOrEmpty(year) ? (object)year : DBNull.Value);
+                Sqlpara[1] = new MySqlParameter("@p_Org_Code", !string.IsNullOrEmpty(orgCode) ? (object)orgCode : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadOtherInformationByYearAndOrg", Sqlpara);
             }
             catch (Exception ex)
             {

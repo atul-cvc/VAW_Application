@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using VAW_Models;
 
 namespace VAW_WebApplication.Models
 {
@@ -17,6 +19,10 @@ namespace VAW_WebApplication.Models
         public List<Tran_4_otheractivities_ViewModel> OtherActivities { get; set; }
         public List<Tran_5_detailsofphotos_ViewModel> DetailsOfPhotos{ get; set; }
         public List<Tran_6_otherinformation_ViewModel> OtherInformations { get; set; }
+        public IEnumerable<SelectListItem> YearsList { get; set; }
+        public int CurrentYear { get; set; } = DateTime.Now.Year;
+        public IEnumerable<SelectListItem> OrgList { get; set; }
+        public string CurrentOrgCode { get; set; } 
         public ViewIntegrityPledgeViewModel()
         {
             IntegrityPledges = new List<Tran_1a_integritypledge_ViewModel>();

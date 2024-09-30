@@ -16,15 +16,47 @@ namespace VAW_WebApplication.Controllers
     public class ViewVigilanceAwarenessController : Controller
     {
         CapacityBuildingManager capacityBuildingManager = new CapacityBuildingManager();
+        YearsBAL yearsBAL = new YearsBAL();
         string IPAddress = null;
         // GET: ViewVigilanceAwareness
-        public ActionResult Index()
+        public ActionResult Index(string selected_year)
         {
+            selected_year = !string.IsNullOrEmpty(selected_year) ?  selected_year : DateTime.Now.Year.ToString();
             try
             {
                 ViewVigilanceAwarenessViewModel modelobj = new ViewVigilanceAwarenessViewModel();
+
+                DataTable yearsTable = yearsBAL.GetAllYearsList().Tables[0];
+
+                var yearList = new List<SelectListItem>();
+                if (yearsTable.Rows.Count >= 1)
+                {
+                    foreach (DataRow dr in yearsTable.Rows)
+                    {
+                        yearList.Add(new SelectListItem
+                        {
+                            Value = dr["Year"].ToString(),
+                            Text = dr["Year"].ToString()
+                        });
+                    }
+                    modelobj.YearsList = yearList;
+                }
+                else
+                {
+                    Years year = new Years
+                    {
+                        ID = 1,
+                        Year = DateTime.Now.Year
+                    };
+                    yearList.Add(new SelectListItem { Value = "2024", Text = "2024" });
+                    modelobj.YearsList = yearList;
+                }
+
+                modelobj.CurrentYear = !string.IsNullOrEmpty(selected_year) ? Convert.ToInt32(selected_year) : DateTime.Now.Year; 
+
                 List<Tran_a_1b_capacitybulidingprogram_ViewModel> ListofCapBuilding = new List<Tran_a_1b_capacitybulidingprogram_ViewModel>();
-                DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByCVOID("CVO_SBI").Tables[0];
+                //DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByCVOID("CVO_SBI").Tables[0];
+                DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
 
                 if (CapacityTable.Rows.Count >= 1)
                 {
@@ -46,7 +78,8 @@ namespace VAW_WebApplication.Controllers
 
                 //System Improvement               
                 List<Tran_a_2b_sysimp_ViewModel> Listofsysimp = new List<Tran_a_2b_sysimp_ViewModel>();
-                DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByCVOID("CVO_SBI").Tables[0];
+                //DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByCVOID("CVO_SBI").Tables[0];
+                DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
 
                 if (SysImpTable.Rows.Count >= 1)
                 {
@@ -59,8 +92,10 @@ namespace VAW_WebApplication.Controllers
                             FromDate = Convert.ToDateTime(data["FromDate"].ToString()),
                             ToDate = Convert.ToDateTime(data["ToDate"].ToString()),
                             Sys_Imp_Implemented_During_Campaign = data["Sys_Imp_Implemented_During_Campaign"].ToString(),
-                            Sys_Imp_Suggested_Last_5_Years_But_Pending = data["Sys_Imp_Suggested_Last_5_Years_But_Pending"].ToString()
-
+                            Sys_Imp_Suggested_Last_5_Years_But_Pending = data["Sys_Imp_Suggested_Last_5_Years_But_Pending"].ToString(),
+                            NoOf_CasesTakenForAnalysis_past5Years = Convert.ToInt32(data["NoOf_CasesTakenForAnalysis_past5Years"].ToString()),
+                            KeyAreasDetected_BasedonAnalysis = data["KeyAreasDetected_BasedonAnalysis"].ToString(),
+                            Sys_Improvements_Identified_And_Impl_BasedOnAnalysis = data["Sys_Improvements_Identified_And_Impl_BasedOnAnalysis"].ToString()
                         };
                         Listofsysimp.Add(vmobjsysimp);
                     }
@@ -69,7 +104,8 @@ namespace VAW_WebApplication.Controllers
 
                 //circulars Binding               
                 List<Tran_a_3b_updation_circular_guidelines_manuals_ViewModel> ListofCircular = new List<Tran_a_3b_updation_circular_guidelines_manuals_ViewModel>();
-                DataTable CircularTable = capacityBuildingManager.GetCircularsRecordByCVOID("CVO_SBI").Tables[0];
+                //DataTable CircularTable = capacityBuildingManager.GetCircularsRecordByCVOID("CVO_SBI").Tables[0];
+                DataTable CircularTable = capacityBuildingManager.GetCircularsRecordByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
 
                 if (CircularTable.Rows.Count >= 1)
                 {
@@ -92,7 +128,8 @@ namespace VAW_WebApplication.Controllers
 
                 //Disposal Of Complaint
                 List<Tran_a_4b_disposalofcomplaints_ViewModel> ListofDisposalOfComplaint = new List<Tran_a_4b_disposalofcomplaints_ViewModel>();
-                DataTable DisposalOfComplaintTable = capacityBuildingManager.GetDisposalOfComplaintByCVOID("CVO_SBI").Tables[0];
+                //DataTable DisposalOfComplaintTable = capacityBuildingManager.GetDisposalOfComplaintByCVOID("CVO_SBI").Tables[0];
+                DataTable DisposalOfComplaintTable = capacityBuildingManager.GetDisposalOfComplaintByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
 
                 if (DisposalOfComplaintTable.Rows.Count >= 1)
                 {
@@ -116,7 +153,8 @@ namespace VAW_WebApplication.Controllers
 
                 //Digital Dyanamic
                 List<Tran_a_5b_dynamicdigitalpresence_ViewModel> ListofDynamicdigital = new List<Tran_a_5b_dynamicdigitalpresence_ViewModel>();
-                DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByCVOID("CVO_SBI").Tables[0];
+                //DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByCVOID("CVO_SBI").Tables[0];
+                DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByCVOIDandYear("CVO_SBI",selected_year).Tables[0];
 
                 if (DynamicdigitalTable.Rows.Count >= 1)
                 {
@@ -295,8 +333,9 @@ namespace VAW_WebApplication.Controllers
             vmmodal.VAW_Year = DateTime.Now.Year.ToString();
             vmmodal.CvoId = "CVO_SBI";
             vmmodal.CvoOrgCode = "I61";
-            vmmodal.FromDate = Convert.ToDateTime("16-08-2024"); //DateTime.Now;
-            vmmodal.ToDate = Convert.ToDateTime("15-11-2024");  //DateTime.Now;
+
+            vmmodal.FromDate = new DateTime(2024, 08, 16);
+            vmmodal.ToDate = new DateTime(2024, 11, 15);  //DateTime.Now;
             return View(vmmodal);
         }
 
@@ -354,6 +393,9 @@ namespace VAW_WebApplication.Controllers
             vmdata.ToDate = Convert.ToDateTime(SysImpTable.Rows[0]["ToDate"].ToString());
             vmdata.Sys_Imp_Implemented_During_Campaign = SysImpTable.Rows[0]["Sys_Imp_Implemented_During_Campaign"].ToString();
             vmdata.Sys_Imp_Suggested_Last_5_Years_But_Pending = SysImpTable.Rows[0]["Sys_Imp_Suggested_Last_5_Years_But_Pending"].ToString();
+            vmdata.NoOf_CasesTakenForAnalysis_past5Years = Convert.ToInt32(SysImpTable.Rows[0]["NoOf_CasesTakenForAnalysis_past5Years"].ToString());
+            vmdata.KeyAreasDetected_BasedonAnalysis = SysImpTable.Rows[0]["KeyAreasDetected_BasedonAnalysis"].ToString();
+            vmdata.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis = SysImpTable.Rows[0]["Sys_Improvements_Identified_And_Impl_BasedOnAnalysis"].ToString();
             return View(vmdata);
         }
 
@@ -367,17 +409,20 @@ namespace VAW_WebApplication.Controllers
                     Tran_a_2b_sysimp_Model vmmodal = new Tran_a_2b_sysimp_Model();
                     string ipadd;
                     GetIpAddress(out ipadd);
-                    vmmodal.Record_ID=VmData.ID;                    
+                    vmmodal.Record_ID = VmData.ID;
                     vmmodal.VAW_Year = VmData.VAW_Year;
                     vmmodal.FromDate = VmData.FromDate;
                     vmmodal.ToDate = VmData.ToDate;
                     vmmodal.Sys_Imp_Implemented_During_Campaign = VmData.Sys_Imp_Implemented_During_Campaign;
                     vmmodal.Sys_Imp_Suggested_Last_5_Years_But_Pending = VmData.Sys_Imp_Suggested_Last_5_Years_But_Pending;
                     vmmodal.CreatedByIP = ipadd;
-                    vmmodal.CreatedBy = VmData.CvoId;                    
+                    vmmodal.CreatedBy = VmData.CvoId;
                     vmmodal.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     vmmodal.CreatedBySession = Session.SessionID;
-                    
+                    vmmodal.NoOf_CasesTakenForAnalysis_past5Years = VmData.NoOf_CasesTakenForAnalysis_past5Years;
+                    vmmodal.KeyAreasDetected_BasedonAnalysis = VmData.KeyAreasDetected_BasedonAnalysis;
+                    vmmodal.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis = VmData.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis;
+
                     int result = capacityBuildingManager.UpdateIdentificationAndImplimentation(vmmodal);
                     if (result >= 1)
                     {
@@ -390,7 +435,7 @@ namespace VAW_WebApplication.Controllers
 
             }
             return View();
-           
+
         }
 
         #endregion
@@ -479,8 +524,8 @@ namespace VAW_WebApplication.Controllers
                 new SelectListItem { Value = "NO", Text = "NO" }
             };
             vmdata.BriefDetails = CircularTable.Rows[0]["BriefDetails"].ToString();
-            
-            return View(vmdata);          
+
+            return View(vmdata);
 
         }
 
@@ -494,7 +539,7 @@ namespace VAW_WebApplication.Controllers
                     Tran_a_3b_updation_circular_guidelines_manuals_Model Circularobj = new Tran_a_3b_updation_circular_guidelines_manuals_Model();
                     string ipadd;
                     GetIpAddress(out ipadd);
-                    Circularobj.Record_ID = VmData.ID;                             
+                    Circularobj.Record_ID = VmData.ID;
                     Circularobj.VAW_Year = VmData.VAW_Year;
                     Circularobj.FromDate = VmData.FromDate;
                     Circularobj.ToDate = VmData.ToDate;
@@ -502,7 +547,7 @@ namespace VAW_WebApplication.Controllers
                     Circularobj.BriefDetails = VmData.BriefDetails;
                     Circularobj.CreatedBy = VmData.CvoId;
                     Circularobj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    Circularobj.CreatedByIP = ipadd;                    
+                    Circularobj.CreatedByIP = ipadd;
                     int result = capacityBuildingManager.UpdateCirculars(Circularobj);
                     if (result >= 1)
                     {
@@ -609,7 +654,7 @@ namespace VAW_WebApplication.Controllers
                     Tran_a_4b_disposalofcomplaints_Model vmmodal = new Tran_a_4b_disposalofcomplaints_Model();
                     string ipadd;
                     GetIpAddress(out ipadd);
-                    vmmodal.Record_ID=VmData.ID;
+                    vmmodal.Record_ID = VmData.ID;
                     vmmodal.CreatedByIP = ipadd;
                     vmmodal.CreatedBy = VmData.CvoId;
                     vmmodal.VAW_Year = VmData.VAW_Year;
@@ -618,9 +663,9 @@ namespace VAW_WebApplication.Controllers
                     vmmodal.NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign = VmData.NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign;
                     vmmodal.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign = VmData.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign;
                     vmmodal.NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 = VmData.NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511;
-                    vmmodal.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 = VmData.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511;                    
+                    vmmodal.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 = VmData.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511;
                     vmmodal.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    
+
                     int result = capacityBuildingManager.UpdateDisposalOfComplaint(vmmodal);
 
                     if (result >= 1)
@@ -718,7 +763,7 @@ namespace VAW_WebApplication.Controllers
             vmmodal.ID = ID;
             vmmodal.VAW_Year = DigitalTable.Rows[0]["VAW_Year"].ToString();
             vmmodal.CvoId = DigitalTable.Rows[0]["CvoId"].ToString();
-            vmmodal.CvoOrgCode = DigitalTable.Rows[0]["CvoOrgCode"].ToString();            
+            vmmodal.CvoOrgCode = DigitalTable.Rows[0]["CvoOrgCode"].ToString();
             vmmodal.WhetherRegularMaintenanceOfWebsiteUpdationDone = DigitalTable.Rows[0]["WhetherRegularMaintenanceOfWebsiteUpdationDone"].ToString();
             vmmodal.SystemIntroducedForUpdationAndReview = DigitalTable.Rows[0]["SystemIntroducedForUpdationAndReview"].ToString();
             vmmodal.WhetherAdditionalAreas_Activities_ServicesBroughtOnline = DigitalTable.Rows[0]["WhetherAdditionalAreas_Activities_ServicesBroughtOnline"].ToString();
@@ -744,14 +789,14 @@ namespace VAW_WebApplication.Controllers
                     Tran_a_5b_dynamicdigitalpresence_Model dynamicdigitalpresenceObj = new Tran_a_5b_dynamicdigitalpresence_Model();
                     string ipadd;
                     GetIpAddress(out ipadd);
-                    dynamicdigitalpresenceObj.Record_ID=VmData.ID;
+                    dynamicdigitalpresenceObj.Record_ID = VmData.ID;
                     dynamicdigitalpresenceObj.CreatedByIP = ipadd;
-                    dynamicdigitalpresenceObj.CreatedBy = VmData.CvoId;                    
+                    dynamicdigitalpresenceObj.CreatedBy = VmData.CvoId;
                     dynamicdigitalpresenceObj.VAW_Year = VmData.VAW_Year;
                     dynamicdigitalpresenceObj.WhetherRegularMaintenanceOfWebsiteUpdationDone = VmData.WhetherRegularMaintenanceOfWebsiteUpdationDone;
                     dynamicdigitalpresenceObj.SystemIntroducedForUpdationAndReview = VmData.SystemIntroducedForUpdationAndReview;
                     dynamicdigitalpresenceObj.WhetherAdditionalAreas_Activities_ServicesBroughtOnline = VmData.WhetherAdditionalAreas_Activities_ServicesBroughtOnline;
-                    if(dynamicdigitalpresenceObj.WhetherAdditionalAreas_Activities_ServicesBroughtOnline=="YES")
+                    if (dynamicdigitalpresenceObj.WhetherAdditionalAreas_Activities_ServicesBroughtOnline == "YES")
                     {
                         dynamicdigitalpresenceObj.DetailsOfAdditionalActivities = VmData.DetailsOfAdditionalActivities;
                     }
@@ -759,8 +804,8 @@ namespace VAW_WebApplication.Controllers
                     {
                         dynamicdigitalpresenceObj.DetailsOfAdditionalActivities = string.Empty;
                     }
-                    
-                    dynamicdigitalpresenceObj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");                   
+
+                    dynamicdigitalpresenceObj.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     int result = capacityBuildingManager.UpdateDynamicDigitalPresence(dynamicdigitalpresenceObj);
                     if (result >= 1)
                     {

@@ -44,7 +44,7 @@ namespace VAW_DataAccessLayer
 
 
         public DataSet GetCapacityBuildingRecordByRecordId(int id)
-        {           
+        {
             DataSet DS = new DataSet();
             try
             {
@@ -75,6 +75,23 @@ namespace VAW_DataAccessLayer
             }
             return DS;
         }
+        public DataSet GetCapacityBuildingRecordByCVOIDandYear(string cvoid, string year)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                Sqlpara[1] = new MySqlParameter("@p_SelectedYear", Convert.ToInt32(year));
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadCapacityBuildingProgramByCVOIDAndYEAR", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
         public DataSet GetCapacityBuildingRecordByID(int ID)
         {
             DataSet DS = new DataSet();
@@ -83,6 +100,22 @@ namespace VAW_DataAccessLayer
                 MySqlParameter[] Sqlpara = new MySqlParameter[1];
                 Sqlpara[0] = new MySqlParameter("@p_Record_ID", ID);
                 DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadCapacityBuildingProgram", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetCapacityBuildingRecordByYearAndOrg(string year, string orgCode)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_Year", !string.IsNullOrEmpty(year) ? (object)year : DBNull.Value);
+                Sqlpara[1] = new MySqlParameter("@p_Org_Code", !string.IsNullOrEmpty(orgCode) ? (object)orgCode : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadCapacityBuildingProgramByYearAndOrg", Sqlpara);
             }
             catch (Exception ex)
             {
@@ -205,6 +238,22 @@ namespace VAW_DataAccessLayer
             }
             return DS;
         }
+        public DataSet GetSystemImpRecordByCVOIDandYear(string cvoid, string year)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                Sqlpara[1] = new MySqlParameter("@p_SelectedYear", Convert.ToInt32(year));
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadSysImpByCVOIDAndYEAR", Sqlpara);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
         public DataSet GetSystemImpRecordByRecordID(int ID)
         {
             DataSet DS = new DataSet();
@@ -221,6 +270,23 @@ namespace VAW_DataAccessLayer
             }
             return DS;
         }
+        public DataSet GetSystemImpRecordByYearAndOrg(string year, string orgCode)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_Year", !string.IsNullOrEmpty(year) ? (object)year : DBNull.Value);
+                Sqlpara[1] = new MySqlParameter("@p_Org_Code", !string.IsNullOrEmpty(orgCode) ? (object)orgCode : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadSysImpByYearAndOrg", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
 
         public int SaveIdentificationAndImplimentation(Tran_a_2b_sysimp_Model IdentificationAndImpliObj)
         {
@@ -228,7 +294,7 @@ namespace VAW_DataAccessLayer
             try
             {
 
-                MySqlParameter[] Sqlpara = new MySqlParameter[12];
+                MySqlParameter[] Sqlpara = new MySqlParameter[15];
                 Sqlpara[0] = new MySqlParameter("@p_VAW_Year", IdentificationAndImpliObj.VAW_Year);
                 Sqlpara[1] = new MySqlParameter("@p_UniqueTransactionId", IdentificationAndImpliObj.UniqueTransactionId);
                 Sqlpara[2] = new MySqlParameter("@p_CvoOrgCode", IdentificationAndImpliObj.CvoOrgCode);
@@ -241,9 +307,9 @@ namespace VAW_DataAccessLayer
                 Sqlpara[9] = new MySqlParameter("@p_CreatedBy", IdentificationAndImpliObj.CreatedBy);
                 Sqlpara[10] = new MySqlParameter("@p_CreatedByIP", IdentificationAndImpliObj.CreatedByIP);
                 Sqlpara[11] = new MySqlParameter("@p_CreatedBySession", IdentificationAndImpliObj.CreatedBySession);
-                Sqlpara[11] = new MySqlParameter("@p_NoOf_Cases_Analysis", IdentificationAndImpliObj.NoOf_CasesTakenForAnalysis_past5Years);
-                Sqlpara[11] = new MySqlParameter("@p_KeyAreas_BasesdOn_Analysis", IdentificationAndImpliObj.KeyAreasDetected_BasedonAnalysis);
-                Sqlpara[11] = new MySqlParameter("@p_Sys_Improvements_Analysis", IdentificationAndImpliObj.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis);
+                Sqlpara[12] = new MySqlParameter("@p_NoOf_Cases_Analysis", IdentificationAndImpliObj.NoOf_CasesTakenForAnalysis_past5Years);
+                Sqlpara[13] = new MySqlParameter("@p_KeyAreas_BasesdOn_Analysis", IdentificationAndImpliObj.KeyAreasDetected_BasedonAnalysis);
+                Sqlpara[14] = new MySqlParameter("@p_Sys_Improvements_Analysis", IdentificationAndImpliObj.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis);
                 EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_CreateSysImp", Sqlpara);
             }
             catch (Exception ex)
@@ -257,7 +323,7 @@ namespace VAW_DataAccessLayer
             int EffectedRows = 0;
             try
             {
-                MySqlParameter[] Sqlpara = new MySqlParameter[10];
+                MySqlParameter[] Sqlpara = new MySqlParameter[13];
                 Sqlpara[0] = new MySqlParameter("@p_Record_ID", IdentificationAndImpliObj.Record_ID);
                 Sqlpara[1] = new MySqlParameter("@p_VAW_Year", IdentificationAndImpliObj.VAW_Year);
                 Sqlpara[2] = new MySqlParameter("@p_FromDate", IdentificationAndImpliObj.FromDate);
@@ -268,6 +334,9 @@ namespace VAW_DataAccessLayer
                 Sqlpara[7] = new MySqlParameter("@p_CreatedBy", IdentificationAndImpliObj.CreatedBy);
                 Sqlpara[8] = new MySqlParameter("@p_CreatedByIP", IdentificationAndImpliObj.CreatedByIP);
                 Sqlpara[9] = new MySqlParameter("@p_CreatedBySession", IdentificationAndImpliObj.CreatedBySession);
+                Sqlpara[10] = new MySqlParameter("@p_NoOf_Cases_Analysis", IdentificationAndImpliObj.NoOf_CasesTakenForAnalysis_past5Years);
+                Sqlpara[11] = new MySqlParameter("@p_KeyAreas_BasesdOn_Analysis", IdentificationAndImpliObj.KeyAreasDetected_BasedonAnalysis);
+                Sqlpara[12] = new MySqlParameter("@p_Sys_Improvements_Analysis", IdentificationAndImpliObj.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis);
                 EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_UpdateSysImp", Sqlpara);
             }
             catch (Exception ex)
@@ -278,6 +347,9 @@ namespace VAW_DataAccessLayer
         }
 
         #endregion
+
+        //===============================================================================================================================
+        #region Updation of Circulars .3
 
         public DataSet GetCircularsRecordByRecordId(int id)
         {
@@ -296,9 +368,6 @@ namespace VAW_DataAccessLayer
             return DS;
         }
 
-        //===============================================================================================================================
-        #region Updation of Circulars .3
-
         public DataSet GetCircularsRecordByCVOID(string cvoid)
         {
             DataSet DS = new DataSet();
@@ -315,6 +384,23 @@ namespace VAW_DataAccessLayer
             }
             return DS;
         }
+        public DataSet GetCircularsRecordByCVOIDandYear(string cvoid,string year)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                Sqlpara[1] = new MySqlParameter("@p_SelectedYear", Convert.ToInt32(year));
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadUpdationCircularGuidelinesManualsByCVOIDAndYEAR", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
         public DataSet GetCircularsByRecordID(int ID)
         {
             DataSet DS = new DataSet();
@@ -323,6 +409,23 @@ namespace VAW_DataAccessLayer
                 MySqlParameter[] Sqlpara = new MySqlParameter[1];
                 Sqlpara[0] = new MySqlParameter("@p_Record_ID", ID);
                 DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadUpdationCircularGuidelinesManuals", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetCircularsByYearAndOrg(string year, string orgCode)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_Year", !string.IsNullOrEmpty(year) ? (object)year : DBNull.Value);
+                Sqlpara[1] = new MySqlParameter("@p_Org_Code", !string.IsNullOrEmpty(orgCode) ? (object)orgCode : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadUpdationCircularGuidelinesManualsByYearAndOrg", Sqlpara);
 
             }
             catch (Exception ex)
@@ -400,6 +503,23 @@ namespace VAW_DataAccessLayer
             }
             return DS;
         }
+        public DataSet GetDisposalOfComplaintByCVOIDandYear(string cvoid, string year)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                Sqlpara[1] = new MySqlParameter("@p_SelectedYear", Convert.ToInt32(year));
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadDisposalOfComplaintsByCVOIDAndYEAR", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
         public DataSet GetDisposalOfComplaintByRecordID(int ID)
         {
             DataSet DS = new DataSet();
@@ -408,6 +528,23 @@ namespace VAW_DataAccessLayer
                 MySqlParameter[] Sqlpara = new MySqlParameter[1];
                 Sqlpara[0] = new MySqlParameter("@p_Record_ID", ID);
                 DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadDisposalOfComplaints", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetDisposalOfComplaintByYearAndOrg(string year, string orgCode)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_Year", !string.IsNullOrEmpty(year) ? (object)year : DBNull.Value);
+                Sqlpara[1] = new MySqlParameter("@p_Org_Code", !string.IsNullOrEmpty(orgCode) ? (object)orgCode : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadDisposalOfComplaintsByYearAndOrg", Sqlpara);
 
             }
             catch (Exception ex)
@@ -508,6 +645,23 @@ namespace VAW_DataAccessLayer
             }
             return DS;
         }
+        public DataSet GetDynamicDigitalPresenceByCVOIDandYear(string cvoid, string year)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_CvoId", cvoid);
+                Sqlpara[1] = new MySqlParameter("@p_SelectedYear", Convert.ToInt32(year));
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadDynamicDigitalPresenceByCVOIDAndYEAR", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
         public DataSet GetDynamicDigitalPresenceByRecordID(int ID)
         {
             DataSet DS = new DataSet();
@@ -516,6 +670,23 @@ namespace VAW_DataAccessLayer
                 MySqlParameter[] Sqlpara = new MySqlParameter[1];
                 Sqlpara[0] = new MySqlParameter("@p_Record_ID", ID);
                 DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadDynamicDigitalPresence", Sqlpara);
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+            }
+            return DS;
+        }
+        public DataSet GetDynamicDigitalPresenceByYearAndOrg(string year, string orgCode)
+        {
+            DataSet DS = new DataSet();
+            try
+            {
+                MySqlParameter[] Sqlpara = new MySqlParameter[2];
+                Sqlpara[0] = new MySqlParameter("@p_Year", !string.IsNullOrEmpty(year) ? (object)year : DBNull.Value);
+                Sqlpara[1] = new MySqlParameter("@p_Org_Code", !string.IsNullOrEmpty(orgCode) ? (object)orgCode : DBNull.Value);
+                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadDynamicDigitalPresenceByYearAndOrg", Sqlpara);
 
             }
             catch (Exception ex)
@@ -559,14 +730,14 @@ namespace VAW_DataAccessLayer
             {
                 MySqlParameter[] Sqlpara = new MySqlParameter[9];
                 Sqlpara[0] = new MySqlParameter("@p_Record_ID", DynamicDigital.Record_ID);
-                Sqlpara[1] = new MySqlParameter("@p_VAW_Year", DynamicDigital.VAW_Year);               
+                Sqlpara[1] = new MySqlParameter("@p_VAW_Year", DynamicDigital.VAW_Year);
                 Sqlpara[2] = new MySqlParameter("@p_WhetherRegularMaintenanceOfWebsiteUpdationDone", DynamicDigital.WhetherRegularMaintenanceOfWebsiteUpdationDone);
                 Sqlpara[3] = new MySqlParameter("@p_SystemIntroducedForUpdationAndReview", DynamicDigital.SystemIntroducedForUpdationAndReview);
                 Sqlpara[4] = new MySqlParameter("@p_WhetherAdditionalAreas_Activities_ServicesBroughtOnline", DynamicDigital.WhetherAdditionalAreas_Activities_ServicesBroughtOnline);
                 Sqlpara[5] = new MySqlParameter("@p_DetailsOfAdditionalActivities", DynamicDigital.DetailsOfAdditionalActivities);
                 Sqlpara[6] = new MySqlParameter("@p_CreatedOn", DynamicDigital.CreatedOn);
                 Sqlpara[7] = new MySqlParameter("@p_CreatedBy", DynamicDigital.CreatedBy);
-                Sqlpara[8] = new MySqlParameter("@p_CreatedByIP", DynamicDigital.CreatedByIP);                
+                Sqlpara[8] = new MySqlParameter("@p_CreatedByIP", DynamicDigital.CreatedByIP);
                 EffectedRows = MySqlHelperCls.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_UpdateDynamicDigitalPresence", Sqlpara);
             }
             catch (Exception ex)

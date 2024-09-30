@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using VAW_BusinessAccessLayer;
+using VAW_Models;
 using VAW_WebApplication.Models;
 
 namespace VAW_WebApplication.Controllers
@@ -13,17 +14,64 @@ namespace VAW_WebApplication.Controllers
     {
         IntegrityPledgeManager integrityPledgeManager = new IntegrityPledgeManager();
         CapacityBuildingManager capacityBuildingManager = new CapacityBuildingManager();
+        YearsBAL yearsBAL = new YearsBAL();
+        OrganisationBAL orgBAL = new OrganisationBAL();
         // GET: Admin
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult ViewVigilanceAwareness()
+        public ActionResult ViewVigilanceAwareness(string selectedYear, string orgCode)
         {
-            int recId = 0;
+            //int recId = 0;
+            selectedYear = !string.IsNullOrEmpty(selectedYear) ? selectedYear : DateTime.Now.Year.ToString();
             ViewVigilanceAwarenessViewModel modelobj = new ViewVigilanceAwarenessViewModel();
-            DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByRecordId(recId).Tables[0];
+            modelobj.CurrentYear = Convert.ToInt32(selectedYear);
+            modelobj.CurrentOrgCode = orgCode;
+
+            DataTable yearsTable = yearsBAL.GetAllYearsList().Tables[0];
+            var yearList = new List<SelectListItem>();
+            if (yearsTable.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in yearsTable.Rows)
+                {
+                    yearList.Add(new SelectListItem
+                    {
+                        Value = dr["Year"].ToString(),
+                        Text = dr["Year"].ToString()
+                    });
+                }
+                modelobj.YearsList = yearList;
+            }
+            else
+            {
+                Years year = new Years
+                {
+                    ID = 1,
+                    Year = DateTime.Now.Year
+                };
+                yearList.Add(new SelectListItem { Value = "2024", Text = "2024" });
+                modelobj.YearsList = yearList;
+            }
+
+            DataTable orgsTable = orgBAL.GetAllOrgsList().Tables[0];
+            var orgList = new List<SelectListItem>();
+            if (orgsTable.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in orgsTable.Rows)
+                {
+                    orgList.Add(new SelectListItem
+                    {
+                        Value = dr["OrgCode"].ToString(),
+                        Text = dr["Name"].ToString()
+                    });
+                }
+                modelobj.OrgList = orgList;
+            }
+
+            //DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByRecordId(recId).Tables[0];
+            DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByYearAndOrg(selectedYear, orgCode).Tables[0];
             if (CapacityTable.Rows.Count >= 1)
             {
                 foreach (DataRow data in CapacityTable.Rows)
@@ -36,7 +84,7 @@ namespace VAW_WebApplication.Controllers
                         TrainingName = data["TrainingName"].ToString() == "FRESH" ? "Fresh Inductees" : "Refresher Course",
                         EmployeesTrained = Convert.ToInt32(data["EmployeesTrained"].ToString()),
                         BriefDescription = data["BriefDescription"].ToString(),
-                        CvoId= data["CvoId"].ToString(),
+                        CvoId = data["CvoId"].ToString(),
                         OrganisationName = data["OrgName"].ToString()
 
                     };
@@ -44,7 +92,7 @@ namespace VAW_WebApplication.Controllers
                 }
             }
 
-            DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByRecordId(recId).Tables[0];
+            DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByYearAndOrg(selectedYear, orgCode).Tables[0];
             if (SysImpTable.Rows.Count >= 1)
             {
                 foreach (DataRow data in SysImpTable.Rows)
@@ -57,13 +105,17 @@ namespace VAW_WebApplication.Controllers
                         FromDate = Convert.ToDateTime(data["FromDate"].ToString()),
                         ToDate = Convert.ToDateTime(data["ToDate"].ToString()),
                         Sys_Imp_Implemented_During_Campaign = data["Sys_Imp_Implemented_During_Campaign"].ToString(),
-                        Sys_Imp_Suggested_Last_5_Years_But_Pending = data["Sys_Imp_Suggested_Last_5_Years_But_Pending"].ToString()
+                        Sys_Imp_Suggested_Last_5_Years_But_Pending = data["Sys_Imp_Suggested_Last_5_Years_But_Pending"].ToString(),
+                        NoOf_CasesTakenForAnalysis_past5Years = Convert.ToInt32(data["NoOf_CasesTakenForAnalysis_past5Years"].ToString()),
+                        KeyAreasDetected_BasedonAnalysis = data["KeyAreasDetected_BasedonAnalysis"].ToString(),
+                        Sys_Improvements_Identified_And_Impl_BasedOnAnalysis = data["Sys_Improvements_Identified_And_Impl_BasedOnAnalysis"].ToString()
+
                     };
                     modelobj.Sys_Improvement_VM.Add(vmobjsysimp);
                 }
             }
 
-            DataTable CircularTable = capacityBuildingManager.GetCircularsRecordByRecordId(recId).Tables[0];
+            DataTable CircularTable = capacityBuildingManager.GetCircularsByYearAndOrg(selectedYear, orgCode).Tables[0];
             if (CircularTable.Rows.Count >= 1)
             {
                 foreach (DataRow data in CircularTable.Rows)
@@ -84,7 +136,7 @@ namespace VAW_WebApplication.Controllers
 
 
             //Disposal Of Complaint
-            DataTable DisposalOfComplaintTable = capacityBuildingManager.GetDisposalOfComplaintByRecordId(recId).Tables[0];
+            DataTable DisposalOfComplaintTable = capacityBuildingManager.GetDisposalOfComplaintByYearAndOrg(selectedYear, orgCode).Tables[0];
 
             if (DisposalOfComplaintTable.Rows.Count >= 1)
             {
@@ -108,7 +160,7 @@ namespace VAW_WebApplication.Controllers
 
 
             //Digital Dyanamic
-            DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByRecordId(recId).Tables[0];
+            DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByYearAndOrg(selectedYear, orgCode).Tables[0];
 
             if (DynamicdigitalTable.Rows.Count >= 1)
             {
@@ -132,20 +184,66 @@ namespace VAW_WebApplication.Controllers
             return View(modelobj);
         }
 
-        public ActionResult ViewIntegrityPledge()
+        public ActionResult ViewIntegrityPledge(string selectedYear, string orgCode)
         {
             int recId = 0;
+            selectedYear = !string.IsNullOrEmpty(selectedYear) ? selectedYear : DateTime.Now.Year.ToString();
+
             ViewIntegrityPledgeViewModel viewModel = new ViewIntegrityPledgeViewModel();
-            DataTable integrityTable = integrityPledgeManager.GetIntegrityPledgeByRecordId(recId).Tables[0];
-            DataTable conductTable = integrityPledgeManager.GetConductOfCompetitionsByRecordId(recId).Tables[0];
-            DataTable activitiesOthActivitiesTable = integrityPledgeManager.GetActivitiesOtherActivitiesByRecordId(recId).Tables[0];
-            DataTable outreachSchoolStudentsTable = integrityPledgeManager.GetInvolvingSchoolStudentsByRecordId(recId).Tables[0];
-            DataTable outreachCollegeStudentsTable = integrityPledgeManager.GetInvolvingCollegeStudentsByRecordId(recId).Tables[0];
-            DataTable outreachAwarenessTable = integrityPledgeManager.GetOutreachAwarenessByRecordId(recId).Tables[0];
-            DataTable seminarsWorkshopsTable = integrityPledgeManager.GetSeminarsWorkshopsByRecordId(recId).Tables[0];
-            DataTable otherActivitiesTable = integrityPledgeManager.GetOtherActivitiesByRecordId(recId).Tables[0];
-            DataTable detailsOfPhotosTable = integrityPledgeManager.GetDetailsOfPhotosByRecordId(recId).Tables[0];
-            DataTable OtherRelatedInfo = integrityPledgeManager.GetOtherRelevantInformationByRecordId(recId).Tables[0];
+            viewModel.CurrentYear = Convert.ToInt32(selectedYear);
+            viewModel.CurrentOrgCode = orgCode;
+
+            DataTable integrityTable = integrityPledgeManager.GetIntegrityPledgeByYearAndOrg(selectedYear, orgCode).Tables[0];
+            //DataTable integrityTable = integrityPledgeManager.GetIntegrityPledgeByRecordId(recId).Tables[0];
+            DataTable conductTable = integrityPledgeManager.GetConductOfCompetitionsByYearAndOrg(selectedYear, orgCode).Tables[0];
+            DataTable activitiesOthActivitiesTable = integrityPledgeManager.GetActivitiesOtherActivitiesByYearAndOrg(selectedYear, orgCode).Tables[0];
+            DataTable outreachSchoolStudentsTable = integrityPledgeManager.GetInvolvingSchoolStudentsByYearAndOrg(selectedYear, orgCode).Tables[0];
+            DataTable outreachCollegeStudentsTable = integrityPledgeManager.GetInvolvingCollegeStudentsByYearAndOrg(selectedYear, orgCode).Tables[0];
+            DataTable outreachAwarenessTable = integrityPledgeManager.GetOutreachAwarenessByYearAndOrg(selectedYear, orgCode).Tables[0];
+            DataTable seminarsWorkshopsTable = integrityPledgeManager.GetSeminarsWorkshopsByYearAndOrg(selectedYear, orgCode).Tables[0];
+            DataTable otherActivitiesTable = integrityPledgeManager.GetOtherActivitiesByYearAndOrg(selectedYear, orgCode).Tables[0];
+            DataTable detailsOfPhotosTable = integrityPledgeManager.GetDetailsOfPhotosByYearAndOrg(selectedYear, orgCode).Tables[0];
+            DataTable OtherRelatedInfo = integrityPledgeManager.GetOtherRelevantInformationByYearAndOrg(selectedYear, orgCode).Tables[0];
+            DataTable orgsTable = orgBAL.GetAllOrgsList().Tables[0];
+            DataTable yearsTable = yearsBAL.GetAllYearsList().Tables[0];
+
+            var yearList = new List<SelectListItem>();
+            if (yearsTable.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in yearsTable.Rows)
+                {
+                    yearList.Add(new SelectListItem
+                    {
+                        Value = dr["Year"].ToString(),
+                        Text = dr["Year"].ToString()
+                    });
+                }
+                viewModel.YearsList = yearList;
+            }
+            else
+            {
+                Years year = new Years
+                {
+                    ID = 1,
+                    Year = DateTime.Now.Year
+                };
+                yearList.Add(new SelectListItem { Value = "2024", Text = "2024" });
+                viewModel.YearsList = yearList;
+            }
+
+            var orgList = new List<SelectListItem>();
+            if (orgsTable.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in orgsTable.Rows)
+                {
+                    orgList.Add(new SelectListItem
+                    {
+                        Value = dr["OrgCode"].ToString(),
+                        Text = dr["Name"].ToString()
+                    });
+                }
+                viewModel.OrgList = orgList;
+            }
 
             if (integrityTable.Rows.Count >= 1)
             {
@@ -363,5 +461,6 @@ namespace VAW_WebApplication.Controllers
 
             return View(viewModel);
         }
+
     }
 }

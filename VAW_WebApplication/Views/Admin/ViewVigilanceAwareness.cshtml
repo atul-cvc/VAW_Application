@@ -1,4 +1,5 @@
-﻿@{
+﻿@model VAW_WebApplication.Models.ViewVigilanceAwarenessViewModel
+@{
     ViewBag.Title = "VigilanceAwareness";
     Layout = "~/Views/Shared/_Layout_Users.cshtml";
     int CapacityBuilidingIndex = 0;
@@ -12,14 +13,16 @@
 
 <hr />
 <div class="m-4" style="display:flex;text-align:center;">
-    <label style="align-content: center; margin-right:10px" for="year_select">Year : </label>
-    <select class="form-control" id="year_select" name="year_select" style="width: 10rem">
-        <option selected value="2024">2024</option>
-        <option value="2023">2023</option>
-        <option value="2022">2022</option>
-        <option value="2021">2021</option>
+    <div style="display: flex;">
+        <label style="align-content: center; margin-right:10px" for="CurrentYear">Year&nbsp;: </label>
+        @Html.DropDownListFor(model => model.CurrentYear, Model.YearsList, "Select Year", new { @class = "form-control" })
 
-    </select>
+        <label style="align-content: center; margin-right:10px; margin-left:10px;" for="CurrentOrgCode">Organisation&nbsp;: </label>
+        @Html.DropDownListFor(model => model.CurrentOrgCode, Model.OrgList, "Select Organisation", new { @class = "form-control" })
+    </div>
+    <div style="margin-left:50px; display:flex; align-content:center">
+        <button onclick="handleSearch()" class="btn btn-primary text-center" style="align-self:center" name="SearchByYear">SEARCH</button>
+    </div>
 </div>
 <br />
 <div class="mainBox" id="CapacityBuildingContainer">
@@ -53,9 +56,18 @@
                         <td style="text-align:center">@item.FromDate.ToString("dd-MM-yyyy") To @item.ToDate.ToString("dd-MM-yyyy")</td>
                         <td style="text-align:center">@item.TrainingName</td>
                         <td style="text-align:center">@item.EmployeesTrained</td>
-                        <td style="text-align:center">@item.BriefDescription</td>
+                        <td style="text-align:center">
+                            @if (@item.BriefDescription.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.BriefDescription')">View</button>
+                            }
+                            else
+                            {
+                                @item.BriefDescription
+                            }
+                        </td>
                         <td style="text-align:center">@item.CvoId</td>
-                        
+
                     </tr>
                 }
             </tbody>
@@ -83,9 +95,11 @@
                     <th style="text-align:center">VAW Year</th>
                     <th style="text-align:center" width="12%">Organisation</th>
                     <th style="text-align:center">Period</th>
-                    @*<th style="text-align:center">Period To</th>*@
-                    <th style="text-align:center">Systemic Improvements Implemented During the Campaing Period</th>
+                    <th style="text-align:center">Systemic Improvements Implemented During the Campaign Period</th>
                     <th style="text-align:center">System Improvements Suggested last 5 years</th>
+                    <th style="text-align:center">No. of Cases of the Past 5 Years Taken For Analysis</th>
+                    <th style="text-align:center">Key Areas Vulnerable To Corruption Detected Based On Analysis</th>
+                    <th style="text-align:center">Systemic Improvements identified and implemented / under implementation (brief details may be given)</th>
                     <th style="text-align:center">CVO</th>
                 </tr>
             </thead>
@@ -98,10 +112,49 @@
                         <td style="text-align:center">@item.VAW_Year</td>
                         <td style="text-align:center">@item.OrganisationName</td>
                         <td style="text-align:center">@item.FromDate.ToString("dd-MM-yyyy") To @item.ToDate.ToString("dd-MM-yyyy")</td>
-                        <td style="text-align:center">@item.Sys_Imp_Implemented_During_Campaign</td>
-                        <td style="text-align:center">@item.Sys_Imp_Suggested_Last_5_Years_But_Pending</td>
+                        <td style="text-align:center">
+                            @if (@item.Sys_Imp_Implemented_During_Campaign.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.Sys_Imp_Implemented_During_Campaign')">View</button>
+                            }
+                            else
+                            {
+                                @item.Sys_Imp_Implemented_During_Campaign
+                            }
+                        </td>
+                        <td style="text-align:center">
+                            @if (@item.Sys_Imp_Suggested_Last_5_Years_But_Pending.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.Sys_Imp_Suggested_Last_5_Years_But_Pending')">View</button>
+                            }
+                            else
+                            {
+                                @item.Sys_Imp_Suggested_Last_5_Years_But_Pending
+                            }
+                        </td>
+                        <td style="text-align:center">@item.NoOf_CasesTakenForAnalysis_past5Years</td>
+                        <td style="text-align:center">
+                            @if ((@item.KeyAreasDetected_BasedonAnalysis.Length) > 125)
+                            {
+                                <button onclick="handlePopup('@item.KeyAreasDetected_BasedonAnalysis')">View</button>
+                            }
+                            else
+                            {
+                                @item.KeyAreasDetected_BasedonAnalysis
+                            }
+                        </td>
+                        <td style="text-align:center">
+                            @if (@item.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis')">View</button>
+                            }
+                            else
+                            {
+                                @item.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis
+                            }
+                        </td>
                         <td style="text-align:center">@item.CvoId</td>
-                        
+
                     </tr>
                 }
             </tbody>
@@ -140,7 +193,16 @@
                         <td style="text-align:center">@item.OrganisationName</td>
                         <td style="text-align:center">@item.FromDate.ToString("dd-MM-yyyy") To @item.ToDate.ToString("dd-MM-yyyy")</td>
                         <td style="text-align:center">@item.WhetherUpdatedDuingCampaign</td>
-                        <td style="text-align:center">@item.BriefDetails</td>
+                        <td style="text-align:center">
+                            @if (@item.BriefDetails.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.BriefDetails')">View</button>
+                            }
+                            else
+                            {
+                                @item.BriefDetails
+                            }
+                        </td>
                         <td style="text-align:center">@item.CvoId</td>
                     </tr>
                 }
@@ -187,11 +249,38 @@
                         <td style="text-align:center">@item.VAW_Year</td>
                         <td style="text-align:center">@item.OrganisationName</td>
                         <td style="text-align:center">@item.NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608</td>
-                        <td style="text-align:center">@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608</td>
+                        <td style="text-align:center">
+                            @if (@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608')">View</button>
+                            }
+                            else
+                            {
+                                @item.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608
+                            }
+                        </td>
                         <td style="text-align:center">@item.NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign</td>
-                        <td style="text-align:center">@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign</td>
+                        <td style="text-align:center">
+                            @if (@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign')">View</button>
+                            }
+                            else
+                            {
+                                @item.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign
+                            }
+                        </td>
                         <td style="text-align:center">@item.NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511</td>
-                        <td style="text-align:center">@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511</td>
+                        <td style="text-align:center">
+                            @if (@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511')">View</button>
+                            }
+                            else
+                            {
+                                @item.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511
+                            }
+                        </td>
                         <td style="text-align:center">@item.CvoId</td>
                     </tr>
                 }
@@ -235,9 +324,27 @@
                         <td style="text-align:center">@item.VAW_Year</td>
                         <td style="text-align:center">@item.OrganisationName</td>
                         <td style="text-align:center">@item.WhetherRegularMaintenanceOfWebsiteUpdationDone</td>
-                        <td style="text-align:center">@item.SystemIntroducedForUpdationAndReview</td>
+                        <td style="text-align:center">
+                            @if (@item.SystemIntroducedForUpdationAndReview.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.SystemIntroducedForUpdationAndReview')">View</button>
+                            }
+                            else
+                            {
+                                @item.SystemIntroducedForUpdationAndReview
+                            }
+                        </td>
                         <td style="text-align:center">@item.WhetherAdditionalAreas_Activities_ServicesBroughtOnline</td>
-                        <td style="text-align:center">@item.DetailsOfAdditionalActivities</td>
+                        <td style="text-align:center">
+                            @if (@item.DetailsOfAdditionalActivities.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.DetailsOfAdditionalActivities')">View</button>
+                            }
+                            else
+                            {
+                                @item.DetailsOfAdditionalActivities
+                            }
+                        </td>
                         <td style="text-align:center">@item.CvoId</td>
                     </tr>
                 }
@@ -250,4 +357,18 @@
     $(document).ready(function () {
         $('#capacityBuildingTable,#IdentificationTable,#UpdationTable,#DisposalTable,#DynamicTable').DataTable();
     });
+</script>
+
+<script>
+    function handleSearch() {
+        var selectedYear = document.getElementById("CurrentYear").value;
+        var selectedOrg = document.getElementById("CurrentOrgCode").value;
+
+        // Construct the URL using JavaScript
+        var url = '@Url.Action("ViewVigilanceAwareness", "Admin")' + '?selectedYear=' + encodeURIComponent(selectedYear) + '&orgCode=' + encodeURIComponent(selectedOrg);
+
+        // Redirect to the action with the selected year and org code
+        window.location.href = url;
+
+    }
 </script>

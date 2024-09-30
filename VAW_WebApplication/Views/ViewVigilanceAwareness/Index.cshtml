@@ -16,15 +16,14 @@
     <h2>Vigilance Awareness</h2>
 </div>
 <hr />
-<div class="m-4" style="display:flex;text-align:center;">
-    <label style="align-content: center; margin-right:10px" for="year_select">Year : </label>
-    <select class="form-control" id="year_select" name="year_select" style="width: 10rem">
-        <option selected value="2024">2024</option>
-        <option value="2023">2023</option>
-        <option value="2022">2022</option>
-        <option value="2021">2021</option>
-
-    </select>
+<div class="m-4" style="display: flex; text-align: center;">
+    <div style="display: flex;">
+        <label style="align-content: center; margin-right:10px" for="CurrentYear">Year&nbsp;: </label>
+        @Html.DropDownListFor(model => model.CurrentYear, Model.YearsList, "Select Year", new { @class = "form-control" })
+    </div>
+    <div style="margin-left:50px; display:flex; align-content:center">
+        <button onclick="handleSearch()" class="btn btn-primary text-center" style="align-self:center" name="SearchByYear">SEARCH</button>
+    </div>
 </div>
 <br />
 <div class="mainBox" id="CapacityBuildingContainer">
@@ -48,18 +47,27 @@
                     <th style="text-align:center">Action</th>
                 </tr>
             </thead>
-            <tbody>               
+            <tbody>
                 @foreach (var item in Model.CapacityBuiliding_VM)
                 {
                     <tr>
                         <td style="text-align:center" class="td1">@(++CapacityBuilidingIndex)</td>
                         <td style="text-align:center">@item.VAW_Year</td>
-                        <td style="text-align:center">@item.FromDate.ToString("dd-MM-yyyy") To @item.ToDate.ToString("dd-MM-yyyy")</td>                       
+                        <td style="text-align:center">@item.FromDate.ToString("dd-MM-yyyy") To @item.ToDate.ToString("dd-MM-yyyy")</td>
                         <td style="text-align:center">@item.TrainingName</td>
                         <td style="text-align:center">@item.EmployeesTrained</td>
-                        <td style="text-align:center">@item.BriefDescription</td>
                         <td style="text-align:center">
-                            @Html.ActionLink("Edit", "EditCapacityBuilding", new { id = item.ID }, new { @class = "btn btn-primary text-center" })                            
+                            @if (@item.BriefDescription.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.BriefDescription')">View</button>
+                            }
+                            else
+                            {
+                                @item.BriefDescription
+                            }
+                        </td>
+                        <td style="text-align:center">
+                            @Html.ActionLink("Edit", "EditCapacityBuilding", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
                     </tr>
                 }
@@ -88,9 +96,11 @@
                     <th class="th1" style="text-align:center">S No.</th>
                     <th style="text-align:center">VAW Year</th>
                     <th style="text-align:center">Period</th>
-                    @*<th style="text-align:center">Period To</th>*@
                     <th style="text-align:center">Systemic Improvements Implemented During the Campaign Period</th>
                     <th style="text-align:center">System Improvements Suggested last 5 years</th>
+                    <th style="text-align:center">No. of Cases of the Past 5 Years Taken For Analysis</th>
+                    <th style="text-align:center">Key Areas Vulnerable To Corruption Detected Based On Analysis</th>
+                    <th style="text-align:center">Systemic Improvements identified and implemented / under implementation (brief details may be given)</th>
                     <th style="text-align:center">Action</th>
                 </tr>
             </thead>
@@ -102,8 +112,50 @@
                         <td style="text-align:center" class="td1">@(++IdentIndex)</td>
                         <td style="text-align:center">@item.VAW_Year</td>
                         <td style="text-align:center">@item.FromDate.ToString("dd-MM-yyyy") To @item.ToDate.ToString("dd-MM-yyyy")</td>
-                        <td style="text-align:center">@item.Sys_Imp_Implemented_During_Campaign</td>
-                        <td style="text-align:center">@item.Sys_Imp_Suggested_Last_5_Years_But_Pending</td>
+
+                        <td style="text-align:center">
+                            @if (@item.Sys_Imp_Implemented_During_Campaign.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.Sys_Imp_Implemented_During_Campaign')">View</button>
+                            }
+                            else
+                            {
+                                @item.Sys_Imp_Implemented_During_Campaign
+                            }
+                        </td>
+                        <td style="text-align:center">
+                            @if (@item.Sys_Imp_Suggested_Last_5_Years_But_Pending.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.Sys_Imp_Suggested_Last_5_Years_But_Pending')">View</button>
+                            }
+                            else
+                            {
+                                @item.Sys_Imp_Suggested_Last_5_Years_But_Pending
+                            }
+                        </td>
+                        <td style="text-align:center">@item.NoOf_CasesTakenForAnalysis_past5Years</td>
+                        <td style="text-align:center">
+                            @if ((@item.KeyAreasDetected_BasedonAnalysis.Length) > 125)
+                            {
+                                <button onclick="handlePopup('@item.KeyAreasDetected_BasedonAnalysis')">View</button>
+                            }
+                            else
+                            {
+                                @item.KeyAreasDetected_BasedonAnalysis
+                            }
+                        </td>
+                        <td style="text-align:center">
+                            @if (@item.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis')">View</button>
+                            }
+                            else
+                            {
+                                @item.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis
+                            }
+                        </td>
+
+
                         <td style="text-align:center">
                             @Html.ActionLink("Edit", "EditIdentificationAndImplementation", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
@@ -144,8 +196,17 @@
                         <td style="text-align:center">@item.VAW_Year</td>
                         <td style="text-align:center">@item.FromDate.ToString("dd-MM-yyyy") To @item.ToDate.ToString("dd-MM-yyyy")</td>
                         <td style="text-align:center">@item.WhetherUpdatedDuingCampaign</td>
-                        <td style="text-align:center">@item.BriefDetails</td>
-                        <td style="text-align:center">                            
+                        <td style="text-align:center">
+                            @if (@item.BriefDetails.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.BriefDetails')">View</button>
+                            }
+                            else
+                            {
+                                @item.BriefDetails
+                            }
+                        </td>
+                        <td style="text-align:center">
                             @Html.ActionLink("Edit", "EditUpdationOfCirculars", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
                     </tr>
@@ -192,11 +253,38 @@
                         <td style="text-align:center" class="td1">@(++DisposalComIndex)</td>
                         <td style="text-align:center">@item.VAW_Year</td>
                         <td style="text-align:center">@item.NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608</td>
-                        <td style="text-align:center">@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608</td>
+                        <td style="text-align:center">
+                            @if (@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608')">View</button>
+                            }
+                            else
+                            {
+                                @item.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608
+                            }
+                        </td>
                         <td style="text-align:center">@item.NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign</td>
-                        <td style="text-align:center">@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign</td>
+                        <td style="text-align:center">
+                            @if (@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign')">View</button>
+                            }
+                            else
+                            {
+                                @item.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign
+                            }
+                        </td>
                         <td style="text-align:center">@item.NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511</td>
-                        <td style="text-align:center">@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511</td>
+                        <td style="text-align:center">
+                            @if (@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511')">View</button>
+                            }
+                            else
+                            {
+                                @item.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511
+                            }
+                        </td>
                         <td style="text-align:center">
                             @Html.ActionLink("Edit", "EditDisposalOfComplaints", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
@@ -241,9 +329,27 @@
                         <td style="text-align:center" class="td1">@(++DynamicDigitalIndex)</td>
                         <td style="text-align:center">@item.VAW_Year</td>
                         <td style="text-align:center">@item.WhetherRegularMaintenanceOfWebsiteUpdationDone</td>
-                        <td style="text-align:center">@item.SystemIntroducedForUpdationAndReview</td>
+                        <td style="text-align:center">
+                            @if (@item.SystemIntroducedForUpdationAndReview.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.SystemIntroducedForUpdationAndReview')">View</button>
+                            }
+                            else
+                            {
+                                @item.SystemIntroducedForUpdationAndReview
+                            }
+                        </td>
                         <td style="text-align:center">@item.WhetherAdditionalAreas_Activities_ServicesBroughtOnline</td>
-                        <td style="text-align:center">@item.DetailsOfAdditionalActivities</td>
+                        <td style="text-align:center">
+                            @if (@item.DetailsOfAdditionalActivities.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.DetailsOfAdditionalActivities')">View</button>
+                            }
+                            else
+                            {
+                                @item.DetailsOfAdditionalActivities
+                            }
+                        </td>
                         <td style="text-align:center">
                             @Html.ActionLink("Edit", "EditDigitalDynamicPresence", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
@@ -258,4 +364,13 @@
     $(document).ready(function () {
         $('#capacityBuildingTable,#IdentificationTable,#UpdationTable,#DisposalTable,#DynamicTable').DataTable();
     });
+</script>
+
+<script>
+    function handleSearch() {
+        var selectedYear = document.getElementById("CurrentYear").value;
+
+        // Redirect to the action with the selected year
+        window.location.href = '@Url.Action("Index", "ViewVigilanceAwareness", new { selected_year = "__YEAR__" })'.replace('__YEAR__', selectedYear);
+    }
 </script>

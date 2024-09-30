@@ -18,14 +18,14 @@
 <h2>Integrity Pledge</h2>
 <hr />
 <div class="m-4" style="display:flex;text-align:center;">
-    <label style="align-content: center; margin-right:10px" for="year_select">Year : </label>
-    <select class="form-control" id="year_select" name="year_select" style="width: 10rem">
-        <option selected value="2024">2024</option>
-        <option value="2023">2023</option>
-        <option value="2022">2022</option>
-        <option value="2021">2021</option>
+    <div style="display: flex;">
+        <label style="align-content: center; margin-right:10px" for="CurrentYear">Year&nbsp;: </label>
+        @Html.DropDownListFor(model => model.CurrentYear, Model.YearsList, "Select Year", new { @class = "form-control" })
+    </div>
+    <div style="margin-left:50px; display:flex; align-content:center">
+        <button onclick="handleSearch()" class="btn btn-primary text-center" style="align-self:center" name="SearchByYear">SEARCH</button>
+    </div>
 
-    </select>
 </div>
 
 <br />
@@ -75,7 +75,7 @@
     <hr />
     <div style="padding:15px">
         <div style="display:flex; justify-content:space-between">
-            <h4>CONDUCT OF COMPETITIONS</h4>
+            <h4>a. CONDUCT OF COMPETITIONS</h4>
             <a href="@Url.Action("CreateConductOfCompetitions", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateConductOfCompetitions" name="CreateConductOfCompetitions">Create</a>
         </div>
         <hr />
@@ -104,7 +104,16 @@
                             <td style="text-align:center">@item.City</td>
                             <td style="text-align:center">@item.SpecificProgram</td>
                             <td style="text-align:center">@item.NoOfParticipant</td>
-                            <td style="text-align:center">@item.Remarks</td>
+                            <td style="text-align:center">
+                                @if (@item.Remarks.Length > 125)
+                                {
+                                    <button onclick="handlePopup('@item.Remarks')">View</button>
+                                }
+                                else
+                                {
+                                    @item.Remarks
+                                }
+                            </td>
                             <td style="text-align:center">
                                 @Html.ActionLink("Edit", "EditConductOfCompetitions", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                             </td>
@@ -141,10 +150,46 @@
                         <tr>
                             <td style="text-align:center" class="td1">@(++act_OthrActIndex)</td>
                             <td style="text-align:center">@item.VAW_Year</td>
-                            <td style="text-align:center">@item.DistributionOfPamphletsAndBanners_Details</td>
-                            <td style="text-align:center">@item.ConductOfWorkshopAndSensitizationProgram_Details</td>
-                            <td style="text-align:center">@item.IssueOfJornalAndNwesletter_Details</td>
-                            <td style="text-align:center">@item.AnyOtherActivities_Details</td>
+                            <td style="text-align:center">
+                                @if (@item.DistributionOfPamphletsAndBanners_Details.Length > 125)
+                                {
+                                    <button onclick="handlePopup('@item.DistributionOfPamphletsAndBanners_Details')">View</button>
+                                }
+                                else
+                                {
+                                    @item.DistributionOfPamphletsAndBanners_Details
+                                }
+                            </td>
+                            <td style="text-align:center">
+                                @if (@item.ConductOfWorkshopAndSensitizationProgram_Details.Length > 125)
+                                {
+                                    <button onclick="handlePopup('@item.ConductOfWorkshopAndSensitizationProgram_Details')">View</button>
+                                }
+                                else
+                                {
+                                    @item.ConductOfWorkshopAndSensitizationProgram_Details
+                                }
+                            </td>
+                            <td style="text-align:center">
+                                @if (@item.IssueOfJornalAndNwesletter_Details.Length > 125)
+                                {
+                                    <button onclick="handlePopup('@item.IssueOfJornalAndNwesletter_Details')">View</button>
+                                }
+                                else
+                                {
+                                    @item.IssueOfJornalAndNwesletter_Details
+                                }
+                            </td>
+                            <td style="text-align:center">
+                                @if (@item.AnyOtherActivities_Details.Length > 125)
+                                {
+                                    <button onclick="handlePopup('@item.AnyOtherActivities_Details')">View</button>
+                                }
+                                else
+                                {
+                                    @item.AnyOtherActivities_Details
+                                }
+                            </td>
                             <td style="text-align:center">
                                 @Html.ActionLink("Edit", "EditActivitiesOtherActivities", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                             </td>
@@ -194,7 +239,16 @@
                             <td style="text-align:center">@item.StateName</td>
                             <td style="text-align:center">@item.City_Town_Village_Name</td>
                             <td style="text-align:center">@item.SchoolName</td>
-                            <td style="text-align:center">@item.ActivityDetails</td>
+                            <td style="text-align:center">
+                                @if (@item.ActivityDetails.Length > 125)
+                                {
+                                    <button onclick="handlePopup('@item.ActivityDetails')">View</button>
+                                }
+                                else
+                                {
+                                    @item.ActivityDetails
+                                }
+                            </td>
                             <td style="text-align:center">@item.NoOfStudentsInvolved</td>
                             <td style="text-align:center">
                                 @Html.ActionLink("Edit", "EditOutreachInvolvingSchoolStudents", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
@@ -237,7 +291,16 @@
                             <td style="text-align:center">@item.StateName</td>
                             <td style="text-align:center">@item.City_Town_Village_Name</td>
                             <td style="text-align:center">@item.SchoolName</td>
-                            <td style="text-align:center">@item.ActivityDetails</td>
+                            <td style="text-align:center">
+                                @if (@item.ActivityDetails.Length > 125)
+                                {
+                                    <button onclick="handlePopup('@item.ActivityDetails')">View</button>
+                                }
+                                else
+                                {
+                                    @item.ActivityDetails
+                                }
+                            </td>
                             <td style="text-align:center">@item.NoOfStudentsInvolved</td>
                             <td style="text-align:center">
                                 @Html.ActionLink("Edit", "EditOutreachInvolvingCollegeStudents", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
@@ -280,7 +343,16 @@
                             <td style="text-align:center">@item.StateName</td>
                             <td style="text-align:center">@item.City_Town_Village_Name</td>
                             <td style="text-align:center">@item.NameOfGramPanchayat</td>
-                            <td style="text-align:center">@item.ActivityDetails</td>
+                            <td style="text-align:center">
+                                @if (@item.ActivityDetails.Length > 125)
+                                {
+                                    <button onclick="handlePopup('@item.ActivityDetails')">View</button>
+                                }
+                                else
+                                {
+                                    @item.ActivityDetails
+                                }
+                            </td>
                             <td style="text-align:center">@item.NoOfPublicOrCitizenParticipated</td>
                             <td style="text-align:center">
                                 @Html.ActionLink("Edit", "EditOutreachAwarenessGramSabhas", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
@@ -323,7 +395,16 @@
                             <td style="text-align:center">@item.StateName</td>
                             <td style="text-align:center">@item.City_Town_Village_Name</td>
                             <td style="text-align:center">@item.NoOfSeminarsWorkshops</td>
-                            <td style="text-align:center">@item.ActivityDetails</td>
+                            <td style="text-align:center">
+                                @if (@item.ActivityDetails.Length > 125)
+                                {
+                                    <button onclick="handlePopup('@item.ActivityDetails')">View</button>
+                                }
+                                else
+                                {
+                                    @item.ActivityDetails
+                                }
+                            </td>
                             <td style="text-align:center">@item.NoOfPublicOrCitizenParticipated</td>
                             <td style="text-align:center">
                                 @Html.ActionLink("Edit", "EditOutreachSeminars", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
@@ -367,9 +448,27 @@
                     <tr>
                         <td style="text-align:center" class="td1">@(++otheActivitiesIndex)</td>
                         <td style="text-align:center">@item.VAW_Year</td>
-                        <td style="text-align:center">@item.DisplayOfBannerPosterDetails</td>
+                        <td style="text-align:center">
+                            @if (@item.DisplayOfBannerPosterDetails.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.DisplayOfBannerPosterDetails')">View</button>
+                            }
+                            else
+                            {
+                                @item.DisplayOfBannerPosterDetails
+                            }
+                        </td>
                         <td style="text-align:center">@item.NoOfGrievanceRedressalCampsHeld</td>
-                        <td style="text-align:center">@item.UserOfScocialMedia</td>
+                        <td style="text-align:center">
+                            @if (@item.UserOfScocialMedia.Length > 125)
+                            {
+                                <button onclick="handlePopup('@item.UserOfScocialMedia')">View</button>
+                            }
+                            else
+                            {
+                                @item.UserOfScocialMedia
+                            }
+                        </td>
                         <td style="text-align:center">
                             @Html.ActionLink("Edit", "EditOtherActivities", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
@@ -474,4 +573,14 @@
         $('#IntegrityPledgeTable, #ConductTable, #Activities_OtherActivities, #InvolvingStudentsSchools, #InvolvingStudentsColleges, #AwarenessGramSabhas, #AwarenessSeminarsWorkshops, #OtherActivitiesTable, #DetailsOfPhotosTable, #RelevantInfoTable')
             .DataTable();
     });
+</script>
+
+
+<script>
+    function handleSearch() {
+        var selectedYear = document.getElementById("CurrentYear").value;
+
+        // Redirect to the action with the selected year
+        window.location.href = '@Url.Action("Index", "ViewIntegrityPledge", new { selected_year = "__YEAR__" })'.replace('__YEAR__', selectedYear);
+    }
 </script>

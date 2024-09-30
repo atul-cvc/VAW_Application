@@ -27,6 +27,48 @@
             </div>
         </div>
 
+        <div style="margin-top:50px; margin-bottom:25px;">
+
+            <h4>i). Brief details of Vigilance Cases of the past 05 years taken up for analysis</h4>
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.NoOf_CasesTakenForAnalysis_past5Years, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NoOf_CasesTakenForAnalysis_past5Years, new { @htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NoOf_CasesTakenForAnalysis_past5Years, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.KeyAreasDetected_BasedonAnalysis, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.KeyAreasDetected_BasedonAnalysis, new { @htmlAttributes = new { @class = "form-control", } })*@
+                @Html.TextAreaFor(model => model.KeyAreasDetected_BasedonAnalysis, new { @class = "textarea-custom", @id = "myTextAreaKeyAreasDetected_BasedonAnalysis" })
+                <div id="wordCountKeyAreasDetected_BasedonAnalysis" style="margin-top: 10px; margin-left:150px;">Word count: 0 / 1000</div>
+                @Html.ValidationMessageFor(model => model.KeyAreasDetected_BasedonAnalysis, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis, new { @htmlAttributes = new { @class = "form-control", } })*@
+                @Html.TextAreaFor(model => model.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis, new { @class = "textarea-custom", @id = "myTextAreaSys_Improvements_Identified_And_Impl_BasedOnAnalysis" })
+                <div id="wordCount1Sys_Improvements_Identified_And_Impl_BasedOnAnalysis" style="margin-top: 10px; margin-left:150px;">Word count: 0 / 1000</div>
+                @Html.ValidationMessageFor(model => model.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div style="width:50%">
+            <hr />
+        </div>
+        <br />
+
+        <div style="margin-top:25px; margin-bottom:25px;">
+
+            <h4>ii). Brief details of Systemic Improvements suggested by the Commission (pending as on 16th August 2024)</h4>
+
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -64,7 +106,7 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-offset-2 col-md-2">
-                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-primary" })
                 </div>
                 <div class="col-md-2">
                     <input type="submit" value="Update" class="btn btn-success" />
@@ -129,6 +171,6 @@
         </script>
 
     }
-    @*@Html.ActionLink("Back to List", "Index")*@
+    @*@Html.ActionLink("Back", "Index")*@
 </div>
 

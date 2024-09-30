@@ -96,6 +96,7 @@
     <Compile Include="CapacityBuildingDAL.cs" />
     <Compile Include="IntegrityPledgeDAL.cs" />
     <Compile Include="LoginDAL.cs" />
+    <Compile Include="OrganisationDAL.cs" />
     <Compile Include="VAW_Dal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="YearsDAL.cs" />

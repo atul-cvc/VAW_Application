@@ -1,4 +1,5 @@
-﻿@{
+﻿@model VAW_WebApplication.Models.ViewVigilanceAwarenessViewModel
+@{
     ViewBag.Title = "VigilanceAwareness";
     Layout = "~/Views/Shared/_Layout_Users.cshtml";
     int CapacityBuilidingIndex = 0;
@@ -12,14 +13,16 @@
 
 <hr />
 <div class="m-4" style="display:flex;text-align:center;">
-    <label style="align-content: center; margin-right:10px" for="year_select">Year : </label>
-    <select class="form-control" id="year_select" name="year_select" style="width: 10rem">
-        <option selected value="2024">2024</option>
-        <option value="2023">2023</option>
-        <option value="2022">2022</option>
-        <option value="2021">2021</option>
+    <div style="display: flex;">
+        <label style="align-content: center; margin-right:10px" for="CurrentYear">Year&nbsp;: </label>
+        @Html.DropDownListFor(model => model.CurrentYear, Model.YearsList, "Select Year", new { @class = "form-control" })
 
-    </select>
+        <label style="align-content: center; margin-right:10px; margin-left:10px;" for="CurrentOrgCode">Organisation&nbsp;: </label>
+        @Html.DropDownListFor(model => model.CurrentOrgCode, Model.OrgList, "Select Organisation", new { @class = "form-control" })
+    </div>
+    <div style="margin-left:50px; display:flex; align-content:center">
+        <button onclick="handleSearch()" class="btn btn-primary text-center" style="align-self:center" name="SearchByYear">SEARCH</button>
+    </div>
 </div>
 <br />
 <div class="mainBox" id="CapacityBuildingContainer">
@@ -354,4 +357,18 @@
     $(document).ready(function () {
         $('#capacityBuildingTable,#IdentificationTable,#UpdationTable,#DisposalTable,#DynamicTable').DataTable();
     });
+</script>
+
+<script>
+    function handleSearch() {
+        var selectedYear = document.getElementById("CurrentYear").value;
+        var selectedOrg = document.getElementById("CurrentOrgCode").value;
+
+        // Construct the URL using JavaScript
+        var url = '@Url.Action("ViewVigilanceAwareness", "Admin")' + '?selectedYear=' + encodeURIComponent(selectedYear) + '&orgCode=' + encodeURIComponent(selectedOrg);
+
+        // Redirect to the action with the selected year and org code
+        window.location.href = url;
+
+    }
 </script>

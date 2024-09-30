@@ -16,6 +16,8 @@ namespace VAW_WebApplication.Models
         public List<Tran_a_5b_dynamicdigitalpresence_ViewModel> DynamicDigitalPresence_VM { get; set; }
         public IEnumerable<SelectListItem> YearsList { get; set; }
         public int CurrentYear { get; set; } = DateTime.Now.Year;
+        public IEnumerable<SelectListItem> OrgList { get; set; }
+        public string CurrentOrgCode { get; set; }
         public ViewVigilanceAwarenessViewModel()
         {
             CapacityBuiliding_VM = new List<Tran_a_1b_capacitybulidingprogram_ViewModel>();

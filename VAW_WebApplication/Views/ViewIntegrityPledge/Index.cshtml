@@ -18,16 +18,14 @@
 <h2>Integrity Pledge</h2>
 <hr />
 <div class="m-4" style="display:flex;text-align:center;">
-    <label style="align-content: center; margin-right:10px" for="year_select">Year : </label>
-    @*<select class="form-control" id="year_select" name="year_select" style="width: 10rem">
-            <option selected value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
+    <div style="display: flex;">
+        <label style="align-content: center; margin-right:10px" for="CurrentYear">Year&nbsp;: </label>
+        @Html.DropDownListFor(model => model.CurrentYear, Model.YearsList, "Select Year", new { @class = "form-control" })
+    </div>
+    <div style="margin-left:50px; display:flex; align-content:center">
+        <button onclick="handleSearch()" class="btn btn-primary text-center" style="align-self:center" name="SearchByYear">SEARCH</button>
+    </div>
 
-        </select>*@
-    @*YearsList*@
-    @Html.DropDownListFor(model => model.CurrentYear, Model.YearsList, "Select Year", new { @class = "form-control" })
 </div>
 
 <br />
@@ -575,4 +573,14 @@
         $('#IntegrityPledgeTable, #ConductTable, #Activities_OtherActivities, #InvolvingStudentsSchools, #InvolvingStudentsColleges, #AwarenessGramSabhas, #AwarenessSeminarsWorkshops, #OtherActivitiesTable, #DetailsOfPhotosTable, #RelevantInfoTable')
             .DataTable();
     });
+</script>
+
+
+<script>
+    function handleSearch() {
+        var selectedYear = document.getElementById("CurrentYear").value;
+
+        // Redirect to the action with the selected year
+        window.location.href = '@Url.Action("Index", "ViewIntegrityPledge", new { selected_year = "__YEAR__" })'.replace('__YEAR__', selectedYear);
+    }
 </script>

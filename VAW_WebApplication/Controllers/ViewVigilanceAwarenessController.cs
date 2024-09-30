@@ -19,8 +19,9 @@ namespace VAW_WebApplication.Controllers
         YearsBAL yearsBAL = new YearsBAL();
         string IPAddress = null;
         // GET: ViewVigilanceAwareness
-        public ActionResult Index(string selected_year = "2024")
+        public ActionResult Index(string selected_year)
         {
+            selected_year = !string.IsNullOrEmpty(selected_year) ?  selected_year : DateTime.Now.Year.ToString();
             try
             {
                 ViewVigilanceAwarenessViewModel modelobj = new ViewVigilanceAwarenessViewModel();
@@ -51,8 +52,7 @@ namespace VAW_WebApplication.Controllers
                     modelobj.YearsList = yearList;
                 }
 
-                int SelectedYr = !string.IsNullOrEmpty(selected_year) ? Convert.ToInt32(selected_year) : DateTime.Now.Year;
-                modelobj.CurrentYear = SelectedYr;
+                modelobj.CurrentYear = !string.IsNullOrEmpty(selected_year) ? Convert.ToInt32(selected_year) : DateTime.Now.Year; 
 
                 List<Tran_a_1b_capacitybulidingprogram_ViewModel> ListofCapBuilding = new List<Tran_a_1b_capacitybulidingprogram_ViewModel>();
                 //DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByCVOID("CVO_SBI").Tables[0];

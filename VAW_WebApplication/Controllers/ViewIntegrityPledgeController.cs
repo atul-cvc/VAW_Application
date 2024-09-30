@@ -22,19 +22,25 @@ namespace VAW_WebApplication.Controllers
         string IPAddress = null;
 
         // GET: ViewIntegrityPledge
-        public ActionResult Index()
+        public ActionResult Index(string selected_year)
         {
+            selected_year = !string.IsNullOrEmpty(selected_year) ? selected_year : DateTime.Now.Year.ToString();
+
             ViewIntegrityPledgeViewModel viewModel = new ViewIntegrityPledgeViewModel();
-            DataTable integrityTable = integrityPledgeManager.GetIntegrityPledgeByCVOID("CVO_SBI").Tables[0]; //GetIntegrityPledge
-            DataTable conductTable = integrityPledgeManager.GetConductOfCompetitionsByCVOID("CVO_SBI").Tables[0];
-            DataTable activitiesOthActivitiesTable = integrityPledgeManager.GetActivitiesOtherActivities("CVO_SBI").Tables[0];
-            DataTable outreachSchoolStudentsTable = integrityPledgeManager.GetInvolvingSchoolStudentsBYCVOID("CVO_SBI").Tables[0];
-            DataTable outreachCollegeStudentsTable = integrityPledgeManager.GetInvolvingCollegeStudentsBYCVOID("CVO_SBI").Tables[0];
-            DataTable outreachAwarenessTable = integrityPledgeManager.GetOutreachAwarenessBYCVOID("CVO_SBI").Tables[0];
-            DataTable seminarsWorkshopsTable = integrityPledgeManager.GetSeminarsWorkshopsBYCVOID("CVO_SBI").Tables[0];
-            DataTable otherActivitiesTable = integrityPledgeManager.GetOtherActivitiesBYCVOID("CVO_SBI").Tables[0];
-            DataTable detailsOfPhotosTable = integrityPledgeManager.GetDetailsOfPhotosBYCVOID("CVO_SBI").Tables[0];
+            viewModel.CurrentYear = !string.IsNullOrEmpty(selected_year) ? Convert.ToInt32(selected_year) : DateTime.Now.Year;
+            
+            DataTable integrityTable = integrityPledgeManager.GetIntegrityPledgeByCVOIDandYear("CVO_SBI", selected_year).Tables[0]; //GetIntegrityPledge
+            DataTable conductTable = integrityPledgeManager.GetConductOfCompetitionsByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+            DataTable activitiesOthActivitiesTable = integrityPledgeManager.GetActivitiesOtherActivitiesandYear("CVO_SBI", selected_year).Tables[0];
+            DataTable outreachSchoolStudentsTable = integrityPledgeManager.GetInvolvingSchoolStudentsBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+            DataTable outreachCollegeStudentsTable = integrityPledgeManager.GetInvolvingCollegeStudentsBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+            DataTable outreachAwarenessTable = integrityPledgeManager.GetOutreachAwarenessBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+            DataTable seminarsWorkshopsTable = integrityPledgeManager.GetSeminarsWorkshopsBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+            DataTable otherActivitiesTable = integrityPledgeManager.GetOtherActivitiesBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+            DataTable detailsOfPhotosTable = integrityPledgeManager.GetDetailsOfPhotosBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
             DataTable yearsTable = yearsBAL.GetAllYearsList().Tables[0];
+
+
 
             var yearList = new List<SelectListItem>();
             if (yearsTable.Rows.Count >= 1)
@@ -59,9 +65,9 @@ namespace VAW_WebApplication.Controllers
                 yearList.Add(new SelectListItem { Value = "2024", Text = "2024" });
                 viewModel.YearsList = yearList;
             }
-            viewModel.CurrentYear = DateTime.Now.Year;
+            //viewModel.CurrentYear = DateTime.Now.Year;
 
-            DataTable OtherRelatedInfo = integrityPledgeManager.GetOtherRelevantInformationBYCVOID("CVO_SBI").Tables[0];
+            DataTable OtherRelatedInfo = integrityPledgeManager.GetOtherRelevantInformationBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
 
             List<Tran_1a_integritypledge_ViewModel> pledgeList = new List<Tran_1a_integritypledge_ViewModel>();
 

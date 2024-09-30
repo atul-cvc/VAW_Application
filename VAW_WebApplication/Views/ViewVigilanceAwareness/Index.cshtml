@@ -22,9 +22,7 @@
         @Html.DropDownListFor(model => model.CurrentYear, Model.YearsList, "Select Year", new { @class = "form-control" })
     </div>
     <div style="margin-left:50px; display:flex; align-content:center">
-        @*<button onclick="handleSearch()">Search</button>*@
-        @*<a href="@Url.Action("Index", "ViewVigilanceAwareness", new { selected_year = "2023" })" class="btn btn-primary text-center " style="align-self:center" id="CreateCapacity" name="CreateCapacity"> SEARCH</a>*@
-        <button onclick="handleSearch()" class="btn btn-primary text-center" style="align-self:center" id="CreateCapacity" name="CreateCapacity">SEARCH</button>
+        <button onclick="handleSearch()" class="btn btn-primary text-center" style="align-self:center" name="SearchByYear">SEARCH</button>
     </div>
 </div>
 <br />

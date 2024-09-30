@@ -2,14 +2,13 @@
 
 @{
     ViewBag.Title = "Login";
+    TempData.Keep("Captcha");
 }
 <style>
     .swal-wide {
         width: 850px !important;
     }
 </style>
-
-
 
 <div class="container-fluid">
     <div class="row">
@@ -21,9 +20,9 @@
 
             </center>
         </div>
-
     </div>
-    <div class="row" style="margin-top:25px;">        
+
+    <div class="row" style="margin-top:25px;">
         <div class="col-md-offset-4 col-md-4 table-bordered">
             @using (Html.BeginForm("Index", "Home", FormMethod.Post))
             {
@@ -45,6 +44,13 @@
                         <div class="col-md-6">
                             @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <img src="@Model.ImageData" alt="Captcha" class="col-md-6" />
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.CaptchaAnswer, new { @class = "form-control" })
+                            <span style="color:red">@ViewBag.Error</span>
                         </div>
                     </div>
                     <div class="form-group">

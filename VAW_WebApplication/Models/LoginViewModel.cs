@@ -15,5 +15,8 @@ namespace VAW_WebApplication.Models
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        public string ImageData { get; set; }
+        public string CaptchaAnswer { get; set; }
     }
 }

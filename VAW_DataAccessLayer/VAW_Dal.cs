@@ -32,7 +32,7 @@ namespace VAW_DataAccessLayer
                     MySqlCommand cmd = new MySqlCommand();
 
 
-                    DS = MySqlHelperCls.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery);
+                    DS = SqlHelper.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery);
 
                 }
                 catch (Exception ex)
@@ -53,7 +53,7 @@ namespace VAW_DataAccessLayer
                     MySqlCommand cmd = new MySqlCommand();
 
 
-                    DS = MySqlHelperCls.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery);
+                    DS = SqlHelper.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery);
 
                 }
                 catch (Exception ex)
@@ -72,7 +72,7 @@ namespace VAW_DataAccessLayer
                     MySqlCommand cmd = new MySqlCommand();
 
 
-                    DS = MySqlHelperCls.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery);
+                    DS = SqlHelper.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery);
 
                 }
                 catch (Exception ex)
@@ -92,7 +92,7 @@ namespace VAW_DataAccessLayer
                     MySqlCommand cmd = new MySqlCommand();
 
 
-                    DS = MySqlHelperCls.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery);
+                    DS = SqlHelper.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery);
 
                 }
                 catch (Exception ex)
@@ -112,7 +112,7 @@ namespace VAW_DataAccessLayer
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand();
-                    Dt = MySqlHelperCls.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
+                    Dt = SqlHelper.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
                 }
                 catch (Exception ex)
                 {
@@ -131,7 +131,7 @@ namespace VAW_DataAccessLayer
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand();
-                    Dt = MySqlHelperCls.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
+                    Dt = SqlHelper.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
                 }
                 catch (Exception ex)
                 {
@@ -150,7 +150,7 @@ namespace VAW_DataAccessLayer
                     MySqlCommand cmd = new MySqlCommand();
 
 
-                    result = MySqlHelperCls.ExecuteNonQuery(MySqlConnection, CommandType.Text, SelQuery);
+                    result = SqlHelper.ExecuteNonQuery(MySqlConnection, CommandType.Text, SelQuery);
 
                 }
                 catch (Exception ex)
@@ -171,7 +171,7 @@ namespace VAW_DataAccessLayer
                     MySqlCommand cmd = new MySqlCommand();
 
 
-                    result = MySqlHelperCls.ExecuteNonQuery(MySqlConnection, CommandType.Text, SelQuery);
+                    result = SqlHelper.ExecuteNonQuery(MySqlConnection, CommandType.Text, SelQuery);
 
                 }
                 catch (Exception ex)
@@ -190,7 +190,7 @@ namespace VAW_DataAccessLayer
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand();
-                    Dt = MySqlHelperCls.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
+                    Dt = SqlHelper.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
                     if (Dt.Rows.Count > 0)
                     {
                         if (int.Parse(Dt.Rows[0][0].ToString()) > 0)
@@ -220,7 +220,7 @@ namespace VAW_DataAccessLayer
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand();
-                    Dt = MySqlHelperCls.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
+                    Dt = SqlHelper.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
                     if (Dt.Rows.Count > 0)
                     {
                         if (int.Parse(Dt.Rows[0][0].ToString()) > 0)
@@ -252,7 +252,7 @@ namespace VAW_DataAccessLayer
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand();
-                    Dt = MySqlHelperCls.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
+                    Dt = SqlHelper.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
                     if (Dt.Rows.Count > 0)
                     {
                         if (int.Parse(Dt.Rows[0][0].ToString()) > 0)
@@ -281,7 +281,7 @@ namespace VAW_DataAccessLayer
                     MySqlCommand cmd = new MySqlCommand();
 
 
-                    result = MySqlHelperCls.ExecuteNonQuery(MySqlConnection, CommandType.Text, SelQuery);
+                    result = SqlHelper.ExecuteNonQuery(MySqlConnection, CommandType.Text, SelQuery);
 
                 }
                 catch (Exception ex)
@@ -316,7 +316,7 @@ namespace VAW_DataAccessLayer
                     MySqlCommand cmd = new MySqlCommand();
 
 
-                    result = MySqlHelperCls.ExecuteNonQuery(MySqlConnection, CommandType.Text, SelQuery);
+                    result = SqlHelper.ExecuteNonQuery(MySqlConnection, CommandType.Text, SelQuery);
 
                 }
                 catch (Exception ex)
@@ -355,7 +355,7 @@ namespace VAW_DataAccessLayer
                     MySqlCommand cmd = new MySqlCommand();
 
 
-                    result = MySqlHelperCls.ExecuteNonQuery(MySqlConnection, CommandType.Text, SelQuery);
+                    result = SqlHelper.ExecuteNonQuery(MySqlConnection, CommandType.Text, SelQuery);
 
                 }
                 catch (Exception ex)
@@ -373,7 +373,7 @@ namespace VAW_DataAccessLayer
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand();
-                    result = MySqlHelperCls.ExecuteNonQuery(MySqlConnection, CommandType.Text, SelQuery);
+                    result = SqlHelper.ExecuteNonQuery(MySqlConnection, CommandType.Text, SelQuery);
                 }
                 catch (Exception ex)
                 {
@@ -394,7 +394,7 @@ namespace VAW_DataAccessLayer
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand();
-                    Dt = MySqlHelperCls.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
+                    Dt = SqlHelper.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
                 }
                 catch (Exception ex)
                 {
@@ -414,7 +414,7 @@ namespace VAW_DataAccessLayer
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand();
-                    Dt = MySqlHelperCls.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
+                    Dt = SqlHelper.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
                 }
                 catch (Exception ex)
                 {
@@ -431,7 +431,7 @@ namespace VAW_DataAccessLayer
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand();
-                    Dt = MySqlHelperCls.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
+                    Dt = SqlHelper.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
                 }
                 catch (Exception ex)
                 {
@@ -450,7 +450,7 @@ namespace VAW_DataAccessLayer
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand();
-                    Dt = MySqlHelperCls.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
+                    Dt = SqlHelper.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
                 }
                 catch (Exception ex)
                 {
@@ -466,7 +466,7 @@ namespace VAW_DataAccessLayer
                 try
                 {
                     MySqlCommand cmd = new MySqlCommand();
-                    Dt = MySqlHelperCls.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
+                    Dt = SqlHelper.ExecuteDataset(MySqlConnection, CommandType.Text, SelQuery).Tables[0];
                 }
                 catch (Exception ex)
                 {

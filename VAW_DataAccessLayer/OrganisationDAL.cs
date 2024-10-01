@@ -22,7 +22,7 @@ namespace VAW_DataAccessLayer
             DataSet DS = new DataSet();
             try
             {
-                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadAllOrgList");
+                DS = SqlHelper.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadAllOrgList");
             }
             catch (Exception ex)
             {

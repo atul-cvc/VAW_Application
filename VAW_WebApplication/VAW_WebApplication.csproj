@@ -381,6 +381,10 @@
       <Project>{47625145-9751-41bb-8b9c-3150476bc94d}</Project>
       <Name>VAW_Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VAW_Utility\VAW_Utility.csproj">
+      <Project>{0495c603-f0bd-48e1-8676-cb22cb2657ad}</Project>
+      <Name>VAW_Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

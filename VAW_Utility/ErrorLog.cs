@@ -16,7 +16,7 @@ namespace VAW_Utility
             try
             {
                 string webPageName = Path.GetFileName(HttpContext.Current.Request.Path);
-                string errorLogFilename = "CVCErrorLog_" + DateTime.Now.ToString("dd-MM-yyyy") + ".txt";
+                string errorLogFilename = "VAWErrorLog_" + DateTime.Now.ToString("dd-MM-yyyy") + ".txt";
 
                 string path = HttpContext.Current.Server.MapPath("ErrorLogFiles/" + errorLogFilename);
 
@@ -51,7 +51,7 @@ namespace VAW_Utility
             try
             {
                 string webPageName = Path.GetFileName(HttpContext.Current.Request.Path);
-                string errorLogFilename = "CVCErrorLog_" + DateTime.Now.ToString("dd-MM-yyyy") + ".txt";
+                string errorLogFilename = "VAWErrorLog_" + DateTime.Now.ToString("dd-MM-yyyy") + ".txt";
 
                 string path = HttpContext.Current.Server.MapPath("../ErrorLogFiles/" + errorLogFilename);
 

@@ -1,7 +1,7 @@
 ﻿
 using System;
 using System.Data;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using VAW_Utility;
 
 namespace VAW_DataAccessLayer
@@ -20,10 +20,10 @@ namespace VAW_DataAccessLayer
             DataSet DS = new DataSet();
             try
             {
-                MySqlParameter[] Sqlpara = new MySqlParameter[2];
-                Sqlpara[0] = new MySqlParameter("@p_CvoLoginId", UserId);
-                Sqlpara[1] = new MySqlParameter("@p_CvoPassword", password);
-                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadCvoUser", Sqlpara);
+                SqlParameter[] Sqlpara = new SqlParameter[2];
+                Sqlpara[0] = new SqlParameter("@p_CvoLoginId", UserId);
+                Sqlpara[1] = new SqlParameter("@p_CvoPassword", password);
+                DS = SqlHelper.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadCvoUser", Sqlpara);
 
             }
             catch (Exception ex)
@@ -41,13 +41,12 @@ namespace VAW_DataAccessLayer
             DataSet DS = new DataSet();
             try
             {
-                MySqlParameter[] Sqlpara = new MySqlParameter[3];
-                Sqlpara[0] = new MySqlParameter("@txtEmail", txtEmail);
-                Sqlpara[1] = new MySqlParameter("@txtMobile", txtMobile);
-                Sqlpara[2] = new MySqlParameter("@deafultpass", defaultpass);
+                SqlParameter[] Sqlpara = new SqlParameter[3];
+                Sqlpara[1] = new SqlParameter("@txtMobile", txtMobile);
+                Sqlpara[2] = new SqlParameter("@deafultpass", defaultpass);
 
 
-                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ForgetPassword", Sqlpara);
+                DS = SqlHelper.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ForgetPassword", Sqlpara);
 
 
 
@@ -68,16 +67,16 @@ namespace VAW_DataAccessLayer
             DataSet DS = new DataSet();
             try
             {
-                MySqlParameter[] Sqlpara = new MySqlParameter[7];
-                Sqlpara[0] = new MySqlParameter("@UserID", userid);
-                Sqlpara[1] = new MySqlParameter("@Flag", Flag);
-                Sqlpara[2] = new MySqlParameter("@LoginDateTime", LoginDateTime);
-                Sqlpara[3] = new MySqlParameter("@LoginSession", LoginSession);
-                Sqlpara[4] = new MySqlParameter("@LoginIpAddress", LoginIpAddress);
-                Sqlpara[5] = new MySqlParameter("@Section", Section);
-                Sqlpara[6] = new MySqlParameter("@hostname", hostname);
+                SqlParameter[] Sqlpara = new SqlParameter[7];
+                Sqlpara[0] = new SqlParameter("@UserID", userid);
+                Sqlpara[1] = new SqlParameter("@Flag", Flag);
+                Sqlpara[2] = new SqlParameter("@LoginDateTime", LoginDateTime);
+                Sqlpara[3] = new SqlParameter("@LoginSession", LoginSession);
+                Sqlpara[4] = new SqlParameter("@LoginIpAddress", LoginIpAddress);
+                Sqlpara[5] = new SqlParameter("@Section", Section);
+                Sqlpara[6] = new SqlParameter("@hostname", hostname);
 
-                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_AuditLoginTrail", Sqlpara);
+                DS = SqlHelper.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_AuditLoginTrail", Sqlpara);
 
             }
             catch (Exception ex)
@@ -97,14 +96,14 @@ namespace VAW_DataAccessLayer
             DataSet DS = new DataSet();
             try
             {
-                MySqlParameter[] Sqlpara = new MySqlParameter[5];
-                Sqlpara[0] = new MySqlParameter("@UserID", userid);
-                Sqlpara[1] = new MySqlParameter("@Flag", Flag);
-                Sqlpara[2] = new MySqlParameter("@LoginDateTime", LoginDateTime);
-                Sqlpara[3] = new MySqlParameter("@LoginIpAddress", LoginIpAddress);
-                Sqlpara[4] = new MySqlParameter("@hostname", hostname);
+                SqlParameter[] Sqlpara = new SqlParameter[5];
+                Sqlpara[0] = new SqlParameter("@UserID", userid);
+                Sqlpara[1] = new SqlParameter("@Flag", Flag);
+                Sqlpara[2] = new SqlParameter("@LoginDateTime", LoginDateTime);
+                Sqlpara[3] = new SqlParameter("@LoginIpAddress", LoginIpAddress);
+                Sqlpara[4] = new SqlParameter("@hostname", hostname);
 
-                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_AuditLoginTrail", Sqlpara);
+                DS = SqlHelper.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_AuditLoginTrail", Sqlpara);
 
             }
             catch (Exception ex)
@@ -123,12 +122,12 @@ namespace VAW_DataAccessLayer
             DataSet DS = new DataSet();
             try
             {
-                MySqlParameter[] Sqlpara = new MySqlParameter[2];
-                Sqlpara[0] = new MySqlParameter("@txtEmail", txtEmail);
-                Sqlpara[1] = new MySqlParameter("@txtMobile", txtMobile);
+                SqlParameter[] Sqlpara = new SqlParameter[2];
+                Sqlpara[0] = new SqlParameter("@txtEmail", txtEmail);
+                Sqlpara[1] = new SqlParameter("@txtMobile", txtMobile);
 
 
-                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_Verify_User", Sqlpara);
+                DS = SqlHelper.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_Verify_User", Sqlpara);
             }
             catch (Exception ex)
             {

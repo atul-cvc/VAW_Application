@@ -24,7 +24,7 @@ namespace VAW_DataAccessLayer
             DataSet DS = new DataSet();
             try
             {
-                DS = MySqlHelperCls.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadAllYearsList");
+                DS = SqlHelper.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadAllYearsList");
             }
             catch (Exception ex)
             {

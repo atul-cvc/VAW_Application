@@ -9,6 +9,7 @@ using System.Web.Util;
 using System.Xml.Linq;
 using VAW_BusinessAccessLayer;
 using VAW_Models;
+using VAW_Utility;
 using VAW_WebApplication.Models;
 
 namespace VAW_WebApplication.Controllers
@@ -18,10 +19,12 @@ namespace VAW_WebApplication.Controllers
         CapacityBuildingManager capacityBuildingManager = new CapacityBuildingManager();
         YearsBAL yearsBAL = new YearsBAL();
         string IPAddress = null;
+        public ErrorLog errorlog = new ErrorLog();
+
         // GET: ViewVigilanceAwareness
         public ActionResult Index(string selected_year)
         {
-            selected_year = !string.IsNullOrEmpty(selected_year) ?  selected_year : DateTime.Now.Year.ToString();
+            selected_year = !string.IsNullOrEmpty(selected_year) ? selected_year : DateTime.Now.Year.ToString();
             try
             {
                 ViewVigilanceAwarenessViewModel modelobj = new ViewVigilanceAwarenessViewModel();
@@ -52,7 +55,7 @@ namespace VAW_WebApplication.Controllers
                     modelobj.YearsList = yearList;
                 }
 
-                modelobj.CurrentYear = !string.IsNullOrEmpty(selected_year) ? Convert.ToInt32(selected_year) : DateTime.Now.Year; 
+                modelobj.CurrentYear = !string.IsNullOrEmpty(selected_year) ? Convert.ToInt32(selected_year) : DateTime.Now.Year;
 
                 List<Tran_a_1b_capacitybulidingprogram_ViewModel> ListofCapBuilding = new List<Tran_a_1b_capacitybulidingprogram_ViewModel>();
                 //DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByCVOID("CVO_SBI").Tables[0];
@@ -154,7 +157,7 @@ namespace VAW_WebApplication.Controllers
                 //Digital Dyanamic
                 List<Tran_a_5b_dynamicdigitalpresence_ViewModel> ListofDynamicdigital = new List<Tran_a_5b_dynamicdigitalpresence_ViewModel>();
                 //DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByCVOID("CVO_SBI").Tables[0];
-                DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByCVOIDandYear("CVO_SBI",selected_year).Tables[0];
+                DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
 
                 if (DynamicdigitalTable.Rows.Count >= 1)
                 {
@@ -183,26 +186,36 @@ namespace VAW_WebApplication.Controllers
             }
             catch (Exception ex)
             {
-
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
             }
-            return View();
+
         }
 
         #region Capacity Building Process .1
         [HttpGet]
         public ActionResult CreateCapacityBuilding()
         {
-            Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
-            vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
-            vmdata.FromDate = DateTime.Now;
-            vmdata.ToDate = DateTime.Now;
-            vmdata.TrainingNameList = new List<SelectListItem> {
+            try
+            {
+                Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
+                vmdata.VAW_Year = DateTime.Now.Year.ToString();
+                vmdata.CvoId = "CVO_SBI";
+                vmdata.CvoOrgCode = "I61";
+                vmdata.FromDate = DateTime.Now;
+                vmdata.ToDate = DateTime.Now;
+                vmdata.TrainingNameList = new List<SelectListItem> {
                 new SelectListItem { Value = "FRESH", Text = "Fresh Inductees" },
                 new SelectListItem { Value = "REFRESH", Text = "Refresher Course" }
             };
-            return View(vmdata);
+                return View(vmdata);
+
+            }
+            catch (Exception ex)
+            {
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
+            }
         }
 
         [HttpPost]
@@ -233,47 +246,66 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
+                    else
+                    {
+                        return PartialView("Error");
+                    }
+                }
+                else
+                {
+                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
             }
-            Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
-            vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
-            vmdata.FromDate = DateTime.Now;
-            vmdata.ToDate = DateTime.Now;
-            vmdata.TrainingNameList = new List<SelectListItem> {
-            new SelectListItem { Value = "FRESH", Text = "Fresh Inductees" },
-            new SelectListItem { Value = "REFRESH", Text = "Refresher Course" }
-            };
-            return View(vmdata);
+
+            //Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
+            //vmdata.VAW_Year = DateTime.Now.Year.ToString();
+            //vmdata.CvoId = "CVO_SBI";
+            //vmdata.CvoOrgCode = "I61";
+            //vmdata.FromDate = DateTime.Now;
+            //vmdata.ToDate = DateTime.Now;
+            //vmdata.TrainingNameList = new List<SelectListItem> {
+            //new SelectListItem { Value = "FRESH", Text = "Fresh Inductees" },
+            //new SelectListItem { Value = "REFRESH", Text = "Refresher Course" }
+            //};
+            //return View(vmdata);
         }
 
 
         [HttpGet]
         public ActionResult EditCapacityBuilding(int ID)
         {
-            DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByID(ID).Tables[0];
+            try
+            {
+                DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByID(ID).Tables[0];
 
-            Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
-            vmdata.ID = ID;
-            vmdata.VAW_Year = CapacityTable.Rows[0]["VAW_Year"].ToString();
-            vmdata.CvoId = CapacityTable.Rows[0]["CvoId"].ToString();
-            vmdata.CvoOrgCode = CapacityTable.Rows[0]["CvoOrgCode"].ToString();
-            vmdata.FromDate = Convert.ToDateTime(CapacityTable.Rows[0]["FromDate"].ToString());
-            vmdata.ToDate = Convert.ToDateTime(CapacityTable.Rows[0]["ToDate"].ToString());
-            vmdata.EmployeesTrained = int.Parse(CapacityTable.Rows[0]["EmployeesTrained"].ToString());
-            vmdata.TrainingName = CapacityTable.Rows[0]["TrainingName"].ToString();
-            vmdata.TrainingNameList = new List<SelectListItem> {
+                Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
+                vmdata.ID = ID;
+                vmdata.VAW_Year = CapacityTable.Rows[0]["VAW_Year"].ToString();
+                vmdata.CvoId = CapacityTable.Rows[0]["CvoId"].ToString();
+                vmdata.CvoOrgCode = CapacityTable.Rows[0]["CvoOrgCode"].ToString();
+                vmdata.FromDate = Convert.ToDateTime(CapacityTable.Rows[0]["FromDate"].ToString());
+                vmdata.ToDate = Convert.ToDateTime(CapacityTable.Rows[0]["ToDate"].ToString());
+                vmdata.EmployeesTrained = int.Parse(CapacityTable.Rows[0]["EmployeesTrained"].ToString());
+                vmdata.TrainingName = CapacityTable.Rows[0]["TrainingName"].ToString();
+                vmdata.TrainingNameList = new List<SelectListItem> {
                 new SelectListItem { Value = "FRESH", Text = "Fresh Inductees" },
                 new SelectListItem { Value = "REFRESH", Text = "Refresher Course" }
             };
-            vmdata.BriefDescription = CapacityTable.Rows[0]["BriefDescription"].ToString();
+                vmdata.BriefDescription = CapacityTable.Rows[0]["BriefDescription"].ToString();
 
-            return View(vmdata);
+                return View(vmdata);
+
+            }
+            catch (Exception ex)
+            {
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
+            }
         }
 
         [HttpPost]
@@ -302,23 +334,33 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
+                    else
+                    {
+                        return PartialView("Error");
+                    }
+                }
+                else
+                {
+                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
             }
-            Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
-            vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
-            vmdata.FromDate = DateTime.Now;
-            vmdata.ToDate = DateTime.Now;
-            vmdata.TrainingNameList = new List<SelectListItem> {
-            new SelectListItem { Value = "FRESH", Text = "Fresh Inductees" },
-            new SelectListItem { Value = "REFRESH", Text = "Refresher Course" }
-            };
-            return View(vmdata);
+
+            //Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
+            //vmdata.VAW_Year = DateTime.Now.Year.ToString();
+            //vmdata.CvoId = "CVO_SBI";
+            //vmdata.CvoOrgCode = "I61";
+            //vmdata.FromDate = DateTime.Now;
+            //vmdata.ToDate = DateTime.Now;
+            //vmdata.TrainingNameList = new List<SelectListItem> {
+            //new SelectListItem { Value = "FRESH", Text = "Fresh Inductees" },
+            //new SelectListItem { Value = "REFRESH", Text = "Refresher Course" }
+            //};
+            //return View(vmdata);
         }
 
         #endregion
@@ -329,14 +371,23 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateIdentificationAndImplementation()
         {
-            Tran_a_2b_sysimp_ViewModel vmmodal = new Tran_a_2b_sysimp_ViewModel();
-            vmmodal.VAW_Year = DateTime.Now.Year.ToString();
-            vmmodal.CvoId = "CVO_SBI";
-            vmmodal.CvoOrgCode = "I61";
+            try
+            {
+                Tran_a_2b_sysimp_ViewModel vmmodal = new Tran_a_2b_sysimp_ViewModel();
+                vmmodal.VAW_Year = DateTime.Now.Year.ToString();
+                vmmodal.CvoId = "CVO_SBI";
+                vmmodal.CvoOrgCode = "I61";
 
-            vmmodal.FromDate = new DateTime(2024, 08, 16);
-            vmmodal.ToDate = new DateTime(2024, 11, 15);  //DateTime.Now;
-            return View(vmmodal);
+                vmmodal.FromDate = new DateTime(2024, 08, 16);
+                vmmodal.ToDate = new DateTime(2024, 11, 15);  //DateTime.Now;
+                return View(vmmodal);
+
+            }
+            catch (Exception ex)
+            {
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
+            }
         }
 
         [HttpPost]
@@ -369,34 +420,51 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
+                    else
+                    {
+                        return PartialView("Error");
+                    }
+                }
+                else
+                {
+                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
             }
-            return View();
         }
 
         [HttpGet]
         public ActionResult EditIdentificationAndImplementation(int ID)
         {
 
-            DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByRecordID(ID).Tables[0];
+            try
+            {
+                DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByRecordID(ID).Tables[0];
 
-            Tran_a_2b_sysimp_ViewModel vmdata = new Tran_a_2b_sysimp_ViewModel();
-            vmdata.ID = ID;
-            vmdata.VAW_Year = SysImpTable.Rows[0]["VAW_Year"].ToString();
-            vmdata.CvoId = SysImpTable.Rows[0]["CvoId"].ToString();
-            vmdata.CvoOrgCode = SysImpTable.Rows[0]["CvoOrgCode"].ToString();
-            vmdata.FromDate = Convert.ToDateTime(SysImpTable.Rows[0]["FromDate"].ToString());
-            vmdata.ToDate = Convert.ToDateTime(SysImpTable.Rows[0]["ToDate"].ToString());
-            vmdata.Sys_Imp_Implemented_During_Campaign = SysImpTable.Rows[0]["Sys_Imp_Implemented_During_Campaign"].ToString();
-            vmdata.Sys_Imp_Suggested_Last_5_Years_But_Pending = SysImpTable.Rows[0]["Sys_Imp_Suggested_Last_5_Years_But_Pending"].ToString();
-            vmdata.NoOf_CasesTakenForAnalysis_past5Years = Convert.ToInt32(SysImpTable.Rows[0]["NoOf_CasesTakenForAnalysis_past5Years"].ToString());
-            vmdata.KeyAreasDetected_BasedonAnalysis = SysImpTable.Rows[0]["KeyAreasDetected_BasedonAnalysis"].ToString();
-            vmdata.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis = SysImpTable.Rows[0]["Sys_Improvements_Identified_And_Impl_BasedOnAnalysis"].ToString();
-            return View(vmdata);
+                Tran_a_2b_sysimp_ViewModel vmdata = new Tran_a_2b_sysimp_ViewModel();
+                vmdata.ID = ID;
+                vmdata.VAW_Year = SysImpTable.Rows[0]["VAW_Year"].ToString();
+                vmdata.CvoId = SysImpTable.Rows[0]["CvoId"].ToString();
+                vmdata.CvoOrgCode = SysImpTable.Rows[0]["CvoOrgCode"].ToString();
+                vmdata.FromDate = Convert.ToDateTime(SysImpTable.Rows[0]["FromDate"].ToString());
+                vmdata.ToDate = Convert.ToDateTime(SysImpTable.Rows[0]["ToDate"].ToString());
+                vmdata.Sys_Imp_Implemented_During_Campaign = SysImpTable.Rows[0]["Sys_Imp_Implemented_During_Campaign"].ToString();
+                vmdata.Sys_Imp_Suggested_Last_5_Years_But_Pending = SysImpTable.Rows[0]["Sys_Imp_Suggested_Last_5_Years_But_Pending"].ToString();
+                vmdata.NoOf_CasesTakenForAnalysis_past5Years = Convert.ToInt32(SysImpTable.Rows[0]["NoOf_CasesTakenForAnalysis_past5Years"].ToString());
+                vmdata.KeyAreasDetected_BasedonAnalysis = SysImpTable.Rows[0]["KeyAreasDetected_BasedonAnalysis"].ToString();
+                vmdata.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis = SysImpTable.Rows[0]["Sys_Improvements_Identified_And_Impl_BasedOnAnalysis"].ToString();
+                return View(vmdata);
+
+            }
+            catch (Exception ex)
+            {
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
+            }
         }
 
         [HttpPost]
@@ -428,13 +496,21 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
+                    else
+                    {
+                        return PartialView("Error");
+                    }
+                }
+                else
+                {
+                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
             }
-            return View();
 
         }
 
@@ -447,17 +523,26 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateUpdationOfCirculars()
         {
-            Tran_a_3b_updation_circular_guidelines_manuals_ViewModel vmdata = new Tran_a_3b_updation_circular_guidelines_manuals_ViewModel();
-            vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
-            vmdata.FromDate = DateTime.Now;
-            vmdata.ToDate = DateTime.Now;
-            vmdata.YesNoOptions = new List<SelectListItem> {
+            try
+            {
+                Tran_a_3b_updation_circular_guidelines_manuals_ViewModel vmdata = new Tran_a_3b_updation_circular_guidelines_manuals_ViewModel();
+                vmdata.VAW_Year = DateTime.Now.Year.ToString();
+                vmdata.CvoId = "CVO_SBI";
+                vmdata.CvoOrgCode = "I61";
+                vmdata.FromDate = DateTime.Now;
+                vmdata.ToDate = DateTime.Now;
+                vmdata.YesNoOptions = new List<SelectListItem> {
                 new SelectListItem { Value = "YES", Text = "YES" },
                 new SelectListItem { Value = "NO", Text = "NO" }
-            };
-            return View(vmdata);
+                };
+                return View(vmdata);
+
+            }
+            catch (Exception ex)
+            {
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
+            }
         }
 
         [HttpPost]
@@ -487,45 +572,63 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
+                    else
+                    {
+                        return PartialView("Error");
+                    }
                 }
-
+                else
+                {
+                    return View(VmData);
+                }
             }
             catch (Exception ex)
             {
-
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
             }
-            Tran_a_3b_updation_circular_guidelines_manuals_ViewModel vmdata = new Tran_a_3b_updation_circular_guidelines_manuals_ViewModel();
-            vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
-            vmdata.FromDate = DateTime.Now;
-            vmdata.ToDate = DateTime.Now;
-            vmdata.YesNoOptions = new List<SelectListItem> {
-                new SelectListItem { Value = "YES", Text = "YES" },
-                new SelectListItem { Value = "NO", Text = "NO" }
-            };
-            return View(vmdata);
+
+            //Tran_a_3b_updation_circular_guidelines_manuals_ViewModel vmdata = new Tran_a_3b_updation_circular_guidelines_manuals_ViewModel();
+            //vmdata.VAW_Year = DateTime.Now.Year.ToString();
+            //vmdata.CvoId = "CVO_SBI";
+            //vmdata.CvoOrgCode = "I61";
+            //vmdata.FromDate = DateTime.Now;
+            //vmdata.ToDate = DateTime.Now;
+            //vmdata.YesNoOptions = new List<SelectListItem> {
+            //    new SelectListItem { Value = "YES", Text = "YES" },
+            //    new SelectListItem { Value = "NO", Text = "NO" }
+            //};
+            //return View(vmdata);
         }
 
         [HttpGet]
         public ActionResult EditUpdationOfCirculars(int ID)
         {
-            DataTable CircularTable = capacityBuildingManager.GetCircularsByRecordID(ID).Tables[0];
-            Tran_a_3b_updation_circular_guidelines_manuals_ViewModel vmdata = new Tran_a_3b_updation_circular_guidelines_manuals_ViewModel();
-            vmdata.ID = ID;
-            vmdata.VAW_Year = CircularTable.Rows[0]["VAW_Year"].ToString();
-            vmdata.CvoId = CircularTable.Rows[0]["CvoId"].ToString();
-            vmdata.CvoOrgCode = CircularTable.Rows[0]["CvoOrgCode"].ToString();
-            vmdata.FromDate = Convert.ToDateTime(CircularTable.Rows[0]["FromDate"].ToString());
-            vmdata.ToDate = Convert.ToDateTime(CircularTable.Rows[0]["ToDate"].ToString());
-            vmdata.WhetherUpdatedDuingCampaign = CircularTable.Rows[0]["WhetherUpdatedDuingCampaign"].ToString();
-            vmdata.YesNoOptions = new List<SelectListItem> {
+            try
+            {
+                DataTable CircularTable = capacityBuildingManager.GetCircularsByRecordID(ID).Tables[0];
+                Tran_a_3b_updation_circular_guidelines_manuals_ViewModel vmdata = new Tran_a_3b_updation_circular_guidelines_manuals_ViewModel();
+                vmdata.ID = ID;
+                vmdata.VAW_Year = CircularTable.Rows[0]["VAW_Year"].ToString();
+                vmdata.CvoId = CircularTable.Rows[0]["CvoId"].ToString();
+                vmdata.CvoOrgCode = CircularTable.Rows[0]["CvoOrgCode"].ToString();
+                vmdata.FromDate = Convert.ToDateTime(CircularTable.Rows[0]["FromDate"].ToString());
+                vmdata.ToDate = Convert.ToDateTime(CircularTable.Rows[0]["ToDate"].ToString());
+                vmdata.WhetherUpdatedDuingCampaign = CircularTable.Rows[0]["WhetherUpdatedDuingCampaign"].ToString();
+                vmdata.YesNoOptions = new List<SelectListItem> {
                 new SelectListItem { Value = "YES", Text = "YES" },
                 new SelectListItem { Value = "NO", Text = "NO" }
             };
-            vmdata.BriefDetails = CircularTable.Rows[0]["BriefDetails"].ToString();
+                vmdata.BriefDetails = CircularTable.Rows[0]["BriefDetails"].ToString();
 
-            return View(vmdata);
+                return View(vmdata);
+
+            }
+            catch (Exception ex)
+            {
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
+            }
 
         }
 
@@ -553,24 +656,32 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
+                    else
+                    {
+                        return PartialView("Error");
+                    }
                 }
-
+                else
+                {
+                    return View(VmData);
+                }
             }
             catch (Exception ex)
             {
-
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
             }
-            Tran_a_3b_updation_circular_guidelines_manuals_ViewModel vmdata = new Tran_a_3b_updation_circular_guidelines_manuals_ViewModel();
-            vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
-            vmdata.FromDate = DateTime.Now;
-            vmdata.ToDate = DateTime.Now;
-            vmdata.YesNoOptions = new List<SelectListItem> {
-                new SelectListItem { Value = "YES", Text = "YES" },
-                new SelectListItem { Value = "NO", Text = "NO" }
-            };
-            return View(vmdata);
+            //Tran_a_3b_updation_circular_guidelines_manuals_ViewModel vmdata = new Tran_a_3b_updation_circular_guidelines_manuals_ViewModel();
+            //vmdata.VAW_Year = DateTime.Now.Year.ToString();
+            //vmdata.CvoId = "CVO_SBI";
+            //vmdata.CvoOrgCode = "I61";
+            //vmdata.FromDate = DateTime.Now;
+            //vmdata.ToDate = DateTime.Now;
+            //vmdata.YesNoOptions = new List<SelectListItem> {
+            //    new SelectListItem { Value = "YES", Text = "YES" },
+            //    new SelectListItem { Value = "NO", Text = "NO" }
+            //};
+            //return View(vmdata);
         }
 
         #endregion
@@ -580,11 +691,20 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateDisposalOfComplaints()
         {
-            Tran_a_4b_disposalofcomplaints_ViewModel vmmodal = new Tran_a_4b_disposalofcomplaints_ViewModel();
-            vmmodal.VAW_Year = DateTime.Now.Year.ToString();
-            vmmodal.CvoId = "CVO_SBI";
-            vmmodal.CvoOrgCode = "I61";
-            return View(vmmodal);
+            try
+            {
+                Tran_a_4b_disposalofcomplaints_ViewModel vmmodal = new Tran_a_4b_disposalofcomplaints_ViewModel();
+                vmmodal.VAW_Year = DateTime.Now.Year.ToString();
+                vmmodal.CvoId = "CVO_SBI";
+                vmmodal.CvoOrgCode = "I61";
+                return View(vmmodal);
+
+            }
+            catch (Exception ex)
+            {
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
+            }
         }
 
         [HttpPost]
@@ -617,31 +737,48 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
+                    else
+                    {
+                        return PartialView("Error");
+                    }
+                }
+                else
+                {
+                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
             }
-            return View();
         }
 
         [HttpGet]
         public ActionResult EditDisposalOfComplaints(int ID)
         {
-            DataTable DisposalTable = capacityBuildingManager.GetDisposalOfComplaintByRecordID(ID).Tables[0];
-            Tran_a_4b_disposalofcomplaints_ViewModel vmmodal = new Tran_a_4b_disposalofcomplaints_ViewModel();
-            vmmodal.ID = ID;
-            vmmodal.VAW_Year = DisposalTable.Rows[0]["VAW_Year"].ToString();
-            vmmodal.CvoId = DisposalTable.Rows[0]["CvoId"].ToString();
-            vmmodal.CvoOrgCode = DisposalTable.Rows[0]["CvoOrgCode"].ToString();
-            vmmodal.NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 = int.Parse(DisposalTable.Rows[0]["NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608"].ToString());
-            vmmodal.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 = DisposalTable.Rows[0]["Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608"].ToString();
-            vmmodal.NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign = int.Parse(DisposalTable.Rows[0]["NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign"].ToString());
-            vmmodal.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign = DisposalTable.Rows[0]["Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign"].ToString();
-            vmmodal.NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 = int.Parse(DisposalTable.Rows[0]["NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511"].ToString());
-            vmmodal.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 = DisposalTable.Rows[0]["Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511"].ToString();
-            return View(vmmodal);
+            try
+            {
+                DataTable DisposalTable = capacityBuildingManager.GetDisposalOfComplaintByRecordID(ID).Tables[0];
+                Tran_a_4b_disposalofcomplaints_ViewModel vmmodal = new Tran_a_4b_disposalofcomplaints_ViewModel();
+                vmmodal.ID = ID;
+                vmmodal.VAW_Year = DisposalTable.Rows[0]["VAW_Year"].ToString();
+                vmmodal.CvoId = DisposalTable.Rows[0]["CvoId"].ToString();
+                vmmodal.CvoOrgCode = DisposalTable.Rows[0]["CvoOrgCode"].ToString();
+                vmmodal.NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 = int.Parse(DisposalTable.Rows[0]["NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608"].ToString());
+                vmmodal.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 = DisposalTable.Rows[0]["Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608"].ToString();
+                vmmodal.NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign = int.Parse(DisposalTable.Rows[0]["NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign"].ToString());
+                vmmodal.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign = DisposalTable.Rows[0]["Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign"].ToString();
+                vmmodal.NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 = int.Parse(DisposalTable.Rows[0]["NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511"].ToString());
+                vmmodal.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 = DisposalTable.Rows[0]["Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511"].ToString();
+                return View(vmmodal);
+
+            }
+            catch (Exception ex)
+            {
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
+            }
         }
 
         [HttpPost]
@@ -672,13 +809,21 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
+                    else
+                    {
+                        return PartialView("Error");
+                    }
+                }
+                else
+                {
+                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
             }
-            return View();
         }
         #endregion
 
@@ -688,19 +833,28 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateDigitalDynamicPresence()
         {
-            Tran_a_5b_dynamicdigitalpresence_ViewModel vmdata = new Tran_a_5b_dynamicdigitalpresence_ViewModel();
-            vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
-            vmdata.YesNoOptions = new List<SelectListItem> {
+            try
+            {
+                Tran_a_5b_dynamicdigitalpresence_ViewModel vmdata = new Tran_a_5b_dynamicdigitalpresence_ViewModel();
+                vmdata.VAW_Year = DateTime.Now.Year.ToString();
+                vmdata.CvoId = "CVO_SBI";
+                vmdata.CvoOrgCode = "I61";
+                vmdata.YesNoOptions = new List<SelectListItem> {
                     new SelectListItem { Value = "YES", Text = "YES" },
                     new SelectListItem { Value = "NO", Text = "NO" }
                 };
-            vmdata.YesNoOptionsforAdditionalAreas = new List<SelectListItem> {
+                vmdata.YesNoOptionsforAdditionalAreas = new List<SelectListItem> {
                     new SelectListItem { Value = "YES", Text = "YES" },
                     new SelectListItem { Value = "NO", Text = "NO" }
                 };
-            return View(vmdata);
+                return View(vmdata);
+
+            }
+            catch (Exception ex)
+            {
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
+            }
         }
 
         [HttpPost]
@@ -730,53 +884,68 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
+                    else
+                    {
+                        return PartialView("Error");
+                    }
                 }
-
-
+                else
+                {
+                    return View(VmData);
+                }
             }
             catch (Exception ex)
             {
-
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
             }
 
-            Tran_a_5b_dynamicdigitalpresence_ViewModel vmdata = new Tran_a_5b_dynamicdigitalpresence_ViewModel();
-            vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
-            vmdata.YesNoOptions = new List<SelectListItem> {
-                    new SelectListItem { Value = "YES", Text = "YES" },
-                    new SelectListItem { Value = "NO", Text = "NO" }
-                };
-            vmdata.YesNoOptionsforAdditionalAreas = new List<SelectListItem> {
-                    new SelectListItem { Value = "YES", Text = "YES" },
-                    new SelectListItem { Value = "NO", Text = "NO" }
-                };
-            return View(vmdata);
+            //Tran_a_5b_dynamicdigitalpresence_ViewModel vmdata = new Tran_a_5b_dynamicdigitalpresence_ViewModel();
+            //vmdata.VAW_Year = DateTime.Now.Year.ToString();
+            //vmdata.CvoId = "CVO_SBI";
+            //vmdata.CvoOrgCode = "I61";
+            //vmdata.YesNoOptions = new List<SelectListItem> {
+            //        new SelectListItem { Value = "YES", Text = "YES" },
+            //        new SelectListItem { Value = "NO", Text = "NO" }
+            //    };
+            //vmdata.YesNoOptionsforAdditionalAreas = new List<SelectListItem> {
+            //        new SelectListItem { Value = "YES", Text = "YES" },
+            //        new SelectListItem { Value = "NO", Text = "NO" }
+            //    };
+            //return View(vmdata);
 
         }
         [HttpGet]
         public ActionResult EditDigitalDynamicPresence(int ID)
         {
+            try
+            {
+                DataTable DigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByRecordID(ID).Tables[0];
+                Tran_a_5b_dynamicdigitalpresence_ViewModel vmmodal = new Tran_a_5b_dynamicdigitalpresence_ViewModel();
+                vmmodal.ID = ID;
+                vmmodal.VAW_Year = DigitalTable.Rows[0]["VAW_Year"].ToString();
+                vmmodal.CvoId = DigitalTable.Rows[0]["CvoId"].ToString();
+                vmmodal.CvoOrgCode = DigitalTable.Rows[0]["CvoOrgCode"].ToString();
+                vmmodal.WhetherRegularMaintenanceOfWebsiteUpdationDone = DigitalTable.Rows[0]["WhetherRegularMaintenanceOfWebsiteUpdationDone"].ToString();
+                vmmodal.SystemIntroducedForUpdationAndReview = DigitalTable.Rows[0]["SystemIntroducedForUpdationAndReview"].ToString();
+                vmmodal.WhetherAdditionalAreas_Activities_ServicesBroughtOnline = DigitalTable.Rows[0]["WhetherAdditionalAreas_Activities_ServicesBroughtOnline"].ToString();
+                vmmodal.DetailsOfAdditionalActivities = DigitalTable.Rows[0]["DetailsOfAdditionalActivities"].ToString();
+                vmmodal.YesNoOptions = new List<SelectListItem> {
+                    new SelectListItem { Value = "YES", Text = "YES" },
+                    new SelectListItem { Value = "NO", Text = "NO" }
+                };
+                vmmodal.YesNoOptionsforAdditionalAreas = new List<SelectListItem> {
+                    new SelectListItem { Value = "YES", Text = "YES" },
+                    new SelectListItem { Value = "NO", Text = "NO" }
+                };
+                return View(vmmodal);
 
-            DataTable DigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByRecordID(ID).Tables[0];
-            Tran_a_5b_dynamicdigitalpresence_ViewModel vmmodal = new Tran_a_5b_dynamicdigitalpresence_ViewModel();
-            vmmodal.ID = ID;
-            vmmodal.VAW_Year = DigitalTable.Rows[0]["VAW_Year"].ToString();
-            vmmodal.CvoId = DigitalTable.Rows[0]["CvoId"].ToString();
-            vmmodal.CvoOrgCode = DigitalTable.Rows[0]["CvoOrgCode"].ToString();
-            vmmodal.WhetherRegularMaintenanceOfWebsiteUpdationDone = DigitalTable.Rows[0]["WhetherRegularMaintenanceOfWebsiteUpdationDone"].ToString();
-            vmmodal.SystemIntroducedForUpdationAndReview = DigitalTable.Rows[0]["SystemIntroducedForUpdationAndReview"].ToString();
-            vmmodal.WhetherAdditionalAreas_Activities_ServicesBroughtOnline = DigitalTable.Rows[0]["WhetherAdditionalAreas_Activities_ServicesBroughtOnline"].ToString();
-            vmmodal.DetailsOfAdditionalActivities = DigitalTable.Rows[0]["DetailsOfAdditionalActivities"].ToString();
-            vmmodal.YesNoOptions = new List<SelectListItem> {
-                    new SelectListItem { Value = "YES", Text = "YES" },
-                    new SelectListItem { Value = "NO", Text = "NO" }
-                };
-            vmmodal.YesNoOptionsforAdditionalAreas = new List<SelectListItem> {
-                    new SelectListItem { Value = "YES", Text = "YES" },
-                    new SelectListItem { Value = "NO", Text = "NO" }
-                };
-            return View(vmmodal);
+            }
+            catch (Exception ex)
+            {
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
+            }
         }
 
         [HttpPost]
@@ -811,28 +980,34 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
+                    else
+                    {
+                        return PartialView("Error");
+                    }
+                } else
+                {
+                    return View(VmData);
                 }
-
-
             }
             catch (Exception ex)
             {
-
+                errorlog.WriteErrorLog(ex);
+                return PartialView("Error");
             }
 
-            Tran_a_5b_dynamicdigitalpresence_ViewModel vmdata = new Tran_a_5b_dynamicdigitalpresence_ViewModel();
-            vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
-            vmdata.YesNoOptions = new List<SelectListItem> {
-                    new SelectListItem { Value = "YES", Text = "YES" },
-                    new SelectListItem { Value = "NO", Text = "NO" }
-                };
-            vmdata.YesNoOptionsforAdditionalAreas = new List<SelectListItem> {
-                    new SelectListItem { Value = "YES", Text = "YES" },
-                    new SelectListItem { Value = "NO", Text = "NO" }
-                };
-            return View(vmdata);
+            //Tran_a_5b_dynamicdigitalpresence_ViewModel vmdata = new Tran_a_5b_dynamicdigitalpresence_ViewModel();
+            //vmdata.VAW_Year = DateTime.Now.Year.ToString();
+            //vmdata.CvoId = "CVO_SBI";
+            //vmdata.CvoOrgCode = "I61";
+            //vmdata.YesNoOptions = new List<SelectListItem> {
+            //        new SelectListItem { Value = "YES", Text = "YES" },
+            //        new SelectListItem { Value = "NO", Text = "NO" }
+            //    };
+            //vmdata.YesNoOptionsforAdditionalAreas = new List<SelectListItem> {
+            //        new SelectListItem { Value = "YES", Text = "YES" },
+            //        new SelectListItem { Value = "NO", Text = "NO" }
+            //    };
+            //return View(vmdata);
 
         }
 

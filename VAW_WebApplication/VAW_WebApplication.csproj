@@ -179,6 +179,7 @@
     <Compile Include="Models\Tran_a_3b_updation_circular_guidelines_manuals_ViewModel.cs" />
     <Compile Include="Models\Tran_a_4b_disposalofcomplaints_ViewModel.cs" />
     <Compile Include="Models\Tran_a_5b_dynamicdigitalpresence_ViewModel.cs" />
+    <Compile Include="Models\VerifyOTPViewModel.cs" />
     <Compile Include="Models\ViewIntegrityPledgeViewModel.cs" />
     <Compile Include="Models\ViewVigilanceAwarenessViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -361,6 +362,7 @@
     <Content Include="Views\ViewIntegrityPledge\EditOutreachInvolvingCollegeStudents.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\EditOutreachAwarenessGramSabhas.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\EditOutreachSeminars.cshtml" />
+    <Content Include="Views\Home\VerifyOTP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -376,6 +378,10 @@
     <ProjectReference Include="..\VAW_BusinessAccessLayer\VAW_BusinessAccessLayer.csproj">
       <Project>{07DA2DB7-38B8-4754-A924-FD2459DC5589}</Project>
       <Name>VAW_BusinessAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VAW_DataAccessLayer\VAW_DataAccessLayer.csproj">
+      <Project>{4CAC3B17-EA22-42C5-AC2A-BCF5EAC29EA9}</Project>
+      <Name>VAW_DataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\VAW_Models\VAW_Models.csproj">
       <Project>{47625145-9751-41bb-8b9c-3150476bc94d}</Project>

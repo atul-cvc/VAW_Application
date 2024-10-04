@@ -13,6 +13,10 @@ using VAW_Models;
 using WebGrease;
 using ASPSnippets.Captcha;
 using VAW_Utility;
+using SMS_EMAIL_Models;
+using CVC_DataAccessLayer;
+using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
 namespace VAW_WebApplication.Controllers
 {
     public class HomeController : Controller
@@ -30,14 +34,14 @@ namespace VAW_WebApplication.Controllers
                 TempData["Captcha"] = value;
             }
         }
-     
+
 
         public ActionResult Index()
         {
             LoginViewModel loginViewModel = new LoginViewModel();
             this.Captcha = new Captcha(125, 40, 20f, "#FFFFFF", "#61028D", Mode.AlphaNumeric);
             loginViewModel.ImageData = this.Captcha.ImageData;
-            return View(loginViewModel);          
+            return View(loginViewModel);
         }
 
         // POST: Account/Login
@@ -63,14 +67,26 @@ namespace VAW_WebApplication.Controllers
                         {
                             loginViewModal = logindata[0];
                             Session["LogedUser"] = loginViewModal;
+
+                            //SendOTP
+                            OTP_Util OTP_Util = new OTP_Util();
+                            Session["OTP"] = OTP_Util.SendOTP("8700655713", "atulkumar65@gmail.com");
+
                             if (logindata[0].UserID == "ADMIN")
                             {
                                 Session["UserRole"] = "ROLE_ADMIN";
-                                string ur = Session["UserRole"] as string;
-                                return RedirectToAction("Index", "Admin");
+                                //string ur = Session["UserRole"] as string;
+                                //return RedirectToAction("Index", "Admin");
                             }
-                            return RedirectToAction("Index", "Dashboard");
+                            else
+                            {
+                                Session["UserRole"] = "ROLE_CVO";
+                            }
+                            //return RedirectToAction("Index", "Dashboard");
 
+                            //return RedirectToAction("VerifyOTP", new { userId = logindata[0].UserID });
+                            //return RedirectToAction("VerifyOTP", new VerifyOTPViewModel { UserId = logindata[0].UserID });
+                            return RedirectToUserRole(Session["UserRole"] as string);
                         }
 
                     }
@@ -84,11 +100,105 @@ namespace VAW_WebApplication.Controllers
 
                 return View(model);
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
                 errolog.WriteErrorLog(ex);
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return PartialView("Error");
             }
         }
-        
+
+        public ActionResult VerifyOTP(string UserId)
+        {
+            try
+            {
+                var model = new VerifyOTPViewModel { UserId = UserId, NoOfAttempt = 0 };
+                Session["OtpAttempts"] = 0;
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+                return PartialView("Error");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult VerifyOTP(VerifyOTPViewModel verifyVM)
+        {
+            try
+            {
+                string _sessionOTP = Session["OTP"].ToString();
+                LoginModal SessionUser = Session["LogedUser"] as LoginModal;
+
+                // Check if the model state is valid
+                if (!ModelState.IsValid)
+                {
+                    return View(verifyVM);
+                }
+
+                // Handle invalid OTP
+                if (_sessionOTP != null && _sessionOTP.Equals(verifyVM.Otp))
+                {
+                    // Redirect based on user role
+                    
+                    return RedirectToUserRole(Session["UserRole"] as string);
+                    //if (userRole == "ROLE_ADMIN")
+                    //{
+                    //    return RedirectToAction("Index", "Admin");
+                    //}
+                    //if (userRole == "ROLE_CVO")
+                    //{
+                    //    return RedirectToAction("Index", "Dashboard");
+                    //}
+                    //// Fallback if no role matches
+                    //return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid OTP.");
+                    ViewBag.OTPErrorMsg = "Invalid OTP";
+                    verifyVM.NoOfAttempt = Convert.ToInt32(Session["OtpAttempts"]) + 1;
+                    Session["OtpAttempts"] = verifyVM.NoOfAttempt.ToString();
+                    if (verifyVM.NoOfAttempt < 3)
+                        return View(verifyVM); // Return the view with the model to show the error
+                    else
+                    {
+                        //lock the user
+                        //LockUser();
+                        return RedirectToAction("Index");
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                errolog.WriteErrorLog(ex);
+                return PartialView("Error");
+            }
+
+        }
+
+        // Method to lock the user
+        private void LockUser(LoginModal sessionUser)
+        {
+            // Implement your user-locking logic here
+            // e.g., mark the user as locked in the database or session
+        }
+
+        public ActionResult RedirectToUserRole(string userRole)
+        {
+            if (userRole == "ROLE_ADMIN")
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            if (userRole == "ROLE_CVO")
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
+            // Fallback if no role matches
+            return RedirectToAction("Index");
+        }
     }
 }

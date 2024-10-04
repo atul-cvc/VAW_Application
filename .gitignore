@@ -59,3 +59,4 @@ obj/
 /VAW_DataAccessLayer/bin/Debug/VAW_Models.pdb
 /VAW_DataAccessLayer/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 /VAW_WebApplication/ErrorLogFiles
+/packages

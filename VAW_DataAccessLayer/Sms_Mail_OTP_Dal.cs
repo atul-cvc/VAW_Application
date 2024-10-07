@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VAW_Utility;
 
-namespace CVC_DataAccessLayer
+namespace VAW_DataAccessLayer
 {
     public class Sms_Mail_OTP_Dal
     {

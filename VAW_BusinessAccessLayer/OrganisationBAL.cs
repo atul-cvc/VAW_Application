@@ -15,5 +15,13 @@ namespace VAW_BusinessAccessLayer
         {
             return OrganisationDAL.GetAllOrgsList();
         }
+        public DataSet GetAllOrgsListByMinName(string MinName)
+        {
+            return OrganisationDAL.GetAllOrgsListByMinName(MinName);
+        }
+        public DataSet GetMinistry()
+        {
+            return OrganisationDAL.GetMinistry();
+        }
     }
 }

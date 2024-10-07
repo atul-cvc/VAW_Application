@@ -22,6 +22,7 @@ namespace VAW_WebApplication.Controllers
         // GET: ViewVigilanceAwareness
         public ActionResult Index(string selected_year)
         {
+            string userId = User.Identity.Name;
             selected_year = !string.IsNullOrEmpty(selected_year) ?  selected_year : DateTime.Now.Year.ToString();
             try
             {
@@ -57,7 +58,7 @@ namespace VAW_WebApplication.Controllers
 
                 List<Tran_a_1b_capacitybulidingprogram_ViewModel> ListofCapBuilding = new List<Tran_a_1b_capacitybulidingprogram_ViewModel>();
                 //DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByCVOID("CVO_SBI").Tables[0];
-                DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+                DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByCVOIDandYear(userId, selected_year).Tables[0];
 
                 if (CapacityTable.Rows.Count >= 1)
                 {
@@ -80,7 +81,7 @@ namespace VAW_WebApplication.Controllers
                 //System Improvement               
                 List<Tran_a_2b_sysimp_ViewModel> Listofsysimp = new List<Tran_a_2b_sysimp_ViewModel>();
                 //DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByCVOID("CVO_SBI").Tables[0];
-                DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+                DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByCVOIDandYear(userId, selected_year).Tables[0];
 
                 if (SysImpTable.Rows.Count >= 1)
                 {
@@ -106,7 +107,7 @@ namespace VAW_WebApplication.Controllers
                 //circulars Binding               
                 List<Tran_a_3b_updation_circular_guidelines_manuals_ViewModel> ListofCircular = new List<Tran_a_3b_updation_circular_guidelines_manuals_ViewModel>();
                 //DataTable CircularTable = capacityBuildingManager.GetCircularsRecordByCVOID("CVO_SBI").Tables[0];
-                DataTable CircularTable = capacityBuildingManager.GetCircularsRecordByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+                DataTable CircularTable = capacityBuildingManager.GetCircularsRecordByCVOIDandYear(userId, selected_year).Tables[0];
 
                 if (CircularTable.Rows.Count >= 1)
                 {
@@ -130,7 +131,7 @@ namespace VAW_WebApplication.Controllers
                 //Disposal Of Complaint
                 List<Tran_a_4b_disposalofcomplaints_ViewModel> ListofDisposalOfComplaint = new List<Tran_a_4b_disposalofcomplaints_ViewModel>();
                 //DataTable DisposalOfComplaintTable = capacityBuildingManager.GetDisposalOfComplaintByCVOID("CVO_SBI").Tables[0];
-                DataTable DisposalOfComplaintTable = capacityBuildingManager.GetDisposalOfComplaintByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+                DataTable DisposalOfComplaintTable = capacityBuildingManager.GetDisposalOfComplaintByCVOIDandYear(userId, selected_year).Tables[0];
 
                 if (DisposalOfComplaintTable.Rows.Count >= 1)
                 {
@@ -155,7 +156,7 @@ namespace VAW_WebApplication.Controllers
                 //Digital Dyanamic
                 List<Tran_a_5b_dynamicdigitalpresence_ViewModel> ListofDynamicdigital = new List<Tran_a_5b_dynamicdigitalpresence_ViewModel>();
                 //DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByCVOID("CVO_SBI").Tables[0];
-                DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByCVOIDandYear("CVO_SBI",selected_year).Tables[0];
+                DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByCVOIDandYear(userId,selected_year).Tables[0];
 
                 if (DynamicdigitalTable.Rows.Count >= 1)
                 {
@@ -195,8 +196,8 @@ namespace VAW_WebApplication.Controllers
         {
             Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
             vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
+            vmdata.CvoId = User.Identity.Name;
+            vmdata.CvoOrgCode = Session["CvoOrgCode"].ToString(); 
             vmdata.FromDate = DateTime.Now;
             vmdata.ToDate = DateTime.Now;
             vmdata.TrainingNameList = new List<SelectListItem> {
@@ -242,8 +243,7 @@ namespace VAW_WebApplication.Controllers
             }
             Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
             vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
+           
             vmdata.FromDate = DateTime.Now;
             vmdata.ToDate = DateTime.Now;
             vmdata.TrainingNameList = new List<SelectListItem> {
@@ -311,8 +311,8 @@ namespace VAW_WebApplication.Controllers
             }
             Tran_a_1b_capacitybulidingprogram_ViewModel vmdata = new Tran_a_1b_capacitybulidingprogram_ViewModel();
             vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
+            vmdata.CvoId = User.Identity.Name;
+            vmdata.CvoOrgCode = Session["CvoOrgCode"].ToString();
             vmdata.FromDate = DateTime.Now;
             vmdata.ToDate = DateTime.Now;
             vmdata.TrainingNameList = new List<SelectListItem> {
@@ -332,8 +332,8 @@ namespace VAW_WebApplication.Controllers
         {
             Tran_a_2b_sysimp_ViewModel vmmodal = new Tran_a_2b_sysimp_ViewModel();
             vmmodal.VAW_Year = DateTime.Now.Year.ToString();
-            vmmodal.CvoId = "CVO_SBI";
-            vmmodal.CvoOrgCode = "I61";
+            vmmodal.CvoId = User.Identity.Name;
+            vmmodal.CvoOrgCode = Session["CvoOrgCode"].ToString();
 
             vmmodal.FromDate = new DateTime(2024, 08, 16);
             vmmodal.ToDate = new DateTime(2024, 11, 15);  //DateTime.Now;
@@ -450,8 +450,8 @@ namespace VAW_WebApplication.Controllers
         {
             Tran_a_3b_updation_circular_guidelines_manuals_ViewModel vmdata = new Tran_a_3b_updation_circular_guidelines_manuals_ViewModel();
             vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
+            vmdata.CvoId = User.Identity.Name;
+            vmdata.CvoOrgCode = Session["CvoOrgCode"].ToString();
             vmdata.FromDate = DateTime.Now;
             vmdata.ToDate = DateTime.Now;
             vmdata.YesNoOptions = new List<SelectListItem> {
@@ -497,8 +497,8 @@ namespace VAW_WebApplication.Controllers
             }
             Tran_a_3b_updation_circular_guidelines_manuals_ViewModel vmdata = new Tran_a_3b_updation_circular_guidelines_manuals_ViewModel();
             vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
+            vmdata.CvoId = User.Identity.Name;
+            vmdata.CvoOrgCode = Session["CvoOrgCode"].ToString();
             vmdata.FromDate = DateTime.Now;
             vmdata.ToDate = DateTime.Now;
             vmdata.YesNoOptions = new List<SelectListItem> {
@@ -563,8 +563,8 @@ namespace VAW_WebApplication.Controllers
             }
             Tran_a_3b_updation_circular_guidelines_manuals_ViewModel vmdata = new Tran_a_3b_updation_circular_guidelines_manuals_ViewModel();
             vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
+            vmdata.CvoId = User.Identity.Name;
+            vmdata.CvoOrgCode = Session["CvoOrgCode"].ToString();
             vmdata.FromDate = DateTime.Now;
             vmdata.ToDate = DateTime.Now;
             vmdata.YesNoOptions = new List<SelectListItem> {
@@ -583,8 +583,8 @@ namespace VAW_WebApplication.Controllers
         {
             Tran_a_4b_disposalofcomplaints_ViewModel vmmodal = new Tran_a_4b_disposalofcomplaints_ViewModel();
             vmmodal.VAW_Year = DateTime.Now.Year.ToString();
-            vmmodal.CvoId = "CVO_SBI";
-            vmmodal.CvoOrgCode = "I61";
+            vmmodal.CvoId = User.Identity.Name;
+            vmmodal.CvoOrgCode = Session["CvoOrgCode"].ToString();
             return View(vmmodal);
         }
 
@@ -691,8 +691,8 @@ namespace VAW_WebApplication.Controllers
         {
             Tran_a_5b_dynamicdigitalpresence_ViewModel vmdata = new Tran_a_5b_dynamicdigitalpresence_ViewModel();
             vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
+            vmdata.CvoId = User.Identity.Name;
+            vmdata.CvoOrgCode = Session["CvoOrgCode"].ToString();
             vmdata.YesNoOptions = new List<SelectListItem> {
                     new SelectListItem { Value = "YES", Text = "YES" },
                     new SelectListItem { Value = "NO", Text = "NO" }
@@ -742,8 +742,8 @@ namespace VAW_WebApplication.Controllers
 
             Tran_a_5b_dynamicdigitalpresence_ViewModel vmdata = new Tran_a_5b_dynamicdigitalpresence_ViewModel();
             vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
+            vmdata.CvoId = User.Identity.Name;
+            vmdata.CvoOrgCode = Session["CvoOrgCode"].ToString();
             vmdata.YesNoOptions = new List<SelectListItem> {
                     new SelectListItem { Value = "YES", Text = "YES" },
                     new SelectListItem { Value = "NO", Text = "NO" }
@@ -823,8 +823,8 @@ namespace VAW_WebApplication.Controllers
 
             Tran_a_5b_dynamicdigitalpresence_ViewModel vmdata = new Tran_a_5b_dynamicdigitalpresence_ViewModel();
             vmdata.VAW_Year = DateTime.Now.Year.ToString();
-            vmdata.CvoId = "CVO_SBI";
-            vmdata.CvoOrgCode = "I61";
+            vmdata.CvoId = User.Identity.Name;
+            vmdata.CvoOrgCode = Session["CvoOrgCode"].ToString();
             vmdata.YesNoOptions = new List<SelectListItem> {
                     new SelectListItem { Value = "YES", Text = "YES" },
                     new SelectListItem { Value = "NO", Text = "NO" }

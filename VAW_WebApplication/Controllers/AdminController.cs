@@ -7,11 +7,13 @@ using System.Web.Mvc;
 using VAW_BusinessAccessLayer;
 using VAW_Models;
 using VAW_Utility;
+using VAW_WebApplication.Common;
 using VAW_WebApplication.Models;
 
 
 namespace VAW_WebApplication.Controllers
 {
+    [CustomAuthorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         IntegrityPledgeManager integrityPledgeManager = new IntegrityPledgeManager();

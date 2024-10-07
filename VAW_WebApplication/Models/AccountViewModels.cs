@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web.WebPages.Html;
 
 namespace VAW_WebApplication.Models
 {
@@ -71,6 +73,12 @@ namespace VAW_WebApplication.Models
     public class RegisterViewModel
     {
         [Required]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone Number")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+        public string PhoneNumber { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -85,6 +93,19 @@ namespace VAW_WebApplication.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "UserRoles")]
+        public string UserRoles { get; set; }
+
+        [Required]
+        [DisplayName("Ministry")]
+        public string MinistryName { get; set; }
+
+        [DisplayName("Organization")]
+        public string OrgCode { get; set; }      
+
+
     }
 
     public class ResetPasswordViewModel

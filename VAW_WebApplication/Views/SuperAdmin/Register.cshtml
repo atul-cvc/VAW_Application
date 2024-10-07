@@ -5,40 +5,92 @@
 }
 
 <main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
 
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+    @using (Html.BeginForm("Register", "SuperAdmin", FormMethod.Post, new { role = "form" }))
     {
         @Html.AntiForgeryToken()
         <h4>Create a new account.</h4>
         <hr />
         @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="row">
+
+        <div class="row mt-1">
             @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-1">
+            @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row mt-1">
             @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-1">
             @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-1">
+            @Html.LabelFor(m => m.MinistryName, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.MinistryName, (SelectList)ViewBag.MinList, new { @id = "ddlMinName", @class = "form-control" })
+            </div>
+        </div>
+        <div class="row mt-1">
+            @Html.LabelFor(m => m.OrgCode, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.OrgCode, new List<SelectListItem>(), "-Select-", new { @id = "ddlOrgCode", @class = "form-control" })
+            </div>
+        </div>
+        <div class="row mt-1">
+            @Html.Label("user Role", new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.DropDownList("UserRoles", (SelectList)ViewBag.Name, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row mt-1">
             <div class="offset-md-2 col-md-10">
                 <input type="submit" value="Register" class="btn btn-outline-dark" />
             </div>
         </div>
+
     }
 </main>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script>
+    $(document).ready(function () {
+        $('#ddlMinName').change(function () {
+            $.ajax({
+                type: "post",
+                url: "/SuperAdmin/GetOrganization",
+                data: { MinName: $('#ddlMinName').val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    /*alert(data.length);*/
+                    var district = "<select id='ddlOrgCode'>";
+                    district = district + '<option value = "">--Select--</option> ';
+                    for (var i = 0; i < data.length; i++) {
+                        district = district + '<option value = ' + data[i].Value + ' > ' + data[i].Text + '</option>';
+                    }
+                    district = district + '</select> ';
+                    $('#ddlOrgCode').html(district);
+                }
+            });
+        });
+    });
+</script>
+

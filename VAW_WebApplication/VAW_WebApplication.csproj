@@ -196,6 +196,14 @@
     <Compile Include="Migrations\202410030550149_Seeddata.Designer.cs">
       <DependentUpon>202410030550149_Seeddata.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202410070706273_addmin.cs" />
+    <Compile Include="Migrations\202410070706273_addmin.Designer.cs">
+      <DependentUpon>202410070706273_addmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410070708426_removeorgcode.cs" />
+    <Compile Include="Migrations\202410070708426_removeorgcode.Designer.cs">
+      <DependentUpon>202410070708426_removeorgcode.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -215,6 +223,7 @@
     <Compile Include="Models\Tran_a_3b_updation_circular_guidelines_manuals_ViewModel.cs" />
     <Compile Include="Models\Tran_a_4b_disposalofcomplaints_ViewModel.cs" />
     <Compile Include="Models\Tran_a_5b_dynamicdigitalpresence_ViewModel.cs" />
+    <Compile Include="Models\VerifyOTPViewModel.cs" />
     <Compile Include="Models\ViewIntegrityPledgeViewModel.cs" />
     <Compile Include="Models\ViewVigilanceAwarenessViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -410,6 +419,7 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\SuperAdmin\UserRole.cshtml" />
+    <Content Include="Views\Account\VerifyOTP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -464,6 +474,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202410030550149_Seeddata.resx">
       <DependentUpon>202410030550149_Seeddata.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410070706273_addmin.resx">
+      <DependentUpon>202410070706273_addmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410070708426_removeorgcode.resx">
+      <DependentUpon>202410070708426_removeorgcode.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

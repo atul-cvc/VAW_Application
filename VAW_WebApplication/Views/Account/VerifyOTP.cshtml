@@ -1,0 +1,53 @@
+﻿@model VAW_WebApplication.Models.VerifyOTPViewModel
+@{
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>VerifyOTP</title>
+</head>
+<body>
+    <h2>Verify OTP</h2>
+
+
+    @*<button onclick="goBack()" class="btn btn-primary">Go Back</button>*@
+
+    @using (Html.BeginForm("VerifyOTP", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="w-75 m-auto d-flex justify-content-center">
+            <div class="row m-5 text-center">
+
+                @Html.LabelFor(m => m.OTP, new { @class = "col-md-4 col-form-label" })
+                <div class="col-md-8 m-auto">
+                    @Html.TextBoxFor(m => m.OTP, new { @class = "form-control text-center d-flex justify-content-center", oninput = "HandleInputChange()" })
+                    @Html.ValidationMessageFor(m => m.OTP, "", new { @class = "text-danger m-1" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="OTPErrorContainer" class="text-center">
+                <span class="text-danger">@ViewBag.OTPErrorMsg</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <input type="submit" value="Log in" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+
+    <script>
+        function HandleInputChange() {
+            $('#OTPErrorContainer').addClass('d-none');
+        }
+    </script>
+
+</body>
+</html>

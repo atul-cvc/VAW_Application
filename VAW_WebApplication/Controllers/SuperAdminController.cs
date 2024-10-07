@@ -13,6 +13,7 @@ using VAW_BusinessAccessLayer;
 using VAW_Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Web.Security;
+using System.Web.UI.WebControls;
 
 namespace VAW_WebApplication.Controllers
 {
@@ -20,6 +21,7 @@ namespace VAW_WebApplication.Controllers
     [CustomAuthorize(Roles = "SuperAdmin")]   
     public class SuperAdminController : Controller
     {
+        OrganisationBAL OrgBal = new OrganisationBAL();
         RoleManager<IdentityRole> roleManager;
 
         CapacityBuildingManager capacityBuildingManager = new CapacityBuildingManager();
@@ -62,8 +64,7 @@ namespace VAW_WebApplication.Controllers
                 _signInManager = value;
             }
         }
-
-       
+             
 
 
         // GET: SuperAdmin
@@ -71,8 +72,7 @@ namespace VAW_WebApplication.Controllers
         {
             selected_year = !string.IsNullOrEmpty(selected_year) ? selected_year : DateTime.Now.Year.ToString();
             try
-            {                           
-
+            {
                 var roles = roleManager.Roles.ToList();                
                 return View(roles);
             }
@@ -80,14 +80,21 @@ namespace VAW_WebApplication.Controllers
             {
 
             }
-            return View();
-            
+            return View();            
         }
         //
         // GET: /Account/Register
         [HttpGet]
         public ActionResult Register()
         {
+            DataTable _tblMinName= OrgBal.GetMinistry().Tables[0];
+            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("SuperAdmin"))
+                                    .ToList(), "Name", "Name");
+            ViewBag.MinList= ToSelectList(_tblMinName, "MinName", "MinName");
+
+            //ViewBag.OrgList = new SelectList(context.Roles.Where(u => !u.Name.Contains("SuperAdmin"))
+            //                        .ToList(), "Name", "Name");
+            //GetMinistry
             return View();
         }
 
@@ -99,24 +106,26 @@ namespace VAW_WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,PhoneNumber=model.PhoneNumber, MinName=model.MinistryName, CvoOrgCode=model.OrgCode };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    await UserManager.AddToRoleAsync(user.Id, model.UserRoles);
+                    return RedirectToAction("Index");
                 }
                 AddErrors(result);
             }
-
-            // If we got this far, something failed, redisplay form
+            DataTable _tblMinName = OrgBal.GetMinistry().Tables[0];
+            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("SuperAdmin"))
+                                    .ToList(), "Name", "Name");
+            ViewBag.MinList = ToSelectList(_tblMinName, "MinName", "MinName");
             return View(model);
         }
 
@@ -180,6 +189,44 @@ namespace VAW_WebApplication.Controllers
             {
                 ModelState.AddModelError("", error);
             }
+        }
+
+
+        [NonAction]
+        public SelectList ToSelectList(DataTable table, string valueField, string textField)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            foreach (DataRow row in table.Rows)
+            {
+                list.Add(new SelectListItem()
+                {
+                    Text = row[textField].ToString(),
+                    Value = row[valueField].ToString()
+                });
+            }
+            list.Insert(0, new SelectListItem() { Text = "-Select-", Value = "" });
+            return new SelectList(list, "Value", "Text");
+        }
+
+        [HttpPost]
+        public ActionResult GetOrganization(string MinName)
+        {            
+            List<SelectListItem> OrgCodeAndName = new List<SelectListItem>();
+           
+            if (!string.IsNullOrEmpty(MinName))
+            {
+                DataTable _tblMinName = OrgBal.GetAllOrgsListByMinName(MinName).Tables[0];
+                foreach (DataRow row in _tblMinName.Rows)
+                {
+                    OrgCodeAndName.Add(new SelectListItem()
+                    {
+                        Text = row["Name"].ToString(),
+                        Value = row["OrgCode"].ToString()
+                    });
+                }
+            }
+            return Json(OrgCodeAndName, JsonRequestBehavior.AllowGet);
         }
     }
 }

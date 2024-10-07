@@ -12,12 +12,15 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using VAW_WebApplication.Models;
+using VAW_Utility;
 
 namespace VAW_WebApplication.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private static LoginViewModel _model;
+        private static string _returnUrl;
         public Captcha Captcha
         {
             get
@@ -37,7 +40,7 @@ namespace VAW_WebApplication.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -49,9 +52,9 @@ namespace VAW_WebApplication.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -74,8 +77,10 @@ namespace VAW_WebApplication.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var user =  UserManager.FindByName(User.Identity.Name);
-                var roles = UserManager.GetRoles(user.Id);               
+                var user = UserManager.FindByName(User.Identity.Name);
+                Session["CvoOrgCode"] = user.CvoOrgCode;
+                Session["CvoPhoneNumber"] = user.PhoneNumber;
+                var roles = UserManager.GetRoles(user.Id);
                 if (roles.Contains("SuperAdmin"))
                 {
                     return RedirectToAction("Index", "SuperAdmin");
@@ -84,7 +89,7 @@ namespace VAW_WebApplication.Controllers
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }
-                else if (roles.Contains("ADMIN"))
+                else if (roles.Contains("Admin"))
                 {
                     return RedirectToAction("Index", "Admin");
                 }
@@ -93,15 +98,15 @@ namespace VAW_WebApplication.Controllers
                     return RedirectToLocal(returnUrl);
                 }
             }
-                
-            
+
+
 
 
             LoginViewModel loginViewModel = new LoginViewModel();
             this.Captcha = new Captcha(200, 40, 20f, "#FFFFFF", "#61028D", Mode.AlphaNumeric);
             loginViewModel.ImageData = this.Captcha.ImageData;
-            return View(loginViewModel);  
-            
+            return View(loginViewModel);
+
         }
 
         //
@@ -120,50 +125,66 @@ namespace VAW_WebApplication.Controllers
                 ViewBag.Error = "Captcha invalid";
                 model.ImageData = this.Captcha.ImageData;
                 return View(model);
-            }           
+            }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-           
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-                switch (result)
-                {
-                    case SignInStatus.Success:
-                        var user = await UserManager.FindAsync(model.Email, model.Password);
-                        var roles = await UserManager.GetRolesAsync(user.Id);
-                    //    string RoleName= UserManager.GetRolesAsync(user.Id).ToString();
-                    //ViewData["Role"] = RoleName;
-                    if (roles.Contains("SuperAdmin"))
-                        {
-                            return RedirectToAction("Index", "SuperAdmin");
-                        }
-                        else if (roles.Contains("CVO_USER"))
-                        {
-                        return RedirectToAction("Index", "Dashboard");
-                        }
-                        else if (roles.Contains("ADMIN"))
-                        {
-                            return RedirectToAction("Index", "Admin");
-                        }
-                    else
-                    {
-                        return RedirectToLocal(returnUrl);
-                    }
-                //==========================================
+            _model = model;
+            _returnUrl = returnUrl;
 
-                case SignInStatus.LockedOut:
-                        return View("Lockout");
-                    case SignInStatus.RequiresVerification:
-                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                    case SignInStatus.Failure:
-                    default:
-                    model.ImageData = this.Captcha.ImageData;
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                        return View(model);
-                }
+            var user = UserManager.FindByEmail(model.Email);
+
+            //SendOTP
+            OTP_Util OTP_Util = new OTP_Util();
+            Session["OTP"] = OTP_Util.SendOTP(user.PhoneNumber, user.Email);
+
+            return RedirectToAction("VerifyOTP");
+            //return await AddAuth(model, returnUrl);
+
+        }
+
+        [AllowAnonymous]
+        public ActionResult VerifyOTP()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> VerifyOTP(VerifyOTPViewModel verifyVM)
+        {
+            string _sessionOTP = Session["OTP"].ToString();
+            // Check if the model state is valid
+            if (!ModelState.IsValid)
+            {
+                return View(verifyVM);
+            }
+            // Handle valid OTP
+            if (_sessionOTP != null && _sessionOTP.Equals(verifyVM.OTP))
+            {
+                return await AddAuth(_model, _returnUrl);
+                // Redirect based on user role
+                //return RedirectToUserRole(Session["UserRole"] as string);
+                //if (userRole == "ROLE_ADMIN")
+                //{
+                //    return RedirectToAction("Index", "Admin");
+                //}
+                //if (userRole == "ROLE_CVO")
+                //{
+                //    return RedirectToAction("Index", "Dashboard");
+                //}
+                //// Fallback if no role matches
+                //return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Invalid OTP.");
+                ViewBag.OTPErrorMsg = "Invalid OTP";
+                return View(verifyVM);
+            }
+
             
-           
-    }
+            //return View();
+        }
 
         [AllowAnonymous]
         public ActionResult Denied()
@@ -199,7 +220,7 @@ namespace VAW_WebApplication.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -213,7 +234,7 @@ namespace VAW_WebApplication.Controllers
             }
         }
 
-        
+
 
         //
         // GET: /Account/ConfirmEmail
@@ -464,6 +485,53 @@ namespace VAW_WebApplication.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        public async Task<ActionResult> AddAuth(LoginViewModel model, string returnUrl)
+        {
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    _model = null;
+                    _returnUrl = null;
+                    var user = await UserManager.FindAsync(model.Email, model.Password);
+                    var roles = await UserManager.GetRolesAsync(user.Id);
+                    Session["CvoOrgCode"] = user.CvoOrgCode;
+                    //    string RoleName= UserManager.GetRolesAsync(user.Id).ToString();
+                    //ViewData["Role"] = RoleName;
+                    if (roles.Contains("SuperAdmin"))
+                    {
+                        return RedirectToAction("Index", "SuperAdmin");
+                    }
+                    else if (roles.Contains("CVO_USER"))
+                    {
+                        return RedirectToAction("Index", "Dashboard");
+                    }
+                    else if (roles.Contains("Admin"))
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
+                //==========================================
+
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                case SignInStatus.Failure:
+                default:
+                    model.ImageData = this.Captcha.ImageData;
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+            }
+
         }
 
         #region Helpers

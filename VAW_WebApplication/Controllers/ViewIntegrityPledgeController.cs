@@ -9,291 +9,285 @@ using System.Web.Mvc;
 using System.Xml.Linq;
 using VAW_BusinessAccessLayer;
 using VAW_Models;
-using VAW_Utility;
 using VAW_WebApplication.Models;
 using VAW_WebApplication.Util;
 
 namespace VAW_WebApplication.Controllers
 {
+    [Authorize(Roles = "CVO_USER")]
     public class ViewIntegrityPledgeController : Controller
     {
         IntegrityPledgeManager integrityPledgeManager = new IntegrityPledgeManager();
         YearsBAL yearsBAL = new YearsBAL();
         PDFUtil PdfUtil = new PDFUtil();
         string IPAddress = null;
-        public ErrorLog errorlog = new ErrorLog();
 
         // GET: ViewIntegrityPledge
         public ActionResult Index(string selected_year)
         {
-            try
-            {
-                selected_year = !string.IsNullOrEmpty(selected_year) ? selected_year : DateTime.Now.Year.ToString();
+            selected_year = !string.IsNullOrEmpty(selected_year) ? selected_year : DateTime.Now.Year.ToString();
 
-                ViewIntegrityPledgeViewModel viewModel = new ViewIntegrityPledgeViewModel();
-                viewModel.CurrentYear = !string.IsNullOrEmpty(selected_year) ? Convert.ToInt32(selected_year) : DateTime.Now.Year;
-
-                DataTable integrityTable = integrityPledgeManager.GetIntegrityPledgeByCVOIDandYear("CVO_SBI", selected_year).Tables[0]; //GetIntegrityPledge
-                DataTable conductTable = integrityPledgeManager.GetConductOfCompetitionsByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
-                DataTable activitiesOthActivitiesTable = integrityPledgeManager.GetActivitiesOtherActivitiesandYear("CVO_SBI", selected_year).Tables[0];
-                DataTable outreachSchoolStudentsTable = integrityPledgeManager.GetInvolvingSchoolStudentsBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
-                DataTable outreachCollegeStudentsTable = integrityPledgeManager.GetInvolvingCollegeStudentsBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
-                DataTable outreachAwarenessTable = integrityPledgeManager.GetOutreachAwarenessBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
-                DataTable seminarsWorkshopsTable = integrityPledgeManager.GetSeminarsWorkshopsBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
-                DataTable otherActivitiesTable = integrityPledgeManager.GetOtherActivitiesBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
-                DataTable detailsOfPhotosTable = integrityPledgeManager.GetDetailsOfPhotosBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
-                DataTable yearsTable = yearsBAL.GetAllYearsList().Tables[0];
+            ViewIntegrityPledgeViewModel viewModel = new ViewIntegrityPledgeViewModel();
+            viewModel.CurrentYear = !string.IsNullOrEmpty(selected_year) ? Convert.ToInt32(selected_year) : DateTime.Now.Year;
+            
+            DataTable integrityTable = integrityPledgeManager.GetIntegrityPledgeByCVOIDandYear("CVO_SBI", selected_year).Tables[0]; //GetIntegrityPledge
+            DataTable conductTable = integrityPledgeManager.GetConductOfCompetitionsByCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+            DataTable activitiesOthActivitiesTable = integrityPledgeManager.GetActivitiesOtherActivitiesandYear("CVO_SBI", selected_year).Tables[0];
+            DataTable outreachSchoolStudentsTable = integrityPledgeManager.GetInvolvingSchoolStudentsBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+            DataTable outreachCollegeStudentsTable = integrityPledgeManager.GetInvolvingCollegeStudentsBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+            DataTable outreachAwarenessTable = integrityPledgeManager.GetOutreachAwarenessBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+            DataTable seminarsWorkshopsTable = integrityPledgeManager.GetSeminarsWorkshopsBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+            DataTable otherActivitiesTable = integrityPledgeManager.GetOtherActivitiesBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+            DataTable detailsOfPhotosTable = integrityPledgeManager.GetDetailsOfPhotosBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+            DataTable yearsTable = yearsBAL.GetAllYearsList().Tables[0];
 
 
 
-                var yearList = new List<SelectListItem>();
-                if (yearsTable.Rows.Count >= 1)
+            var yearList = new List<SelectListItem>();
+            if (yearsTable.Rows.Count >= 1)
+            {                
+                foreach (DataRow dr in yearsTable.Rows)
                 {
-                    foreach (DataRow dr in yearsTable.Rows)
+                    yearList.Add(new SelectListItem
                     {
-                        yearList.Add(new SelectListItem
-                        {
-                            Value = dr["Year"].ToString(),
-                            Text = dr["Year"].ToString()
-                        });
-                    }
-                    viewModel.YearsList = yearList;
+                        Value = dr["Year"].ToString(),
+                        Text = dr["Year"].ToString()
+                    });
                 }
-                else
+                viewModel.YearsList = yearList;
+            }
+            else
+            {
+                Years year = new Years
                 {
-                    Years year = new Years
+                    ID = 1,
+                    Year = DateTime.Now.Year
+                };
+                yearList.Add(new SelectListItem { Value = "2024", Text = "2024" });
+                viewModel.YearsList = yearList;
+            }
+            //viewModel.CurrentYear = DateTime.Now.Year;
+
+            DataTable OtherRelatedInfo = integrityPledgeManager.GetOtherRelevantInformationBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
+
+            List<Tran_1a_integritypledge_ViewModel> pledgeList = new List<Tran_1a_integritypledge_ViewModel>();
+
+            if (integrityTable.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in integrityTable.Rows)
+                {
+                    Tran_1a_integritypledge_ViewModel vmobj = new Tran_1a_integritypledge_ViewModel
                     {
-                        ID = 1,
-                        Year = DateTime.Now.Year
+                        ID = Convert.ToInt32(dr["Record_Id"].ToString()),
+                        VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
+                        UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
+                        CvoOrgCode = dr["CvoOrgCode"].ToString(),
+                        CvoId = dr["CvoId"].ToString(),
+                        DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
+                        TotalNoOfEmployees_UndertakenPledge = Convert.ToInt32(dr["TotalNoOfEmployees_UndertakenPledge"].ToString()),
+                        TotalNoOfCustomers_UndertakenPledge = Convert.ToInt32(dr["TotalNoOfCustomers_UndertakenPledge"].ToString()),
+                        TotalNoOfCitizen_UndertakenPledge = Convert.ToInt32(dr["TotalNoOfCitizen_UndertakenPledge"].ToString())
                     };
-                    yearList.Add(new SelectListItem { Value = "2024", Text = "2024" });
-                    viewModel.YearsList = yearList;
+                    pledgeList.Add(vmobj);
                 }
-                //viewModel.CurrentYear = DateTime.Now.Year;
-
-                DataTable OtherRelatedInfo = integrityPledgeManager.GetOtherRelevantInformationBYCVOIDandYear("CVO_SBI", selected_year).Tables[0];
-
-                List<Tran_1a_integritypledge_ViewModel> pledgeList = new List<Tran_1a_integritypledge_ViewModel>();
-
-                if (integrityTable.Rows.Count >= 1)
-                {
-                    foreach (DataRow dr in integrityTable.Rows)
-                    {
-                        Tran_1a_integritypledge_ViewModel vmobj = new Tran_1a_integritypledge_ViewModel
-                        {
-                            ID = Convert.ToInt32(dr["Record_Id"].ToString()),
-                            VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
-                            UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
-                            CvoOrgCode = dr["CvoOrgCode"].ToString(),
-                            CvoId = dr["CvoId"].ToString(),
-                            DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
-                            TotalNoOfEmployees_UndertakenPledge = Convert.ToInt32(dr["TotalNoOfEmployees_UndertakenPledge"].ToString()),
-                            TotalNoOfCustomers_UndertakenPledge = Convert.ToInt32(dr["TotalNoOfCustomers_UndertakenPledge"].ToString()),
-                            TotalNoOfCitizen_UndertakenPledge = Convert.ToInt32(dr["TotalNoOfCitizen_UndertakenPledge"].ToString())
-                        };
-                        pledgeList.Add(vmobj);
-                    }
-                }
-                viewModel.IntegrityPledges = pledgeList;
-
-                if (conductTable.Rows.Count >= 1)
-                {
-                    foreach (DataRow dr in conductTable.Rows)
-                    {
-                        Tran_2a_orgactivities_conductofcompetitions_ViewModel vmobj = new Tran_2a_orgactivities_conductofcompetitions_ViewModel
-                        {
-                            ID = Convert.ToInt32(dr["Record_Id"].ToString()),
-                            VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
-                            UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
-                            CvoOrgCode = dr["CvoOrgCode"].ToString(),
-                            CvoId = dr["CvoId"].ToString(),
-                            DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
-                            NameOfState = dr["NameOfState"].ToString(),
-                            City = dr["City"].ToString(),
-                            SpecificProgram = dr["SpecificProgram"].ToString(),
-                            NoOfParticipant = Convert.ToInt32(dr["NoOfParticipant"].ToString()),
-                            Remarks = dr["Remarks"].ToString(),
-                        };
-                        viewModel.OrgActivities_ConductOfCompetitions.Add(vmobj);
-                    }
-                }
-
-                if (activitiesOthActivitiesTable.Rows.Count >= 1)
-                {
-                    foreach (DataRow dr in activitiesOthActivitiesTable.Rows)
-                    {
-                        Tran_2b_orgactivities_otheractivities_ViewModel vmobj = new Tran_2b_orgactivities_otheractivities_ViewModel
-                        {
-                            ID = Convert.ToInt32(dr["Record_Id"].ToString()),
-                            VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
-                            UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
-                            CvoOrgCode = dr["CvoOrgCode"].ToString(),
-                            CvoId = dr["CvoId"].ToString(),
-                            DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
-                            DistributionOfPamphletsAndBanners_Details = dr["DistributionOfPamphletsAndBanners_Details"].ToString(),
-                            ConductOfWorkshopAndSensitizationProgram_Details = dr["ConductOfWorkshopAndSensitizationProgram_Details"].ToString(),
-                            IssueOfJornalAndNwesletter_Details = dr["IssueOfJornalAndNwesletter_Details"].ToString(),
-                            AnyOtherActivities_Details = dr["AnyOtherActivities_Details"].ToString(),
-                        };
-                        viewModel.OrgActivities_OtherActivities.Add(vmobj);
-                    }
-                }
-
-                if (outreachSchoolStudentsTable.Rows.Count >= 1)
-                {
-                    foreach (DataRow dr in outreachSchoolStudentsTable.Rows)
-                    {
-                        Tran_3a_outreach_involvingschoolstudents_ViewModel vmobj = new Tran_3a_outreach_involvingschoolstudents_ViewModel
-                        {
-                            ID = Convert.ToInt32(dr["Record_Id"].ToString()),
-                            VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
-                            UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
-                            CvoOrgCode = dr["CvoOrgCode"].ToString(),
-                            CvoId = dr["CvoId"].ToString(),
-                            DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
-                            StateName = dr["StateName"].ToString(),
-                            City_Town_Village_Name = dr["City_Town_Village_Name"].ToString(),
-                            SchoolName = dr["SchoolName"].ToString(),
-                            ActivityDetails = dr["ActivityDetails"].ToString(),
-                            NoOfStudentsInvolved = Convert.ToInt32(dr["NoOfStudentsInvolved"].ToString()),
-
-                        };
-                        viewModel.OutActivities_InvolvingStudentsInSchool.Add(vmobj);
-                    }
-                }
-
-                if (outreachCollegeStudentsTable.Rows.Count >= 1)
-                {
-                    foreach (DataRow dr in outreachCollegeStudentsTable.Rows)
-                    {
-                        Tran_3b_outreach_involvingcollegestudents_ViewModel vmobj = new Tran_3b_outreach_involvingcollegestudents_ViewModel
-                        {
-                            ID = Convert.ToInt32(dr["Record_Id"].ToString()),
-                            VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
-                            UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
-                            CvoOrgCode = dr["CvoOrgCode"].ToString(),
-                            CvoId = dr["CvoId"].ToString(),
-                            DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
-                            StateName = dr["StateName"].ToString(),
-                            City_Town_Village_Name = dr["City_Town_Village_Name"].ToString(),
-                            SchoolName = dr["SchoolName"].ToString(),
-                            ActivityDetails = dr["ActivityDetails"].ToString(),
-                            NoOfStudentsInvolved = Convert.ToInt32(dr["NoOfStudentsInvolved"].ToString()),
-                        };
-                        viewModel.OutActivities_InvolvingStudentsInColleges.Add(vmobj);
-                    }
-                }
-
-                if (outreachAwarenessTable.Rows.Count >= 1)
-                {
-                    foreach (DataRow dr in outreachAwarenessTable.Rows)
-                    {
-                        Tran_3c_outreach_awarenessgramsabhas_ViewModel vmobj = new Tran_3c_outreach_awarenessgramsabhas_ViewModel
-                        {
-                            ID = Convert.ToInt32(dr["Record_Id"].ToString()),
-                            VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
-                            UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
-                            CvoOrgCode = dr["CvoOrgCode"].ToString(),
-                            CvoId = dr["CvoId"].ToString(),
-                            DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
-                            StateName = dr["StateName"].ToString(),
-                            City_Town_Village_Name = dr["City_Town_Village_Name"].ToString(),
-                            NameOfGramPanchayat = dr["NameOfGramPanchayat"].ToString(),
-                            ActivityDetails = dr["ActivityDetails"].ToString(),
-                            NoOfPublicOrCitizenParticipated = Convert.ToInt32(dr["NoOfPublicOrCitizenParticipated"].ToString()),
-                        };
-                        viewModel.OutActivities_AwarenesGramSabha.Add(vmobj);
-                    }
-                }
-
-                if (seminarsWorkshopsTable.Rows.Count >= 1)
-                {
-                    foreach (DataRow dr in seminarsWorkshopsTable.Rows)
-                    {
-                        Tran_3d_outreach_seminarsworkshops_ViewModel vmobj = new Tran_3d_outreach_seminarsworkshops_ViewModel
-                        {
-                            ID = Convert.ToInt32(dr["Record_Id"].ToString()),
-                            VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
-                            UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
-                            CvoOrgCode = dr["CvoOrgCode"].ToString(),
-                            CvoId = dr["CvoId"].ToString(),
-                            DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
-                            StateName = dr["StateName"].ToString(),
-                            City_Town_Village_Name = dr["City_Town_Village_Name"].ToString(),
-                            NoOfSeminarsWorkshops = Convert.ToInt32(dr["NoOfSeminarsWorkshops"].ToString()),
-                            ActivityDetails = dr["ActivityDetails"].ToString(),
-                            NoOfPublicOrCitizenParticipated = Convert.ToInt32(dr["NoOfPublicOrCitizenParticipated"].ToString()),
-                        };
-                        viewModel.OutActivities_SeminarsWorkshops.Add(vmobj);
-                    }
-                }
-
-                if (otherActivitiesTable.Rows.Count >= 1)
-                {
-                    foreach (DataRow dr in otherActivitiesTable.Rows)
-                    {
-                        Tran_4_otheractivities_ViewModel vmobj = new Tran_4_otheractivities_ViewModel
-                        {
-                            ID = Convert.ToInt32(dr["Record_Id"].ToString()),
-                            VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
-                            UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
-                            CvoOrgCode = dr["CvoOrgCode"].ToString(),
-                            CvoId = dr["CvoId"].ToString(),
-                            DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
-                            DisplayOfBannerPosterDetails = dr["DisplayOfBannerPosterDetails"].ToString(),
-                            NoOfGrievanceRedressalCampsHeld = Convert.ToInt32(dr["NoOfGrievanceRedressalCampsHeld"].ToString()),
-                            UserOfScocialMedia = dr["UserOfScocialMedia"].ToString()
-                        };
-                        viewModel.OtherActivities.Add(vmobj);
-                    }
-                }
-
-                if (detailsOfPhotosTable.Rows.Count >= 1)
-                {
-                    foreach (DataRow dr in detailsOfPhotosTable.Rows)
-                    {
-                        Tran_5_detailsofphotos_ViewModel vmobj = new Tran_5_detailsofphotos_ViewModel
-                        {
-                            ID = Convert.ToInt32(dr["Record_Id"].ToString()),
-                            VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
-                            UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
-                            CvoOrgCode = dr["CvoOrgCode"].ToString(),
-                            CvoId = dr["CvoId"].ToString(),
-                            DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
-                            NameOfActivity = dr["NameOfActivity"].ToString(),
-                            NoOfPhotos = Convert.ToInt32(dr["NoOfPhotos"].ToString()),
-                            WhetherPhotosSentAsSoftCopyOrHardCopy = dr["WhetherPhotosSentAsSoftCopyOrHardCopy"].ToString(),
-                            SoftCopy_NoOfCd = Convert.ToInt32(dr["SoftCopy_NoOfCd"].ToString())
-                        };
-                        viewModel.DetailsOfPhotos.Add(vmobj);
-                    }
-                }
-
-                if (OtherRelatedInfo.Rows.Count >= 1)
-                {
-                    foreach (DataRow dr in OtherRelatedInfo.Rows)
-                    {
-                        Tran_6_otherinformation_ViewModel vmobj = new Tran_6_otherinformation_ViewModel
-                        {
-                            ID = Convert.ToInt32(dr["Record_Id"].ToString()),
-                            VAW_Year = dr["VAW_Year"].ToString(),
-                            UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
-                            CvoOrgCode = dr["CvoOrgCode"].ToString(),
-                            CvoId = dr["CvoId"].ToString(),
-                            DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
-                            DetailsOfActivity = dr["DetailsOfActivity"].ToString()
-
-                        };
-                        viewModel.OtherInformations.Add(vmobj);
-                    }
-                }
-                return View(viewModel);
             }
-            catch (Exception ex)
+            viewModel.IntegrityPledges = pledgeList;
+
+            if (conductTable.Rows.Count >= 1)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
+                foreach (DataRow dr in conductTable.Rows)
+                {
+                    Tran_2a_orgactivities_conductofcompetitions_ViewModel vmobj = new Tran_2a_orgactivities_conductofcompetitions_ViewModel
+                    {
+                        ID = Convert.ToInt32(dr["Record_Id"].ToString()),
+                        VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
+                        UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
+                        CvoOrgCode = dr["CvoOrgCode"].ToString(),
+                        CvoId = dr["CvoId"].ToString(),
+                        DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
+                        NameOfState = dr["NameOfState"].ToString(),
+                        City = dr["City"].ToString(),
+                        SpecificProgram = dr["SpecificProgram"].ToString(),
+                        NoOfParticipant = Convert.ToInt32(dr["NoOfParticipant"].ToString()),
+                        Remarks = dr["Remarks"].ToString(),
+                    };
+                    viewModel.OrgActivities_ConductOfCompetitions.Add(vmobj);
+                }
             }
+
+            if (activitiesOthActivitiesTable.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in activitiesOthActivitiesTable.Rows)
+                {
+                    Tran_2b_orgactivities_otheractivities_ViewModel vmobj = new Tran_2b_orgactivities_otheractivities_ViewModel
+                    {
+                        ID = Convert.ToInt32(dr["Record_Id"].ToString()),
+                        VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
+                        UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
+                        CvoOrgCode = dr["CvoOrgCode"].ToString(),
+                        CvoId = dr["CvoId"].ToString(),
+                        DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
+                        DistributionOfPamphletsAndBanners_Details = dr["DistributionOfPamphletsAndBanners_Details"].ToString(),
+                        ConductOfWorkshopAndSensitizationProgram_Details = dr["ConductOfWorkshopAndSensitizationProgram_Details"].ToString(),
+                        IssueOfJornalAndNwesletter_Details = dr["IssueOfJornalAndNwesletter_Details"].ToString(),
+                        AnyOtherActivities_Details = dr["AnyOtherActivities_Details"].ToString(),
+                    };
+                    viewModel.OrgActivities_OtherActivities.Add(vmobj);
+                }
+            }
+
+            if (outreachSchoolStudentsTable.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in outreachSchoolStudentsTable.Rows)
+                {
+                    Tran_3a_outreach_involvingschoolstudents_ViewModel vmobj = new Tran_3a_outreach_involvingschoolstudents_ViewModel
+                    {
+                        ID = Convert.ToInt32(dr["Record_Id"].ToString()),
+                        VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
+                        UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
+                        CvoOrgCode = dr["CvoOrgCode"].ToString(),
+                        CvoId = dr["CvoId"].ToString(),
+                        DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
+                        StateName = dr["StateName"].ToString(),
+                        City_Town_Village_Name = dr["City_Town_Village_Name"].ToString(),
+                        SchoolName = dr["SchoolName"].ToString(),
+                        ActivityDetails = dr["ActivityDetails"].ToString(),
+                        NoOfStudentsInvolved = Convert.ToInt32(dr["NoOfStudentsInvolved"].ToString()),
+
+                    };
+                    viewModel.OutActivities_InvolvingStudentsInSchool.Add(vmobj);
+                }
+            }
+
+            if (outreachCollegeStudentsTable.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in outreachCollegeStudentsTable.Rows)
+                {
+                    Tran_3b_outreach_involvingcollegestudents_ViewModel vmobj = new Tran_3b_outreach_involvingcollegestudents_ViewModel
+                    {
+                        ID = Convert.ToInt32(dr["Record_Id"].ToString()),
+                        VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
+                        UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
+                        CvoOrgCode = dr["CvoOrgCode"].ToString(),
+                        CvoId = dr["CvoId"].ToString(),
+                        DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
+                        StateName = dr["StateName"].ToString(),
+                        City_Town_Village_Name = dr["City_Town_Village_Name"].ToString(),
+                        SchoolName = dr["SchoolName"].ToString(),
+                        ActivityDetails = dr["ActivityDetails"].ToString(),
+                        NoOfStudentsInvolved = Convert.ToInt32(dr["NoOfStudentsInvolved"].ToString()),
+                    };
+                    viewModel.OutActivities_InvolvingStudentsInColleges.Add(vmobj);
+                }
+            }
+
+            if (outreachAwarenessTable.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in outreachAwarenessTable.Rows)
+                {
+                    Tran_3c_outreach_awarenessgramsabhas_ViewModel vmobj = new Tran_3c_outreach_awarenessgramsabhas_ViewModel
+                    {
+                        ID = Convert.ToInt32(dr["Record_Id"].ToString()),
+                        VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
+                        UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
+                        CvoOrgCode = dr["CvoOrgCode"].ToString(),
+                        CvoId = dr["CvoId"].ToString(),
+                        DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
+                        StateName = dr["StateName"].ToString(),
+                        City_Town_Village_Name = dr["City_Town_Village_Name"].ToString(),
+                        NameOfGramPanchayat = dr["NameOfGramPanchayat"].ToString(),
+                        ActivityDetails = dr["ActivityDetails"].ToString(),
+                        NoOfPublicOrCitizenParticipated = Convert.ToInt32(dr["NoOfPublicOrCitizenParticipated"].ToString()),
+                    };
+                    viewModel.OutActivities_AwarenesGramSabha.Add(vmobj);
+                }
+            }
+
+            if (seminarsWorkshopsTable.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in seminarsWorkshopsTable.Rows)
+                {
+                    Tran_3d_outreach_seminarsworkshops_ViewModel vmobj = new Tran_3d_outreach_seminarsworkshops_ViewModel
+                    {
+                        ID = Convert.ToInt32(dr["Record_Id"].ToString()),
+                        VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
+                        UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
+                        CvoOrgCode = dr["CvoOrgCode"].ToString(),
+                        CvoId = dr["CvoId"].ToString(),
+                        DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
+                        StateName = dr["StateName"].ToString(),
+                        City_Town_Village_Name = dr["City_Town_Village_Name"].ToString(),
+                        NoOfSeminarsWorkshops = Convert.ToInt32(dr["NoOfSeminarsWorkshops"].ToString()),
+                        ActivityDetails = dr["ActivityDetails"].ToString(),
+                        NoOfPublicOrCitizenParticipated = Convert.ToInt32(dr["NoOfPublicOrCitizenParticipated"].ToString()),
+                    };
+                    viewModel.OutActivities_SeminarsWorkshops.Add(vmobj);
+                }
+            }
+
+            if (otherActivitiesTable.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in otherActivitiesTable.Rows)
+                {
+                    Tran_4_otheractivities_ViewModel vmobj = new Tran_4_otheractivities_ViewModel
+                    {
+                        ID = Convert.ToInt32(dr["Record_Id"].ToString()),
+                        VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
+                        UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
+                        CvoOrgCode = dr["CvoOrgCode"].ToString(),
+                        CvoId = dr["CvoId"].ToString(),
+                        DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
+                        DisplayOfBannerPosterDetails = dr["DisplayOfBannerPosterDetails"].ToString(),
+                        NoOfGrievanceRedressalCampsHeld = Convert.ToInt32(dr["NoOfGrievanceRedressalCampsHeld"].ToString()),
+                        UserOfScocialMedia = dr["UserOfScocialMedia"].ToString()
+                    };
+                    viewModel.OtherActivities.Add(vmobj);
+                }
+            }
+
+            if (detailsOfPhotosTable.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in detailsOfPhotosTable.Rows)
+                {
+                    Tran_5_detailsofphotos_ViewModel vmobj = new Tran_5_detailsofphotos_ViewModel
+                    {
+                        ID = Convert.ToInt32(dr["Record_Id"].ToString()),
+                        VAW_Year = Convert.ToInt32(dr["VAW_Year"].ToString()),
+                        UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
+                        CvoOrgCode = dr["CvoOrgCode"].ToString(),
+                        CvoId = dr["CvoId"].ToString(),
+                        DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
+                        NameOfActivity = dr["NameOfActivity"].ToString(),
+                        NoOfPhotos = Convert.ToInt32(dr["NoOfPhotos"].ToString()),
+                        WhetherPhotosSentAsSoftCopyOrHardCopy = dr["WhetherPhotosSentAsSoftCopyOrHardCopy"].ToString(),
+                        SoftCopy_NoOfCd = Convert.ToInt32(dr["SoftCopy_NoOfCd"].ToString())
+                    };
+                    viewModel.DetailsOfPhotos.Add(vmobj);
+                }
+            }
+
+            if (OtherRelatedInfo.Rows.Count >= 1)
+            {
+                foreach (DataRow dr in OtherRelatedInfo.Rows)
+                {
+                    Tran_6_otherinformation_ViewModel vmobj = new Tran_6_otherinformation_ViewModel
+                    {
+                        ID = Convert.ToInt32(dr["Record_Id"].ToString()),
+                        VAW_Year = dr["VAW_Year"].ToString(),
+                        UniqueTransactionId = dr["UniqueTransactionId"].ToString(),
+                        CvoOrgCode = dr["CvoOrgCode"].ToString(),
+                        CvoId = dr["CvoId"].ToString(),
+                        DateOfActivity = Convert.ToDateTime(dr["DateOfActivity"].ToString()),
+                        DetailsOfActivity = dr["DetailsOfActivity"].ToString()
+
+                    };
+                    viewModel.OtherInformations.Add(vmobj);
+                }
+            }
+
+
+
+            return View(viewModel);
         }
 
         #region 1. Integrity Pledge
@@ -301,21 +295,12 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateIntegrityPledge()
         {
-            try
-            {
-                Tran_1a_integritypledge_ViewModel vmdata = new Tran_1a_integritypledge_ViewModel();
-                vmdata.VAW_Year = DateTime.Now.Year;
-                vmdata.CvoId = "CVO_SBI";
-                vmdata.CvoOrgCode = "I61";
-                vmdata.DateOfActivity = DateTime.Now;
-                return View(vmdata);
-
-            }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            Tran_1a_integritypledge_ViewModel vmdata = new Tran_1a_integritypledge_ViewModel();
+            vmdata.VAW_Year = DateTime.Now.Year;
+            vmdata.CvoId = "CVO_SBI";
+            vmdata.CvoOrgCode = "I61";
+            vmdata.DateOfActivity = DateTime.Now;
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -346,46 +331,30 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
+
             }
+            return View("Index");
         }
 
         [HttpGet]
         public ActionResult EditIntegrityPledge(int ID)
         {
-            try
-            {
-                Tran_1a_integritypledge_ViewModel vmdata = new Tran_1a_integritypledge_ViewModel();
-                DataTable dt = integrityPledgeManager.GetIntegrityPledgeByRecordId(ID).Tables[0];
-                vmdata.ID = ID;
-                vmdata.VAW_Year = Convert.ToInt32(dt.Rows[0]["VAW_Year"].ToString());
-                vmdata.CvoId = dt.Rows[0]["CvoId"].ToString();
-                vmdata.CvoOrgCode = dt.Rows[0]["CvoOrgCode"].ToString();
-                vmdata.DateOfActivity = Convert.ToDateTime(dt.Rows[0]["DateOfActivity"].ToString());
-                vmdata.TotalNoOfEmployees_UndertakenPledge = Convert.ToInt32(dt.Rows[0]["TotalNoOfEmployees_UndertakenPledge"].ToString());
-                vmdata.TotalNoOfCustomers_UndertakenPledge = Convert.ToInt32(dt.Rows[0]["TotalNoOfCustomers_UndertakenPledge"].ToString());
-                vmdata.TotalNoOfCitizen_UndertakenPledge = Convert.ToInt32(dt.Rows[0]["TotalNoOfCitizen_UndertakenPledge"].ToString());
-                vmdata.OrganisationName = dt.Rows[0]["OrgName"].ToString();
-                return View(vmdata);
-            }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            Tran_1a_integritypledge_ViewModel vmdata = new Tran_1a_integritypledge_ViewModel();
+            DataTable dt = integrityPledgeManager.GetIntegrityPledgeByRecordId(ID).Tables[0];
+            vmdata.ID = ID;
+            vmdata.VAW_Year = Convert.ToInt32(dt.Rows[0]["VAW_Year"].ToString());
+            vmdata.CvoId = dt.Rows[0]["CvoId"].ToString();
+            vmdata.CvoOrgCode = dt.Rows[0]["CvoOrgCode"].ToString();
+            vmdata.DateOfActivity = Convert.ToDateTime(dt.Rows[0]["DateOfActivity"].ToString());
+            vmdata.TotalNoOfEmployees_UndertakenPledge = Convert.ToInt32(dt.Rows[0]["TotalNoOfEmployees_UndertakenPledge"].ToString());
+            vmdata.TotalNoOfCustomers_UndertakenPledge = Convert.ToInt32(dt.Rows[0]["TotalNoOfCustomers_UndertakenPledge"].ToString());
+            vmdata.TotalNoOfCitizen_UndertakenPledge = Convert.ToInt32(dt.Rows[0]["TotalNoOfCitizen_UndertakenPledge"].ToString());
+            vmdata.OrganisationName = dt.Rows[0]["OrgName"].ToString();
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -413,21 +382,13 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
+
             }
+            return View("Index");
         }
 
         #endregion
@@ -438,41 +399,33 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateConductOfCompetitions()
         {
-            try
-            {
-                Tran_2a_orgactivities_conductofcompetitions_ViewModel vmdata = new Tran_2a_orgactivities_conductofcompetitions_ViewModel();
-                vmdata.VAW_Year = Convert.ToInt32(DateTime.Now.Year.ToString());
-                vmdata.CvoId = "CVO_SBI";
-                vmdata.CvoOrgCode = "I61";
-                vmdata.DateOfActivity = DateTime.Now;
-                vmdata.SpecificProgramList = new List<SelectListItem> {
+            Tran_2a_orgactivities_conductofcompetitions_ViewModel vmdata = new Tran_2a_orgactivities_conductofcompetitions_ViewModel();
+            vmdata.VAW_Year = Convert.ToInt32(DateTime.Now.Year.ToString());
+            vmdata.CvoId = "CVO_SBI";
+            vmdata.CvoOrgCode = "I61";
+            vmdata.DateOfActivity = DateTime.Now;
+            vmdata.SpecificProgramList = new List<SelectListItem> {
                 new SelectListItem { Value = "Debate", Text = "Debate" },
                 new SelectListItem { Value = "Elocution", Text = "Elocution" },
                 new SelectListItem { Value = "Panel Discussion", Text = "Panel Discussion" },
                 new SelectListItem { Value = "Other", Text = "Other" }
-                };
-                vmdata.NameOfStateList = new List<SelectListItem>();
-                DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
-                if (StateTable.Rows.Count > 0)
-                {
-                    var stateItemList = new List<SelectListItem>();
-                    foreach (DataRow dr in StateTable.Rows)
-                    {
-                        stateItemList.Add(new SelectListItem
-                        {
-                            Value = dr["States"].ToString(),
-                            Text = dr["States"].ToString()
-                        });
-                    }
-                    vmdata.NameOfStateList = stateItemList;
-                }
-                return View(vmdata);
-            }
-            catch (Exception ex)
+            };
+            vmdata.NameOfStateList = new List<SelectListItem>();
+            DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
+            if (StateTable.Rows.Count > 0)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
+                var stateItemList = new List<SelectListItem>();
+                foreach (DataRow dr in StateTable.Rows)
+                {
+                    stateItemList.Add(new SelectListItem
+                    {
+                        Value = dr["States"].ToString(),
+                        Text = dr["States"].ToString()
+                    });
+                }
+                vmdata.NameOfStateList = stateItemList;
             }
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -505,72 +458,55 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
+
             }
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
         public ActionResult EditConductOfCompetitions(int ID)
         {
-
-            try
-            {
-                DataTable dt = integrityPledgeManager.GetConductOfCompetitionsByRecordId(ID).Tables[0];
-                Tran_2a_orgactivities_conductofcompetitions_ViewModel vmdata = new Tran_2a_orgactivities_conductofcompetitions_ViewModel();
-                vmdata.VAW_Year = Convert.ToInt32(DateTime.Now.Year.ToString());
-                vmdata.ID = Convert.ToInt32(dt.Rows[0]["Record_ID"].ToString());
-                vmdata.CvoId = dt.Rows[0]["CvoId"].ToString();
-                vmdata.CvoOrgCode = dt.Rows[0]["CvoOrgCode"].ToString();
-                vmdata.DateOfActivity = Convert.ToDateTime(dt.Rows[0]["DateOfActivity"].ToString());
-                vmdata.SpecificProgramList = new List<SelectListItem> {
+            DataTable dt = integrityPledgeManager.GetConductOfCompetitionsByRecordId(ID).Tables[0];
+            Tran_2a_orgactivities_conductofcompetitions_ViewModel vmdata = new Tran_2a_orgactivities_conductofcompetitions_ViewModel();
+            vmdata.VAW_Year = Convert.ToInt32(DateTime.Now.Year.ToString());
+            vmdata.ID = Convert.ToInt32(dt.Rows[0]["Record_ID"].ToString());
+            vmdata.CvoId = dt.Rows[0]["CvoId"].ToString();
+            vmdata.CvoOrgCode = dt.Rows[0]["CvoOrgCode"].ToString();
+            vmdata.DateOfActivity = Convert.ToDateTime(dt.Rows[0]["DateOfActivity"].ToString());
+            vmdata.SpecificProgramList = new List<SelectListItem> {
                 new SelectListItem { Value = "Debate", Text = "Debate" },
                 new SelectListItem { Value = "Elocution", Text = "Elocution" },
                 new SelectListItem { Value = "Panel Discussion", Text = "Panel Discussion" },
                 new SelectListItem { Value = "Other", Text = "Other" }
             };
-                vmdata.NameOfStateList = new List<SelectListItem>();
-                DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
-                if (StateTable.Rows.Count > 0)
-                {
-                    var stateItemList = new List<SelectListItem>();
-                    foreach (DataRow dr in StateTable.Rows)
-                    {
-                        stateItemList.Add(new SelectListItem
-                        {
-                            Value = dr["States"].ToString(),
-                            Text = dr["States"].ToString()
-                        });
-                    }
-                    vmdata.NameOfStateList = stateItemList;
-                }
-                vmdata.NameOfState = dt.Rows[0]["NameOfState"].ToString();
-                vmdata.City = dt.Rows[0]["City"].ToString();
-                vmdata.SpecificProgram = dt.Rows[0]["SpecificProgram"].ToString();
-                vmdata.NoOfParticipant = Convert.ToInt32(dt.Rows[0]["NoOfParticipant"].ToString());
-                vmdata.Remarks = dt.Rows[0]["Remarks"].ToString();
-                vmdata.OrganisationName = dt.Rows[0]["OrgName"].ToString();
-                return View(vmdata);
-
-            }
-            catch (Exception ex)
+            vmdata.NameOfStateList = new List<SelectListItem>();
+            DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
+            if (StateTable.Rows.Count > 0)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
+                var stateItemList = new List<SelectListItem>();
+                foreach (DataRow dr in StateTable.Rows)
+                {
+                    stateItemList.Add(new SelectListItem
+                    {
+                        Value = dr["States"].ToString(),
+                        Text = dr["States"].ToString()
+                    });
+                }
+                vmdata.NameOfStateList = stateItemList;
             }
+            vmdata.NameOfState = dt.Rows[0]["NameOfState"].ToString();
+            vmdata.City = dt.Rows[0]["City"].ToString();
+            vmdata.SpecificProgram = dt.Rows[0]["SpecificProgram"].ToString();
+            vmdata.NoOfParticipant = Convert.ToInt32(dt.Rows[0]["NoOfParticipant"].ToString());
+            vmdata.Remarks = dt.Rows[0]["Remarks"].ToString();
+            vmdata.OrganisationName = dt.Rows[0]["OrgName"].ToString();
 
+
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -599,41 +535,24 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
+
             }
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
         public ActionResult CreateActivitiesOtherActivities()
         {
-            try
-            {
-                Tran_2b_orgactivities_otheractivities_ViewModel vmdata = new Tran_2b_orgactivities_otheractivities_ViewModel();
-                vmdata.VAW_Year = Convert.ToInt32(DateTime.Now.Year.ToString());
-                vmdata.CvoId = "CVO_SBI";
-                vmdata.CvoOrgCode = "I61";
-                vmdata.DateOfActivity = DateTime.Now;
-                return View(vmdata);
-
-            }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            Tran_2b_orgactivities_otheractivities_ViewModel vmdata = new Tran_2b_orgactivities_otheractivities_ViewModel();
+            vmdata.VAW_Year = Convert.ToInt32(DateTime.Now.Year.ToString());
+            vmdata.CvoId = "CVO_SBI";
+            vmdata.CvoOrgCode = "I61";
+            vmdata.DateOfActivity = DateTime.Now;
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -665,47 +584,30 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult EditActivitiesOtherActivities(int ID)
         {
-            try
-            {
-                DataTable dt = integrityPledgeManager.GetActivitiesOtherActivitiesByRecordId(ID).Tables[0];
-                Tran_2b_orgactivities_otheractivities_ViewModel vmdata = new Tran_2b_orgactivities_otheractivities_ViewModel();
-                vmdata.VAW_Year = Convert.ToInt32(DateTime.Now.Year.ToString());
-                vmdata.ID = Convert.ToInt32(dt.Rows[0]["Record_ID"].ToString());
-                vmdata.CvoId = dt.Rows[0]["CvoId"].ToString();
-                vmdata.CvoOrgCode = dt.Rows[0]["CvoOrgCode"].ToString();
-                vmdata.DistributionOfPamphletsAndBanners_Details = dt.Rows[0]["DistributionOfPamphletsAndBanners_Details"].ToString();
-                vmdata.ConductOfWorkshopAndSensitizationProgram_Details = dt.Rows[0]["ConductOfWorkshopAndSensitizationProgram_Details"].ToString();
-                vmdata.IssueOfJornalAndNwesletter_Details = dt.Rows[0]["IssueOfJornalAndNwesletter_Details"].ToString();
-                vmdata.AnyOtherActivities_Details = dt.Rows[0]["AnyOtherActivities_Details"].ToString();
-                vmdata.OrganisationName = dt.Rows[0]["OrgName"].ToString();
-                vmdata.DateOfActivity = Convert.ToDateTime(dt.Rows[0]["DateOfActivity"].ToString());
-                return View(vmdata);
-
-            }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            DataTable dt = integrityPledgeManager.GetActivitiesOtherActivitiesByRecordId(ID).Tables[0];
+            Tran_2b_orgactivities_otheractivities_ViewModel vmdata = new Tran_2b_orgactivities_otheractivities_ViewModel();
+            vmdata.VAW_Year = Convert.ToInt32(DateTime.Now.Year.ToString());
+            vmdata.ID = Convert.ToInt32(dt.Rows[0]["Record_ID"].ToString());
+            vmdata.CvoId = dt.Rows[0]["CvoId"].ToString();
+            vmdata.CvoOrgCode = dt.Rows[0]["CvoOrgCode"].ToString();
+            vmdata.DistributionOfPamphletsAndBanners_Details = dt.Rows[0]["DistributionOfPamphletsAndBanners_Details"].ToString();
+            vmdata.ConductOfWorkshopAndSensitizationProgram_Details = dt.Rows[0]["ConductOfWorkshopAndSensitizationProgram_Details"].ToString();
+            vmdata.IssueOfJornalAndNwesletter_Details = dt.Rows[0]["IssueOfJornalAndNwesletter_Details"].ToString();
+            vmdata.AnyOtherActivities_Details = dt.Rows[0]["AnyOtherActivities_Details"].ToString();
+            vmdata.OrganisationName = dt.Rows[0]["OrgName"].ToString();
+            vmdata.DateOfActivity = Convert.ToDateTime(dt.Rows[0]["DateOfActivity"].ToString());
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -733,21 +635,13 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -759,37 +653,28 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateOutreachInvolvingSchoolStudents()
         {
-            try
-            {
-                Tran_3a_outreach_involvingschoolstudents_ViewModel vmdata = new Tran_3a_outreach_involvingschoolstudents_ViewModel();
-                vmdata.VAW_Year = Convert.ToInt32(DateTime.Now.Year.ToString());
-                vmdata.CvoId = "CVO_SBI";
-                vmdata.CvoOrgCode = "I61";
-                vmdata.DateOfActivity = DateTime.Now;
+            Tran_3a_outreach_involvingschoolstudents_ViewModel vmdata = new Tran_3a_outreach_involvingschoolstudents_ViewModel();
+            vmdata.VAW_Year = Convert.ToInt32(DateTime.Now.Year.ToString());
+            vmdata.CvoId = "CVO_SBI";
+            vmdata.CvoOrgCode = "I61";
+            vmdata.DateOfActivity = DateTime.Now;
 
-                vmdata.StateNameList = new List<SelectListItem>();
-                DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
-                if (StateTable.Rows.Count > 0)
+            vmdata.StateNameList = new List<SelectListItem>();
+            DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
+            if (StateTable.Rows.Count > 0)
+            {
+                var stateItemList = new List<SelectListItem>();
+                foreach (DataRow dr in StateTable.Rows)
                 {
-                    var stateItemList = new List<SelectListItem>();
-                    foreach (DataRow dr in StateTable.Rows)
+                    stateItemList.Add(new SelectListItem
                     {
-                        stateItemList.Add(new SelectListItem
-                        {
-                            Value = dr["States"].ToString(),
-                            Text = dr["States"].ToString()
-                        });
-                    }
-                    vmdata.StateNameList = stateItemList;
+                        Value = dr["States"].ToString(),
+                        Text = dr["States"].ToString()
+                    });
                 }
-                return View(vmdata);
-
+                vmdata.StateNameList = stateItemList;
             }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -822,63 +707,45 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult EditOutreachInvolvingSchoolStudents(int ID)
         {
-            try
+            DataTable outreachSchoolStudentsTable = integrityPledgeManager.GetInvolvingSchoolStudentsByRecordId(ID).Tables[0];
+            Tran_3a_outreach_involvingschoolstudents_ViewModel vmdata = new Tran_3a_outreach_involvingschoolstudents_ViewModel();
+
+            vmdata.ID = Convert.ToInt32(outreachSchoolStudentsTable.Rows[0]["Record_Id"].ToString());
+            vmdata.VAW_Year = Convert.ToInt32(outreachSchoolStudentsTable.Rows[0]["VAW_Year"].ToString());
+            vmdata.CvoId = outreachSchoolStudentsTable.Rows[0]["CvoId"].ToString();
+            vmdata.DateOfActivity = Convert.ToDateTime(outreachSchoolStudentsTable.Rows[0]["DateOfActivity"].ToString());
+            vmdata.StateName = outreachSchoolStudentsTable.Rows[0]["StateName"].ToString();
+            vmdata.City_Town_Village_Name = outreachSchoolStudentsTable.Rows[0]["City_Town_Village_Name"].ToString();
+            vmdata.SchoolName = outreachSchoolStudentsTable.Rows[0]["SchoolName"].ToString();
+            vmdata.ActivityDetails = outreachSchoolStudentsTable.Rows[0]["ActivityDetails"].ToString();
+            vmdata.NoOfStudentsInvolved = Convert.ToInt32(outreachSchoolStudentsTable.Rows[0]["NoOfStudentsInvolved"].ToString());
+
+            vmdata.StateNameList = new List<SelectListItem>();
+            DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
+            if (StateTable.Rows.Count > 0)
             {
-                DataTable outreachSchoolStudentsTable = integrityPledgeManager.GetInvolvingSchoolStudentsByRecordId(ID).Tables[0];
-                Tran_3a_outreach_involvingschoolstudents_ViewModel vmdata = new Tran_3a_outreach_involvingschoolstudents_ViewModel();
-
-                vmdata.ID = Convert.ToInt32(outreachSchoolStudentsTable.Rows[0]["Record_Id"].ToString());
-                vmdata.VAW_Year = Convert.ToInt32(outreachSchoolStudentsTable.Rows[0]["VAW_Year"].ToString());
-                vmdata.CvoId = outreachSchoolStudentsTable.Rows[0]["CvoId"].ToString();
-                vmdata.DateOfActivity = Convert.ToDateTime(outreachSchoolStudentsTable.Rows[0]["DateOfActivity"].ToString());
-                vmdata.StateName = outreachSchoolStudentsTable.Rows[0]["StateName"].ToString();
-                vmdata.City_Town_Village_Name = outreachSchoolStudentsTable.Rows[0]["City_Town_Village_Name"].ToString();
-                vmdata.SchoolName = outreachSchoolStudentsTable.Rows[0]["SchoolName"].ToString();
-                vmdata.ActivityDetails = outreachSchoolStudentsTable.Rows[0]["ActivityDetails"].ToString();
-                vmdata.NoOfStudentsInvolved = Convert.ToInt32(outreachSchoolStudentsTable.Rows[0]["NoOfStudentsInvolved"].ToString());
-
-                vmdata.StateNameList = new List<SelectListItem>();
-                DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
-                if (StateTable.Rows.Count > 0)
+                var stateItemList = new List<SelectListItem>();
+                foreach (DataRow dr in StateTable.Rows)
                 {
-                    var stateItemList = new List<SelectListItem>();
-                    foreach (DataRow dr in StateTable.Rows)
+                    stateItemList.Add(new SelectListItem
                     {
-                        stateItemList.Add(new SelectListItem
-                        {
-                            Value = dr["States"].ToString(),
-                            Text = dr["States"].ToString()
-                        });
-                    }
-                    vmdata.StateNameList = stateItemList;
+                        Value = dr["States"].ToString(),
+                        Text = dr["States"].ToString()
+                    });
                 }
-                return View(vmdata);
-
+                vmdata.StateNameList = stateItemList;
             }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -907,21 +774,12 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -931,36 +789,27 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateOutreachInvolvingCollegeStudents()
         {
-            try
+            Tran_3b_outreach_involvingcollegestudents_ViewModel vmdata = new Tran_3b_outreach_involvingcollegestudents_ViewModel();
+            vmdata.VAW_Year = DateTime.Now.Year;
+            vmdata.DateOfActivity = DateTime.Now;
+            vmdata.CvoId = "CVO_SBI";
+            vmdata.CvoOrgCode = "I61";
+            vmdata.StateNameList = new List<SelectListItem>();
+            DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
+            if (StateTable.Rows.Count > 0)
             {
-                Tran_3b_outreach_involvingcollegestudents_ViewModel vmdata = new Tran_3b_outreach_involvingcollegestudents_ViewModel();
-                vmdata.VAW_Year = DateTime.Now.Year;
-                vmdata.DateOfActivity = DateTime.Now;
-                vmdata.CvoId = "CVO_SBI";
-                vmdata.CvoOrgCode = "I61";
-                vmdata.StateNameList = new List<SelectListItem>();
-                DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
-                if (StateTable.Rows.Count > 0)
+                var stateItemList = new List<SelectListItem>();
+                foreach (DataRow dr in StateTable.Rows)
                 {
-                    var stateItemList = new List<SelectListItem>();
-                    foreach (DataRow dr in StateTable.Rows)
+                    stateItemList.Add(new SelectListItem
                     {
-                        stateItemList.Add(new SelectListItem
-                        {
-                            Value = dr["States"].ToString(),
-                            Text = dr["States"].ToString()
-                        });
-                    }
-                    vmdata.StateNameList = stateItemList;
+                        Value = dr["States"].ToString(),
+                        Text = dr["States"].ToString()
+                    });
                 }
-                return View(vmdata);
-
+                vmdata.StateNameList = stateItemList;
             }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -993,62 +842,43 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+            return RedirectToAction("Index");
         }
-
         [HttpGet]
         public ActionResult EditOutreachInvolvingCollegeStudents(int ID)
         {
-            try
+            DataTable outreachCollegeStudentsTable = integrityPledgeManager.GetInvolvingCollegeStudentsByRecordId(ID).Tables[0];
+            Tran_3b_outreach_involvingcollegestudents_ViewModel vmdata = new Tran_3b_outreach_involvingcollegestudents_ViewModel();
+            vmdata.ID = Convert.ToInt32(outreachCollegeStudentsTable.Rows[0]["Record_Id"].ToString());
+            vmdata.VAW_Year = Convert.ToInt32(outreachCollegeStudentsTable.Rows[0]["VAW_Year"].ToString());
+            vmdata.CvoId = outreachCollegeStudentsTable.Rows[0]["CvoId"].ToString();
+            vmdata.DateOfActivity = Convert.ToDateTime(outreachCollegeStudentsTable.Rows[0]["DateOfActivity"].ToString());
+            vmdata.StateName = outreachCollegeStudentsTable.Rows[0]["StateName"].ToString();
+            vmdata.City_Town_Village_Name = outreachCollegeStudentsTable.Rows[0]["City_Town_Village_Name"].ToString();
+            vmdata.SchoolName = outreachCollegeStudentsTable.Rows[0]["SchoolName"].ToString();
+            vmdata.ActivityDetails = outreachCollegeStudentsTable.Rows[0]["ActivityDetails"].ToString();
+            vmdata.NoOfStudentsInvolved = Convert.ToInt32(outreachCollegeStudentsTable.Rows[0]["NoOfStudentsInvolved"].ToString());
+            vmdata.StateNameList = new List<SelectListItem>();
+            DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
+            if (StateTable.Rows.Count > 0)
             {
-                DataTable outreachCollegeStudentsTable = integrityPledgeManager.GetInvolvingCollegeStudentsByRecordId(ID).Tables[0];
-                Tran_3b_outreach_involvingcollegestudents_ViewModel vmdata = new Tran_3b_outreach_involvingcollegestudents_ViewModel();
-                vmdata.ID = Convert.ToInt32(outreachCollegeStudentsTable.Rows[0]["Record_Id"].ToString());
-                vmdata.VAW_Year = Convert.ToInt32(outreachCollegeStudentsTable.Rows[0]["VAW_Year"].ToString());
-                vmdata.CvoId = outreachCollegeStudentsTable.Rows[0]["CvoId"].ToString();
-                vmdata.DateOfActivity = Convert.ToDateTime(outreachCollegeStudentsTable.Rows[0]["DateOfActivity"].ToString());
-                vmdata.StateName = outreachCollegeStudentsTable.Rows[0]["StateName"].ToString();
-                vmdata.City_Town_Village_Name = outreachCollegeStudentsTable.Rows[0]["City_Town_Village_Name"].ToString();
-                vmdata.SchoolName = outreachCollegeStudentsTable.Rows[0]["SchoolName"].ToString();
-                vmdata.ActivityDetails = outreachCollegeStudentsTable.Rows[0]["ActivityDetails"].ToString();
-                vmdata.NoOfStudentsInvolved = Convert.ToInt32(outreachCollegeStudentsTable.Rows[0]["NoOfStudentsInvolved"].ToString());
-                vmdata.StateNameList = new List<SelectListItem>();
-                DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
-                if (StateTable.Rows.Count > 0)
+                var stateItemList = new List<SelectListItem>();
+                foreach (DataRow dr in StateTable.Rows)
                 {
-                    var stateItemList = new List<SelectListItem>();
-                    foreach (DataRow dr in StateTable.Rows)
+                    stateItemList.Add(new SelectListItem
                     {
-                        stateItemList.Add(new SelectListItem
-                        {
-                            Value = dr["States"].ToString(),
-                            Text = dr["States"].ToString()
-                        });
-                    }
-                    vmdata.StateNameList = stateItemList;
+                        Value = dr["States"].ToString(),
+                        Text = dr["States"].ToString()
+                    });
                 }
-                return View(vmdata);
-
+                vmdata.StateNameList = stateItemList;
             }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -1077,21 +907,12 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -1100,36 +921,27 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateOutreachAwarenessGramSabhas()
         {
-            try
+            Tran_3c_outreach_awarenessgramsabhas_ViewModel vmdata = new Tran_3c_outreach_awarenessgramsabhas_ViewModel();
+            vmdata.VAW_Year = DateTime.Now.Year;
+            vmdata.DateOfActivity = DateTime.Now;
+            vmdata.CvoId = "CVO_SBI";
+            vmdata.CvoOrgCode = "I61";
+            vmdata.StateNameList = new List<SelectListItem>();
+            DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
+            if (StateTable.Rows.Count > 0)
             {
-                Tran_3c_outreach_awarenessgramsabhas_ViewModel vmdata = new Tran_3c_outreach_awarenessgramsabhas_ViewModel();
-                vmdata.VAW_Year = DateTime.Now.Year;
-                vmdata.DateOfActivity = DateTime.Now;
-                vmdata.CvoId = "CVO_SBI";
-                vmdata.CvoOrgCode = "I61";
-                vmdata.StateNameList = new List<SelectListItem>();
-                DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
-                if (StateTable.Rows.Count > 0)
+                var stateItemList = new List<SelectListItem>();
+                foreach (DataRow dr in StateTable.Rows)
                 {
-                    var stateItemList = new List<SelectListItem>();
-                    foreach (DataRow dr in StateTable.Rows)
+                    stateItemList.Add(new SelectListItem
                     {
-                        stateItemList.Add(new SelectListItem
-                        {
-                            Value = dr["States"].ToString(),
-                            Text = dr["States"].ToString()
-                        });
-                    }
-                    vmdata.StateNameList = stateItemList;
+                        Value = dr["States"].ToString(),
+                        Text = dr["States"].ToString()
+                    });
                 }
-                return View(vmdata);
-
+                vmdata.StateNameList = stateItemList;
             }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -1162,61 +974,43 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult EditOutreachAwarenessGramSabhas(int ID)
         {
-            try
+            DataTable outreachAwarenessTable = integrityPledgeManager.GetOutreachAwarenessByRecordId(ID).Tables[0];
+            Tran_3c_outreach_awarenessgramsabhas_ViewModel vmdata = new Tran_3c_outreach_awarenessgramsabhas_ViewModel();
+            vmdata.ID = Convert.ToInt32(outreachAwarenessTable.Rows[0]["Record_Id"].ToString());
+            vmdata.VAW_Year = Convert.ToInt32(outreachAwarenessTable.Rows[0]["VAW_Year"].ToString());
+            vmdata.CvoId = outreachAwarenessTable.Rows[0]["CvoId"].ToString();
+            vmdata.DateOfActivity = Convert.ToDateTime(outreachAwarenessTable.Rows[0]["DateOfActivity"].ToString());
+            vmdata.StateName = outreachAwarenessTable.Rows[0]["StateName"].ToString();
+            vmdata.City_Town_Village_Name = outreachAwarenessTable.Rows[0]["City_Town_Village_Name"].ToString();
+            vmdata.NameOfGramPanchayat = outreachAwarenessTable.Rows[0]["NameOfGramPanchayat"].ToString();
+            vmdata.ActivityDetails = outreachAwarenessTable.Rows[0]["ActivityDetails"].ToString();
+            vmdata.NoOfPublicOrCitizenParticipated = Convert.ToInt32(outreachAwarenessTable.Rows[0]["NoOfPublicOrCitizenParticipated"].ToString());
+            vmdata.StateNameList = new List<SelectListItem>();
+            DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
+            if (StateTable.Rows.Count > 0)
             {
-                DataTable outreachAwarenessTable = integrityPledgeManager.GetOutreachAwarenessByRecordId(ID).Tables[0];
-                Tran_3c_outreach_awarenessgramsabhas_ViewModel vmdata = new Tran_3c_outreach_awarenessgramsabhas_ViewModel();
-                vmdata.ID = Convert.ToInt32(outreachAwarenessTable.Rows[0]["Record_Id"].ToString());
-                vmdata.VAW_Year = Convert.ToInt32(outreachAwarenessTable.Rows[0]["VAW_Year"].ToString());
-                vmdata.CvoId = outreachAwarenessTable.Rows[0]["CvoId"].ToString();
-                vmdata.DateOfActivity = Convert.ToDateTime(outreachAwarenessTable.Rows[0]["DateOfActivity"].ToString());
-                vmdata.StateName = outreachAwarenessTable.Rows[0]["StateName"].ToString();
-                vmdata.City_Town_Village_Name = outreachAwarenessTable.Rows[0]["City_Town_Village_Name"].ToString();
-                vmdata.NameOfGramPanchayat = outreachAwarenessTable.Rows[0]["NameOfGramPanchayat"].ToString();
-                vmdata.ActivityDetails = outreachAwarenessTable.Rows[0]["ActivityDetails"].ToString();
-                vmdata.NoOfPublicOrCitizenParticipated = Convert.ToInt32(outreachAwarenessTable.Rows[0]["NoOfPublicOrCitizenParticipated"].ToString());
-                vmdata.StateNameList = new List<SelectListItem>();
-                DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
-                if (StateTable.Rows.Count > 0)
+                var stateItemList = new List<SelectListItem>();
+                foreach (DataRow dr in StateTable.Rows)
                 {
-                    var stateItemList = new List<SelectListItem>();
-                    foreach (DataRow dr in StateTable.Rows)
+                    stateItemList.Add(new SelectListItem
                     {
-                        stateItemList.Add(new SelectListItem
-                        {
-                            Value = dr["States"].ToString(),
-                            Text = dr["States"].ToString()
-                        });
-                    }
-                    vmdata.StateNameList = stateItemList;
+                        Value = dr["States"].ToString(),
+                        Text = dr["States"].ToString()
+                    });
                 }
-                return View(vmdata);
-
+                vmdata.StateNameList = stateItemList;
             }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -1245,21 +1039,12 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -1268,36 +1053,27 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateOutreachSeminars()
         {
-            try
+            Tran_3d_outreach_seminarsworkshops_ViewModel vmdata = new Tran_3d_outreach_seminarsworkshops_ViewModel();
+            vmdata.VAW_Year = DateTime.Now.Year;
+            vmdata.DateOfActivity = DateTime.Now;
+            vmdata.CvoId = "CVO_SBI";
+            vmdata.CvoOrgCode = "I61";
+            vmdata.StateNameList = new List<SelectListItem>();
+            DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
+            if (StateTable.Rows.Count > 0)
             {
-                Tran_3d_outreach_seminarsworkshops_ViewModel vmdata = new Tran_3d_outreach_seminarsworkshops_ViewModel();
-                vmdata.VAW_Year = DateTime.Now.Year;
-                vmdata.DateOfActivity = DateTime.Now;
-                vmdata.CvoId = "CVO_SBI";
-                vmdata.CvoOrgCode = "I61";
-                vmdata.StateNameList = new List<SelectListItem>();
-                DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
-                if (StateTable.Rows.Count > 0)
+                var stateItemList = new List<SelectListItem>();
+                foreach (DataRow dr in StateTable.Rows)
                 {
-                    var stateItemList = new List<SelectListItem>();
-                    foreach (DataRow dr in StateTable.Rows)
+                    stateItemList.Add(new SelectListItem
                     {
-                        stateItemList.Add(new SelectListItem
-                        {
-                            Value = dr["States"].ToString(),
-                            Text = dr["States"].ToString()
-                        });
-                    }
-                    vmdata.StateNameList = stateItemList;
+                        Value = dr["States"].ToString(),
+                        Text = dr["States"].ToString()
+                    });
                 }
-                return View(vmdata);
-
+                vmdata.StateNameList = stateItemList;
             }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -1331,62 +1107,43 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+            return RedirectToAction("Index");
         }
-
         [HttpGet]
         public ActionResult EditOutreachSeminars(int ID)
         {
-            try
+            DataTable seminarsWorkshopsTable = integrityPledgeManager.GetSeminarsWorkshopsByRecordId(ID).Tables[0];
+            Tran_3d_outreach_seminarsworkshops_ViewModel vmdata = new Tran_3d_outreach_seminarsworkshops_ViewModel();
+            vmdata.ID = Convert.ToInt32(seminarsWorkshopsTable.Rows[0]["Record_Id"].ToString());
+            vmdata.VAW_Year = Convert.ToInt32(seminarsWorkshopsTable.Rows[0]["VAW_Year"].ToString());
+            vmdata.CvoId = seminarsWorkshopsTable.Rows[0]["CvoId"].ToString();
+            vmdata.DateOfActivity = Convert.ToDateTime(seminarsWorkshopsTable.Rows[0]["DateOfActivity"].ToString());
+            vmdata.StateName = seminarsWorkshopsTable.Rows[0]["StateName"].ToString();
+            vmdata.City_Town_Village_Name = seminarsWorkshopsTable.Rows[0]["City_Town_Village_Name"].ToString();
+            vmdata.NoOfSeminarsWorkshops = Convert.ToInt32(seminarsWorkshopsTable.Rows[0]["NoOfSeminarsWorkshops"].ToString());
+            vmdata.ActivityDetails = seminarsWorkshopsTable.Rows[0]["ActivityDetails"].ToString();
+            vmdata.NoOfPublicOrCitizenParticipated = Convert.ToInt32(seminarsWorkshopsTable.Rows[0]["NoOfPublicOrCitizenParticipated"].ToString());
+            vmdata.StateNameList = new List<SelectListItem>();
+            DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
+            if (StateTable.Rows.Count > 0)
             {
-                DataTable seminarsWorkshopsTable = integrityPledgeManager.GetSeminarsWorkshopsByRecordId(ID).Tables[0];
-                Tran_3d_outreach_seminarsworkshops_ViewModel vmdata = new Tran_3d_outreach_seminarsworkshops_ViewModel();
-                vmdata.ID = Convert.ToInt32(seminarsWorkshopsTable.Rows[0]["Record_Id"].ToString());
-                vmdata.VAW_Year = Convert.ToInt32(seminarsWorkshopsTable.Rows[0]["VAW_Year"].ToString());
-                vmdata.CvoId = seminarsWorkshopsTable.Rows[0]["CvoId"].ToString();
-                vmdata.DateOfActivity = Convert.ToDateTime(seminarsWorkshopsTable.Rows[0]["DateOfActivity"].ToString());
-                vmdata.StateName = seminarsWorkshopsTable.Rows[0]["StateName"].ToString();
-                vmdata.City_Town_Village_Name = seminarsWorkshopsTable.Rows[0]["City_Town_Village_Name"].ToString();
-                vmdata.NoOfSeminarsWorkshops = Convert.ToInt32(seminarsWorkshopsTable.Rows[0]["NoOfSeminarsWorkshops"].ToString());
-                vmdata.ActivityDetails = seminarsWorkshopsTable.Rows[0]["ActivityDetails"].ToString();
-                vmdata.NoOfPublicOrCitizenParticipated = Convert.ToInt32(seminarsWorkshopsTable.Rows[0]["NoOfPublicOrCitizenParticipated"].ToString());
-                vmdata.StateNameList = new List<SelectListItem>();
-                DataTable StateTable = integrityPledgeManager.GetStateList().Tables[0];
-                if (StateTable.Rows.Count > 0)
+                var stateItemList = new List<SelectListItem>();
+                foreach (DataRow dr in StateTable.Rows)
                 {
-                    var stateItemList = new List<SelectListItem>();
-                    foreach (DataRow dr in StateTable.Rows)
+                    stateItemList.Add(new SelectListItem
                     {
-                        stateItemList.Add(new SelectListItem
-                        {
-                            Value = dr["States"].ToString(),
-                            Text = dr["States"].ToString()
-                        });
-                    }
-                    vmdata.StateNameList = stateItemList;
+                        Value = dr["States"].ToString(),
+                        Text = dr["States"].ToString()
+                    });
                 }
-                return View(vmdata);
-
+                vmdata.StateNameList = stateItemList;
             }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -1416,21 +1173,12 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+            return RedirectToAction("Index");
         }
         #endregion
 
@@ -1442,22 +1190,13 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateOtherActivities()
         {
-            try
-            {
-                Tran_4_otheractivities_ViewModel vmdata = new Tran_4_otheractivities_ViewModel();
-                vmdata.VAW_Year = DateTime.Now.Year;
-                vmdata.DateOfActivity = DateTime.Now;
-                vmdata.CvoId = "CVO_SBI";
-                vmdata.CvoOrgCode = "I61";
+            Tran_4_otheractivities_ViewModel vmdata = new Tran_4_otheractivities_ViewModel();
+            vmdata.VAW_Year = DateTime.Now.Year;
+            vmdata.DateOfActivity = DateTime.Now;
+            vmdata.CvoId = "CVO_SBI";
+            vmdata.CvoOrgCode = "I61";
 
-                return View(vmdata);
-
-            }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -1488,45 +1227,27 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
         public ActionResult EditOtherActivities(int ID)
         {
-            try
-            {
-                DataTable otherActivitiesTable = integrityPledgeManager.GetOtherActivitiesByRecordId(ID).Tables[0];
-                Tran_4_otheractivities_ViewModel vmdata = new Tran_4_otheractivities_ViewModel();
-                vmdata.ID = Convert.ToInt32(otherActivitiesTable.Rows[0]["Record_Id"].ToString());
-                vmdata.VAW_Year = Convert.ToInt32(otherActivitiesTable.Rows[0]["VAW_Year"].ToString());
-                vmdata.CvoId = otherActivitiesTable.Rows[0]["CvoId"].ToString();
-                vmdata.DateOfActivity = Convert.ToDateTime(otherActivitiesTable.Rows[0]["DateOfActivity"].ToString());
-                vmdata.DisplayOfBannerPosterDetails = otherActivitiesTable.Rows[0]["DisplayOfBannerPosterDetails"].ToString();
-                vmdata.NoOfGrievanceRedressalCampsHeld = Convert.ToInt32(otherActivitiesTable.Rows[0]["NoOfGrievanceRedressalCampsHeld"].ToString());
-                vmdata.UserOfScocialMedia = otherActivitiesTable.Rows[0]["UserOfScocialMedia"].ToString();
-                return View(vmdata);
-
-            }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            DataTable otherActivitiesTable = integrityPledgeManager.GetOtherActivitiesByRecordId(ID).Tables[0];
+            Tran_4_otheractivities_ViewModel vmdata = new Tran_4_otheractivities_ViewModel();
+            vmdata.ID = Convert.ToInt32(otherActivitiesTable.Rows[0]["Record_Id"].ToString());
+            vmdata.VAW_Year = Convert.ToInt32(otherActivitiesTable.Rows[0]["VAW_Year"].ToString());
+            vmdata.CvoId = otherActivitiesTable.Rows[0]["CvoId"].ToString();
+            vmdata.DateOfActivity = Convert.ToDateTime(otherActivitiesTable.Rows[0]["DateOfActivity"].ToString());
+            vmdata.DisplayOfBannerPosterDetails = otherActivitiesTable.Rows[0]["DisplayOfBannerPosterDetails"].ToString();
+            vmdata.NoOfGrievanceRedressalCampsHeld = Convert.ToInt32(otherActivitiesTable.Rows[0]["NoOfGrievanceRedressalCampsHeld"].ToString());
+            vmdata.UserOfScocialMedia = otherActivitiesTable.Rows[0]["UserOfScocialMedia"].ToString();
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -1553,21 +1274,12 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -1578,21 +1290,12 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateDetailsOfPhotos()
         {
-            try
-            {
-                Tran_5_detailsofphotos_ViewModel vmdata = new Tran_5_detailsofphotos_ViewModel();
-                vmdata.VAW_Year = DateTime.Now.Year;
-                vmdata.DateOfActivity = DateTime.Now;
-                vmdata.CvoId = "CVO_SBI";
-                vmdata.CvoOrgCode = "I61";
-                return View(vmdata);
-
-            }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            Tran_5_detailsofphotos_ViewModel vmdata = new Tran_5_detailsofphotos_ViewModel();
+            vmdata.VAW_Year = DateTime.Now.Year;
+            vmdata.DateOfActivity = DateTime.Now;
+            vmdata.CvoId = "CVO_SBI";
+            vmdata.CvoOrgCode = "I61";
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -1625,46 +1328,28 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
         public ActionResult EditDetailsOfPhotos(int ID)
         {
-            try
-            {
-                DataTable PhotosTable = integrityPledgeManager.GetDetailsOfPhotosByRecordId(ID).Tables[0];
-                Tran_5_detailsofphotos_ViewModel vmdata = new Tran_5_detailsofphotos_ViewModel();
-                vmdata.ID = Convert.ToInt32(PhotosTable.Rows[0]["Record_Id"].ToString());
-                vmdata.VAW_Year = Convert.ToInt32(PhotosTable.Rows[0]["VAW_Year"].ToString());
-                vmdata.CvoId = PhotosTable.Rows[0]["CvoId"].ToString();
-                vmdata.DateOfActivity = Convert.ToDateTime(PhotosTable.Rows[0]["DateOfActivity"].ToString());
-                vmdata.NameOfActivity = PhotosTable.Rows[0]["NameOfActivity"].ToString();
-                vmdata.NoOfPhotos = Convert.ToInt32(PhotosTable.Rows[0]["NoOfPhotos"].ToString());
-                vmdata.WhetherPhotosSentAsSoftCopyOrHardCopy = PhotosTable.Rows[0]["WhetherPhotosSentAsSoftCopyOrHardCopy"].ToString();
-                vmdata.SoftCopy_NoOfCd = Convert.ToInt32(PhotosTable.Rows[0]["SoftCopy_NoOfCd"].ToString());
-                return View(vmdata);
-
-            }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            DataTable PhotosTable = integrityPledgeManager.GetDetailsOfPhotosByRecordId(ID).Tables[0];
+            Tran_5_detailsofphotos_ViewModel vmdata = new Tran_5_detailsofphotos_ViewModel();
+            vmdata.ID = Convert.ToInt32(PhotosTable.Rows[0]["Record_Id"].ToString());
+            vmdata.VAW_Year = Convert.ToInt32(PhotosTable.Rows[0]["VAW_Year"].ToString());
+            vmdata.CvoId = PhotosTable.Rows[0]["CvoId"].ToString();
+            vmdata.DateOfActivity = Convert.ToDateTime(PhotosTable.Rows[0]["DateOfActivity"].ToString());
+            vmdata.NameOfActivity = PhotosTable.Rows[0]["NameOfActivity"].ToString();
+            vmdata.NoOfPhotos = Convert.ToInt32(PhotosTable.Rows[0]["NoOfPhotos"].ToString());
+            vmdata.WhetherPhotosSentAsSoftCopyOrHardCopy = PhotosTable.Rows[0]["WhetherPhotosSentAsSoftCopyOrHardCopy"].ToString();
+            vmdata.SoftCopy_NoOfCd = Convert.ToInt32(PhotosTable.Rows[0]["SoftCopy_NoOfCd"].ToString());
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -1693,21 +1378,12 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -1718,21 +1394,12 @@ namespace VAW_WebApplication.Controllers
         [HttpGet]
         public ActionResult CreateAnyOtherRelevantInformation()
         {
-            try
-            {
-                Tran_6_otherinformation_ViewModel vmdata = new Tran_6_otherinformation_ViewModel();
-                vmdata.VAW_Year = DateTime.Now.Year.ToString();
-                vmdata.CvoId = "CVO_SBI";
-                vmdata.CvoOrgCode = "I61";
-                vmdata.DateOfActivity = DateTime.Now;
-                return View(vmdata);
-
-            }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            Tran_6_otherinformation_ViewModel vmdata = new Tran_6_otherinformation_ViewModel();
+            vmdata.VAW_Year = DateTime.Now.Year.ToString();
+            vmdata.CvoId = "CVO_SBI";
+            vmdata.CvoOrgCode = "I61";
+            vmdata.DateOfActivity = DateTime.Now;
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -1761,43 +1428,26 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+
+            return View();
         }
 
         [HttpGet]
         public ActionResult EditAnyOtherRelevantInformation(int ID)
         {
-            try
-            {
-                Tran_6_otherinformation_ViewModel vmdata = new Tran_6_otherinformation_ViewModel();
-                DataTable otherActivitiesTable = integrityPledgeManager.GetOtherRelevantInformationByRecordId(ID).Tables[0];
-                vmdata.ID = Convert.ToInt32(otherActivitiesTable.Rows[0]["Record_Id"].ToString());
-                vmdata.VAW_Year = otherActivitiesTable.Rows[0]["VAW_Year"].ToString();
-                vmdata.CvoId = otherActivitiesTable.Rows[0]["CvoId"].ToString();
-                vmdata.DateOfActivity = Convert.ToDateTime(otherActivitiesTable.Rows[0]["DateOfActivity"].ToString());
-                vmdata.DetailsOfActivity = otherActivitiesTable.Rows[0]["DetailsOfActivity"].ToString();
-                return View(vmdata);
-
-            }
-            catch (Exception ex)
-            {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
-            }
+            Tran_6_otherinformation_ViewModel vmdata = new Tran_6_otherinformation_ViewModel();
+            DataTable otherActivitiesTable = integrityPledgeManager.GetOtherRelevantInformationByRecordId(ID).Tables[0];
+            vmdata.ID = Convert.ToInt32(otherActivitiesTable.Rows[0]["Record_Id"].ToString());
+            vmdata.VAW_Year = otherActivitiesTable.Rows[0]["VAW_Year"].ToString();
+            vmdata.CvoId = otherActivitiesTable.Rows[0]["CvoId"].ToString();
+            vmdata.DateOfActivity = Convert.ToDateTime(otherActivitiesTable.Rows[0]["DateOfActivity"].ToString());
+            vmdata.DetailsOfActivity = otherActivitiesTable.Rows[0]["DetailsOfActivity"].ToString();
+            return View(vmdata);
         }
 
         [HttpPost]
@@ -1822,21 +1472,13 @@ namespace VAW_WebApplication.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return PartialView("Error");
-                    }
-                }
-                else
-                {
-                    return View(VmData);
                 }
             }
             catch (Exception ex)
             {
-                errorlog.WriteErrorLog(ex);
-                return PartialView("Error");
             }
+
+            return View();
         }
 
         #endregion

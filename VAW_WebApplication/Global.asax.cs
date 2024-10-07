@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,5 +17,15 @@ namespace VAW_WebApplication
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        protected void Application_Error()
+        {
+            Exception exception = Server.GetLastError();
+            Response.Clear();
+            Server.ClearError();
+            // Log the exception (optional)
+            // Redirect to the NotFound page
+            Response.Redirect("/Error/NotFound");
+        }
+
     }
 }

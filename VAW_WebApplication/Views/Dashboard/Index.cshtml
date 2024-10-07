@@ -1,8 +1,15 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_Users.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Welcome @@User</h2>
+<div class="row" style="margin-top:150px;">
+    <div class="offset-1 col-4 link-button" style="height:150px; padding:50px;">
+        <a href="@Url.Action("Index", "ViewVigilanceAwareness")"  >Preventive Vigilance Activities</a>
+    </div>
+    <div class="offset-1 col-4 link-button" style="height:150px; padding:50px;">
+        <a href="@Url.Action("Index", "ViewIntegrityPledge")"  >Activity Report Format</a>
+    </div>
+</div>
 

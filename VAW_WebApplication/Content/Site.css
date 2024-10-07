@@ -1,13 +1,96 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
-
-/* Set padding to keep content from hitting the edges */
+﻿/* Set padding to keep content from hitting the edges */
 .body-content {
+    margin-top: 15px;
     padding-left: 15px;
     padding-right: 15px;
 }
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    height: 100%;
+    padding: 48px 0 0; /* 48px offset for navbar */
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#wrapper {
+    display: flex;
+    width: 100%;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: 0px;
+    transition: margin 0.25s ease;
+}
+
+    #sidebar-wrapper.toggled {
+        margin-left: 0;
+    }
+
+#page-content-wrapper {
+    width: 100%;
+}
+
+.list-group-item {
+    cursor: pointer;
+}
+
+.sidebar-heading {
+    padding: 15px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.link-button {
+    display: inline-block; /* Allows the div to be treated like a button */
+    background-color: #0094ff; /* Button background color */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Spacing inside the button */
+    text-align: center; /* Center the text */
+    transition: background-color 0.3s; /* Smooth background color transition */
+   
+}
+
+    .link-button a {
+        color: white; /* Text color */
+        text-decoration: none; /* Remove underline */
+        font-weight: bold; /* Bold text */
+        font-size:larger
+    }
+
+    .link-button:hover {
+        background-color: #0056b3; /* Darker shade on hover */
+    }
+
+
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -56,6 +139,7 @@ textarea {
     resize: vertical; /* Allow vertical resizing only */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
+
     .textarea-custom-h-50:focus {
         border-color: #0056b3; /* Change border color on focus */
         outline: none; /* Remove default outline */
@@ -64,10 +148,10 @@ textarea {
 
 
 
-    @page {
-        size: 8.5in 11in;
-        margin: 1.5cm;
-    }
+@page {
+    size: 8.5in 11in;
+    margin: 1.5cm;
+}
 
 @page {
     counter-increment: page;
@@ -197,6 +281,7 @@ tfoot {
 .no-footer {
     margin-bottom: 8px !important;
 }
+
 @media print {
     table, th, td {
         border: 1px solid black; /* Set border for table, th, and td */
@@ -212,4 +297,5 @@ tfoot {
     }
 }
 /* styles.css */
+
 

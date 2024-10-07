@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,7 +9,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B2C925FE-C2E5-4007-8369-ED1AF4B4AB97}</ProjectGuid>
+    <ProjectGuid>{E7F43526-1287-40E1-A648-5446A98A638F}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -18,7 +19,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44381</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -48,37 +49,7 @@
     <Reference Include="ASPSnippets.Captcha">
       <HintPath>..\ASPSnippets.Captcha.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.4\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.4\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.4\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
-      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -145,6 +116,51 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.4\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.4\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.4\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.2.2\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.2.2\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.2.2\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.2.2\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.2.2\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.2.2\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -152,18 +168,38 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Common\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\ViewIntegrityPledgeController.cs" />
     <Compile Include="Controllers\ViewVigilanceAwarenessController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Models\IdentityConfig.cs" />
-    <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Migrations\202409300939317_InitialCreate.cs" />
+    <Compile Include="Migrations\202409300939317_InitialCreate.Designer.cs">
+      <DependentUpon>202409300939317_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410011156074_Birthdate.cs" />
+    <Compile Include="Migrations\202410011156074_Birthdate.Designer.cs">
+      <DependentUpon>202410011156074_Birthdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410030550149_Seeddata.cs" />
+    <Compile Include="Migrations\202410030550149_Seeddata.Designer.cs">
+      <DependentUpon>202410030550149_Seeddata.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Tran_1a_integritypledge_ViewModel.cs" />
     <Compile Include="Models\Tran_2a_orgactivities_conductofcompetitions_ViewModel.cs" />
     <Compile Include="Models\Tran_2b_orgactivities_otheractivities_ViewModel.cs" />
@@ -179,10 +215,10 @@
     <Compile Include="Models\Tran_a_3b_updation_circular_guidelines_manuals_ViewModel.cs" />
     <Compile Include="Models\Tran_a_4b_disposalofcomplaints_ViewModel.cs" />
     <Compile Include="Models\Tran_a_5b_dynamicdigitalpresence_ViewModel.cs" />
-    <Compile Include="Models\VerifyOTPViewModel.cs" />
     <Compile Include="Models\ViewIntegrityPledgeViewModel.cs" />
     <Compile Include="Models\ViewVigilanceAwarenessViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="Util\PDFUtil.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -249,6 +285,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\toastr\toastr.min.css" />
+    <Content Include="ErrorLogFiles\CVCErrorLog_17-09-2024.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -259,44 +296,29 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.5.1.min.map" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
+    <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\datepicker\bootstrap-datepicker.min.js" />
-    <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.css.map" />
-    <Content Include="Content\bootstrap-utilities.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
-    <Content Include="Content\bootstrap.rtl.css.map" />
-    <Content Include="Content\bootstrap.rtl.min.css.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.esm.js.map" />
-    <Content Include="Scripts\bootstrap.esm.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
-    <Content Include="Scripts\jquery-3.5.1.min.map" />
-    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
     <Content Include="Scripts\jquery-3.5.1.slim.js" />
     <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.7.0.js" />
+    <Content Include="Scripts\jquery-3.7.0.min.js" />
+    <Content Include="Scripts\jquery-3.7.0.slim.js" />
+    <Content Include="Scripts\jquery-3.7.0.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.11.3.js" />
     <Content Include="Scripts\jquery-ui-1.11.3.min.js" />
     <Content Include="Scripts\jquery-ui.js" />
@@ -324,64 +346,105 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\_Layout_Users.cshtml" />
-    <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\ViewVigilanceAwareness\Index.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\Index.cshtml" />
-    <Content Include="Views\ViewVigilanceAwareness\CreateCapacityBuilding.cshtml" />
-    <Content Include="Views\ViewVigilanceAwareness\CreateIdentificationAndImplementation.cshtml" />
-    <Content Include="Views\ViewVigilanceAwareness\CreateUpdationOfCirculars.cshtml" />
-    <Content Include="Views\ViewVigilanceAwareness\CreateDigitalDynamicPresence.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\CreateConductOfCompetitions.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\CreateActivitiesOtherActivities.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\CreateOutreachInvolvingSchoolStudents.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\CreateOutreachInvolvingCollegeStudents.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\CreateOutreachAwarenessGramSabhas.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\CreateOutreachSeminars.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\CreateOtherActivities.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\CreateDetailsOfPhotos.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\CreateAnyOtherRelevantInformation.cshtml" />
-    <Content Include="Views\ViewVigilanceAwareness\CreateDisposalOfComplaints.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\CreateIntegrityPledge.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\UploadPDF.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\ViewVigilanceAwareness.cshtml" />
     <Content Include="Views\Admin\ViewIntegrityPledge.cshtml" />
-    <Content Include="Views\ViewVigilanceAwareness\EditCapacityBuilding.cshtml" />
-    <Content Include="Views\ViewVigilanceAwareness\EditIdentificationAndImplementation.cshtml" />
-    <Content Include="Views\ViewVigilanceAwareness\EditUpdationOfCirculars.cshtml" />
-    <Content Include="Views\ViewVigilanceAwareness\EditDisposalOfComplaints.cshtml" />
-    <Content Include="Views\ViewVigilanceAwareness\EditDigitalDynamicPresence.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\EditIntegrityPledge.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\EditConductOfCompetitions.cshtml" />
+    <Content Include="Views\Admin\ViewVigilanceAwareness.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\CreateActivitiesOtherActivities.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\CreateAnyOtherRelevantInformation.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\CreateConductOfCompetitions.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\CreateDetailsOfPhotos.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\CreateIntegrityPledge.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\CreateOtherActivities.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\CreateOutreachAwarenessGramSabhas.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\CreateOutreachInvolvingCollegeStudents.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\CreateOutreachInvolvingSchoolStudents.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\CreateOutreachSeminars.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\EditActivitiesOtherActivities.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\EditAnyOtherRelevantInformation.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\EditConductOfCompetitions.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\EditDetailsOfPhotos.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\EditIntegrityPledge.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\EditOtherActivities.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\EditOutreachInvolvingSchoolStudents.cshtml" />
-    <Content Include="Views\ViewIntegrityPledge\EditOutreachInvolvingCollegeStudents.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\EditOutreachAwarenessGramSabhas.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\EditOutreachInvolvingCollegeStudents.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\EditOutreachInvolvingSchoolStudents.cshtml" />
     <Content Include="Views\ViewIntegrityPledge\EditOutreachSeminars.cshtml" />
-    <Content Include="Views\Home\VerifyOTP.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\Index.cshtml" />
+    <Content Include="Views\ViewIntegrityPledge\UploadPDF.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\CreateCapacityBuilding.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\CreateDigitalDynamicPresence.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\CreateDisposalOfComplaints.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\CreateIdentificationAndImplementation.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\CreateUpdationOfCirculars.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\EditCapacityBuilding.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\EditDigitalDynamicPresence.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\EditDisposalOfComplaints.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\EditIdentificationAndImplementation.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\EditUpdationOfCirculars.cshtml" />
+    <Content Include="Views\ViewVigilanceAwareness\Index.cshtml" />
+    <Content Include="Views\SuperAdmin\Index.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Account\Denied.cshtml" />
+    <Content Include="Views\SuperAdmin\Register.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\SuperAdmin\UserRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Documents\" />
-    <Folder Include="ErrorLogFiles\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\bootstrap.rtl.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Content\bootstrap-utilities.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="packages.config" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\bootstrap.esm.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\jquery-3.7.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.7.0.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VAW_BusinessAccessLayer\VAW_BusinessAccessLayer.csproj">
-      <Project>{07DA2DB7-38B8-4754-A924-FD2459DC5589}</Project>
+      <Project>{07da2db7-38b8-4754-a924-fd2459dc5589}</Project>
       <Name>VAW_BusinessAccessLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VAW_DataAccessLayer\VAW_DataAccessLayer.csproj">
-      <Project>{4CAC3B17-EA22-42C5-AC2A-BCF5EAC29EA9}</Project>
-      <Name>VAW_DataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\VAW_Models\VAW_Models.csproj">
       <Project>{47625145-9751-41bb-8b9c-3150476bc94d}</Project>
@@ -391,6 +454,17 @@
       <Project>{0495c603-f0bd-48e1-8676-cb22cb2657ad}</Project>
       <Name>VAW_Utility</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202409300939317_InitialCreate.resx">
+      <DependentUpon>202409300939317_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410011156074_Birthdate.resx">
+      <DependentUpon>202410011156074_Birthdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410030550149_Seeddata.resx">
+      <DependentUpon>202410030550149_Seeddata.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -408,9 +482,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52144</DevelopmentServerPort>
+          <DevelopmentServerPort>54719</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52144/</IISUrl>
+          <IISUrl>https://localhost:44381/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -424,8 +498,11 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

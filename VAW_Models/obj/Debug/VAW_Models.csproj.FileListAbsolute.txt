@@ -16,3 +16,9 @@ G:\Atul kumar\VAW_Application\VAW_Application\VAW_Models\obj\Debug\VAW_Models.cs
 G:\Atul kumar\VAW_Application\VAW_Application\VAW_Models\obj\Debug\VAW_Models.csproj.CoreCompileInputs.cache
 G:\Atul kumar\VAW_Application\VAW_Application\VAW_Models\obj\Debug\VAW_Models.dll
 G:\Atul kumar\VAW_Application\VAW_Application\VAW_Models\obj\Debug\VAW_Models.pdb
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Models\bin\Debug\VAW_Models.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Models\bin\Debug\VAW_Models.pdb
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Models\obj\Debug\VAW_Models.csproj.AssemblyReference.cache
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Models\obj\Debug\VAW_Models.csproj.CoreCompileInputs.cache
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Models\obj\Debug\VAW_Models.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Models\obj\Debug\VAW_Models.pdb

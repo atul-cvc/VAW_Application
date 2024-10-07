@@ -118,3 +118,43 @@ G:\Atul kumar\VAW_Application\VAW_Application\VAW_Utility\obj\Debug\VAW_Utility.
 G:\Atul kumar\VAW_Application\VAW_Application\VAW_Utility\obj\Debug\VAW_Util.D01A4A9F.Up2Date
 G:\Atul kumar\VAW_Application\VAW_Application\VAW_Utility\obj\Debug\VAW_Utility.dll
 G:\Atul kumar\VAW_Application\VAW_Application\VAW_Utility\obj\Debug\VAW_Utility.pdb
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\VAW_Utility.dll.config
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\VAW_Utility.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\VAW_Utility.pdb
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\BouncyCastle.Cryptography.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\Google.Protobuf.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\K4os.Compression.LZ4.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\K4os.Compression.LZ4.Streams.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\K4os.Hash.xxHash.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\MySql.Data.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.Buffers.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.Configuration.ConfigurationManager.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.IO.Pipelines.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.Memory.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.Numerics.Vectors.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.Threading.Tasks.Extensions.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\ZstdSharp.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\BouncyCastle.Cryptography.xml
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\Google.Protobuf.pdb
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\Google.Protobuf.xml
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\K4os.Compression.LZ4.xml
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\K4os.Compression.LZ4.Streams.xml
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\K4os.Hash.xxHash.xml
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\MySql.Data.xml
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.Buffers.xml
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.Configuration.ConfigurationManager.xml
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.IO.Pipelines.xml
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.Memory.xml
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.Numerics.Vectors.xml
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\bin\Debug\System.Threading.Tasks.Extensions.xml
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\obj\Debug\VAW_Utility.csproj.AssemblyReference.cache
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\obj\Debug\VAW_Utility.csproj.CoreCompileInputs.cache
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\obj\Debug\VAW_Util.D01A4A9F.Up2Date
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\obj\Debug\VAW_Utility.dll
+F:\VAW_Application\AuthProcess\VAW_Application\VAW_Utility\obj\Debug\VAW_Utility.pdb

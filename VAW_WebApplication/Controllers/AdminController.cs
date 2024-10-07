@@ -192,8 +192,7 @@ namespace VAW_WebApplication.Controllers
             catch (Exception ex)
             {
                 errolog.WriteErrorLog(ex);
-                //return RedirectToAction("Index");
-                return PartialView("Error");
+                return RedirectToAction("Index");
             }
         }
 
@@ -479,8 +478,7 @@ namespace VAW_WebApplication.Controllers
             catch (Exception ex)
             {
                 errolog.WriteErrorLog(ex);
-                //return RedirectToAction("Index");
-                return PartialView("Error");
+                return RedirectToAction("Index");
             }
         }
 

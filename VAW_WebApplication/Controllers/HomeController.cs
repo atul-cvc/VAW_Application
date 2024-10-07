@@ -68,10 +68,6 @@ namespace VAW_WebApplication.Controllers
                             loginViewModal = logindata[0];
                             Session["LogedUser"] = loginViewModal;
 
-                            //SendOTP
-                            OTP_Util OTP_Util = new OTP_Util();
-                            Session["OTP"] = OTP_Util.SendOTP("8700655713", "atulkumar65@gmail.com");
-
                             if (logindata[0].UserID == "ADMIN")
                             {
                                 Session["UserRole"] = "ROLE_ADMIN";
@@ -82,11 +78,16 @@ namespace VAW_WebApplication.Controllers
                             {
                                 Session["UserRole"] = "ROLE_CVO";
                             }
+
+                            //SendOTP
+                            OTP_Util OTP_Util = new OTP_Util();
+                            Session["OTP"] = OTP_Util.SendOTP("8700655713", "atulkumar65@gmail.com");
+
                             //return RedirectToAction("Index", "Dashboard");
 
-                            //return RedirectToAction("VerifyOTP", new { userId = logindata[0].UserID });
+                            return RedirectToAction("VerifyOTP", new { userId = logindata[0].UserID });
                             //return RedirectToAction("VerifyOTP", new VerifyOTPViewModel { UserId = logindata[0].UserID });
-                            return RedirectToUserRole(Session["UserRole"] as string);
+                            //return RedirectToUserRole(Session["UserRole"] as string);
                         }
 
                     }
@@ -142,7 +143,7 @@ namespace VAW_WebApplication.Controllers
                 if (_sessionOTP != null && _sessionOTP.Equals(verifyVM.Otp))
                 {
                     // Redirect based on user role
-                    
+
                     return RedirectToUserRole(Session["UserRole"] as string);
                     //if (userRole == "ROLE_ADMIN")
                     //{
@@ -189,16 +190,28 @@ namespace VAW_WebApplication.Controllers
 
         public ActionResult RedirectToUserRole(string userRole)
         {
-            if (userRole == "ROLE_ADMIN")
+            //if (userRole == "ROLE_ADMIN")
+            //{
+            //    return RedirectToAction("Index", "Admin");
+            //}
+            //if (userRole == "ROLE_CVO")
+            //{
+            //    return RedirectToAction("Index", "Dashboard");
+            //}
+            //// Fallback if no role matches
+            //return RedirectToAction("Index");
+
+            switch (userRole)
             {
-                return RedirectToAction("Index", "Admin");
+                case "ROLE_ADMIN":
+                    return RedirectToAction("Index", "Admin");
+
+                case "ROLE_CVO":
+                    return RedirectToAction("Index", "Dashboard");
+
+                default:
+                    return RedirectToAction("Index");
             }
-            if (userRole == "ROLE_CVO")
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
-            // Fallback if no role matches
-            return RedirectToAction("Index");
         }
     }
 }

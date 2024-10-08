@@ -1,14 +1,15 @@
-﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+﻿@model VAW_WebApplication.Models.SuperAdminIndexData
+
 @{
     ViewBag.Title = "Super Admin";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     int CvoUserIndex = 0;
+    int CvoUserRoleIndex = 0;
 
 }
-
-<div class="mainBox" id="CvoUsers">
+<div class="mainBox" id="CvoUsersRole">
     <div style="display:flex; justify-content:space-between">
-        <h3> All Roles</h3>
+        <h3> All Users</h3>
         <a href="@Url.Action("Register", "SuperAdmin")" class="btn btn-primary text-center " style="align-self:center" id="CreateCvoUser" name="CreateCvoUser">Create</a>
 
     </div>
@@ -19,16 +20,58 @@
             <thead>
                 <tr>
                     <th style="text-align:center" class="th1">S No.</th>
+                    <th style="text-align:center">User Id</th>
+                    <th style="text-align:center">User Email</th>
+                    <th style="text-align:center">User Phone</th>
+                    <th style="text-align:center">Ministry Name</th>
+                    <th style="text-align:center">Organization Code</th>
+                    <th style="text-align:center">User Role</th>
+                    <th style="text-align:center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.AllUserList)
+                {
+                    <tr>
+                        <td style="text-align:center" class="td1">@(++CvoUserIndex)</td>
+                        <td style="text-align:center">@item.UserId</td>
+                        <td style="text-align:center">@item.Email</td>
+                        <td style="text-align:center">@item.PhoneNumber</td>
+                        <td style="text-align:center">@item.MinName</td>
+                        <th style="text-align:center">@item.CvoOrgCode</th>
+                        <td style="text-align:center">@item.Role</td>
+                        <td style="text-align:center">
+                            @Html.ActionLink("Edit", "EditCapacityBuilding", new { id = item.UserId }, new { @class = "btn btn-primary text-center" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="mainBox" id="CvoUsersRole">
+    <div style="display:flex; justify-content:space-between">
+        <h3> All Roles</h3>
+        <a href="@Url.Action("UserRole", "SuperAdmin")" class="btn btn-primary text-center " style="align-self:center" id="CreateCvoUser" name="CreateCvoUser">Create</a>
+
+    </div>
+    <hr />
+    <div>
+        @*table content*@
+        <table id="CvoUserRoleTable" class="display">
+            <thead>
+                <tr>
+                    <th style="text-align:center" class="th1">S No.</th>
                     @*<th style="text-align:center">Id</th>*@
                     <th style="text-align:center">Name</th>                   
                     <th style="text-align:center">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.AllRoles)
                 {
                     <tr>
-                        <td style="text-align:center" class="td1">@(++CvoUserIndex)</td>
+                        <td style="text-align:center" class="td1">@(++CvoUserRoleIndex)</td>
                         @*<td style="text-align:center">@item.Id</td>*@
                         <td style="text-align:center">@item.Name</td>                        
                         <td style="text-align:center">
@@ -48,5 +91,6 @@
 <script>
     $(document).ready(function () {
         $('#CvoUserTable').DataTable();
+        $('#CvoUserRoleTable').DataTable();
     });
 </script>

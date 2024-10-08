@@ -21,8 +21,10 @@ namespace VAW_WebApplication.Controllers
     [CustomAuthorize(Roles = "SuperAdmin")]   
     public class SuperAdminController : Controller
     {
+        
         OrganisationBAL OrgBal = new OrganisationBAL();
         RoleManager<IdentityRole> roleManager;
+        UserManager<IdentityUser> userManager;
 
         CapacityBuildingManager capacityBuildingManager = new CapacityBuildingManager();
         YearsBAL yearsBAL = new YearsBAL();
@@ -70,17 +72,45 @@ namespace VAW_WebApplication.Controllers
         // GET: SuperAdmin
         public ActionResult Index(string selected_year)
         {
+            SuperAdminIndexData indexData = new SuperAdminIndexData();
             selected_year = !string.IsNullOrEmpty(selected_year) ? selected_year : DateTime.Now.Year.ToString();
             try
-            {
-                var roles = roleManager.Roles.ToList();                
-                return View(roles);
+            {                
+                IEnumerable<Users_in_Role_ViewModel> usersWithRoles = (from user in context.Users
+                                      select new
+                                      {
+                                          UserId = user.Id,
+                                          Username = user.UserName,
+                                          Email = user.Email,
+                                          MinName=user.MinName,
+                                          PhoneNumber=user.PhoneNumber,
+                                          OrgCode=user.CvoOrgCode,
+                                          RoleNames = (from userRole in user.Roles
+                                                       join role in context.Roles on userRole.RoleId
+                                                       equals role.Id
+                                                       select role.Name).ToList()
+                                      }).ToList().Select(p => new Users_in_Role_ViewModel()
+
+                                      {
+                                          UserId = p.UserId,
+                                          Username = p.Username,
+                                          Email = p.Email,
+                                          MinName=p.MinName,
+                                          PhoneNumber=p.PhoneNumber,
+                                          CvoOrgCode=p.OrgCode,
+                                          Role = string.Join(",", p.RoleNames)
+                                      });
+
+            
+                indexData.AllUserList=usersWithRoles.ToList();            
+                indexData.AllRoles= roleManager.Roles.ToList();
+                return View(indexData);                
             }
             catch (Exception ex)
             {
 
             }
-            return View();            
+            return View(); 
         }
         //
         // GET: /Account/Register
@@ -106,7 +136,7 @@ namespace VAW_WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,PhoneNumber=model.PhoneNumber, MinName=model.MinistryName, CvoOrgCode=model.OrgCode };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,MinName=model.MinistryName, CvoOrgCode=model.OrgCode };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

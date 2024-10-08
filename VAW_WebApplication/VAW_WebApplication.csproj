@@ -208,6 +208,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SuperAdminIndexData.cs" />
     <Compile Include="Models\Tran_1a_integritypledge_ViewModel.cs" />
     <Compile Include="Models\Tran_2a_orgactivities_conductofcompetitions_ViewModel.cs" />
     <Compile Include="Models\Tran_2b_orgactivities_otheractivities_ViewModel.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="Models\Tran_a_3b_updation_circular_guidelines_manuals_ViewModel.cs" />
     <Compile Include="Models\Tran_a_4b_disposalofcomplaints_ViewModel.cs" />
     <Compile Include="Models\Tran_a_5b_dynamicdigitalpresence_ViewModel.cs" />
+    <Compile Include="Models\Users_in_Role_ViewModel.cs" />
     <Compile Include="Models\VerifyOTPViewModel.cs" />
     <Compile Include="Models\ViewIntegrityPledgeViewModel.cs" />
     <Compile Include="Models\ViewVigilanceAwarenessViewModel.cs" />

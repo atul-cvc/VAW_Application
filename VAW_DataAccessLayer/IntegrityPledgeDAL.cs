@@ -89,7 +89,7 @@ namespace VAW_DataAccessLayer
             int EffectedRows = 0;
             try
             {
-                SqlParameter[] Sqlpara = new SqlParameter[15];
+                SqlParameter[] Sqlpara = new SqlParameter[12];
                 Sqlpara[0] = new SqlParameter("@p_VAW_Year", Convert.ToInt32(obj.VAW_Year));
                 Sqlpara[1] = new SqlParameter("@p_UniqueTransactionId", obj.UniqueTransactionId);
                 Sqlpara[2] = new SqlParameter("@p_CvoOrgCode", obj.CvoOrgCode);
@@ -102,9 +102,9 @@ namespace VAW_DataAccessLayer
                 Sqlpara[9] = new SqlParameter("@p_CreatedBy", obj.CreatedBy);
                 Sqlpara[10] = new SqlParameter("@p_CreatedByIP", obj.CreatedByIP);
                 Sqlpara[11] = new SqlParameter("@p_CreatedBySession", obj.CreatedBySession);
-                Sqlpara[12] = new SqlParameter("@p_UpdatedOn", DateTime.Now);
-                Sqlpara[13] = new SqlParameter("@p_UpdatedBy", obj.UpdatedBy);
-                Sqlpara[14] = new SqlParameter("@p_UpdatedByIp", obj.UpdatedByIp);
+                //Sqlpara[12] = new SqlParameter("@p_UpdatedOn", DateTime.Now);
+                //Sqlpara[13] = new SqlParameter("@p_UpdatedBy", obj.UpdatedBy);
+                //Sqlpara[14] = new SqlParameter("@p_UpdatedByIp", obj.UpdatedByIp);
 
                 EffectedRows = SqlHelper.ExecuteNonQuery(SqlConnection, CommandType.StoredProcedure, "sp_CreateIntegrityPledge", Sqlpara);
             }
@@ -296,7 +296,7 @@ namespace VAW_DataAccessLayer
                 SqlParameter[] Sqlpara = new SqlParameter[2];
                 Sqlpara[0] = new SqlParameter("@p_CvoId", cvoid);
                 Sqlpara[1] = new SqlParameter("@p_SelectedYear", Convert.ToInt32(year));
-                DS = SqlHelper.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadActivitiesOtherActivitiesCVOIDAndYEAR", Sqlpara);
+                DS = SqlHelper.ExecuteDataset(SqlConnection, CommandType.StoredProcedure, "sp_ReadActivitiesOtherActivitiesByCVOIDAndYEAR", Sqlpara);
             }
             catch (Exception ex)
             {

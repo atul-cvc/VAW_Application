@@ -36,7 +36,7 @@ namespace VAW_WebApplication.Models
         public string WhetherPhotosSentAsSoftCopyOrHardCopy { get; set; }
 
         [Required(ErrorMessage = "Please enter No of Photos")]
-        [Display(Name = "(If in soft copy) No Of CDs")]
+        [Display(Name = "(If in soft copy) No Of CDs / Pendrives")]
         [RegularExpression("([0-9]*)", ErrorMessage = "Entry should be Number ")]
         public int SoftCopy_NoOfCd { get; set; }
 

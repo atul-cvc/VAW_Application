@@ -107,7 +107,9 @@
                             <td style="text-align:center">
                                 @if (@item.Remarks.Length > 125)
                                 {
-                                    <button onclick="handlePopup('@item.Remarks')">View</button>
+                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.Remarks">
+                                        View
+                                    </button>
                                 }
                                 else
                                 {
@@ -127,7 +129,7 @@
     <br />
     <div style="padding:15px">
         <div style="display:flex; justify-content:space-between">
-            <h4>OTHER ACTIVITIES</h4>
+            <h4>b. OTHER ACTIVITIES</h4>
             <a href="@Url.Action("CreateActivitiesOtherActivities", "ViewIntegrityPledge")" class="btn btn-primary text-center " style="align-self:center" id="CreateActivitiesOtherActivities" name="CreateActivitiesOtherActivities">Create</a>
         </div>
         <hr />
@@ -153,7 +155,9 @@
                             <td style="text-align:center">
                                 @if (@item.DistributionOfPamphletsAndBanners_Details.Length > 125)
                                 {
-                                    <button onclick="handlePopup('@item.DistributionOfPamphletsAndBanners_Details')">View</button>
+                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.DistributionOfPamphletsAndBanners_Details">
+                                        View
+                                    </button>
                                 }
                                 else
                                 {
@@ -163,7 +167,9 @@
                             <td style="text-align:center">
                                 @if (@item.ConductOfWorkshopAndSensitizationProgram_Details.Length > 125)
                                 {
-                                    <button onclick="handlePopup('@item.ConductOfWorkshopAndSensitizationProgram_Details')">View</button>
+                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.ConductOfWorkshopAndSensitizationProgram_Details">
+                                        View
+                                    </button>
                                 }
                                 else
                                 {
@@ -173,7 +179,9 @@
                             <td style="text-align:center">
                                 @if (@item.IssueOfJornalAndNwesletter_Details.Length > 125)
                                 {
-                                    <button onclick="handlePopup('@item.IssueOfJornalAndNwesletter_Details')">View</button>
+                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.IssueOfJornalAndNwesletter_Details">
+                                        View
+                                    </button>
                                 }
                                 else
                                 {
@@ -183,7 +191,9 @@
                             <td style="text-align:center">
                                 @if (@item.AnyOtherActivities_Details.Length > 125)
                                 {
-                                    <button onclick="handlePopup('@item.AnyOtherActivities_Details')">View</button>
+                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.AnyOtherActivities_Details">
+                                        View
+                                    </button>
                                 }
                                 else
                                 {
@@ -242,7 +252,9 @@
                             <td style="text-align:center">
                                 @if (@item.ActivityDetails.Length > 125)
                                 {
-                                    <button onclick="handlePopup('@item.ActivityDetails')">View</button>
+                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.ActivityDetails">
+                                        View
+                                    </button>
                                 }
                                 else
                                 {
@@ -294,7 +306,9 @@
                             <td style="text-align:center">
                                 @if (@item.ActivityDetails.Length > 125)
                                 {
-                                    <button onclick="handlePopup('@item.ActivityDetails')">View</button>
+                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.ActivityDetails">
+                                        View
+                                    </button>
                                 }
                                 else
                                 {
@@ -346,7 +360,9 @@
                             <td style="text-align:center">
                                 @if (@item.ActivityDetails.Length > 125)
                                 {
-                                    <button onclick="handlePopup('@item.ActivityDetails')">View</button>
+                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.ActivityDetails">
+                                        View
+                                    </button>
                                 }
                                 else
                                 {
@@ -398,7 +414,9 @@
                             <td style="text-align:center">
                                 @if (@item.ActivityDetails.Length > 125)
                                 {
-                                    <button onclick="handlePopup('@item.ActivityDetails')">View</button>
+                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.ActivityDetails">
+                                        View
+                                    </button>
                                 }
                                 else
                                 {
@@ -451,7 +469,9 @@
                         <td style="text-align:center">
                             @if (@item.DisplayOfBannerPosterDetails.Length > 125)
                             {
-                                <button onclick="handlePopup('@item.DisplayOfBannerPosterDetails')">View</button>
+                                <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.DisplayOfBannerPosterDetails">
+                                    View
+                                </button>
                             }
                             else
                             {
@@ -462,7 +482,9 @@
                         <td style="text-align:center">
                             @if (@item.UserOfScocialMedia.Length > 125)
                             {
-                                <button onclick="handlePopup('@item.UserOfScocialMedia')">View</button>
+                                <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.UserOfScocialMedia">
+                                    View
+                                </button>
                             }
                             else
                             {
@@ -556,7 +578,18 @@
                         <td style="text-align:center" class="td1">@(++RelevantInfoIndex)</td>
                         <td style="text-align:center">@item.VAW_Year</td>
                         <td style="text-align:center">@item.DateOfActivity.ToString("dd-MM-yyyy") </td>
-                        <td style="text-align:center">@item.DetailsOfActivity</td>
+                        <td style="text-align:center">
+                            @if (@item.DetailsOfActivity.Length > 125)
+                            {
+                                <button class="btn btn-outline-secondary btn-sm " data-toggle="modal" data-target="#dataModal" data-description="@item.DetailsOfActivity">
+                                    View
+                                </button>
+                            }
+                            else
+                            {
+                                @item.DetailsOfActivity
+                            }
+                        </td>
                         <td style="text-align:center">
                             @Html.ActionLink("Edit", "EditAnyOtherRelevantInformation", new { id = item.ID }, new { @class = "btn btn-primary text-center" })
                         </td>
@@ -571,7 +604,40 @@
 <script>
     $(document).ready(function () {
         $('#IntegrityPledgeTable, #ConductTable, #Activities_OtherActivities, #InvolvingStudentsSchools, #InvolvingStudentsColleges, #AwarenessGramSabhas, #AwarenessSeminarsWorkshops, #OtherActivitiesTable, #DetailsOfPhotosTable, #RelevantInfoTable')
-            .DataTable();
+            .DataTable({
+                dom: 'Bfrtlip', // Buttons, filter, table, etc.
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: 'Copy',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude the last column (Actions)
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        text: 'Excel',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude the last column (Actions)
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'PDF',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude the last column (Actions)
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        text: 'Print',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude the last column (Actions)
+                        }
+                    }
+                ],
+                lengthMenu: [5, 10, 25, 50, 100]
+            });
     });
 </script>
 

@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - VAW</title>
-    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jqueryui")
@@ -14,10 +14,12 @@
     <link href="~/Content/Site.css" rel="stylesheet" />
     <script src="~/Scripts/SbteJS.js"></script>
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    @*<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />*@
+    @*<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>*@
     <!-- jQuery -->
     @*<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>*@
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css">
     <!-- DataTables JS -->
@@ -45,6 +47,7 @@
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary text-dark">
                 <div class="container">
                     @Html.ActionLink("Vigilance Awareness Week ", null, null, new { area = "" }, new { @class = "navbar-brand" })
+                    <a href="@Url.Action("Index", "Dashboard")" class="text-white text-decoration-none">Home</a>
                     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -66,7 +69,42 @@
         </footer>
     </div>
     <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
-    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")"></script>  
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")"></script>
     @RenderSection("scripts", required: false)
+
+    <!-- Modal -->
+    <div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dataModalLabel">Details</h5>
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>*@
+                </div>
+                <div class="modal-body">
+                    <span id="itemDescription"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn small btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#dataModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget); // Button that triggered the modal
+                var id = button.data('id'); // Extract info from data-* attributes
+                var name = button.data('name');
+                var description = button.data('description');
+
+                // Update the modal's content
+                var modal = $(this);
+                modal.find('#itemDescription').text(description);
+            });
+        });
+    </script>
 </body>
 </html>

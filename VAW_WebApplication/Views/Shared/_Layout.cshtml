@@ -37,6 +37,8 @@
     <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.flash.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+    <script src="~/Scripts/sweetalert/sweetalert.min.js"></script>
+    <link href="~/Content/sweetalert/sweetalert.css" rel="stylesheet" />
 </head>
 <body>
     <div class="row" style="height:auto;background-color:ButtonFace; padding:2px; margin-left:2px;padding-top:10px;">
@@ -73,8 +75,8 @@
     @RenderSection("scripts", required: false)
 
     <!-- Modal -->
-    <div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-scrollable modal-xl modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="dataModalLabel">Details</h5>

@@ -12,8 +12,14 @@
 <style>
 </style>
 
-<div>
-    <h2>Vigilance Awareness</h2>
+<div class="row">
+    <div class="col-10">
+        <h2>Vigilance Awareness</h2>
+    </div>
+    <div class="col-2">
+        <a href="@Url.Action("Index", "Dashboard")" class="btn btn-outline-danger text-center"><< Go Back</a>
+    </div>  
+
 </div>
 <hr />
 <div class="m-4" style="display: flex; text-align: center;">
@@ -59,7 +65,9 @@
                         <td style="text-align:center">
                             @if (@item.BriefDescription.Length > 125)
                             {
-                                <button onclick="handlePopup('@item.BriefDescription')">View</button>
+                                <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.BriefDescription">
+                            View...
+                                </button>
                             }
                             else
                             {
@@ -116,8 +124,8 @@
                         <td style="text-align:center">
                             @if ((@item.KeyAreasDetected_BasedonAnalysis.Length) > 125)
                             {
-                                <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.KeyAreasDetected_BasedonAnalysis">
-                                    View
+                                <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.KeyAreasDetected_BasedonAnalysis">
+                                    View...
                                 </button>
                             }
                             else
@@ -128,8 +136,8 @@
                         <td style="text-align:center">
                             @if (@item.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis.Length > 125)
                             {
-                                <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis">
-                                    View
+                                <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis">
+                                    View...
                                 </button>
                             }
                             else
@@ -140,8 +148,8 @@
                         <td style="text-align:center">
                             @if (@item.Sys_Imp_Implemented_During_Campaign.Length > 125)
                             {
-                                <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.Sys_Imp_Implemented_During_Campaign">
-                                    View
+                                <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.Sys_Imp_Implemented_During_Campaign">
+                                    View...
                                 </button>
                             }
                             else
@@ -152,8 +160,8 @@
                         <td style="text-align:center">
                             @if (@item.Sys_Imp_Suggested_Last_5_Years_But_Pending.Length > 125)
                             {
-                                <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.Sys_Imp_Suggested_Last_5_Years_But_Pending">
-                                    View
+                                <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.Sys_Imp_Suggested_Last_5_Years_But_Pending">
+                                    View...
                                 </button>
                             }
                             else
@@ -204,8 +212,8 @@
                         <td style="text-align:center">
                             @if (@item.BriefDetails.Length > 125)
                             {
-                                <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.BriefDetails">
-                                    View
+                                <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.BriefDetails">
+                                    View...
                                 </button>
                             }
                             else
@@ -263,8 +271,8 @@
                         <td style="text-align:center">
                             @if (@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608.Length > 125)
                             {
-                                <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608">
-                                    View
+                                <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608">
+                                    View...
                                 </button>
                             }
                             else
@@ -276,8 +284,8 @@
                         <td style="text-align:center">
                             @if (@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign.Length > 125)
                             {
-                                <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign">
-                                    View
+                                <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign">
+                                    View...
                                 </button>
                             }
                             else
@@ -289,8 +297,8 @@
                         <td style="text-align:center">
                             @if (@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511.Length > 125)
                             {
-                                <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511">
-                                    View
+                                <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511">
+                                    View...
                                 </button>
                             }
                             else
@@ -345,8 +353,8 @@
                         <td style="text-align:center">
                             @if (@item.SystemIntroducedForUpdationAndReview.Length > 125)
                             {
-                                <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.SystemIntroducedForUpdationAndReview">
-                                    View
+                                <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.SystemIntroducedForUpdationAndReview">
+                                    View...
                                 </button>
                             }
                             else
@@ -358,8 +366,8 @@
                         <td style="text-align:center">
                             @if (@item.DetailsOfAdditionalActivities.Length > 125)
                             {
-                                <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.DetailsOfAdditionalActivities">
-                                    View
+                                <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.DetailsOfAdditionalActivities">
+                                    View...
                                 </button>
                             }
                             else
@@ -374,6 +382,13 @@
                 }
             </tbody>
         </table>
+    </div>
+</div>
+
+<div class="row mt-3 bg-body">
+    <div class="col-12 text-md-center">
+        @*<a href="@Url.Action("Index", "Dashboard")" class="btn btn-outline-success text-center">Final Submit</a>*@
+        <button type="button" onclick="finalSubmit()" class="btn btn-outline-success text-center">Final Submit</button>
     </div>
 </div>
 
@@ -428,5 +443,8 @@
 
         // Redirect to the action with the selected year
         window.location.href = '@Url.Action("Index", "ViewVigilanceAwareness", new { selected_year = "__YEAR__" })'.replace('__YEAR__', selectedYear);
+    }
+    function finalSubmit() {
+        swal("Success!", 'Data submited', "success");
     }
 </script>

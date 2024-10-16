@@ -14,8 +14,17 @@
     int detsPhotosIndex = 0;
     int RelevantInfoIndex = 0;
 }
+<div class="row">
+    <div class="col-10">
+        <h2>Integrity Pledge</h2>
+    </div>
+    <div class="col-2">
+        <a href="@Url.Action("Index", "Dashboard")" class="btn btn-outline-danger text-center"><< Go Back</a>
+        
+    </div>
+</div>
 
-<h2>Integrity Pledge</h2>
+
 <hr />
 <div class="m-4" style="display:flex;text-align:center;">
     <div style="display: flex;">
@@ -107,8 +116,8 @@
                             <td style="text-align:center">
                                 @if (@item.Remarks.Length > 125)
                                 {
-                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.Remarks">
-                                        View
+                                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.Remarks">
+                                       View...
                                     </button>
                                 }
                                 else
@@ -155,8 +164,8 @@
                             <td style="text-align:center">
                                 @if (@item.DistributionOfPamphletsAndBanners_Details.Length > 125)
                                 {
-                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.DistributionOfPamphletsAndBanners_Details">
-                                        View
+                                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.DistributionOfPamphletsAndBanners_Details">
+                                        View...
                                     </button>
                                 }
                                 else
@@ -167,8 +176,8 @@
                             <td style="text-align:center">
                                 @if (@item.ConductOfWorkshopAndSensitizationProgram_Details.Length > 125)
                                 {
-                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.ConductOfWorkshopAndSensitizationProgram_Details">
-                                        View
+                                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.ConductOfWorkshopAndSensitizationProgram_Details">
+                                        View...
                                     </button>
                                 }
                                 else
@@ -179,8 +188,8 @@
                             <td style="text-align:center">
                                 @if (@item.IssueOfJornalAndNwesletter_Details.Length > 125)
                                 {
-                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.IssueOfJornalAndNwesletter_Details">
-                                        View
+                                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.IssueOfJornalAndNwesletter_Details">
+                                        View...
                                     </button>
                                 }
                                 else
@@ -191,8 +200,8 @@
                             <td style="text-align:center">
                                 @if (@item.AnyOtherActivities_Details.Length > 125)
                                 {
-                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.AnyOtherActivities_Details">
-                                        View
+                                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.AnyOtherActivities_Details">
+                                        View...
                                     </button>
                                 }
                                 else
@@ -252,8 +261,8 @@
                             <td style="text-align:center">
                                 @if (@item.ActivityDetails.Length > 125)
                                 {
-                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.ActivityDetails">
-                                        View
+                                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.ActivityDetails">
+                                        View...
                                     </button>
                                 }
                                 else
@@ -306,8 +315,8 @@
                             <td style="text-align:center">
                                 @if (@item.ActivityDetails.Length > 125)
                                 {
-                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.ActivityDetails">
-                                        View
+                                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.ActivityDetails">
+                                        View...
                                     </button>
                                 }
                                 else
@@ -360,8 +369,8 @@
                             <td style="text-align:center">
                                 @if (@item.ActivityDetails.Length > 125)
                                 {
-                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.ActivityDetails">
-                                        View
+                                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.ActivityDetails">
+                                        View...
                                     </button>
                                 }
                                 else
@@ -414,8 +423,8 @@
                             <td style="text-align:center">
                                 @if (@item.ActivityDetails.Length > 125)
                                 {
-                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.ActivityDetails">
-                                        View
+                                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.ActivityDetails">
+                                        View...
                                     </button>
                                 }
                                 else
@@ -469,8 +478,8 @@
                         <td style="text-align:center">
                             @if (@item.DisplayOfBannerPosterDetails.Length > 125)
                             {
-                                <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.DisplayOfBannerPosterDetails">
-                                    View
+                                <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.DisplayOfBannerPosterDetails">
+                                    View...
                                 </button>
                             }
                             else
@@ -482,8 +491,8 @@
                         <td style="text-align:center">
                             @if (@item.UserOfScocialMedia.Length > 125)
                             {
-                                <button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#dataModal" data-description="@item.UserOfScocialMedia">
-                                    View
+                                <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.UserOfScocialMedia">
+                                    View...
                                 </button>
                             }
                             else
@@ -581,8 +590,8 @@
                         <td style="text-align:center">
                             @if (@item.DetailsOfActivity.Length > 125)
                             {
-                                <button class="btn btn-outline-secondary btn-sm " data-toggle="modal" data-target="#dataModal" data-description="@item.DetailsOfActivity">
-                                    View
+                                <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.DetailsOfActivity">
+                                    View...
                                 </button>
                             }
                             else
@@ -599,7 +608,12 @@
         </table>
     </div>
 </div>
-
+<div class="row mt-3">
+    <div class="col-12 text-md-center">
+        @*<a href="@Url.Action("Index", "Dashboard")" class="btn btn-outline-success text-center">Final Submit</a>*@
+        <button type="button" onclick="finalSubmit()" class="btn btn-outline-success text-center">Final Submit</button>
+    </div>
+</div>
 
 <script>
     $(document).ready(function () {
@@ -648,5 +662,11 @@
 
         // Redirect to the action with the selected year
         window.location.href = '@Url.Action("Index", "ViewIntegrityPledge", new { selected_year = "__YEAR__" })'.replace('__YEAR__', selectedYear);
+    }
+
+    function finalSubmit()
+    {
+        swal("Success!", 'Data submited', "success");
+        //window.location.href = '@Url.Action("Index", "Dashboard")';
     }
 </script>

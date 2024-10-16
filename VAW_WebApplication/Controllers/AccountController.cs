@@ -134,8 +134,8 @@ namespace VAW_WebApplication.Controllers
             OTP_Util OTP_Util = new OTP_Util();
             Session["OTP"] = OTP_Util.SendOTP(user.PhoneNumber, user.Email);
 
-            return RedirectToAction("VerifyOTP");
-            //return await AddAuth(model, returnUrl);
+           // return RedirectToAction("VerifyOTP");
+            return await AddAuth(model, returnUrl);
 
         }
 

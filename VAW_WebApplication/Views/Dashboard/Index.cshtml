@@ -5,11 +5,28 @@
 }
 
 <div class="row" style="margin-top:150px;">
-    <div class="offset-1 col-4 link-button" style="height:150px; padding:50px;">
-        <a href="@Url.Action("Index", "ViewVigilanceAwareness")"  >Preventive Vigilance Activities</a>
+    <div class="offset-1 col-4 link-button bg-primary" style="padding:0px;">
+        <a href="@Url.Action("Index", "ViewVigilanceAwareness")">
+            <div style="height:150px; padding:50px; ">
+                Preventive Vigilance Activities
+            </div>
+        </a>
     </div>
-    <div class="offset-1 col-4 link-button" style="height:150px; padding:50px;">
-        <a href="@Url.Action("Index", "ViewIntegrityPledge")"  >Activity Report Format</a>
+    <div class="offset-1 col-4 link-button bg-primary" style="padding:0px;">       
+        <a href="@Url.Action("Index", "ViewIntegrityPledge")">
+            <div style="height:150px; padding:50px; ">
+                Activity Report Format
+            </div>
+        </a>        
     </div>
+
 </div>
+
+@*<div>
+    <script type="text/javascript">
+            window.onload = function () {
+                swal("Good job!", 'Hello friends', "success");
+            };
+    </script>
+</div>*@
 

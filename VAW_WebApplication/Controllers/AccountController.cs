@@ -1,18 +1,17 @@
-﻿using System;
-using System.Data;
-using System.Globalization;
+﻿using System.Data;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using ASPSnippets.Captcha;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using VAW_WebApplication.Models;
 using VAW_Utility;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using Microsoft.Win32;
 
 namespace VAW_WebApplication.Controllers
 {
@@ -83,7 +82,7 @@ namespace VAW_WebApplication.Controllers
                 {
                     return RedirectToAction("Index", "SuperAdmin");
                 }
-                else if (roles.Contains("CVO_USER"))
+                else if (roles.Contains("ROLE_CVO"))
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }
@@ -134,8 +133,56 @@ namespace VAW_WebApplication.Controllers
             OTP_Util OTP_Util = new OTP_Util();
             Session["OTP"] = OTP_Util.SendOTP(user.PhoneNumber, user.Email);
 
-           // return RedirectToAction("VerifyOTP");
+            // return RedirectToAction("VerifyOTP");
             return await AddAuth(model, returnUrl);
+
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> LoginByQPR(string token, string key)
+        {
+            //token = System.Net.WebUtility.UrlDecode(token);
+            var app_user = new ApplicationUser();
+            var decrypStr = CryptoEngine.Decrypt(token, key);
+            TokenModel tokenModel = JsonConvert.DeserializeObject<TokenModel>(decrypStr);
+            LoginViewModel loginVM = new LoginViewModel();
+            loginVM.Email = tokenModel.Email;
+            loginVM.Password = tokenModel.Pass;
+            app_user = UserManager.FindByEmail(tokenModel.Email);
+            if (app_user == null)
+            {
+                RegisterViewModel registerModel = new RegisterViewModel();
+                registerModel.Email = tokenModel.Email;
+                registerModel.Password = tokenModel.Pass;
+                registerModel.OrgCode = tokenModel.OrgCode;
+                registerModel.MinistryName = tokenModel.OrgName;
+                registerModel.UserRoles = tokenModel.LoginType;
+                app_user = new ApplicationUser { UserName = registerModel.Email, Email = registerModel.Email, MinName = registerModel.MinistryName, CvoOrgCode = registerModel.OrgCode };
+                var result = await UserManager.CreateAsync(app_user, registerModel.Password);
+                if (result.Succeeded)
+                {
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    await UserManager.AddToRoleAsync(app_user.Id, registerModel.UserRoles);
+                    //return RedirectToAction("Index","Dashboard");
+                }
+                //AddErrors(result);
+            }
+            //DataTable _tblMinName = OrgBal.GetMinistry().Tables[0];
+            //ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("SuperAdmin"))
+            //                        .ToList(), "Name", "Name");
+            //ViewBag.MinList = ToSelectList(_tblMinName, "MinName", "MinName");
+            //return View(model);
+
+            //SuperAdminController SC = new SuperAdminController();
+            //    await SC.Register(registerModel);
+            //return RedirectToAction("Register", "SuperAdminController", new { model = registerModel });
+            return await AddAuth(loginVM,"");
 
         }
 
@@ -483,6 +530,58 @@ namespace VAW_WebApplication.Controllers
             base.Dispose(disposing);
         }
 
+        //public async Task<ActionResult> AddAuth2(ApplicationUser user)
+        //{
+        //    // This doesn't count login failures towards account lockout
+        //    // To enable password failures to trigger account lockout, change to shouldLockout: true
+
+        //    // This doesn't count login failures towards account lockout
+        //    // To enable password failures to trigger account lockout, change to shouldLockout: true
+
+        //    /*var result =*/
+        //    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+        //    return RedirectToAction("Index", "Dashboard");
+        //    switch (result)
+        //    {
+        //        case SignInStatus.Success:
+        //            _model = null;
+        //            _returnUrl = null;
+        //            var user = await UserManager.FindAsync(model.Email, model.Password);
+        //            var roles = await UserManager.GetRolesAsync(user.Id);
+        //            Session["CvoOrgCode"] = user.CvoOrgCode;
+        //            //        //    string RoleName= UserManager.GetRolesAsync(user.Id).ToString();
+        //            //        //ViewData["Role"] = RoleName;
+        //            //        //if (roles.Contains("SuperAdmin"))
+        //            //        //{
+        //            //        //    return RedirectToAction("Index", "SuperAdmin");
+        //            //        //}
+        //            //        //else if (roles.Contains("CVO_USER"))
+        //            //        //{
+        //            //        //    return RedirectToAction("Index", "Dashboard");
+        //            //        //}
+        //            //        //else if (roles.Contains("Admin"))
+        //            //        //{
+        //            //        //    return RedirectToAction("Index", "Admin");
+        //            //        //}
+        //            //        //else
+        //            //        //{
+        //            //        //    return RedirectToLocal(returnUrl);
+        //            //        //}
+        //            return RouteUser(roles);
+        //    //    //==========================================
+
+        //    //    case SignInStatus.LockedOut:
+        //    //        return View("Lockout");
+        //    //    case SignInStatus.RequiresVerification:
+        //    //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+        //    //    case SignInStatus.Failure:
+        //    //    default:
+        //    //        model.ImageData = this.Captcha.ImageData;
+        //    //        ModelState.AddModelError("", "Invalid login attempt.");
+        //    //        return View(model);
+        //    }
+        //}
+
         public async Task<ActionResult> AddAuth(LoginViewModel model, string returnUrl)
         {
             // This doesn't count login failures towards account lockout
@@ -492,6 +591,7 @@ namespace VAW_WebApplication.Controllers
             // To enable password failures to trigger account lockout, change to shouldLockout: true
 
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -502,22 +602,8 @@ namespace VAW_WebApplication.Controllers
                     Session["CvoOrgCode"] = user.CvoOrgCode;
                     //    string RoleName= UserManager.GetRolesAsync(user.Id).ToString();
                     //ViewData["Role"] = RoleName;
-                    if (roles.Contains("SuperAdmin"))
-                    {
-                        return RedirectToAction("Index", "SuperAdmin");
-                    }
-                    else if (roles.Contains("CVO_USER"))
-                    {
-                        return RedirectToAction("Index", "Dashboard");
-                    }
-                    else if (roles.Contains("Admin"))
-                    {
-                        return RedirectToAction("Index", "Admin");
-                    }
-                    else
-                    {
-                        return RedirectToLocal(returnUrl);
-                    }
+                    
+                    return RouteUser(roles);
                 //==========================================
 
                 case SignInStatus.LockedOut:
@@ -529,6 +615,27 @@ namespace VAW_WebApplication.Controllers
                     model.ImageData = this.Captcha.ImageData;
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
+            }
+        }
+
+        public ActionResult RouteUser(IList<string> roles)
+        {
+            if (roles.Contains("SuperAdmin"))
+            {
+                return RedirectToAction("Index", "SuperAdmin");
+            }
+            else if (roles.Contains("ROLE_CVO"))
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
+            else if (roles.Contains("Admin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            else
+            {
+                //return RedirectToLocal(returnUrl);
+                return View("Error");
             }
         }
 
@@ -590,5 +697,5 @@ namespace VAW_WebApplication.Controllers
             }
         }
         #endregion
-    }
+    }    
 }

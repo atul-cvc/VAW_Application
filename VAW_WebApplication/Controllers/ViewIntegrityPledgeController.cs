@@ -16,7 +16,7 @@ using VAW_WebApplication.Util;
 
 namespace VAW_WebApplication.Controllers
 {
-    [Authorize(Roles = "CVO_USER")]
+    [Authorize(Roles = "ROLE_CVO")]
     public class ViewIntegrityPledgeController : Controller
     {
         private ApplicationUserManager _userManager;

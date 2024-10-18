@@ -15,7 +15,7 @@ using VAW_WebApplication.Models;
 
 namespace VAW_WebApplication.Controllers
 {
-    [Authorize(Roles = "CVO_USER")]
+    [Authorize(Roles = "ROLE_CVO")]
     public class ViewVigilanceAwarenessController : Controller
     {
         CapacityBuildingManager capacityBuildingManager = new CapacityBuildingManager();

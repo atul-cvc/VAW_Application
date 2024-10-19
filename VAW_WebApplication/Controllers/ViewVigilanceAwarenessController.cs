@@ -888,6 +888,177 @@ namespace VAW_WebApplication.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult PrintAllData(string selected_year)
+        {
+            string userId = User.Identity.Name;
+            selected_year = !string.IsNullOrEmpty(selected_year) ? selected_year : DateTime.Now.Year.ToString();
+            try
+            {
+                ViewVigilanceAwarenessViewModel modelobj = new ViewVigilanceAwarenessViewModel();
+
+                DataTable yearsTable = yearsBAL.GetAllYearsList().Tables[0];
+
+                var yearList = new List<SelectListItem>();
+                if (yearsTable.Rows.Count >= 1)
+                {
+                    foreach (DataRow dr in yearsTable.Rows)
+                    {
+                        yearList.Add(new SelectListItem
+                        {
+                            Value = dr["Year"].ToString(),
+                            Text = dr["Year"].ToString()
+                        });
+                    }
+                    modelobj.YearsList = yearList;
+                }
+                else
+                {
+                    Years year = new Years
+                    {
+                        ID = 1,
+                        Year = DateTime.Now.Year
+                    };
+                    yearList.Add(new SelectListItem { Value = "2024", Text = "2024" });
+                    modelobj.YearsList = yearList;
+                }
+
+                modelobj.CurrentYear = !string.IsNullOrEmpty(selected_year) ? Convert.ToInt32(selected_year) : DateTime.Now.Year;
+
+                List<Tran_a_1b_capacitybulidingprogram_ViewModel> ListofCapBuilding = new List<Tran_a_1b_capacitybulidingprogram_ViewModel>();
+                //DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByCVOID("CVO_SBI").Tables[0];
+                DataTable CapacityTable = capacityBuildingManager.GetCapacityBuildingRecordByCVOIDandYear(userId, selected_year).Tables[0];
+
+                if (CapacityTable.Rows.Count >= 1)
+                {
+                    foreach (DataRow data in CapacityTable.Rows)
+                    {
+                        Tran_a_1b_capacitybulidingprogram_ViewModel vmobj = new Tran_a_1b_capacitybulidingprogram_ViewModel
+                        {
+                            ID = int.Parse(data["Record_ID"].ToString()),
+                            VAW_Year = data["VAW_Year"].ToString(),
+                            FromDate = Convert.ToDateTime(data["FromDate"].ToString()),
+                            ToDate = Convert.ToDateTime(data["ToDate"].ToString()),
+                            TrainingName = data["TrainingName"].ToString() == "FRESH" ? "Fresh Inductees" : "Refresher Course",
+                            EmployeesTrained = Convert.ToInt32(data["EmployeesTrained"].ToString()),
+                            BriefDescription = data["BriefDescription"].ToString()
+                        };
+                        ListofCapBuilding.Add(vmobj);
+                    }
+                }
+
+                //System Improvement               
+                List<Tran_a_2b_sysimp_ViewModel> Listofsysimp = new List<Tran_a_2b_sysimp_ViewModel>();
+                //DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByCVOID("CVO_SBI").Tables[0];
+                DataTable SysImpTable = capacityBuildingManager.GetSystemImpRecordByCVOIDandYear(userId, selected_year).Tables[0];
+
+                if (SysImpTable.Rows.Count >= 1)
+                {
+                    foreach (DataRow data in SysImpTable.Rows)
+                    {
+                        Tran_a_2b_sysimp_ViewModel vmobjsysimp = new Tran_a_2b_sysimp_ViewModel
+                        {
+                            ID = int.Parse(data["Record_ID"].ToString()),
+                            VAW_Year = data["VAW_Year"].ToString(),
+                            FromDate = Convert.ToDateTime(data["FromDate"].ToString()),
+                            ToDate = Convert.ToDateTime(data["ToDate"].ToString()),
+                            Sys_Imp_Implemented_During_Campaign = data["Sys_Imp_Implemented_During_Campaign"].ToString(),
+                            Sys_Imp_Suggested_Last_5_Years_But_Pending = data["Sys_Imp_Suggested_Last_5_Years_But_Pending"].ToString(),
+                            NoOf_CasesTakenForAnalysis_past5Years = Convert.ToInt32(data["NoOf_CasesTakenForAnalysis_past5Years"].ToString()),
+                            KeyAreasDetected_BasedonAnalysis = data["KeyAreasDetected_BasedonAnalysis"].ToString(),
+                            Sys_Improvements_Identified_And_Impl_BasedOnAnalysis = data["Sys_Improvements_Identified_And_Impl_BasedOnAnalysis"].ToString()
+                        };
+                        Listofsysimp.Add(vmobjsysimp);
+                    }
+                }
+
+
+                //circulars Binding               
+                List<Tran_a_3b_updation_circular_guidelines_manuals_ViewModel> ListofCircular = new List<Tran_a_3b_updation_circular_guidelines_manuals_ViewModel>();
+                //DataTable CircularTable = capacityBuildingManager.GetCircularsRecordByCVOID("CVO_SBI").Tables[0];
+                DataTable CircularTable = capacityBuildingManager.GetCircularsRecordByCVOIDandYear(userId, selected_year).Tables[0];
+
+                if (CircularTable.Rows.Count >= 1)
+                {
+                    foreach (DataRow data in CircularTable.Rows)
+                    {
+                        Tran_a_3b_updation_circular_guidelines_manuals_ViewModel vmobjCircular = new Tran_a_3b_updation_circular_guidelines_manuals_ViewModel
+                        {
+                            ID = int.Parse(data["Record_ID"].ToString()),
+                            VAW_Year = data["VAW_Year"].ToString(),
+                            FromDate = Convert.ToDateTime(data["FromDate"].ToString()),
+                            ToDate = Convert.ToDateTime(data["ToDate"].ToString()),
+                            WhetherUpdatedDuingCampaign = data["WhetherUpdatedDuingCampaign"].ToString(),
+                            BriefDetails = data["BriefDetails"].ToString()
+
+                        };
+                        ListofCircular.Add(vmobjCircular);
+                    }
+                }
+
+
+                //Disposal Of Complaint
+                List<Tran_a_4b_disposalofcomplaints_ViewModel> ListofDisposalOfComplaint = new List<Tran_a_4b_disposalofcomplaints_ViewModel>();
+                //DataTable DisposalOfComplaintTable = capacityBuildingManager.GetDisposalOfComplaintByCVOID("CVO_SBI").Tables[0];
+                DataTable DisposalOfComplaintTable = capacityBuildingManager.GetDisposalOfComplaintByCVOIDandYear(userId, selected_year).Tables[0];
+
+                if (DisposalOfComplaintTable.Rows.Count >= 1)
+                {
+                    foreach (DataRow data in DisposalOfComplaintTable.Rows)
+                    {
+                        Tran_a_4b_disposalofcomplaints_ViewModel vmobjDisposal = new Tran_a_4b_disposalofcomplaints_ViewModel
+                        {
+                            ID = int.Parse(data["Record_ID"].ToString()),
+                            VAW_Year = data["VAW_Year"].ToString(),
+                            NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 = int.Parse(data["NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608"].ToString()),
+                            Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608 = data["Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608"].ToString(),
+                            NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign = int.Parse(data["NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign"].ToString()),
+                            Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign = data["Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign"].ToString(),
+                            NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 = int.Parse(data["NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511"].ToString()),
+                            Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511 = data["Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511"].ToString()
+                        };
+                        ListofDisposalOfComplaint.Add(vmobjDisposal);
+                    }
+                }
+
+
+                //Digital Dyanamic
+                List<Tran_a_5b_dynamicdigitalpresence_ViewModel> ListofDynamicdigital = new List<Tran_a_5b_dynamicdigitalpresence_ViewModel>();
+                //DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByCVOID("CVO_SBI").Tables[0];
+                DataTable DynamicdigitalTable = capacityBuildingManager.GetDynamicDigitalPresenceByCVOIDandYear(userId, selected_year).Tables[0];
+
+                if (DynamicdigitalTable.Rows.Count >= 1)
+                {
+                    foreach (DataRow data in DynamicdigitalTable.Rows)
+                    {
+                        Tran_a_5b_dynamicdigitalpresence_ViewModel vmobjDynamicdigital = new Tran_a_5b_dynamicdigitalpresence_ViewModel
+                        {
+                            ID = int.Parse(data["Record_ID"].ToString()),
+                            VAW_Year = data["VAW_Year"].ToString(),
+                            WhetherRegularMaintenanceOfWebsiteUpdationDone = data["WhetherRegularMaintenanceOfWebsiteUpdationDone"].ToString(),
+                            SystemIntroducedForUpdationAndReview = data["SystemIntroducedForUpdationAndReview"].ToString(),
+                            WhetherAdditionalAreas_Activities_ServicesBroughtOnline = data["WhetherAdditionalAreas_Activities_ServicesBroughtOnline"].ToString(),
+                            DetailsOfAdditionalActivities = data["DetailsOfAdditionalActivities"].ToString()
+                        };
+                        ListofDynamicdigital.Add(vmobjDynamicdigital);
+                    }
+                }
+
+
+                modelobj.CapacityBuiliding_VM = ListofCapBuilding;
+                modelobj.Sys_Improvement_VM = Listofsysimp;
+                modelobj.UpdationCirculars_VM = ListofCircular;
+                modelobj.DisposalComplaints_VM = ListofDisposalOfComplaint;
+                modelobj.DynamicDigitalPresence_VM = ListofDynamicdigital;
+                return View(modelobj);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return View();
+        }
+        
         #endregion
 
         private void GetIpAddress(out string userip)

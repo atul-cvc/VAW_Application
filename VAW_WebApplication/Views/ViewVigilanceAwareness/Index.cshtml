@@ -8,17 +8,14 @@
     int DisposalComIndex = 0;
     int DynamicDigitalIndex = 0;
 }
-
-<style>
-</style>
-
+<a href="#" id="myprintpage"></a>
 <div class="row">
     <div class="col-10">
         <h2>Vigilance Awareness</h2>
     </div>
     <div class="col-2">
         <a href="@Url.Action("Index", "Dashboard")" class="btn btn-outline-danger text-center"><< Go Back</a>
-    </div>  
+    </div>
 
 </div>
 <hr />
@@ -29,6 +26,10 @@
     </div>
     <div style="margin-left:50px; display:flex; align-content:center">
         <button onclick="handleSearch()" class="btn btn-primary text-center" style="align-self:center" name="SearchByYear">SEARCH</button>
+    </div>
+    <div style="margin-left:50px; display:flex; align-content:center">
+        <button onclick="handlePrint()" class="btn btn-outline-success text-center" style="align-self:center" name="ReportPrinting">Print...</button>
+
     </div>
 </div>
 <br />
@@ -66,7 +67,7 @@
                             @if (@item.BriefDescription.Length > 125)
                             {
                                 <button class="btn btn-outline-info" data-toggle="modal" data-target="#dataModal" data-description="@item.BriefDescription">
-                            View...
+                                    View...
                                 </button>
                             }
                             else
@@ -440,11 +441,64 @@
 <script>
     function handleSearch() {
         var selectedYear = document.getElementById("CurrentYear").value;
-
         // Redirect to the action with the selected year
         window.location.href = '@Url.Action("Index", "ViewVigilanceAwareness", new { selected_year = "__YEAR__" })'.replace('__YEAR__', selectedYear);
     }
     function finalSubmit() {
         swal("Success!", 'Data submited', "success");
     }
+    function handlePrint() {
+        var selectedYear = document.getElementById("CurrentYear").value;
+        var mylnk = document.getElementById("myprintpage");
+        mylnk.href ='@Url.Action("PrintAllData", "ViewVigilanceAwareness", new { selected_year = "__YEAR__" })'.replace('__YEAR__', selectedYear);
+        popitup(mylnk);
+    }
 </script>
+
+
+<script type="text/javascript">
+    function PrintHTML() {
+        // Referencing the HTML DIV.
+        var dvContents = document.getElementById("CapacityBuildingContainer");
+        // Creating a new window.
+        var printWindow = window.open('', '', 'height=400,width=800');
+        // Writting the contents of HTML DIV in window.
+        printWindow.document.write(dvContents.innerHTML);
+        // Closing the document.
+        printWindow.document.close();
+        // Printing the window.
+        printWindow.print();
+    }
+</script>
+
+<script type="text/javascript">
+    function PrintView() {
+        // Referencing the Print Button.
+        var btnPrint = document.getElementById("btnPrint");
+        // Hiding the Print Button.
+        btnPrint.style.display = "none";
+        // Referencing the HTML Body.
+        var body = document.getElementsByTagName("body")[0];
+        // Creating a new window.
+        var printWindow = window.open('', '', 'height=400,width=800');
+        // Writting the contents of Body in window.
+        printWindow.document.write(body.innerHTML);
+        // Closing the document.
+        printWindow.document.close();
+        // Printing the window.
+        printWindow.print();
+        // Showing the Print Button.
+        btnPrint.style.display = "block";
+    }
+</script>
+
+<script type="text/javascript">
+
+    function popitup(link) {
+        var w = window.open(link.href,
+            link.target || "_blank",
+            'menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=' + window.screen.width + ',height=' + window.screen.height + ',left=0,top=0');
+        return w ? false : true; // allow the link to work if popup is blocked
+    }
+</script>
+

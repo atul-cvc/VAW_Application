@@ -1,0 +1,301 @@
+﻿
+@model VAW_WebApplication.Models.ViewVigilanceAwarenessViewModel
+@{
+    ViewBag.Title = "Print Data";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int CapacityBuilidingIndex = 0;
+    int IdentIndex = 0;
+    int CircularsIndex = 0;
+    int DisposalComIndex = 0;
+    int DynamicDigitalIndex = 0;
+}
+
+<style>
+    /* Add any styles you want for printing */
+    body {
+        font-family: Arial, sans-serif;
+        text-align:justify-all;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+
+<table class="table table-bordered">
+    <tr>
+        <td style="text-align:center">
+            <input type="submit" value="Print " onclick="PrintElem('#Divtobeprint')"
+                   class="btn btn-danger" />
+        </td>
+    </tr>
+</table>
+<div id="Divtobeprint">
+
+<div class="mainBox" id="CapacityBuildingContainer">
+    <div style="display:flex; justify-content:space-between">
+        <h3>1. CAPACITY BUILDING PROGRAMS</h3>
+    </div>
+    <hr />
+    <div>
+        @*table content*@
+        <table id="capacityBuildingTable" class="display">
+            <thead>
+                <tr>
+                    <th style="text-align:center" class="th1">S No.</th>
+                    <th style="text-align:center">VAW Year</th>
+                    <th style="text-align:center">Period</th>
+                    <th style="text-align:center">Training Name</th>
+                    <th style="text-align:center">Employees Trained</th>
+                    <th style="text-align:center">Brief Description</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CapacityBuiliding_VM)
+                {
+                    <tr>
+                        <td style="text-align:center" class="td1">@(++CapacityBuilidingIndex)</td>
+                        <td style="text-align:center">@item.VAW_Year</td>
+                        <td style="text-align:center">@item.FromDate.ToString("dd-MM-yyyy") To @item.ToDate.ToString("dd-MM-yyyy")</td>
+                        <td style="text-align:center">@item.TrainingName</td>
+                        <td style="text-align:center">@item.EmployeesTrained</td>
+                        <td style="text-align:justify"> @item.BriefDescription</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="mainBox" style="page-break-before:always;" id="IdentificationContainer" >
+
+    <div style="display:flex; justify-content:space-between">
+        <h3>2. IDENTIFICATION AND IMPLEMENTATION OF SYSTEMIC IMPROVEMENT MEASURES</h3>
+    </div>
+    <hr />
+    <div>
+        @*table content*@
+        <table id="IdentificationTable" class="display">
+            <thead>
+                <tr>
+                    <th class="th1" style="text-align:center">S No.</th>
+                    <th style="text-align:center">VAW Year</th>
+                    <th style="text-align:center">Period</th>
+                    <th style="text-align:center">No. of Cases of the Past 5 Years Taken For Analysis</th>
+                    <th style="text-align:center">Key Areas Vulnerable To Corruption Detected Based On Analysis</th>
+                    <th style="text-align:center">Systemic Improvements identified and implemented / under implementation (brief details may be given)</th>
+                    <th style="text-align:center">Systemic Improvements Implemented During the Campaign Period</th>
+                    <th style="text-align:center">System Improvements Suggested last 5 years</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Sys_Improvement_VM)
+                {
+                    <tr>
+                        <td style="text-align:center" class="td1">@(++IdentIndex)</td>
+                        <td style="text-align:center">@item.VAW_Year</td>
+                        <td style="text-align:center">@item.FromDate.ToString("dd-MM-yyyy") To @item.ToDate.ToString("dd-MM-yyyy")</td>
+                        <td style="text-align:center">@item.NoOf_CasesTakenForAnalysis_past5Years</td>
+                        <td style="text-align:justify"> @item.KeyAreasDetected_BasedonAnalysis </td>
+                        <td style="text-align:justify"> @item.Sys_Improvements_Identified_And_Impl_BasedOnAnalysis</td>
+                        <td style="text-align:justify"> @item.Sys_Imp_Implemented_During_Campaign </td>
+                        <td style="text-align:justify"> @item.Sys_Imp_Suggested_Last_5_Years_But_Pending</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="mainBox"  style="page-break-before:always;" id="UpdationContainer">
+    <div style="display:flex; justify-content:space-between">
+        <h3>3. UPDATION OF CIRCULARS / GUIDELINES /MANUALS</h3>
+        
+    </div>
+    <hr />
+    <div>
+        <table id="UpdationTable" class="display">
+            <thead>
+                <tr>
+                    <th class="th1" style="text-align:center">S No.</th>
+                    <th style="text-align:center">VAW Year</th>
+                    <th style="text-align:center">Period</th>
+                    <th style="text-align:center">Whether guidelines/circulars and manuals updated during campaign period</th>
+                    <th style="text-align:center">Brief Details</th>                   
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.UpdationCirculars_VM)
+                {
+                    <tr>
+                        <td style="text-align:center" class="td1">@(++CircularsIndex)</td>
+                        <td style="text-align:center">@item.VAW_Year</td>
+                        <td style="text-align:center">@item.FromDate.ToString("dd-MM-yyyy") To @item.ToDate.ToString("dd-MM-yyyy")</td>
+                        <td style="text-align:center">@item.WhetherUpdatedDuingCampaign</td>
+                        <td style="text-align:justify"> @item.BriefDetails </td>
+                       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="mainBox" id="DisposalContainer" style="page-break-before:always;">
+    <div style="display:flex; justify-content:space-between">
+        <h3>4. DISPOSAL OF COMPLAINTS RECEIVED BEFORE 30.06.24</h3>
+       
+    </div>
+    <hr />
+    <div class="table-responsive">
+        <table id="DisposalTable" class="display">
+            <thead>
+                <tr>
+                    <th class="th1" colspan="1" rowspan="2" style="text-align:center">S No.</th>
+                    <th colspan="1" rowspan="2" style="text-align:center">VAW Year</th>
+                    <th colspan="2" style="text-align:center">Complaints received before 30.06.24 pending as on 16.08.2024</th>
+                    <th colspan="2" style="text-align:center">Complaints received before 30.06.24 disposed during campaign period</th>
+                    <th colspan="2" style="text-align:center">Complaints received before 30.06.24 pending as on 15.11.2024</th>
+                    
+                </tr>
+                <tr>
+                    <th style="text-align:center">No of complaints</th>
+                    <th style="text-align:center">Remarks</th>
+                    <th style="text-align:center">No of complaints</th>
+                    <th style="text-align:center">Remarks</th>
+                    <th style="text-align:center">No of complaints</th>
+                    <th style="text-align:center">Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.DisposalComplaints_VM)
+                {
+                    <tr>
+                        <td style="text-align:center" class="td1">@(++DisposalComIndex)</td>
+                        <td style="text-align:center">@item.VAW_Year</td>
+                        <td style="text-align:center">@item.NoOf_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608</td>
+                        <td style="text-align:justify">
+
+                            @item.Remarks_ComplaintsRecvd_OnOrBefore_3006_Pending_AsOn_1608
+
+                        </td>
+                        <td style="text-align:justify">@item.NoOf_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign</td>
+                        <td style="text-align:justify">
+
+                            @item.Remarks_ComplaintsRecvd_OnOrBefore_3006_DisposedDuringCampaign
+
+                        </td>
+                        <td style="text-align:justify">@item.NoOf_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511</td>
+                        <td style="text-align:justify">
+
+                            @item.Remarks_ComplaintsRecvd_OnOrBefore_3006_PendingAsOn_1511
+
+                        </td>
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="mainBox" id="DynamicContainer" style="page-break-before:always;">
+    <div style="display:flex; justify-content:space-between">
+        <h3>5. DYNAMIC DIGITAL PRESENCE</h3>       
+    </div>
+    <hr />
+    @**@
+    <div class="table-responsive">
+        <table id="DynamicTable" class="display">
+            <thead>
+                <tr>
+                    <th rowspan="2" class="th1" colspan="1" style="text-align:center">S No.</th>
+                    <th rowspan="2" style="text-align:center">VAW Year</th>
+                    <th rowspan="2" style="text-align:center">Regular maintenance and updation of website - whether being done or not ?</th>
+                    <th rowspan="2" style="text-align:center">System introduced for up-dation and review of website</th>
+                    <th colspan="2" style="text-align:center">Whether additional areas/activities/services brought online</th>                    
+                </tr>
+                <tr>
+                    <th style="text-align:center">Yes/No</th>
+                    <th style="text-align:center">Details (if yes)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DynamicDigitalPresence_VM)
+                {
+                    <tr>
+                        <td style="text-align:center" class="td1">@(++DynamicDigitalIndex)</td>
+                        <td style="text-align:center">@item.VAW_Year</td>
+                        <td style="text-align:center">@item.WhetherRegularMaintenanceOfWebsiteUpdationDone</td>
+                        <td style="text-align:justify">
+
+                            @item.SystemIntroducedForUpdationAndReview
+                        </td>
+                        <td style="text-align:justify">@item.WhetherAdditionalAreas_Activities_ServicesBroughtOnline</td>
+                        <td style="text-align:justify">
+
+                            @item.DetailsOfAdditionalActivities
+
+                        </td>
+                       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+</div >
+<script>
+    window.onload = function () {
+        PrintElem('#Divtobeprint')
+    };
+</script>
+
+<script type="text/javascript">
+
+    function PrintElem(elem) {
+        Popup($(elem).html());
+    }
+
+    function Popup(data) {
+        var mywindow = window.open('', 'divprint', 'height=600,width=900');
+        mywindow.document.write('<html><head><title></title>');
+        mywindow.document.write('<style> body { font-family: Arial, sans-serif; text-align:justify-all; }' +
+            ' table { width: 100 %;  border-collapse: collapse; } th, td { border: 1px solid #ddd;  padding: 8px;  }' +
+            ' th { background - color: #f2f2f2; } @@page { size: 8.5in 11in; margin: 1cm; size:landscape;} @@page {counter-increment: page;' +
+            'counter-reset: page 1; @@top-right { content: "Page" counter(page) " of " counter(pages); }} </style > ');
+
+
+        /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="~/Content/Site.css" type="text/css"/>');
+        /*optional stylesheet*/
+        mywindow.document.write('</head><body>');
+        mywindow.document.write(data);
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
+
+</script>

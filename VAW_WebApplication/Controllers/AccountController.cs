@@ -131,8 +131,8 @@ namespace VAW_WebApplication.Controllers
             var user = UserManager.FindByEmail(model.Email);
 
             //SendOTP
-            OTP_Util OTP_Util = new OTP_Util();
-            Session["OTP"] = OTP_Util.SendOTP(user.PhoneNumber, user.Email);
+            //OTP_Util OTP_Util = new OTP_Util();
+            //Session["OTP"] = OTP_Util.SendOTP(user.PhoneNumber, user.Email);
 
             // return RedirectToAction("VerifyOTP");
             return await AddAuth(model, returnUrl);
@@ -140,7 +140,7 @@ namespace VAW_WebApplication.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> LoginByQPR(string token, string key)
+        public async Task<ActionResult> LoginByQPR(string token)
         {
             //token = System.Net.WebUtility.UrlDecode(token);
             string secretKey = ConfigurationManager.AppSettings["QPR_SECRET_KEY"];

@@ -1,0 +1,525 @@
+﻿@model VAW_WebApplication.Models.ViewIntegrityPledgeViewModel
+
+@{
+    ViewBag.Title = "Print Data";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int integrityIndex = 0;
+    int conductIndex = 0;
+    int act_OthrActIndex = 0;
+    int involvingSchoolsIndex = 0;
+    int involvingCollegesIndex = 0;
+    int awarenessGramsIndex = 0;
+    int seminarsIndex = 0;
+    int otheActivitiesIndex = 0;
+    int detsPhotosIndex = 0;
+    int RelevantInfoIndex = 0;
+}
+
+<table class="table table-bordered">
+    <tr>
+        <td style="text-align:center">
+            <input type="submit" value="Print " onclick="PrintElem('#Divtobeprint')"
+                   class="btn btn-danger" />
+        </td>
+    </tr>
+</table>
+<div id="Divtobeprint">
+
+
+    <div class="row">
+        <div class="col-10">
+            <h2>Integrity Pledge</h2>
+        </div>
+    </div>
+        
+
+    <br />
+    <div class="mainBox" id="IntegrityPledgeContainer">
+        <div style="display:flex; justify-content:space-between">
+            <h3>1. INTEGRITY PLEDGE</h3>
+            
+        </div>
+        <hr />
+
+        <div class="table-responsive">
+            <table id="IntegrityPledgeTable" class="display">
+                <thead>
+                    <tr>
+                        <th style="text-align:center" class="th1">S No.</th>
+                        <th style="text-align:center">VAW Year</th>
+                        <th style="text-align:center">Total No. of employees who have undertaken e-pledge</th>
+                        <th style="text-align:center">Total No. of customers who have undertaken e-pledge</th>
+                        <th style="text-align:center">Total No. of citizens who have undertaken e-pledge</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.IntegrityPledges)
+                    {
+                        <tr>
+                            <td style="text-align:center" class="td1">@(++integrityIndex)</td>
+                            <td style="text-align:center">@item.VAW_Year</td>
+                            <td style="text-align:center">@item.TotalNoOfEmployees_UndertakenPledge</td>
+                            <td style="text-align:center">@item.TotalNoOfCustomers_UndertakenPledge</td>
+                            <td style="text-align:center">@item.TotalNoOfCitizen_UndertakenPledge</td>
+                            
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <br />
+    <hr />
+    <br />
+    <div class="mainBox" id="ActivitiesEventsContainer" style="page-break-before:always;">
+        <h3>2. ACTIVITIES / EVENTS ORGANISED WITHIN THE ORGANISATION</h3>
+        <hr />
+        <div style="padding:15px">
+            <div style="display:flex; justify-content:space-between">
+                <h4>a. CONDUCT OF COMPETITIONS</h4>
+               
+            </div>
+            <hr />
+
+            <div class="table-responsive">
+                <table id="ConductTable" class="display">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center" class="th1">S No.</th>
+                            <th style="text-align:center">VAW Year</th>
+                            <th style="text-align:center">Name of State</th>
+                            <th style="text-align:center">City/Place</th>
+                            <th style="text-align:center">Specify program(Debate/Elocution/Panel Discussion etc.)</th>
+                            <th style="text-align:center">No. of participants</th>
+                            <th style="text-align:center" width="20%">Remarks</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrgActivities_ConductOfCompetitions)
+                        {
+                            <tr>
+                                <td style="text-align:center" class="td1">@(++conductIndex)</td>
+                                <td style="text-align:center">@item.VAW_Year</td>
+                                <td style="text-align:center">@item.NameOfState</td>
+                                <td style="text-align:center">@item.City</td>
+                                <td style="text-align:center">@item.SpecificProgram</td>
+                                <td style="text-align:center">@item.NoOfParticipant</td>
+                                <td style="text-align:justify">                                   
+                                        @item.Remarks
+                                    
+                                </td>                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div style="padding:15px">
+            <div style="display:flex; justify-content:space-between">
+                <h4>b. OTHER ACTIVITIES</h4>                
+            </div>
+            <hr />
+            <div class="table-responsive">
+                <table id="Activities_OtherActivities" class="display">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center" class="th1">S No.</th>
+                            <th style="text-align:center">VAW Year</th>
+                            <th style="text-align:center">Distribution of Pamphlets/Banners</th>
+                            <th style="text-align:center">Conduct of Workshop/Sensitization programmes</th>
+                            <th style="text-align:center">Issue of Journal/Newsletter</th>
+                            <th style="text-align:center">Any Other Activities</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrgActivities_OtherActivities)
+                        {
+                            <tr>
+                                <td style="text-align:center" class="td1">@(++act_OthrActIndex)</td>
+                                <td style="text-align:center">@item.VAW_Year</td>
+                                <td style="text-align:justify">
+                                        @item.DistributionOfPamphletsAndBanners_Details
+                                   
+                                </td>
+                                <td style="text-align:justify">
+                                    
+                                        @item.ConductOfWorkshopAndSensitizationProgram_Details
+                                    
+                                </td>
+                                <td style="text-align:justify">
+                                
+                                        @item.IssueOfJornalAndNwesletter_Details
+                                
+                                </td>
+                                <td style="text-align:justify">
+                                
+                                        @item.AnyOtherActivities_Details
+                                
+                                </td>
+                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <hr />
+    <br />
+
+    <div class="mainBox" id="OutreachActivitiesContainer" style="page-break-before:always;">
+        <h3>3. OUTREACH ACTIVITIES</h3>
+        <hr />
+        <div style="padding:15px">
+            <div style="display:flex; justify-content:space-between">
+                <h4>Involving Students in Schools</h4>
+
+            </div>
+            <hr />
+
+            <div class="table-responsive">
+                <table id="InvolvingStudentsSchools" class="display">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center" class="th1">S No.</th>
+                            <th style="text-align:center">VAW Year</th>
+                            <th style="text-align:center">Name of State</th>
+                            <th style="text-align:center">Name of city/town/village</th>
+                            <th style="text-align:center">Name of school</th>
+                            <th style="text-align:center">Details of activities conducted (date if activities may also be mentioned)</th>
+                            <th style="text-align:center">No. of students involved</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OutActivities_InvolvingStudentsInSchool)
+                        {
+                            <tr>
+                                <td style="text-align:center" class="td1">@(++involvingSchoolsIndex)</td>
+                                <td style="text-align:center">@item.VAW_Year</td>
+                                <td style="text-align:center">@item.StateName</td>
+                                <td style="text-align:center">@item.City_Town_Village_Name</td>
+                                <td style="text-align:center">@item.SchoolName</td>
+                                <td style="text-align:justify">
+                            
+                                        @item.ActivityDetails
+                                 
+                                </td>
+                                <td style="text-align:center">@item.NoOfStudentsInvolved</td>                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div style="padding:15px">
+            <div style="display:flex; justify-content:space-between">
+                <h4>Involving Students in Colleges</h4>                
+            </div>
+            <hr />
+
+            <div class="table-responsive">
+                <table id="InvolvingStudentsColleges" class="display">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center" class="th1">S No.</th>
+                            <th style="text-align:center">VAW Year</th>
+                            <th style="text-align:center">Name of State</th>
+                            <th style="text-align:center">Name of city/town/village</th>
+                            <th style="text-align:center">Name of school</th>
+                            <th style="text-align:center">Details of activities conducted (date if activities may also be mentioned)</th>
+                            <th style="text-align:center">No. of students involved</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OutActivities_InvolvingStudentsInColleges)
+                        {
+                            <tr>
+                                <td style="text-align:center" class="td1">@(++involvingCollegesIndex)</td>
+                                <td style="text-align:center">@item.VAW_Year</td>
+                                <td style="text-align:center">@item.StateName</td>
+                                <td style="text-align:center">@item.City_Town_Village_Name</td>
+                                <td style="text-align:center">@item.SchoolName</td>
+                                <td style="text-align:justify">                                
+                                        @item.ActivityDetails                                    
+                                </td>
+                                <td style="text-align:center">@item.NoOfStudentsInvolved</td>
+                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div style="padding:15px">
+            <div style="display:flex; justify-content:space-between">
+                <h4>Awareness Gram Sabhas</h4>                
+            </div>
+            <hr />
+
+            <div class="table-responsive">
+                <table id="AwarenessGramSabhas" class="display">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center" class="th1">S No.</th>
+                            <th style="text-align:center">VAW Year</th>
+                            <th style="text-align:center">Name of State</th>
+                            <th style="text-align:center">Name of city/town/village</th>
+                            <th style="text-align:center; width:15%">Name of Gram Panchayat where "Awareness Gram Sabha" is held</th>
+                            <th style="text-align: center; width: 20%">Details of activities conducted (date of activities may also be mentioned)</th>
+                            <th style="text-align:center">No. of public / citizens participated</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OutActivities_AwarenesGramSabha)
+                        {
+                            <tr>
+                                <td style="text-align:center" class="td1">@(++awarenessGramsIndex)</td>
+                                <td style="text-align:center">@item.VAW_Year</td>
+                                <td style="text-align:center">@item.StateName</td>
+                                <td style="text-align:center">@item.City_Town_Village_Name</td>
+                                <td style="text-align:center">@item.NameOfGramPanchayat</td>
+                                <td style="text-align:justify">                            
+                                        @item.ActivityDetails                                    
+                                </td>
+                                <td style="text-align:center">@item.NoOfPublicOrCitizenParticipated</td>                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div style="padding:15px">
+            <div style="display:flex; justify-content:space-between">
+                <h4>Seminars / Workshops</h4>
+                
+            </div>
+            <hr />
+
+            <div class="table-responsive">
+                <table id="AwarenessSeminarsWorkshops" class="display">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center" class="th1" width="15%">S No.</th>
+                            <th style="text-align:center">VAW Year</th>
+                            <th style="text-align:center">Name of State</th>
+                            <th style="text-align:center">Name of city/town/village</th>
+                            <th style="text-align:center">No of Seminars / Workshops Organized</th>
+                            <th style="text-align:center">Details of activities conducted (date of activities may also be mentioned)</th>
+                            <th style="text-align:center">No. of public / citizens participated</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OutActivities_SeminarsWorkshops)
+                        {
+                            <tr>
+                                <td style="text-align:center" class="td1">@(++seminarsIndex)</td>
+                                <td style="text-align:center">@item.VAW_Year</td>
+                                <td style="text-align:center">@item.StateName</td>
+                                <td style="text-align:center">@item.City_Town_Village_Name</td>
+                                <td style="text-align:center">@item.NoOfSeminarsWorkshops</td>
+                                <td style="text-align:justify">
+                            
+                                        @item.ActivityDetails
+                                   
+                                </td>
+                                <td style="text-align:center">@item.NoOfPublicOrCitizenParticipated</td>
+                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <br />
+    <br />
+    <hr />
+    <br />
+
+    <div class="mainBox" id="OtherActivitiesContainer" style="page-break-before:always;">
+        <div style="display:flex; justify-content:space-between">
+            <h3>4. OTHER ACTIVITIES</h3>
+            
+        </div>
+        <hr />
+
+        <div class="table-responsive">
+            <table id="OtherActivitiesTable" class="display">
+                <thead>
+                    <tr>
+                        <th style="text-align:center" class="th1">S No.</th>
+                        <th style="text-align:center">VAW Year</th>
+                        <th style="text-align:center">Display of Banners / Posters etc</th>
+                        <th style="text-align:center">No. of grievance redressal camps held</th>
+                        <th style="text-align:center">Use of Social Media</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OtherActivities)
+                    {
+                        <tr>
+                            <td style="text-align:center" class="td1">@(++otheActivitiesIndex)</td>
+                            <td style="text-align:center">@item.VAW_Year</td>
+                            <td style="text-align:justify">
+                        
+                                    @item.DisplayOfBannerPosterDetails
+                        
+                            </td>
+                            <td style="text-align:center">@item.NoOfGrievanceRedressalCampsHeld</td>
+                            <td style="text-align:justify">
+                        
+                                    @item.UserOfScocialMedia
+                        
+                            </td>
+                        
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <br />
+    <br />
+    <hr />
+    <br />
+
+    <div class="mainBox" id="OtherActivitiesContainer" style="page-break-before:always;">
+        <div style="display:flex; justify-content:space-between">
+            <h3>5. DETAILS OF PHOTOS ENCLOSED</h3>
+            
+        </div>
+        <span>(Photos may kindly be sent along with captions and also place & date of event)</span>
+        <hr />
+
+        <div class="table-responsive">
+            <table id="DetailsOfPhotosTable" class="display">
+                <thead>
+                    <tr>
+                        <th style="text-align:center" class="th1">S No.</th>
+                        <th style="text-align:center">VAW Year</th>
+                        <th style="text-align:center">Name of the activities held</th>
+                        <th style="text-align:center">No. of photos</th>
+                        <th style="text-align:center">Whether photos are sent in soft copy or hard copy</th>
+                        <th style="text-align:center">If in soft copy, number of CDs attached</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.DetailsOfPhotos)
+                    {
+                        <tr>
+                            <td style="text-align:center" class="td1">@(++detsPhotosIndex)</td>
+                            <td style="text-align:center">@item.VAW_Year</td>
+                            <td style="text-align:center">@item.NameOfActivity</td>
+                            <td style="text-align:center">@item.NoOfPhotos</td>
+                            <td style="text-align:center">@item.WhetherPhotosSentAsSoftCopyOrHardCopy</td>
+                            <td style="text-align:center">@item.SoftCopy_NoOfCd</td>
+                        
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <hr />
+    <br />
+
+    <div class="mainBox" id="OtherActivitiesContainer" style="page-break-before:always;">
+        <div style="display:flex; justify-content:space-between">
+            <h3>6. ANY OTHER RELEVANT INFORMATION, IF ANY</h3>
+            
+        </div>
+        <hr />
+
+        <div class="table-responsive">
+            <table id="RelevantInfoTable" class="display">
+                <thead>
+                    <tr>
+                        <th style="text-align:center" width="15%" class="th1">S No.</th>
+                        <th style="text-align:center" width="15%">VAW Year</th>
+                        <th style="text-align:center" width="15%">Activity Date</th>
+                        <th style="text-align:center">Brief Write Up On The Activities</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OtherInformations)
+                    {
+                        <tr>
+                            <td style="text-align:center" class="td1">@(++RelevantInfoIndex)</td>
+                            <td style="text-align:center">@item.VAW_Year</td>
+                            <td style="text-align:center">@item.DateOfActivity.ToString("dd-MM-yyyy") </td>
+                            <td style="text-align:justify">
+                        
+                                    @item.DetailsOfActivity
+                        
+                            </td>
+                        
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        PrintElem('#Divtobeprint')
+    };
+</script>
+
+<script type="text/javascript">
+
+    function PrintElem(elem) {
+        Popup($(elem).html());
+    }
+
+    function Popup(data) {
+        var mywindow = window.open('', 'divprint', 'height=600,width=900');
+        mywindow.document.write('<html><head><title></title>');
+        mywindow.document.write('<style> body { font-family: Arial, sans-serif; text-align:justify-all; }' +
+            ' table { width: 100 %;  border-collapse: collapse; } th, td { border: 1px solid #ddd;  padding: 8px;  }' +
+            ' th { background - color: #f2f2f2; } @@page { size: 8.5in 11in; margin: 1cm; size:landscape;} @@page {counter-increment: page;' +
+            'counter-reset: page 1; @@top-right { content: "Page" counter(page) " of " counter(pages); }} </style > ');
+
+
+        /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="~/Content/Site.css" type="text/css"/>');
+        /*optional stylesheet*/
+        mywindow.document.write('</head><body>');
+        mywindow.document.write(data);
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
+
+</script>

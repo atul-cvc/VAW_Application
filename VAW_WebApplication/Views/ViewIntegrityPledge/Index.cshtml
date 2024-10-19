@@ -14,6 +14,7 @@
     int detsPhotosIndex = 0;
     int RelevantInfoIndex = 0;
 }
+<a href="#" id="myprintpage"></a>
 <div class="row">
     <div class="col-10">
         <h2>Integrity Pledge</h2>
@@ -34,7 +35,9 @@
     <div style="margin-left:50px; display:flex; align-content:center">
         <button onclick="handleSearch()" class="btn btn-primary text-center" style="align-self:center" name="SearchByYear">SEARCH</button>
     </div>
-
+    <div style="margin-left:50px; display:flex; align-content:center">
+        <button onclick="handlePrint()" class="btn btn-outline-success text-center" style="align-self:center" name="ReportPrinting">Print...</button>
+    </div>
 </div>
 
 <br />
@@ -668,5 +671,20 @@
     {
         swal("Success!", 'Data submited', "success");
         //window.location.href = '@Url.Action("Index", "Dashboard")';
+    }
+</script>
+
+<script type="text/javascript">
+     function handlePrint() {
+     var selectedYear = document.getElementById("CurrentYear").value;
+     var mylnk = document.getElementById("myprintpage");
+     mylnk.href ='@Url.Action("PrintAllData", "ViewIntegrityPledge", new { selected_year = "__YEAR__" })'.replace('__YEAR__', selectedYear);
+     popitup(mylnk);
+ }
+    function popitup(link) {
+        var w = window.open(link.href,
+            link.target || "_blank",
+            'menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=' + window.screen.width + ',height=' + window.screen.height + ',left=0,top=0');
+        return w ? false : true; // allow the link to work if popup is blocked
     }
 </script>

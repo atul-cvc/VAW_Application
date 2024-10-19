@@ -447,12 +447,7 @@
     function finalSubmit() {
         swal("Success!", 'Data submited', "success");
     }
-    function handlePrint() {
-        var selectedYear = document.getElementById("CurrentYear").value;
-        var mylnk = document.getElementById("myprintpage");
-        mylnk.href ='@Url.Action("PrintAllData", "ViewVigilanceAwareness", new { selected_year = "__YEAR__" })'.replace('__YEAR__', selectedYear);
-        popitup(mylnk);
-    }
+   
 </script>
 
 
@@ -493,7 +488,12 @@
 </script>
 
 <script type="text/javascript">
-
+     function handlePrint() {
+     var selectedYear = document.getElementById("CurrentYear").value;
+     var mylnk = document.getElementById("myprintpage");
+     mylnk.href ='@Url.Action("PrintAllData", "ViewVigilanceAwareness", new { selected_year = "__YEAR__" })'.replace('__YEAR__', selectedYear);
+     popitup(mylnk);
+ }
     function popitup(link) {
         var w = window.open(link.href,
             link.target || "_blank",

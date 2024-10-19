@@ -12,6 +12,7 @@ using VAW_Utility;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using Microsoft.Win32;
+using System.Configuration;
 
 namespace VAW_WebApplication.Controllers
 {
@@ -142,8 +143,9 @@ namespace VAW_WebApplication.Controllers
         public async Task<ActionResult> LoginByQPR(string token, string key)
         {
             //token = System.Net.WebUtility.UrlDecode(token);
+            string secretKey = ConfigurationManager.AppSettings["QPR_SECRET_KEY"];
             var app_user = new ApplicationUser();
-            var decrypStr = CryptoEngine.Decrypt(token, key);
+            var decrypStr = CryptoEngine.Decrypt(token, secretKey);
             TokenModel tokenModel = JsonConvert.DeserializeObject<TokenModel>(decrypStr);
             LoginViewModel loginVM = new LoginViewModel();
             loginVM.Email = tokenModel.Email;

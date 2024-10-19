@@ -1,12 +1,14 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
 <main>
     <section class="row" aria-labelledby="aspnetTitle">
         <h1 id="title">Vigilance Awareness Week -  @DateTime.Now.Year</h1>
-        <p class="lead">For Update VAW please</p>
-        <p> <a href=" @Url.Action("Login", "Account")" class="btn btn-primary btn-md">Login &raquo;</a>  </p>
+        <p class="lead">For Update VAW please login through the QPR Portal</p>
+        @*<p> <a href=" @Url.Action("Login", "Account")" class="btn btn-primary btn-md">Login &raquo;</a>  </p>*@
+
    
     </section>
 

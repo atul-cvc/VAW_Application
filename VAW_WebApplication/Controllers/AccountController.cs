@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using Microsoft.Win32;
 using System.Configuration;
+using System;
 
 namespace VAW_WebApplication.Controllers
 {
@@ -144,12 +145,21 @@ namespace VAW_WebApplication.Controllers
         {
             //token = System.Net.WebUtility.UrlDecode(token);
             string secretKey = ConfigurationManager.AppSettings["QPR_SECRET_KEY"];
-            var app_user = new ApplicationUser();
             var decrypStr = CryptoEngine.Decrypt(token, secretKey);
             TokenModel tokenModel = JsonConvert.DeserializeObject<TokenModel>(decrypStr);
-            LoginViewModel loginVM = new LoginViewModel();
-            loginVM.Email = tokenModel.Email;
-            loginVM.Password = tokenModel.Pass;
+            return await Login_QPR(tokenModel);
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> Login_QPR(TokenModel tokenModel)
+        {
+
+            LoginViewModel loginVM = new LoginViewModel()
+            {
+                Email = tokenModel.Email,
+                Password = tokenModel.Pass
+            };
+            var app_user = new ApplicationUser();
             app_user = UserManager.FindByEmail(tokenModel.Email);
             if (app_user == null)
             {
@@ -163,29 +173,11 @@ namespace VAW_WebApplication.Controllers
                 var result = await UserManager.CreateAsync(app_user, registerModel.Password);
                 if (result.Succeeded)
                 {
-                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     await UserManager.AddToRoleAsync(app_user.Id, registerModel.UserRoles);
-                    //return RedirectToAction("Index","Dashboard");
                 }
-                //AddErrors(result);
             }
-            //DataTable _tblMinName = OrgBal.GetMinistry().Tables[0];
-            //ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("SuperAdmin"))
-            //                        .ToList(), "Name", "Name");
-            //ViewBag.MinList = ToSelectList(_tblMinName, "MinName", "MinName");
-            //return View(model);
-
-            //SuperAdminController SC = new SuperAdminController();
-            //    await SC.Register(registerModel);
-            //return RedirectToAction("Register", "SuperAdminController", new { model = registerModel });
             return await AddAuth(loginVM,"");
-
         }
 
         [AllowAnonymous]
@@ -260,7 +252,6 @@ namespace VAW_WebApplication.Controllers
             {
                 return View(model);
             }
-
             // The following code protects for brute force attacks against the two factor codes. 
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
@@ -278,9 +269,6 @@ namespace VAW_WebApplication.Controllers
                     return View(model);
             }
         }
-
-
-
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
@@ -353,22 +341,31 @@ namespace VAW_WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View(model);
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+                var user = await UserManager.FindByNameAsync(model.Email);
+                //var user = UserManager.FindByName(model.Email);
+                //var roles = UserManager.GetRoles(user.Id);
+                //var user = _userManager.FindByEmail(model.Email);
+                if (user == null)
+                {
+                    // Don't reveal that the user does not exist
+                    return RedirectToAction("ResetPasswordConfirmation", "Account");
+                }
+                var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ResetPasswordConfirmation", "Account");
+                }
+                AddErrors(result);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
+            catch (Exception ex)
             {
-                // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            AddErrors(result);
             return View();
         }
 
@@ -593,6 +590,17 @@ namespace VAW_WebApplication.Controllers
             // To enable password failures to trigger account lockout, change to shouldLockout: true
 
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            if(result == SignInStatus.Failure)
+            {
+                var app_user = new ApplicationUser();
+                app_user = UserManager.FindByEmail(model.Email);
+                string code = await UserManager.GeneratePasswordResetTokenAsync(app_user.Id);
+                var _result = await UserManager.ResetPasswordAsync(app_user.Id, code, model.Password);
+                if (_result.Succeeded)
+                {
+                    result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                }
+            }
 
             switch (result)
             {
@@ -604,7 +612,7 @@ namespace VAW_WebApplication.Controllers
                     Session["CvoOrgCode"] = user.CvoOrgCode;
                     //    string RoleName= UserManager.GetRolesAsync(user.Id).ToString();
                     //ViewData["Role"] = RoleName;
-                    
+
                     return RouteUser(roles);
                 //==========================================
 
@@ -699,5 +707,5 @@ namespace VAW_WebApplication.Controllers
             }
         }
         #endregion
-    }    
+    }
 }
